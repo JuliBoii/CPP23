@@ -1,9 +1,0 @@
-# ninja log v6
-4	97	1746416326909316552	CMakeFiles/Rocket.dir/utilities.cpp.o.ddi	44ce93623868270c
-1	1197	1746416326906744601	CMakeFiles/Rocket.dir/main.cpp.o.ddi	1dd389b58b31f9b1
-1197	1241	1746416328144529893	CMakeFiles/Rocket.dir/CXX.dd	c822ad525c9b06ae
-1197	1241	1746416328144529893	/Users/angelito/Documents/Fleet/CPP23/Module 2 - Setup/cmake-build-debug/CMakeFiles/Rocket.dir/CXXModules.json	c822ad525c9b06ae
-1197	1241	1746416328144529893	CMakeFiles/Rocket.dir/main.cpp.o.modmap	c822ad525c9b06ae
-1197	1241	1746416328144529893	CMakeFiles/Rocket.dir/utilities.cpp.o.modmap	c822ad525c9b06ae
-1243	1391	1746416328147309010	CMakeFiles/Rocket.dir/utilities.cpp.o	9b04c33f04ee46c8
-1243	2646	1746416328146892956	CMakeFiles/Rocket.dir/main.cpp.o	8af76462b508aeaf
