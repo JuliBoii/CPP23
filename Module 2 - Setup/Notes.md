@@ -15,7 +15,9 @@
 
 
 ---
+
 ## Modern C++ On Windows
+
 ---
 [Visual Studio IDE] ----> (cl.exe) Complier
 
@@ -34,9 +36,12 @@
     - CMake Extension
     - CMake Tools Extension
 
+[Uses following link for Windows install instructions](https://github.com/rutura/cpp23m/blob/main/02.EnvironmentSetup/03.Windows_setup.md)
 
 ---
+
 ## Modern C++ on Linux (Ubuntu 24.04)
+
 ---
 [Clang 19] ----> (clang++) Complier
 
@@ -55,8 +60,12 @@
     - CMake Extension
     - CMake Tools Extension
 
+[Uses following link for Ubuntu install instructions](https://github.com/rutura/cpp23m/blob/main/02.EnvironmentSetup/04.Linux_setup.md)
+
 ---
+
 ## Modern C++ on Mac (Apple Clang)
+
 ---
 
 [Apple Clang] ----> (clang++) Compiler (Default on MacOS)
@@ -79,3 +88,9 @@
 ### **! Apple Clang tends to lag behind in C++ features !**
 
 Consider using Docker for access to newer versions of Clang or GCC if needed
+
+[Use following link for MacOS install instructions](https://github.com/rutura/cpp23m/blob/main/02.EnvironmentSetup/05.Mac_setup.md)
+
+[_Side Note:_ Many of these installations are easier using package managers like Homebrew](https://brew.sh/)
+
+### _Another Note:_ For this project I will be using JetBrains' Fleet Editor, rather than VS Code.
