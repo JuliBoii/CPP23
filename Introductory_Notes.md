@@ -3,7 +3,7 @@
 ## Modern C++ with Real-World Projects & Industry Tools
 
 - C++ is the language behind powerful systems, apps, and games.
-- In this course, you are not just learing syntax; you are mastering how to build the future.
+- In this course, you are not just learning syntax; you are mastering how to build the future.
 - Why this course is different?
     - You are getting real-world experience from day one.
 
@@ -34,7 +34,7 @@ The C++ code you write in this course is fully portable and can be complied and 
     - We avoid OS-specific dependencies and stick to industry best practices
 - vcpkg Package Manager:
     - Easily manage dependencies on all platforms
-- Platform-Indepenedent Code:
+- Platform-Independent Code:
     - We use portable system calls and abstractions when needed
 
 # Course Requirements - What You Need to Get Started
@@ -50,7 +50,7 @@ The C++ code you write in this course is fully portable and can be complied and 
 
 ## C++ Is Not Just Code - It is the Ecosystem around it
 
-- Use modern CMake for building projects with ease and efficincy
+- Use modern CMake for building projects with ease and efficiency
 - Manage dependencies with vcpkg like a professional
 - Work with external libraries to create scalable applications
 - These tools are use by C++ experts to create applications, games, and systems that millions rely on
@@ -59,26 +59,26 @@ The C++ code you write in this course is fully portable and can be complied and 
 
 ## Sharpen Your Skills with Hands-On Practice
 
-- Tackle real-world coding challenges with carefully designed exercies
+- Tackle real-world coding challenges with carefully designed exercises
 - Build efficient and scalable solutions through practical assignments
 - Strengthen your problem-solving mindset with quizzes, projects, and coding challenges
 - Why does this matter?
     - Thinking like a developer means breaking down problems, optimizing solutions, and writing better code-skills that will set you apart in any tech field
 
-# Debugging & Complie-Time Mastery
+# Debugging & Compile-Time Mastery
 
 ## Write Code That Works, Every Time
 
 - Learn how to debug efficiently and solve problems like a pro
 - Master compile-time computations for even faster code
-- With C++23 features, you will write code that is not only functional but also optimally efficent
+- With C++23 features, you will write code that is not only functional but also optimally efficient
 
 # Real-World Applications: File I/O, GUI, & Beyond
 
-## Create Non-trival Applications & Beyond
+## Create Non-trivial Applications & Beyond
 
 - Handle file I/O like a pro
-- Build user interfaces (GUIs) that interactt with your C++ backend
+- Build user interfaces (GUIs) that interact with your C++ backend
 - Dive into advanced C++ topics that will keep you ahead of the curve.
 - Whether you want to build software, games, or embedded systems
 
@@ -103,7 +103,7 @@ The C++ code you write in this course is fully portable and can be complied and 
 - Windows
     - Large portions of Microsoft Windows are written in C++
 - Linux Kernel
-    - While mainly C, many parts of Linux utilites and tools are in C++
+    - While mainly C, many parts of Linux Utilities and tools are in C++
 - MacOS & iOS
     - Core parts of Apple's operating systems rely on C++
 
@@ -117,17 +117,17 @@ The C++ code you write in this course is fully portable and can be complied and 
     - Engine behind visually stunning games like Crysis
 - Doom (2016) & Doom Eternal
     - These high-performance FPS games run on id Tech, a C++ engine
-- Grand Theft Auto (GTAV)
+- Grand Theft Auto (GTA V)
     - The game engine (RAGE) is build in C++
 
-## Embeded Systems & IoT
+## Embedded Systems & IoT
 
 - Arduino & Embedded Software
-    - Many microcontrollers and IoT applications are powered by C++
+    - Many micro-controllers and IoT applications are powered by C++
 - TAutopilot
     - C++ is used in real-time automotive software
 - SFlight Software
-    - Used in misson-critical systems for rockets and spacecraft
+    - Used in mission-critical systems for rockets and spacecraft
 
 # High-Performance Applications
 
@@ -143,7 +143,7 @@ The C++ code you write in this course is fully portable and can be complied and 
 - Google Chrome & Chromium
     - The V8 JavaScript engine and core browser components are C++
 - Mozilla Firefox
-    - Uses C++ for perforamce-critical parts of the browser
+    - Uses C++ for performance-critical parts of the browser
 - Safari Web Engine (WebKit)
     - Apple's browser engine is built using C++
 
