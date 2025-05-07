@@ -5,11 +5,9 @@
 */
 
 #include "utilities.h"
-#include <fmt/format.h>
+#include <fmt/core.h>
 
-int main() {
-    int value1 {10};
-    int value2 {20};
-
-    fmt::print("The values are {} and {}\n", value1, value2);
+int main(){
+    fmt::print("Hello World!\n");
+    return 0;
 }
