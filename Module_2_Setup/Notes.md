@@ -93,4 +93,4 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
 
 [_Side Note:_ Many of these installations are easier using package managers like Homebrew](https://brew.sh/)
 
-### _Another Note:_ For this project I will be using JetBrains' Fleet Editor, rather than VS Code.
+### _Another Note:_ For this project I will be using JetBrains' Fleet Editor, rather than VS Code. Just a matter of preference.

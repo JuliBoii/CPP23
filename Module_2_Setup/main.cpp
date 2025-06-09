@@ -4,8 +4,8 @@
         . Topic #2
 */
 
-#include "utilities.h"
-#include <fmt/core.h>
+#include <fmt/format.h>
+import utilities;
 
 int main(){
     fmt::print("Hello World!\n");
