@@ -94,3 +94,61 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
 [_Side Note:_ Many of these installations are easier using package managers like Homebrew](https://brew.sh/)
 
 ### _Another Note:_ For this project I will be using JetBrains' Fleet Editor, rather than VS Code. Just a matter of preference.
+
+---
+
+## Modern C++ On Docker
+
+---
+
+### What is Docker?
+
+Docker lets you run applications inside **lightweight, isolated enviornments** called **containers**.
+
+Ensures consistency across different systems.
+
+- Avoids _"It worked on my machine"_ problems
+- Get a consistent dev setup everywhere
+- use newer compilers hassle-free
+- Run different C++ versions easily
+
+---
+
+* Isolated C++ Enviornment
+
+
+[Code] ---> Runs ---> [Container]
+
+
+* Preconfigured System & Tools
+
+
+[Container] ---> Uses ---> [Docker Image]
+
+---
+
+Essential Commands:
+
+- Build:
+``` commandline
+docker build -t my_cpp_env
+```
+
+- List:
+``` commandline
+docker images
+```
+
+- Run:
+``` commandline
+docker run -it my_cpp_env
+```
+
+- Stop:
+``` commandline
+docker stop <container_id>
+```
+
+[Use the following link for Docker Setup Instructions](https://github.com/rutura/cpp23m/blob/main/02.EnvironmentSetup/06.Docker_setup.md)
+
+---
