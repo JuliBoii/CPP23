@@ -1,4 +1,4 @@
 #! /bin/bash
 
-cmake --preset linux-clang -S ./ -B build/
-cmake --build build
+cmake --preset linux-clang -S ./
+cmake --build --preset linux-clang-debug
