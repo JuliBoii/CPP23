@@ -10,6 +10,7 @@
 
 # Build Directories and toolchain-generated files
 build/
+cmake-build/
 obj/
 bin/
 lib/
