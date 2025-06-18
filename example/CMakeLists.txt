@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.31)
 
-#The project name is set here. In this case it's main, but you can change it to whatever you want.
+#The project name is set here. In this case it's Example, but you can change it to whatever you want.
 project(Example VERSION 1.0.0 LANGUAGES CXX)
 
 # Print Configuration Info

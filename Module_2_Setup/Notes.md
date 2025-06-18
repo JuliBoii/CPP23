@@ -193,6 +193,14 @@ export VCPKG_ROOT="$HOME/vcpkg"
 export PATH="$VCPKG_ROOT:$PATH"
 ```
 
+- Then we refresh to apply our changes to our current terminal session
+- Run the following in the termianl
+    - _Again as a reminder_, you should change the file name to match your shell profile's
+
+```commandline
+source ~/.zprofile
+```
+
 - _Remember this is for an Intel-based Mac, not sure if this will work for an ARM-based Mac_
 - We should be good after this step
 ---
