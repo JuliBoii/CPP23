@@ -6,23 +6,8 @@ project(Example VERSION 1.0.0 LANGUAGES CXX)
 # Print Configuration Info
 message(STATUS "Avaliable Configuration Types: ${CMAKE_CONFIGURATION_TYPES}")
 message(STATUS "Current Generator: ${CMAKE_GENERATOR}")
-message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
 message(STATUS "C++ Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
-
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message(STATUS "Debug configuration selected.")
-elseif (CMAKE_BUILD_TYPE STREQUAL "Release")
-    message(STATUS "Release configuration selected.")
-else()
-    message(WARNING "Unknown build type: ${CMAKE_BUILD_TYPE}.")
-endif()
-
-# Config-specific Flags
-foreach(cfg IN LISTS CMAKE_CONFIGURATION_TYPES)
-    string(TOUPPER "${cfg}" upper_cfg)
-    set(CMAKE_CXX_FLAGS_${upper_cfg} "${CMAKE_CXX_FLAGS_${upper_cfg}}")
-endforeach()
 
 #Require C++23
 set(CXX_STANDARD_REQUIRED ON) #Make C++23 a hard requirement
