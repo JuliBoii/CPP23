@@ -111,7 +111,7 @@
             "description": "Builds with the Homebrew installation of GCC on x64-based MacOS for Debug",
             "inherits": "base-ninja",
             "cacheVariables": {
-                "CMAKE_BUILD_TYEP": "Debug",
+                "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_OSX_ARCHITECTURES": "x86_64",
                 "VCPKG_TARGET_TRIPLET": "x64-osx-dynamic",
                 "CMAKE_C_COMPILER": "/usr/local/bin/gcc-15",
@@ -147,7 +147,7 @@
             "description": "Builds with the Homebrew installation of LLVM on x64-based MacOS for Debug",
             "inherits": "base-ninja",
             "cacheVariables": {
-                "CMAKE_BUILD_TYEP": "Debug",
+                "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_OSX_ARCHITECTURES": "x86_64",
                 "VCPKG_TARGET_TRIPLET": "x64-osx-dynamic",
                 "CMAKE_C_COMPILER": "/usr/local/opt/llvm/bin/clang",
