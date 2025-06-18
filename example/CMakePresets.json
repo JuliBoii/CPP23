@@ -87,15 +87,33 @@
             }
         },
         {
-            "name": "macos-gcc",
-            "displayName": "Intel-Based MacOS GCC (Ninja)",
-            "description": "Builds with the Homebrew installation of GCC on x64-based MacOS",
-            "inherits": "config-base",
+            "name": "base-ninja",
+            "displayName": "Base Config (Alt)",
+            "hidden": true,
             "generator": "Ninja",
+            "binaryDir": "${sourceDir}/cmake-build/${hostSystemName}/${presetName}",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
             "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_COLOR_DIAGNOSTICS": "ON",
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "type": "FILEPATH",
+                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                }
+            }
+        },
+        {
+            "name": "macos-gcc-debug",
+            "displayName": "Intel-Based MacOS GCC (Debug)",
+            "description": "Builds with the Homebrew installation of GCC on x64-based MacOS for Debug",
+            "inherits": "base-ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYEP": "Debug",
                 "CMAKE_OSX_ARCHITECTURES": "x86_64",
                 "VCPKG_TARGET_TRIPLET": "x64-osx-dynamic",
-                "CMAKE_MAKE_PROGRAM": "/usr/local/bin/ninja",
                 "CMAKE_C_COMPILER": "/usr/local/bin/gcc-15",
                 "CMAKE_CXX_COMPILER": "/usr/local/bin/g++-15"
             },
@@ -104,16 +122,52 @@
                 "lhs": "${hostSystemName}",
                 "rhs": "Darwin"
             }
-        },        {
-            "name": "macos-llvm",
-            "displayName": "Intel-Based MacOS LLVM (Ninja)",
-            "description": "Builds with the Homebrew installation of LLVM on x64-based MacOS",
-            "inherits": "config-base",
-            "generator": "Ninja",
+        },
+        {
+            "name": "macos-gcc-release",
+            "displayName": "Intel-Based MacOS GCC (Release)",
+            "description": "Builds with the Homebrew installation of GCC on x64-based MacOS for Release",
+            "inherits": "base-ninja",
             "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
                 "CMAKE_OSX_ARCHITECTURES": "x86_64",
                 "VCPKG_TARGET_TRIPLET": "x64-osx-dynamic",
-                "CMAKE_MAKE_PROGRAM": "/usr/local/bin/ninja",
+                "CMAKE_C_COMPILER": "/usr/local/bin/gcc-15",
+                "CMAKE_CXX_COMPILER": "/usr/local/bin/g++-15"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "macos-llvm-debug",
+            "displayName": "Intel-Based MacOS LLVM (Debug)",
+            "description": "Builds with the Homebrew installation of LLVM on x64-based MacOS for Debug",
+            "inherits": "base-ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYEP": "Debug",
+                "CMAKE_OSX_ARCHITECTURES": "x86_64",
+                "VCPKG_TARGET_TRIPLET": "x64-osx-dynamic",
+                "CMAKE_C_COMPILER": "/usr/local/opt/llvm/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/local/opt/llvm/bin/clang++"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "macos-llvm-release",
+            "displayName": "Intel-Based MacOS LLVM (Release)",
+            "description": "Builds with the Homebrew installation of LLVM on x64-based MacOS for Release",
+            "inherits": "base-ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_OSX_ARCHITECTURES": "x86_64",
+                "VCPKG_TARGET_TRIPLET": "x64-osx-dynamic",
                 "CMAKE_C_COMPILER": "/usr/local/opt/llvm/bin/clang",
                 "CMAKE_CXX_COMPILER": "/usr/local/opt/llvm/bin/clang++"
             },
@@ -186,24 +240,20 @@
             "configuration": "Release"
         },
         {
-            "name": "macos-gcc-debug",
-            "configurePreset": "macos-gcc",
-            "configuration": "Debug"
+            "name": "build-macos-gcc-debug",
+            "configurePreset": "macos-gcc-debug"
         },
         {
-            "name": "macos-gcc-release",
-            "configurePreset": "macos-gcc",
-            "configuration": "Release"
+            "name": "build-macos-gcc-release",
+            "configurePreset": "macos-gcc-release"
         },
         {
-            "name": "macos-llvm-debug",
-            "configurePreset": "macos-llvm",
-            "configuration": "Debug"
+            "name": "build-macos-llvm-debug",
+            "configurePreset": "macos-llvm-debug"
         },
         {
-            "name": "macos-llvm-release",
-            "configurePreset": "macos-llvm",
-            "configuration": "Release"
+            "name": "build-macos-llvm-release",
+            "configurePreset": "macos-llvm-release"
         },
         {
             "name": "macos-arm-debug",
