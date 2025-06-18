@@ -10,8 +10,8 @@
 
 - Understanding the Tools:
     - C++
-    - Cmake
-    - Vcpkg
+    - CMake
+    - VCPKG
 
 
 ---
@@ -258,5 +258,7 @@ docker stop <container_id>
 ```
 
 [Use the following link for Docker Setup Instructions](https://github.com/rutura/cpp23m/blob/main/02.EnvironmentSetup/06.Docker_setup.md)
+
+_Or utilize the Dockerfile I provide in my root directory and build it_
 
 ---
