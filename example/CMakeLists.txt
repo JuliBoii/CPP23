@@ -46,4 +46,6 @@ endif()
 #         utilities.ixx
 # )
 
+# This command ensures that the things from the desired libraries
+# are embedded into our executable, I think 
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
