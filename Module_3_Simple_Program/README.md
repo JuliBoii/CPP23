@@ -51,7 +51,7 @@ int main(){
 - The following are functions we built in the `utilities.ixx` file
     - `print_msg()`
     - `print_number()`
-    - `add_number()`
+    - `add_numbers()`
         - The functions cannot be run without being imported in
         - Which we designated at the top of our program
 - `int` is a data type built into the C++ language
