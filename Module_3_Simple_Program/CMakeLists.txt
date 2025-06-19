@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 23) # Default C++ standard for targets
 set(CMAKE_CXX_SCAN_FOR MODULES ON)
 
 find_package(fmt CONFIG REQUIRED)
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
@@ -30,4 +31,4 @@ target_sources(${PROJECT_NAME}
 
 # This command ensures that the things from the desired libraries
 # are embedded into our executable, I think
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt sfml-graphics)

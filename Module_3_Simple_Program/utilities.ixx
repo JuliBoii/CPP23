@@ -7,7 +7,10 @@ module;
 
 export module utilities; // Module definition
 
+
+
 // Module purview
+/*
 export void print_msg(std::string_view str) {
     fmt::print("{}\n", str);
 }
@@ -18,4 +21,4 @@ export int add_numbers(const int& a, const int& b) {
 
 export void print_number(const int& num) {
     fmt::print("Number is: {}\n", num);
-}
+}*/

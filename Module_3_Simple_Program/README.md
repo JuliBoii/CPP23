@@ -61,4 +61,55 @@ int main(){
         - If left empty, the default constructor of (sub)objects are called
             - Fundamental data types are initialized with `0/false/nullptr`
     - We can also assign a value by using `=`, as seen with: `int result = add_numbers(num1, num2);`
-        - This operator does not have the same behavior as `list initialization` 
+        - This operator does not have the same behavior as `list initialization`
+
+---
+
+## C++ Execution Model
+
+---
+
+## Why is the C++ Execution Model Important?
+
+To execute our function, we had to just a sizable distance from one memory location to another, keeping the return address somewhere else
+
+- There is a feature of C++ we can use to have the function expanded in place so that it adds `int a` and `int b` directly and put the result in `int result`
+    - Avoids expensive memory jumps
+
+- Some features of C++ will allow you to:
+    - Control how your program is compiled
+    - How it is loaded in memory
+    - How it is executed by the CPU
+
+- In the next chapters, we will learn about buttons, knobs and handlers we can use to control how our C++ program works
+
+---
+
+## We will now be testing other packages
+
+We will be using SFML, specifically their premade example script, to get understand of using `vcpkg` for our projects
+
+- We first need to tell vcpkg we want the `SFML` package
+- So we add the following to `vcpkg.json`
+
+```json
+{
+    "dependencies": [
+        "fmt",
+        "smfl"
+    ]
+}
+```
+
+- Now we need to modify our `CMakeLists.txt` file to utilize the package in our programs
+- We add the following, below or above `find_package(fmt CONFIG REQUIRED)`:
+
+```text
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+```
+
+- Then we append the following to our `target_link_libraries()` command, after `fmt::fmt`:
+
+```text
+sfml-graphics
+```
