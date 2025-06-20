@@ -111,5 +111,31 @@ find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 - Then we append the following to our `target_link_libraries()` command, after `fmt::fmt`:
 
 ```text
-sfml-graphics
+sfml-system sfml-graphics sfml-window
 ```
+
+### **_Using Docker for this project (SFML) is not recommended, in my honest opinion_**
+
+- I tried updating my `Dockerfile` with packages that may be needed
+    - I built the file
+    - Ran the image
+    - Then tried compiling and building the project, but it did not work
+- So I am thinking of trying to use a Virtual Machine to test my project for Linux
+- The project does work for my MacOS, so I think, it is a docker problem
+    - Was not meant for GUI applications
+
+### **_Not using GCC for this project_**
+
+- Similar to Docker, this project would not build with GCC.
+- The error I got said the following:
+    ```commandline
+    internal compiler error: in core_vals, at cp/module.cc:6641
+        9 | export module utilities; // Module definition
+          |        ^~~~~~
+    Please submit a full bug report, with preprocessed source (by using -freport-bug).
+    See <https://github.com/Homebrew/homebrew-core/issues> for instructions.
+    ninja: build stopped: subcommand failed.
+    ```
+    - Meaning that it failed because of the compiler, not my code
+- IDK what to do, but for a heads up, I will be using LLVM for my system
+    - _My system being a 2017 MacBook Pro_
