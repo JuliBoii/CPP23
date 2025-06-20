@@ -1,13 +1,14 @@
 # Base image we are building from
 FROM alpine:latest
-LABEL description="A small image for CPP Development"
+LABEL maintainer="Julian H, ah503917@gmail.com" \
+      description="A small image for CPP Development"
 
 # Ensuring we have the latest security patches and software updates
 RUN apk update && apk upgrade
 
 # Installing Tools
 # --no-cache rmoves the cache. Ensuring, image size remains at its smallest possible
-RUN apk add --update --no-cache autoconf \
+RUN apk add --no-cache autoconf \
                         autoconf-archive \
                         automake \
                         bash \
@@ -17,21 +18,36 @@ RUN apk add --update --no-cache autoconf \
                         clang20-extra-tools \
                         cmake \
                         curl \
+                        eudev-libs \
+                        freetype \
                         gdb \
                         gettext \
                         git \
                         libc++-dev \
+                        libflac \
+                        libgcc \
+                        libogg \
                         libstdc++-dev \
                         libtool \
+                        libvorbis \
+                        libx11 \
+                        libxcursor \
+                        libxrandr \
                         linux-headers \
                         lldb \
                         llvm \
+                        llvm-dev \
+                        make \
+                        musl \
                         nano \
-                        pkgconfig \
+                        openal-soft-libs \
+                        pkgconf \
+                        python3 \
                         python3-dev \
                         py3-pip \
                         tar \
                         unzip \
+                        wget \
                         zip
 
 ENV VCPKG_ROOT=/opt/vcpkg
