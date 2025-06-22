@@ -51,3 +51,31 @@
 - This file specifies which files and directories Git should ignore during version control
 - Typically includes build artifacts (like *.o, *.a, *.exe), temporary files, or IDE-specific configuration files that should not be tracked in the repository
 - Ensures that only relevant source files and configurations are committed to the Git repo, avoiding clutter
+
+---
+
+## Don't want to use CMakePresets.json?
+
+### Learning how to manually compile and build in the terminal with CMake
+
+- We will still be using `VCPKG` to download the dependencies
+    - Will be connecting vcpkg and cmake using the `CMAKE_TOOLCHAIN_FILE` flag option
+- This is mainly being written in the case that you prefer:
+    - Doing everything manually in the terminal
+    - Or you want to test other options
+- The most important step is to ensure that you are in the project
+    - Meaning, your terminal is `cd` into the location of the project folder
+- To check your location (in Linux and MacOS), in the terminal we run:
+
+    ```commandline
+    % pwd
+    /Users/angelito/Documents/FleetProjectFiles/CPP23
+    ```
+
+- So we need to change into the example folder so we enter:
+
+    ```commandline
+    % cd example/
+    % pwd
+    /Users/angelito/Documents/FleetProjectFiles/CPP23/example
+    ```
