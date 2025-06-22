@@ -94,27 +94,27 @@ We will be using SFML, specifically their premade example script, to get underst
 - We first need to tell vcpkg we want the `SFML` package
 - So we add the following to `vcpkg.json`
 
-```json
-{
-    "dependencies": [
-        "fmt",
-        "smfl"
-    ]
-}
-```
+    ```json
+    {
+        "dependencies": [
+            "fmt",
+            "smfl"
+        ]
+    }
+    ```
 
 - Now we need to modify our `CMakeLists.txt` file to utilize the package in our programs
 - We add the following, below or above `find_package(fmt CONFIG REQUIRED)`:
 
-```text
-find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
-```
+    ```text
+    find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
+    ```
 
 - Then we append the following to our `target_link_libraries()` command, after `fmt::fmt`:
 
-```text
-SFML::Network SFML::Graphics SFML::Window SFML::Audio SFML::System
-```
+    ```text
+    SFML::Network SFML::Graphics SFML::Window SFML::Audio SFML::System
+    ```
 
 ### **_Using Docker for this project (SFML) is not recommended, in my honest opinion_**
 
