@@ -67,6 +67,8 @@ int main(){
 
 ## C++ Execution Model
 
+###**_ Need to add information!!!_**
+
 ---
 
 ## Why is the C++ Execution Model Important?
@@ -105,13 +107,13 @@ We will be using SFML, specifically their premade example script, to get underst
 - We add the following, below or above `find_package(fmt CONFIG REQUIRED)`:
 
 ```text
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
 ```
 
 - Then we append the following to our `target_link_libraries()` command, after `fmt::fmt`:
 
 ```text
-sfml-system sfml-graphics sfml-window
+SFML::Network SFML::Graphics SFML::Window SFML::Audio SFML::System
 ```
 
 ### **_Using Docker for this project (SFML) is not recommended, in my honest opinion_**
@@ -139,3 +141,10 @@ sfml-system sfml-graphics sfml-window
     - Meaning that it failed because of the compiler, not my code
 - IDK what to do, but for a heads up, I will be using LLVM for my system
     - _My system being a 2017 MacBook Pro_
+    - _**Another Side Note:_ I am using clang that I downloaded through Homebrew
+        - Just a reminder in case someone does not read my other notes
+
+- I also for got to mention this in my example folder, but I added the `CMAKE_OSX_SYSROOT` option to my `CMakePresets.json` file
+    - Because I am using `LLVM` that was installed by Homebrew
+        - I need to provide the location of my Systems SDK headers.
+        - Otherwise, my projects will not build
