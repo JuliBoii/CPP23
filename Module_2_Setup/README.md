@@ -101,7 +101,7 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
 - Run the following in your terminal
 
     ```commandline
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    % /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ```
 
 - Then we install the following:
@@ -115,7 +115,7 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
 - We run:
 
     ```commandline
-    brew install ninja cmake git gh llvm gcc pkgconf
+    % brew install ninja cmake git gh llvm gcc pkgconf
     ```
 
 - That covers most of the tools we will be using
@@ -123,8 +123,8 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
     - replace the content in quotation with your respective information
 
     ```commandline
-    git config --global user.email "email@example.com"
-    git config --global user.name "usrexample"
+    % git config --global user.email "email@example.com"
+    % git config --global user.name "usrexample"
     ```
 
 - We use the following command to connect our `git` with `GitHub`. (My preferred repo)
@@ -132,35 +132,35 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
 - We run the following to connect the two:
 
     ```commandline
-    gh auth login
+    % gh auth login
     ```
 
 - In a terminal we want to ensure we are in the home directory so run:
 
     ```commandline
-    cd ~/
+    % cd ~/
     ```
 
 - Now we need to install vcpkg into our MacOS system
 - We run the following commands in the terminal
 
     ```commandline
-    git clone https://github.com/microsoft/vcpkg.git
-    cd vcpkg && ./bootstrap-vcpkg.sh
+    % git clone https://github.com/microsoft/vcpkg.git
+    % cd vcpkg && ./bootstrap-vcpkg.sh
     ```
 
 - Then we run:
 
     ```commandline
-    cd ../
-    chmod -R 777 /vcpkg
+    % cd ../
+    % chmod -R 777 /vcpkg
     ```
 
 - Now we want to set our enviornment variables to use `VCPKG` in our projects
 - In a terminal we want to ensure we are in the home directory so run:
 
     ```commandline
-    cd ~/
+    % cd ~/
     ```
 
 - We want to open our shell's profile script
@@ -176,21 +176,21 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
 - We use the following command to list the files, even hidden ones
 
     ```commandline
-    ls -a
+    % ls -a
     ```
 
 - We open the file using any code editor of choice, for simplicity I used `nano` in the terminal.
 - So I ran the command:
 
     ```commandline
-    nano .zprofile
+    % nano .zprofile
     ```
 
 - We add the following:
 
     ```shell
-    export VCPKG_ROOT="$HOME/vcpkg"
-    export PATH="$VCPKG_ROOT:$PATH"
+    % export VCPKG_ROOT="$HOME/vcpkg"
+    % export PATH="$VCPKG_ROOT:$PATH"
     ```
 
 - Then we refresh to apply our changes to our current terminal session
@@ -198,7 +198,7 @@ Consider using Docker for access to newer versions of Clang or GCC if needed
     - _Again as a reminder_, you should change the file name to match your shell profile's
 
     ```commandline
-    source ~/.zprofile
+    % source ~/.zprofile
     ```
 
 - _Remember this is for an Intel-based Mac, not sure if this will work for an ARM-based Mac_
@@ -240,25 +240,25 @@ Essential Commands:
 - Build:
 
     ``` commandline
-    docker build -t my_cpp_env
+    % docker build -t my_cpp_env
     ```
 
 - List:
 
     ``` commandline
-    docker images
+    % docker images
     ```
 
 - Run:
 
     ``` commandline
-    docker run -it my_cpp_env
+    % docker run -it my_cpp_env
     ```
 
 - Stop:
 
     ``` commandline
-    docker stop <container_id>
+    % docker stop <container_id>
     ```
 
 [Use the following link for Docker Setup Instructions](https://github.com/rutura/cpp23m/blob/main/02.EnvironmentSetup/06.Docker_setup.md)
