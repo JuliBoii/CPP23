@@ -54,6 +54,86 @@
 
 ---
 
+## Running a Preset in the terminal
+
+- In cases where we are not using Visual Studio Code, like my current setup, we will not be able to automatically build using our preset
+    - Which we defined in our `CMakePresets.json` file
+    - We will ned to run our preset in the terminal
+
+- Before anything, we need to ensure that we are in the project location
+    - Meaning, your terminal is `cd` into the location of the project folder
+        - _In this case, the `example` folder_
+- To check your location (in Linux and MacOS), we type in the terminal:
+
+    ```commandline
+    % pwd
+    /Users/angelito/Documents/FleetProjectFiles/CPP23
+    ```
+
+- So we need to change into the example folder so we enter:
+    - Then we confirm we are in the correct directory `example/`
+
+    ```commandline
+    % cd example/
+    % pwd
+    /Users/angelito/Documents/FleetProjectFiles/CPP23/example
+    ```
+
+- Now, the process of using our presets is fairly straightfoward.
+- We can list the avaliable presets **_(If a CMakePresets.json file is present in directory)_**
+    - We enter:
+
+    ``` commandline
+    % cmake --list-presets
+    ```
+
+- We enter the following in the terminal when we know which preset we want to use:
+
+    ``` commandline
+    % cmake --preset <preset name> -S .
+    ```
+
+- We can also list the build presets (if they exist) that are avaliable to us:
+    - We enter:
+
+    ``` commandline
+    % cmake --list-presets=build
+    ```
+
+    - We need to take note that
+        - This command will not filter out options, we are not able to use
+- To build the project, we will be entering the following:
+
+    ``` commandline
+    % cmake --build --preset <build preset name>
+    ```
+
+- Now we are able to run our executable by navigating to it
+- In my case, I enter the following on my MacBook:
+
+    ``` commandline
+    % ./cmake-build/Darwin/macos-llvm-debug/Example
+    The values are 10 and 20
+    ```
+
+- Put all together it looks like the following:
+
+    ``` commandline
+    % cmake --preset macos-llvm-debug -S .
+    % cmake --build --preset build-macos-llvm-debug
+    % ./cmake-build/Darwin/macos-llvm-debug/Example
+    ```
+
+- For my Alpine enviornment on Docker it would look like:
+
+    ``` commandline
+    % cmake --preset linux-clang -S .
+    % cmake --build --preset linux-clang-debug --config Debug
+    % ./cmake-build/Linux/linux-clang/Debug/Example
+    ```
+
+---
+
 ## Don't want to use CMakePresets.json?
 
 ### Learning how to manually compile and build in the terminal with CMake
@@ -63,7 +143,7 @@
 - This is mainly being written in the case that you prefer:
     - Doing everything manually in the terminal
     - Or you want to test other options
-- The most important step is to ensure that you are in the project
+- The most important step is to ensure that you are in the project location
     - Meaning, your terminal is `cd` into the location of the project folder
 - To check your location (in Linux and MacOS), in the terminal we run:
 
@@ -73,9 +153,69 @@
     ```
 
 - So we need to change into the example folder so we enter:
+    - Then we confirm we are in the correct directory `example/`
 
     ```commandline
     % cd example/
     % pwd
     /Users/angelito/Documents/FleetProjectFiles/CPP23/example
     ```
+
+#### Building the Project
+
+- We will now be building the project using cmake in the terminal
+    - **_NOTE:_** We will be using the `CMAKE_TOOLCHAIN_FILE` option to conncet CMake and vcpkg
+    - We use this option by adding a `-D` before writing the option name
+        - Similar to our `CMakePresets.json` file, but we are manually entering the vcpkg source pathway
+        - **_Again Noting:_** that `VCPKG_ROOT` was set for your system enviornment
+- So we enter the following:
+
+    ``` commandline
+    % cmake -B cmake-build -S . -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+    ```
+
+- Want to append something that is specific to my system, in the case that the command does not work for them
+    - In my case, CMake is not able to find my system's SDK file
+    - So, I added the `CMAKE_OSX_SYSROOT` option to tell CMake where to find the files needed
+        - Otherwise, the command would fail
+- So, my command looks like:
+
+    ``` commandline
+    % cmake -B cmake-build -S . -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+    ```
+
+- Now, just like my previous notes, my system does not have an updated C++ compiler
+    - So, I used Homebrew to install an up-to-date compiler
+    - But, I need to tell CMake to utilize that compiler, **_Not the pre-installed compiler_**
+- So I enter the following command
+    - This will include other commands that were previously discussed
+
+    ``` commandline
+    % cmake -B cmake-build -S . -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" -DCMAKE_OSX_SYSROOT="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" -DCMAKE_CXX_COMPILER="/usr/local/opt/llvm/bin/clang++" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_COLOR_DIAGNOSTICS=ON
+    ```
+
+- After all that, we can now build the project
+    - We can do this in one of two ways:
+        - Move into the `cmake-build` directory
+        - Or just build from the `example` directory
+    - There is no difference between the two, just a matter of how you write the command
+- After a successful build, we can run the executable
+- You would enter the following if building from the `cmake-build` directory
+
+    ``` commandline
+    % cd cmake-build/
+    % cmake --build ./
+    % ./Example
+    ```
+
+- If you build from the `example` directory, you would enter:
+
+    ``` commandline
+    % cmake --build cmake-build/
+    % ./cmake-build/Example
+    ```
+
+- **Again, its just a matter of preference**, nothing more
+    - The last line, in each code block, is us running the executable
+
+---
