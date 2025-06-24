@@ -29,28 +29,30 @@
 ### Decimal
 
 - Let us look at the number systems, starting with decimal
-  - Referred to as Base Ten, in some cases
-    - Why?
-      - We multiply our digits by 10 raised to the position of the digit starting
-    - The digits we use are between 0-9
-    - Given a whole number, we can deduce it using the formula:
+- Referred to as Base Ten, in some cases
+  - Why?
+    - We multiply our digits by 10 raised to the position of the digit starting
+  - The digits we use are between 0-9
+  - Given a whole number, we can deduce it using the formula:
     
-    $$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
+$$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
       
-      - Examples:
-        - Say we have the number `2371`
-        - We can deduce it using the following formula:
+  - Example 1:
+    - Say we have the number `2371`
+    - We can deduce it using the following formula:
 
-          $$2*10^3 + 3*10^2 + 7*10^1 + 1*10^0$$
+$$2*10^3 + 3*10^2 + 7*10^1 + 1*10^0$$
 
-        - Say we have the number `924`
-        - We can deduce it as:
+  - Example 2:
+    - Say we have the number `924`
+    - We can deduce it as:
 
-          $$9*10^2 + 2*10^1 + 4*10^0$$
+$$9*10^2 + 2*10^1 + 4*10^0$$
 
-        - And for `47` it would be:
+  - Example 3:
+    - And for `47` it would be:
 
-          $$4*10^1 + 7*10^0$$
+$$4*10^1 + 7*10^0$$
 
 ### Binary
 
@@ -62,15 +64,11 @@
 
     $$\mathbb{N}= B = \sum_{n=0}^{digits} B_n*2^n$$
 
-    - Examples:
-      - Given: `100101`
-        $$
-        \begin{split}
-          &= 1*2^{5} + 0*2^{4} + 0*2^{3} + 1*2^{2} + 0*2^{1} + 1*2^{0} \\
-          &= 32 + 0 + 0 + 4 + 0 + 1 \\
-          &= 37
-        \end{split}
-        $$
+  - Examples:
+    - Given: `100101`
+    $$= 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0$$
+    $$= 32 + 0 + 0 + 4 + 0 + 1$$
+    $$= 37$$
   - Given: `10010`
 
     $$1*2^4 + 0*2^3 + 0*2^2 + 1*2^1 + 0*2^0$$
