@@ -35,24 +35,24 @@
   - The digits we use are between 0-9
   - Given a whole number, we can deduce it using the formula:
     
-$$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
+  $$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
       
   - Example 1:
     - Say we have the number `2371`
     - We can deduce it using the following formula:
 
-$$2*10^3 + 3*10^2 + 7*10^1 + 1*10^0$$
+    $$2*10^3 + 3*10^2 + 7*10^1 + 1*10^0$$
 
   - Example 2:
     - Say we have the number `924`
     - We can deduce it as:
 
-$$9*10^2 + 2*10^1 + 4*10^0$$
+    $$9*10^2 + 2*10^1 + 4*10^0$$
 
   - Example 3:
-    - And for `47` it would be:
+    - For `47` it would be:
 
-$$4*10^1 + 7*10^0$$
+    $$4*10^1 + 7*10^0$$
 
 ### Binary
 
