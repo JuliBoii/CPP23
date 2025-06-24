@@ -35,7 +35,7 @@
   - The digits we use are between 0-9
   - Given a whole number, we can deduce it using the formula:
     
-  $$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
+$$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
       
   - Example 1:
     - Say we have the number `2371`
