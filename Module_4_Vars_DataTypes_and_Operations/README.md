@@ -41,9 +41,9 @@ $$\mathbb{W} = \sum_{n=0}^{\text{digits}} \mathbb{w}_n*10^n$$
   - Say we have the number `2371`
 - We can deduce it using the following formula:
 
-  ```math
-  2371 = 2*10^3 + 3*10^2 + 7*10^1 + 1*10^0
-  ```
+```math
+2371 = 2*10^3 + 3*10^2 + 7*10^1 + 1*10^0
+```
 
 - Example 2:
   - Say we have the number `924`
