@@ -6,11 +6,11 @@
 
 - Exploring variables and data types
 - Topics
-    - Number systems for integers
-        - Decimal, Octal, Hexadecimal and Binary
-    - Data representation in memory
-        - Integers, Floating point types
-    - Type ranges for ints & floats
+  - Number systems for integers
+    - Decimal, Octal, Hexadecimal and Binary
+  - Data representation in memory
+    - Integers, Floating point types
+  - Type ranges for ints & floats
 
 ---
 
@@ -19,7 +19,7 @@
 - Give us a way to interpret the data that is stored in memory
   - Anything our computer works with will be stored as `0`'s and `1`'s
   - **_Does not matter if_** it is a whole number, floating point, string, character
-- In our case the RAM will be storing our data as `0`'s and `1`'s 
+- In our case the RAM will be storing our data as `0`'s and `1`'s
   - So, you can interpret this data as an:
     - Integer
     - Decimal
@@ -29,28 +29,36 @@
 ### Decimal
 
 - Let us look at the number systems, starting with decimal
-  - Referred to as Base Ten, in some cases
-    - Why?
-      - We multiply our digits by 10 raised to the position of the digit starting
-    - The digits we use are between 0-9
-    - Given a whole number, we can deduce it using the formula:
-    
-    $$\mathbb{W} = \sum_{n=0}^{digits} \mathbb{w}_n*10^n$$
-      
-      - Examples:
-        - Say we have the number `2371`
-        - We can deduce it using the following formula:
+- Referred to as Base Ten, in some cases
+  - Why?
+    - We multiply our digits by 10 raised to the position of the digit starting
+  - The digits we use are between 0-9
+  - Given a whole number, we can deduce it using the formula:
 
-          $$2*10^3 + 3*10^2 + 7*10^1 + 1*10^0$$
+$$\mathbb{W} = \sum_{n=0}^{\text{digits}}\left(\mathbb{w}_n*10^{n}\right)$$
 
-        - Say we have the number `924`
-        - We can deduce it as:
+- Example 1:
+  - Say we have the number `2371`
+  - We can deduce it using the following formula:
 
-          $$9*10^2 + 2*10^1 + 4*10^0$$
+```math
+2371 = 2*10^{3} + 3*10^{2} + 7*10^{1} + 1*10^{0}
+```
 
-        - And for `47` it would be:
+- Example 2:
+  - Say we have the number `924`
+  - We can deduce it as:
 
-          $$4*10^1 + 7*10^0$$
+```math
+924 = 9*10^{2} + 2*10^{1} + 4*10^{0}
+```
+
+- Example 3:
+  - For `47` it would be:
+
+```math
+47 = 4*10^{1} + 7*10^{0}
+```
 
 ### Binary
 
@@ -60,47 +68,45 @@
 - We use a similar formula, however we use the formula to decipher the decimal representation
   - We use the following formula:
 
-    $$\mathbb{N}= B = \sum_{n=0}^{digits} B_n*2^n$$
+$$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 
-    - Examples:
-      - Given: `100101`
-        $$
-        \begin{split}
-          &= 1*2^{5} + 0*2^{4} + 0*2^{3} + 1*2^{2} + 0*2^{1} + 1*2^{0} \\
-          &= 32 + 0 + 0 + 4 + 0 + 1 \\
-          &= 37
-        \end{split}
-        $$
+- Example 1:
+  - Given: `100101`
+
+``` math
+\begin{matrix} = 1*2^{5} + 0*2^{4} + 0*2^{3} + 1*2^{2} + 0*2^{1} + 1*2^{0} \\ = 32 + 0 + 0 + 4 + 0 + 1 \\ = 37 \end{matrix}
+```
+
+- Example 2:
   - Given: `10010`
 
-    $$1*2^4 + 0*2^3 + 0*2^2 + 1*2^1 + 0*2^0$$
-    $$= 16 + 0 + 0 + 2 + 0$$
-    $$= 18 $$
-  
+``` math
+\begin{matrix} = 1*2^{4} + 0*2^{3} + 0*2^{2} + 1*2^{1} + 0*2^{0} \\ = 16 + 0 + 0 + 2 + 0 \\ = 18 \end{matrix}
+```
+- Example 3:
   - Given: `111`
 
-    $$1*2^2 + 1*2^1 + 1*2^0$$
-    $$= 4 + 2 + 1$$
-    $$= 7 $$
-  
+``` math
+\begin{matrix} = 1*2^{2} + 1*2^{1} + 1*2^{0} \\ = 4 + 2 + 1 \\ = 7 \end{matrix}
+```
+
 - With binary, we can group the number of bits we want
   - Thus, the possible data representation can vary
   - Looking at the table below
     - We can see the possible data representation dependent on the number of bits we group
 
-  | Digits |        Data Range        |
-  |:------:|:------------------------:|
-  |   1    |           0~1            |
-  |   2    |           0~3            |
-  |   3    |           0~7            |
-  |   4    |           0~15           |
-  |   5    |           0~31           |
-  |  ...   |           ...            |
-  |   n    | 0~$`2^\left(n\right)-1`$ |
+| Digits |        Data Range        |
+|:------:|:------------------------:|
+|   1    |           0~1            |
+|   2    |           0~3            |
+|   3    |           0~7            |
+|   4    |           0~15           |
+|   5    |           0~31           |
+|  ...   |           ...            |
+|   n    | 0~$`2^\left(n\right)-1`$ |
 
-  - There also exist some practical groupings of data in modern computers
+- There also exist some practical groupings of data in modern computers
   - Shown below:
-
 
 | Digits | Bytes | Data Range                   |
 |:------:|:-----:|:-----------------------------|
@@ -139,22 +145,17 @@
 |  1110  |   14    |  E  |
 |  1111  |   15    |  F  |
 
-  - Example:
-    - Given `0110 1110 0011 0000 1111 0001 0011 1111`
-      - How would we represent this in Hexadecimal?
-      - Using the table above we find the equivalent representation:
-      
-        $$0110 \rightarrow 6$$ 
-        $$1110 \rightarrow E$$
-        $$0011 \rightarrow 3$$
-        $$0000 \rightarrow 0$$
-        $$1111 \rightarrow F$$
-        $$0001 \rightarrow 1$$
-        $$0011 \rightarrow 3$$
-        $$1111 \rightarrow F$$
-      
-      - Which we format in Hexadecimal with the prefix `0x`
-      - So it would look like: `0x6E30F13F`
+- Example:
+  - Given `0110 1110 0011 0000 1111 0001 0011 1111`
+    - How would we represent this in Hexadecimal?
+    - Using the table above we find the equivalent representation:
+
+``` math
+\begin{matrix} 0110 \rightarrow 6 \\ 1110 \rightarrow E \\ 0011 \rightarrow 3 \\ 0000 \rightarrow 0 \\ 1111 \rightarrow F \\ 0001 \rightarrow 1 \\ 0011 \rightarrow 3 \\ 1111 \rightarrow F \end{matrix}
+```
+
+- Which we format in Hexadecimal with the prefix `0x`
+  - So it would look like: `0x6E30F13F`
 
 ### Octal
 
@@ -176,25 +177,18 @@
 |  0110  |    6    |   6   |
 |  0111  |    7    |   7   |
 
-  - Example:
-    - Given `01 101 110 001 100 001 111 000 100 111 111`
-      - How do we represent this in Octal?
-      - Using the table above we find the equivalent representation:
- 
-        $$01 \rightarrow 1$$
-        $$101 \rightarrow 5$$
-        $$110 \rightarrow 6$$
-        $$001 \rightarrow 1$$
-        $$100 \rightarrow 4$$
-        $$001 \rightarrow 1$$
-        $$111 \rightarrow 7$$
-        $$000 \rightarrow 0$$
-        $$100 \rightarrow 4$$
-        $$111 \rightarrow 7$$
-        $$111 \rightarrow 7$$
-    - Which we format in Octal with the prefix `0`
-      - followed by the number
-    - `0 15614170477`
+- Example:
+  - Given `01 101 110 001 100 001 111 000 100 111 111`
+    - How do we represent this in Octal?
+    - Using the table above we find the equivalent representation:
+
+``` math
+\begin{matrix} 01 \rightarrow 1 \\ 101 \rightarrow 5 \\ 110 \rightarrow 6 \\ 001 \rightarrow 1 \\ 100 \rightarrow 4 \\ 001 \rightarrow 1 \\ 111 \rightarrow 7 \\ 000 \rightarrow 0 \\ 100 \rightarrow 4 \\ 111 \rightarrow 7 \\ 111 \rightarrow 7 \end{matrix}
+```
+
+- Which we format in Octal with the prefix `0`
+  - followed by the number
+- `0 15614170477`
 
 [Use this page for a sample table converting between Binary, Decimal, & Hexadecimal](https://servicenow.iu.edu/kb?id=kb_article_view&sysparm_article=KB0026046)
 
@@ -234,7 +228,7 @@
 | long double |   8 bytes    | ~15 digits (MSVC)      | Same as double on Windows/MSVC       |
 | long double | 10/16 bytes  | ~18 digits (GCC/Clang) | 80-bit or 128-bit extended precision |
 
-### Memory Representation
+## Memory Representation
 
 - A single-precision float (float) in C++ is stored as a 32-bit binary value
   - Divided into 3 components:
