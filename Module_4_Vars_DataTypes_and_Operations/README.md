@@ -42,14 +42,16 @@ $$\mathbb{W} = \sum_{n=0}^{\text{digits}} \mathbb{w}_n*10^n$$
 - We can deduce it using the following formula:
 
 ```math
-2371 = 2*10^3 + 3*10^2 + 7*10^1 + 1*10^0
+2371 = 2*10^{3} + 3*10^{2} + 7*10^{1} + 1*10^{0}
 ```
 
 - Example 2:
   - Say we have the number `924`
   - We can deduce it as:
 
-  $$924 = 9*10^2 + 2*10^1 + 4*10^0$$
+```math
+924 = 9*10^{2} + 2*10^{1} + 4*10^{0}
+```
 
 - Example 3:
   - For `47` it would be:
