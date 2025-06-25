@@ -73,11 +73,13 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 - Examples:
   - Given: `100101`
 
-```math
+$$
+\begin{align}
 &= 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0
 &= 32 + 0 + 0 + 4 + 0 + 1
 &= 37
-```
+\end{align}
+$$
 
 - Given: `10010`
 
