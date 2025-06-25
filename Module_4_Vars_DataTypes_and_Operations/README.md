@@ -4,6 +4,8 @@
 
 ## Overview
 
+Part 1
+
 - Exploring variables and data types
 - Topics
   - Number systems for integers
@@ -12,6 +14,22 @@
     - Integers, Floating point types
   - Type ranges for ints & floats
 
+Part 2
+
+- Integer Modifies, Characters, Text, & `auto`
+- Topics
+  - Initialization:
+    - Braced initialization
+    - Function style initialization
+    - Assignment initialization
+  - Integer modifiers
+  - Floating point numbers:
+    - Precision
+    - Scientific notation
+    - Infinity and NaN
+  - Booleans
+  - Characters & Text
+  - `auto`
 ---
 
 ## Number Systems
@@ -196,7 +214,7 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 
 ## Data Representation
 
-- Now that we know how data is represented in memory
+- Now we know how data is represented in memory
 - We will start and working with real data
 - Starting by showing how we work with decimal numbers in C++
 - C++ provides three fundamental types that you use to represent data
@@ -246,3 +264,13 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 - In other words, even floating-point types are also represented as `0`'s and `1`'s
   - _Going from a binary representation to the float representation requires to follow the [procedure stipulated by IEEE](https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/)_
   - **Will not be discussed**
+
+---
+
+## Initialization
+
+### Braced Initialization (Recommended)
+
+The first type of initialization we will look at is braced initialization.
+
+- The syntax is just putting the initalizer value in a pair of curly braces: `{value}`
