@@ -37,28 +37,28 @@
     
 $$\mathbb{W} = \sum_{n=0}^{\text{digits}}\left(\mathbb{w}_n*10^{n}\right)$$
       
-- Example 1:
-  - Say we have the number `2371`
-- We can deduce it using the following formula:
-
+  - Example 1:
+    - Say we have the number `2371`
+    - We can deduce it using the following formula:
+  
 ```math
 2371 = 2*10^{3} + 3*10^{2} + 7*10^{1} + 1*10^{0}
 ```
-
-- Example 2:
-  - Say we have the number `924`
-  - We can deduce it as:
-
+  
+  - Example 2:
+    - Say we have the number `924`
+    - We can deduce it as:
+  
 ```math
 924 = 9*10^{2} + 2*10^{1} + 4*10^{0}
 ```
-
-- Example 3:
-  - For `47` it would be:
-
-```math
-47 = 4*10^{1} + 7*10^{0}
-```
+  
+  - Example 3:
+    - For `47` it would be:
+  
+  ```math
+  47 = 4*10^{1} + 7*10^{0}
+  ```
 
 ### Binary
 
