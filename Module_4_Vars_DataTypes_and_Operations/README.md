@@ -70,19 +70,20 @@ $$\mathbb{W} = \sum_{n=0}^{\text{digits}}\left(\mathbb{w}_n*10^{n}\right)$$
 
 $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 
-- Examples:
+- Example 1:
   - Given: `100101`
 
 ``` math
 \begin{matrix} = 1*2^{5} + 0*2^{4} + 0*2^{3} + 1*2^{2} + 0*2^{1} + 1*2^{0} \\ = 32 + 0 + 0 + 4 + 0 + 1 \\ = 37 \end{matrix}
 ```
 
+- Example 2:
   - Given: `10010`
 
 ``` math
 \begin{matrix} = 1*2^{4} + 0*2^{3} + 0*2^{2} + 1*2^{1} + 0*2^{0} \\ = 16 + 0 + 0 + 2 + 0 \\ = 18 \end{matrix}
 ```
-  
+- Example 3:
   - Given: `111`
 
 ``` math
@@ -104,7 +105,7 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 |  ...   |           ...            |
 |   n    | 0~$`2^\left(n\right)-1`$ |
 
-  - There also exist some practical groupings of data in modern computers
+- There also exist some practical groupings of data in modern computers
   - Shown below:
 
 | Digits | Bytes | Data Range                   |
@@ -148,16 +149,11 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
     - Given `0110 1110 0011 0000 1111 0001 0011 1111`
       - How would we represent this in Hexadecimal?
       - Using the table above we find the equivalent representation:
-      
-        $$0110 \rightarrow 6$$ 
-        $$1110 \rightarrow E$$
-        $$0011 \rightarrow 3$$
-        $$0000 \rightarrow 0$$
-        $$1111 \rightarrow F$$
-        $$0001 \rightarrow 1$$
-        $$0011 \rightarrow 3$$
-        $$1111 \rightarrow F$$
-      
+
+      ``` math
+      \begin{matrix} 0110 \rightarrow 6 \\ 1110 \rightarrow E \\ 0011 \rightarrow 3 \\ 0000 \rightarrow 0 \\ 1111 \rightarrow F \\ 0001 \rightarrow 1 \\ 0011 \rightarrow 3 \\ 1111 \rightarrow F \end{matrix}
+      ```
+
       - Which we format in Hexadecimal with the prefix `0x`
       - So it would look like: `0x6E30F13F`
 
