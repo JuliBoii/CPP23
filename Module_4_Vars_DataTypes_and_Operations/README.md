@@ -145,17 +145,17 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 |  1110  |   14    |  E  |
 |  1111  |   15    |  F  |
 
-  - Example:
-    - Given `0110 1110 0011 0000 1111 0001 0011 1111`
-      - How would we represent this in Hexadecimal?
-      - Using the table above we find the equivalent representation:
+- Example:
+  - Given `0110 1110 0011 0000 1111 0001 0011 1111`
+    - How would we represent this in Hexadecimal?
+    - Using the table above we find the equivalent representation:
 
-      ``` math
-      \begin{matrix} 0110 \rightarrow 6 \\ 1110 \rightarrow E \\ 0011 \rightarrow 3 \\ 0000 \rightarrow 0 \\ 1111 \rightarrow F \\ 0001 \rightarrow 1 \\ 0011 \rightarrow 3 \\ 1111 \rightarrow F \end{matrix}
-      ```
+``` math
+\begin{matrix} 0110 \rightarrow 6 \\ 1110 \rightarrow E \\ 0011 \rightarrow 3 \\ 0000 \rightarrow 0 \\ 1111 \rightarrow F \\ 0001 \rightarrow 1 \\ 0011 \rightarrow 3 \\ 1111 \rightarrow F \end{matrix}
+```
 
-      - Which we format in Hexadecimal with the prefix `0x`
-      - So it would look like: `0x6E30F13F`
+  - Which we format in Hexadecimal with the prefix `0x`
+    - So it would look like: `0x6E30F13F`
 
 ### Octal
 
