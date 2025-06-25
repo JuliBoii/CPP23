@@ -56,9 +56,9 @@ $$\mathbb{W} = \sum_{n=0}^{\text{digits}}\left(\mathbb{w}_n*10^{n}\right)$$
   - Example 3:
     - For `47` it would be:
   
-  ```math
-  47 = 4*10^{1} + 7*10^{0}
-  ```
+```math
+47 = 4*10^{1} + 7*10^{0}
+```
 
 ### Binary
 
@@ -68,43 +68,47 @@ $$\mathbb{W} = \sum_{n=0}^{\text{digits}}\left(\mathbb{w}_n*10^{n}\right)$$
 - We use a similar formula, however we use the formula to decipher the decimal representation
   - We use the following formula:
 
-    $$\mathbb{N}= B = \sum_{n=0}^{digits} B_n*2^n$$
+$$\mathbb{N}= B = \sum_{n=0}^{\text{digits}} \left(B_n*2^{n}\right)$$
 
-  - Examples:
-    - Given: `100101`
-    $$= 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0$$
-    $$= 32 + 0 + 0 + 4 + 0 + 1$$
-    $$= 37$$
-  - Given: `10010`
+- Examples:
+  - Given: `100101`
 
-    $$1*2^4 + 0*2^3 + 0*2^2 + 1*2^1 + 0*2^0$$
-    $$= 16 + 0 + 0 + 2 + 0$$
-    $$= 18 $$
+```math
+= 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0
+```
+
+  $$= 32 + 0 + 0 + 4 + 0 + 1$$
+  $$= 37$$
+
+- Given: `10010`
+
+  $$1*2^4 + 0*2^3 + 0*2^2 + 1*2^1 + 0*2^0$$
+  $$= 16 + 0 + 0 + 2 + 0$$
+  $$= 18 $$
   
-  - Given: `111`
+- Given: `111`
 
-    $$1*2^2 + 1*2^1 + 1*2^0$$
-    $$= 4 + 2 + 1$$
-    $$= 7 $$
+  $$1*2^2 + 1*2^1 + 1*2^0$$
+  $$= 4 + 2 + 1$$
+  $$= 7 $$
   
 - With binary, we can group the number of bits we want
   - Thus, the possible data representation can vary
   - Looking at the table below
     - We can see the possible data representation dependent on the number of bits we group
 
-  | Digits |        Data Range        |
-  |:------:|:------------------------:|
-  |   1    |           0~1            |
-  |   2    |           0~3            |
-  |   3    |           0~7            |
-  |   4    |           0~15           |
-  |   5    |           0~31           |
-  |  ...   |           ...            |
-  |   n    | 0~$`2^\left(n\right)-1`$ |
+| Digits |        Data Range        |
+|:------:|:------------------------:|
+|   1    |           0~1            |
+|   2    |           0~3            |
+|   3    |           0~7            |
+|   4    |           0~15           |
+|   5    |           0~31           |
+|  ...   |           ...            |
+|   n    | 0~$`2^\left(n\right)-1`$ |
 
   - There also exist some practical groupings of data in modern computers
   - Shown below:
-
 
 | Digits | Bytes | Data Range                   |
 |:------:|:-----:|:-----------------------------|
