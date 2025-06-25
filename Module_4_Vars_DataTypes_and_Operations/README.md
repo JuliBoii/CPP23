@@ -77,17 +77,17 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 \begin{matrix} = 1*2^{5} + 0*2^{4} + 0*2^{3} + 1*2^{2} + 0*2^{1} + 1*2^{0} \\ = 32 + 0 + 0 + 4 + 0 + 1 \\ = 37 \end{matrix}
 ```
 
-- Given: `10010`
+  - Given: `10010`
 
-  $$1*2^4 + 0*2^3 + 0*2^2 + 1*2^1 + 0*2^0$$
-  $$= 16 + 0 + 0 + 2 + 0$$
-  $$= 18 $$
+``` math
+\begin{matrix} = 1*2^{4} + 0*2^{3} + 0*2^{2} + 1*2^{1} + 0*2^{0} \\ = 16 + 0 + 0 + 2 + 0 \\ = 18 \end{matrix}
+```
   
-- Given: `111`
+  - Given: `111`
 
-  $$1*2^2 + 1*2^1 + 1*2^0$$
-  $$= 4 + 2 + 1$$
-  $$= 7 $$
+``` math
+\begin{matrix} = 1*2^{2} + 1*2^{1} + 1*2^{0} \\ = 4 + 2 + 1 \\ = 7 \end{matrix}
+```
   
 - With binary, we can group the number of bits we want
   - Thus, the possible data representation can vary
