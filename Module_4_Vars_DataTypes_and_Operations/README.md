@@ -273,4 +273,4 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 
 The first type of initialization we will look at is braced initialization.
 
-- The syntax is just putting the initalizer value in a pair of curly braces: `{value}`
+- The syntax is just putting the initializer value in a pair of curly braces: `{value}`
