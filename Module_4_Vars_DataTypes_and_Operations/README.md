@@ -181,21 +181,14 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
     - Given `01 101 110 001 100 001 111 000 100 111 111`
       - How do we represent this in Octal?
       - Using the table above we find the equivalent representation:
- 
-        $$01 \rightarrow 1$$
-        $$101 \rightarrow 5$$
-        $$110 \rightarrow 6$$
-        $$001 \rightarrow 1$$
-        $$100 \rightarrow 4$$
-        $$001 \rightarrow 1$$
-        $$111 \rightarrow 7$$
-        $$000 \rightarrow 0$$
-        $$100 \rightarrow 4$$
-        $$111 \rightarrow 7$$
-        $$111 \rightarrow 7$$
-    - Which we format in Octal with the prefix `0`
-      - followed by the number
-    - `0 15614170477`
+
+``` math
+\begin{matrix} 01 \rightarrow 1 \\ 101 \rightarrow 5 \\ 110 \rightarrow 6 \\ 001 \rightarrow 1 \\ 100 \rightarrow 4 \\ 001 \rightarrow 1 \\ 111 \rightarrow 7 \\ 000 \rightarrow 0 \\ 100 \rightarrow 4 \\ 111 \rightarrow 7 \\ 111 \rightarrow 7 \end{matrix}
+```
+
+  - Which we format in Octal with the prefix `0`
+    - followed by the number
+  - `0 15614170477`
 
 [Use this page for a sample table converting between Binary, Decimal, & Hexadecimal](https://servicenow.iu.edu/kb?id=kb_article_view&sysparm_article=KB0026046)
 
