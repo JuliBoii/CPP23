@@ -68,17 +68,16 @@ $$\mathbb{W} = \sum_{n=0}^{\text{digits}}\left(\mathbb{w}_n*10^{n}\right)$$
 - We use a similar formula, however we use the formula to decipher the decimal representation
   - We use the following formula:
 
-$$\mathbb{N}= B = \sum_{n=0}^{\text{digits}} \left(B_n*2^{n}\right)$$
+$$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 
 - Examples:
   - Given: `100101`
 
 ```math
 = 1*2^5 + 0*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0
+= 32 + 0 + 0 + 4 + 0 + 1
+= 37
 ```
-
-  $$= 32 + 0 + 0 + 4 + 0 + 1$$
-  $$= 37$$
 
 - Given: `10010`
 
