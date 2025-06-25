@@ -228,7 +228,7 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 | long double |   8 bytes    | ~15 digits (MSVC)      | Same as double on Windows/MSVC       |
 | long double | 10/16 bytes  | ~18 digits (GCC/Clang) | 80-bit or 128-bit extended precision |
 
-### Memory Representation
+## Memory Representation
 
 - A single-precision float (float) in C++ is stored as a 32-bit binary value
   - Divided into 3 components:
