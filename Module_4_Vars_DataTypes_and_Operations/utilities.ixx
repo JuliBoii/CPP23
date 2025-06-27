@@ -87,3 +87,58 @@ export void print_type_ranges()
 
 	fmt::print("int digits: {}\n\n", std::numeric_limits<int>::digits);
 }
+
+export void types_of_initializers()
+{
+	fmt::print("Braced Initialization Example:\n");
+	int elephant_count;	// Initialized to junk
+	int lion_count{};	// Initialized to zero
+	int dog_count{10};	// Initialized to 10
+	int cat_count{15};	// Initialized to 15
+
+	// Can use expression as initializer
+	int domesticated_animals{dog_count + cat_count};
+
+	// int new_number{doesnt_exist};
+	// int narrowing_conversion{2.8};	// Error
+
+	fmt::print("Elephant count: {}\n", elephant_count);
+	fmt::print("Lion count: {}\n", lion_count);
+	fmt::print("Dog count: {}\n", dog_count);
+	fmt::print("Cat count: {}\n", cat_count);
+	fmt::print("Domesticated animal count: {}\n\n", domesticated_animals);
+
+	fmt::print("Functional Initialization Example:\n");
+
+	// int test();	// Error
+	int apple_count(5);
+	int orange_count(10);
+	int fruit_count(apple_count + orange_count);
+	// int bad_initialization(doesnt_exist2 + doesnt_exist3);
+
+	// Information lost.
+	// Less safe than braced initialization
+	int narrowing_conversion_functional(2.9);
+
+	fmt::print("Apple count: {}\n", apple_count);
+	fmt::print("Orange count: {}\n", orange_count);
+	fmt::print("Fruit count: {}\n", fruit_count);
+	// Will lose information
+	fmt::print("Narrowing conversion (functional): {}\n\n", narrowing_conversion_functional);
+
+	fmt::print("Assignment Initialization Example:\n");
+
+	int bike_count = 2;
+	int truck_count = 7;
+	int vehicle_count = bike_count + truck_count;
+	int narrowing_conversion_assignment = 2.8;
+
+	fmt::print("Bike count: {}\n", bike_count);
+	fmt::print("Truck count: {}\n", truck_count);
+	fmt::print("Vehicle count: {}\n", vehicle_count);
+	fmt::print("Narrowing conversion: {}\n", narrowing_conversion_assignment);
+
+	// Check the size with sizeof()
+	fmt::println("sizeof int: {}", sizeof(int));
+	fmt::println("sizeof truck_count: {}", sizeof(truck_count));
+}

@@ -7,5 +7,7 @@ int main() {
 
     print_type_ranges();
 
+    types_of_initializers();
+
     return 0;
 }
