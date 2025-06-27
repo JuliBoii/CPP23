@@ -274,3 +274,113 @@ $$\mathbb{N} = B = \sum_{n=0}^{\text{digits}}\left(B_n*2^{n}\right)$$
 The first type of initialization we will look at is braced initialization.
 
 - The syntax is just putting the initializer value in a pair of curly braces: `{value}`
+- If you do not put in a value
+
+``` c++
+int temp{};
+```
+
+  - The compiler will recognize that the curly braces are empty and initialize the variable with either `0/false/nullptr`
+    - Depends on the variable type
+  - **_Note this only occurs for braced initialization_**
+    - Thus, if we did:
+
+  ```c++
+  int elephant_count;
+  ```
+  
+  - Dependent on the compiler, the variable will be initialized with junk
+  - **Thus, it is recommended to put an initialized value in variables, when declared**
+- We can also use an expression as an initializer
+  - For example:
+  
+    ```c++
+    int domesticated_animals{dog_count + cat_count};
+    ```
+    
+    - We use the result from `dog_count + cat_count` as the initializer value
+- We **cannot** initialize a value, or a variable with a variable that does not exist
+  - For example:
+  
+    ```c++
+    int new_number{doesnt_exit};
+    ```
+    
+    - We use `doesnt_exist` as the initializer value
+    - But we never declared the variable nor initialized it
+    - **If we tried to, the compiler will throw an error and fail**
+- Braced will also warn you if you try to implicitly type convert
+  - For example:
+  
+    ```c++
+    int conversion_var{2.9};
+    ```
+    
+    - In this case, we are trying to initialize an integer variable with a floating-point number
+      - In other words, we are using two different types
+      - In some cases, the compiler will try to drop the decimal points, but this is not guaranteed behavior
+        - That is why it is not recommended to do implicit conversion
+    - Another reason, to use braced initialization
+      - The compiler will see this situation and throw an error, depending on the compiler
+        - Some may throw a warning
+
+### Functional Initialization
+
+Next type of initialization is functional initialization
+
+- The syntax is just putting the initializer value in a pair of parentheses: `(value)`
+- This type of initialization will not have a default initialization behavior like braced
+  - Thus writing `int varA();` will throw an error
+  - Since the compiler will assume you are trying to declare or use a function
+- Similar to braced initialization
+  - We can also use an expression as an initializer
+    - For example:
+      ```c++
+      int domesticated_animals(dog_count + cat_count);
+      ```
+      - We use the result from `dog_count + cat_count` as the initializer value
+  - We **cannot** initialize a variable with another variable that does not exist
+    - For example:
+      ```c++
+      int new_number(doesnt_exit2 + doesnt_exist3);
+      ```
+      - We use `doesnt_exist2` and `doesnt_exist3` as the initializer values
+      - But we never declared the variables nor initialized them
+      - **If we tried to, the compiler will throw an error and fail**
+- Unlike braced initialization, functional initialization **will allow** you to implicitly type convert
+  - For example:
+
+    ```c++
+    int conversion_var(2.9);
+    ```
+    
+    - In this case, we are trying to initialize an integer variable with a floating-point number
+      - The compiler will try to drop the decimal point and only store the integer
+      - However, this is **not** an ideal way to do things in Modern C++
+        - Again, it is recommended to use braced initialization
+
+### Assignment Initialization
+
+The next type of initialization is assignment initialization
+
+- The syntax is just putting the initializer value on the right side of the `=` operator: `int temp = 8;`
+  - This is also an old manner of initializing variables in C++
+    - It is also recommended to not use this method, when possible
+- This method requires a value on the right side of the operator, otherwise the compiler will throw an error
+- Similar to the previous methods, we can also use an expression as an initializer
+  - For example:
+    ```c++
+	int domesticated_animals = dog_count + cat_count;
+	```
+    
+- Like functional initialization, assignment initialization **will allow** you to implicitly type convert
+  - For example:
+
+    ```c++
+    int conversion_var = 2.9;
+    ```
+
+    - In this case, we are trying to initialize an integer variable with a floating-point number
+      - The compiler will try to drop the decimal point and only store the integer
+
+---
