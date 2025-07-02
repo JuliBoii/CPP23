@@ -444,4 +444,75 @@ These are not the only modifiers in C++. The following two can also be used
 It should be noted, the previous sets can be used together. Looking in the `utilities.ixx` file,
 navigating to the `export void integer_mods()` function, we can see examples of the possible combinations.
 
-## Fractional Numbers
+## Fractional Number Representation
+
+### Precision
+
+The following is an example of how we declare and initialize floating-point variables
+
+``` c++
+float number1{1.12345678901234567890f}; // Precision: 7
+double number2{1.12345678901234567890}; // Precision: 15
+long double number3{1.12345678901234567890L};
+
+// Print out the size
+std::cout << "Size of float: " << sizeof(float) << "\n";
+std::cout << "Size of double: " << sizeof(double) << "\n";
+std::cout << "Size of long double: " << sizeof(long double) << "\n";
+
+// Precision
+std::cout << "number1 is: " << number1 << "\n"; // 7 digits
+std::cout << "number2 is: " << number2 << "\n"; // ~15 digits
+std::cout << "number3 is: " << number3 << "\n"; // 15+ digits
+```
+
+- The problem:
+  - With `float` the precision is usually too limited
+    - for various applications
+
+```c++
+float number4{192400023.0f};    // Error: Narrowing conversion
+```
+
+- In these examples, we are focusing on the representation we use to signal the types we are working with
+  - The example above used `fixed notation`
+
+### Scientific Notation
+
+If we want to represent our data in scientific notation
+- We grab the location where the decimal point is
+  - Add an exponent
+  - `e` meaning how many zeros or how many digit places we will have to go after the decimal point
+- Looking at our example below, we compare fixed- & scientific notation
+
+``` c++
+double number5{192400023};
+double number6{1.92400023e8}; // fixed notation
+double number7{1.924e8};  // Scientific notation
+```
+
+- `e` is equivalent to $`1 * 10^{n}`$
+  - Where `n` is the number of decimal places to move forward or backward
+  - Thus, number7 is represented as $`1.924 * 10^{8}`$
+- You may also notice that we are purposely losing data by dropping `00023` from the scientific notation
+  - It is something that we have to deal with
+- Overall, we can use fixed or scientific notation to initialize our floating-point variables
+- **It is handy if you have really huge numbers or small numbers to represent**
+
+### Infinity & NaN
+
+- You get infinity when you try to divide a big number with a small number
+  - _This is a very simple and general explanation_
+  - When we do the supposed scenario, the result is a number so big
+    - That the computer is unable to represent it
+    - Resulting in `inf`
+      - The representation of infinity
+  - We also provide an example where if you add a number to infinity: $`\infty + n = \infty`$
+    - You get infinity
+  - The same applies if you subtract a number to infinity: $`\infty - n = \infty`$
+    - You get infinity
+  - A concept that is shown in math
+- The other concept is `NaN`, which you get when you try to divide a zero by zero
+  - Resulting in a "Not a Number"
+    - Something that cannot be accurately represented
+  - Which is represented as `nan` in C++

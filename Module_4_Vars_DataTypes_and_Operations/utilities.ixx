@@ -241,5 +241,59 @@ export void integer_mods()
 	fmt::print("\nsigned_long_long_var: {}\nsizeof(signed_long_long_var): {}\n", signed_long_long_var, sizeof(signed_long_long_var));
 	fmt::print("\nsigned_long_long_int: {}\nsizeof(signed_long_long_int): {}\n", signed_long_long_int, sizeof(signed_long_long_int));
 	fmt::print("\nunsigned_long_long_var: {}\nsizeof(unsigned_long_long_var): {}\n", unsigned_long_long_var, sizeof(unsigned_long_long_var));
+}
 
+export void floating_point_representation()
+{
+	fmt::print("Floating Point Representation:\n");
+	float number1{1.12345678901234567890f};
+	double number2{1.12345678901234567890};
+	long double number3{1.12345678901234567890L};
+
+	// Print out Sizes
+	fmt::print("Size of float: {}\n", sizeof(float));
+	fmt::print("Size of double: {}\n", sizeof(double));
+	fmt::print("Size of long double: {}\n", sizeof(long double));
+
+	// Precision
+	fmt::print("number1: {}\n", number1);
+	fmt::print("number2: {}\n", number2);
+	fmt::print("number3: {}\n", number3);
+
+	float number4 = 192400023.0f;	// Error: Narrowing Conversion
+
+	fmt::println("number4: {}", number4);
+
+	// Scientific Notation
+	double number5{192400023};
+	double number6{1.92400023e8};
+	double number7{1.924e8};
+	double number8{0.00000000003498};
+	double number9{3.498e-11};
+
+	fmt::println("number5: {}", number5);
+	fmt::println("number6: {}", number6);
+	fmt::println("number7: {}", number7);
+	fmt::println("number8: {}", number8);
+	fmt::println("number9: {}\n", number9);
+}
+
+export void infinity_and_nan()
+{
+	fmt::println("Infinity & NaN:");
+	// Infinity & NaN
+	double number1{-5.6};
+	double number2{};	// Init to 0
+	double number3{};	// Init to 0
+
+	// Infinity
+	double result{number1 / number2};
+
+	fmt::println("{} / {} yields {}", number1, number2, result);
+	fmt::println("{} + {} yields {}", result, number1, result + number1);
+
+	// NaN
+	result = number2 / number3;
+
+	fmt::println("{} / {} yields {}", number2, number3, result);
 }
