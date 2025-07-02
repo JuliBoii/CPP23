@@ -384,3 +384,64 @@ The next type of initialization is assignment initialization
       - The compiler will try to drop the decimal point and only store the integer
 
 ---
+
+## Integer Modifiers
+
+Integer modifiers are words that you can prepend to the variable type to change how it behaves by default.
+
+### Signed
+
+- Modifier makes sure a variable can store both negative and positive values
+  - This is typically the _**default**_ behavior for variables
+  - Thus, even if you do not put the `signed` modifier
+    - The variable will work as if the variable did have the modifier
+- The range of values they can store is:
+
+```math
+-2^{n-1} ~ 2^{n-1}-1
+```
+
+- `n` is the number of bits for a type in memory
+
+### Unsigned
+
+- Modifier makes sure a variable can **_only_** store positive values
+  - If you attempt to store negative values, the compiler will throw an error
+- The range of values they can store is:
+
+```math
+0 ~ 2^{n}-1
+```
+
+- `n` is the number of bits for a type in memory
+- Looking at both value modifiers:
+
+|  Type with modifier |  Bytes in memory  |               Range               |
+|--------------------:|:-----------------:|:---------------------------------:|
+|        unsigned int |         4         |        [0, 4,294,967,295]         |
+|          signed int |         4         |  [-2,147,483,648, 2,147,483,647]  |
+
+These are not the only modifiers in C++. The following two can also be used
+
+### Short
+
+- `short` is going to shorten the range or the size of a type in memory
+- Normally, an integer takes 4 bytes of memory
+  - But, if you prefix the `short` modifier to an integer
+    - It will become a `short int`, thus will only occupy 2 bytes of memory
+
+### Long
+
+- `long` is going to try to extend the size of a type in C++
+- We know that a standard integer will take 4 bytes
+  - But, if you prefix the `long` modifier to an integer
+    - It will _probably_ take 4 or 8 bytes.
+    - **_This strongly depends on the compiler & system_**
+- You can also use `long long`, which should also be 8 bytes
+  - Although they can be combined, the behavior will be equivalent to a singular `long`
+
+
+It should be noted, the previous sets can be used together. Looking in the `utilities.ixx` file,
+navigating to the `export void integer_mods()` function, we can see examples of the possible combinations.
+
+## Fractional Numbers

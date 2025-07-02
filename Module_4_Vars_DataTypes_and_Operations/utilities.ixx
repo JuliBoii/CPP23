@@ -140,5 +140,45 @@ export void types_of_initializers()
 
 	// Check the size with sizeof()
 	fmt::println("sizeof int: {}", sizeof(int));
-	fmt::println("sizeof truck_count: {}", sizeof(truck_count));
+	fmt::println("sizeof truck_count: {}\n", sizeof(truck_count));
+}
+
+export void integer_mods()
+{
+	fmt::print("Value Modifiers:\n");
+	// Integer Modifiers
+	signed int value1{10};
+	signed int value2{-300};
+	unsigned int value3{4294967290};
+
+	fmt::print("value1: {}\nsizeof(value1): {}\n", value1, sizeof(value1));
+	fmt::print("value2: {}\nsizeof(value2): {}\n", value2, sizeof(value2));
+	fmt::print("value3: {}\nsizeof(value3): {}\n", value3, sizeof(value3));
+
+	// unsigned int value4{-5};	// Compiler Error
+
+	fmt::print("\nShort & Long variables:\n");
+
+	short short_var{-32768};	// 2 Bytes
+	short int short_int{455};
+	signed short signed_short_var{-122};
+	signed short int signed_short_int{-456};
+	unsigned short int unsigned_short_int{456};
+
+	int int_var{55};			// 4 Bytes
+	signed signed_var{4566};
+	signed int signed_int{-21474836};
+	unsigned int unsigned_int{42949672};
+
+	long long_var{88};			// 4 or 8 Bytes
+	long int long_int{33};
+	signed long signed_long_var{44};
+	signed long int signed_long_int{44};
+	unsigned long int unsigned_long_int{44};
+
+	long long long_long{888};	// 8 Bytes
+	long long int long_long_int{999};
+	signed long long signed_long_long_var{999};
+	signed long long int signed_long_long_int{1234};
+	unsigned long long int unsigned_long_long_var{1234};
 }

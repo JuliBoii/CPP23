@@ -9,5 +9,7 @@ int main() {
 
     types_of_initializers();
 
+    integer_mods();
+
     return 0;
 }
