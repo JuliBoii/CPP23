@@ -1,14 +1,13 @@
 import utilities;
 
 int main() {
+    /*// Section 1
     number_systems();
-
     decimal_representation();
+    print_type_ranges();*/
 
-    print_type_ranges();
-
-    types_of_initializers();
-
+    // Section 2
+    // types_of_initializers();
     integer_mods();
 
     return 0;
