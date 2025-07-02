@@ -51,11 +51,21 @@ export void print_type_ranges()
 		std::numeric_limits<short>::min(),
 		std::numeric_limits<short>::max());
 
+	fmt::print("The range for short int is from {} to {}\n",
+		std::numeric_limits<short int>::min(),
+		std::numeric_limits<short int>::max()
+	);
+
 	fmt::print("The range for unsigned short is from {} to {}\n",
 		std::numeric_limits<unsigned short>::min(),
 		std::numeric_limits<unsigned short>::max());
 
-	fmt::print("The range for int is from {} to {}\n",
+	fmt::print("The range for an unsigned short int is from {} to {}\n",
+		std::numeric_limits<unsigned short int>::min(),
+		std::numeric_limits<unsigned short int>::max()
+	);
+
+	fmt::print("\nThe range for int is from {} to {}\n",
 		std::numeric_limits<int>::min(),
 		std::numeric_limits<int>::max());
 
@@ -63,11 +73,38 @@ export void print_type_ranges()
 		std::numeric_limits<unsigned int>::min(),
 		std::numeric_limits<unsigned int>::max());
 
-	fmt::print("The range for long is from {} to {}\n",
+	fmt::print("\nThe range for long is from {} to {}\n",
 		std::numeric_limits<long>::min(),
 		std::numeric_limits<long>::max());
 
-	fmt::print("The range for float is from {} to {}\n",
+	fmt::print("The range for long int is from {} to {}\n",
+		std::numeric_limits<long int>::min(),
+		std::numeric_limits<long int>::max()
+	);
+
+	fmt::print("The range for signed long int is from {} to {}\n",
+		std::numeric_limits<signed long int>::min(),
+		std::numeric_limits<signed long int>::max()
+	);
+
+	fmt::print("The range for unsigned long is from {} to {}\n",
+		std::numeric_limits<unsigned long>::min(),
+		std::numeric_limits<unsigned long >::max()
+	);
+
+
+	fmt::print("The range for unsigned long int is from {} to {}\n",
+		std::numeric_limits<unsigned long int>::min(),
+		std::numeric_limits<unsigned long int>::max()
+	);
+
+	fmt::print("The range for long long is from {} to {}\n",
+		std::numeric_limits<long long>::min(),
+		std::numeric_limits<long long>::max()
+	);
+
+
+	fmt::print("\nThe range for float is from {} to {}\n",
 		std::numeric_limits<float>::min(),
 		std::numeric_limits<float>::max());
 
@@ -83,7 +120,7 @@ export void print_type_ranges()
 		std::numeric_limits<long double>::lowest(),
 		std::numeric_limits<long double>::max());
 
-	fmt::print("int is signed: {}\n", std::numeric_limits<int>::is_signed);
+	fmt::print("\nint is signed: {}\n", std::numeric_limits<int>::is_signed);
 
 	fmt::print("int digits: {}\n\n", std::numeric_limits<int>::digits);
 }
