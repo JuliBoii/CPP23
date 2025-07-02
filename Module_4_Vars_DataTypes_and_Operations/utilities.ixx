@@ -202,20 +202,44 @@ export void integer_mods()
 	signed short int signed_short_int{-456};
 	unsigned short int unsigned_short_int{456};
 
+	fmt::print("short_var: {}\nsizeof(short_var): {}\n", short_var, sizeof(short_var));
+	fmt::print("\nshort_int: {}\nsizeof(short_int): {}\n", short_int, sizeof(short_int));
+	fmt::print("\nsigned_short_var: {}\nsizeof(signed_short_var): {}\n", signed_short_var, sizeof(signed_short_var));
+	fmt::print("\nsigned_short_int: {}\nsizeof(signed_short_int): {}\n", signed_short_int, sizeof(signed_short_int));
+	fmt::print("\nunsigned_short_int: {}\nsizeof(unsigned_short_int): {}\n", unsigned_short_int, sizeof(unsigned_short_int));
+
 	int int_var{55};			// 4 Bytes
 	signed signed_var{4566};
 	signed int signed_int{-21474836};
 	unsigned int unsigned_int{42949672};
 
-	long long_var{88};			// 4 or 8 Bytes
-	long int long_int{33};
-	signed long signed_long_var{44};
-	signed long int signed_long_int{44};
-	unsigned long int unsigned_long_int{44};
+	fmt::print("\nint_var: {}\nsizeof(int_var): {}\n", int_var, sizeof(int_var));
+	fmt::print("\nsigned_var: {}\nsizeof(signed_var): {}\n", signed_var, sizeof(signed_var));
+	fmt::print("\nsigned_int: {}\nsizeof(signed_int): {}\n", signed_int, sizeof(signed_int));
+	fmt::print("\nunsigned_int: {}\nsizeof(unsigned_int): {}\n", unsigned_int, sizeof(unsigned_int));
 
-	long long long_long{888};	// 8 Bytes
-	long long int long_long_int{999};
-	signed long long signed_long_long_var{999};
-	signed long long int signed_long_long_int{1234};
-	unsigned long long int unsigned_long_long_var{1234};
+	long long_var{-922337};			// 4 or 8 Bytes
+	long int long_int{9223};
+	signed long signed_long_var{-9223372};
+	signed long int signed_long_int{9223372};
+	unsigned long int unsigned_long_int{1844674};
+
+	fmt::print("\nlong_var: {}\nsizeof(long_var): {}\n", long_var, sizeof(long_var));
+	fmt::print("\nlong_int: {}\nsizeof(long_int): {}\n", long_int, sizeof(long_int));
+	fmt::print("\nsigned_long_var: {}\nsizeof(signed_long_var): {}\n", signed_long_var, sizeof(signed_long_var));
+	fmt::print("\nsigned_long_int: {}\nsizeof(signed_long_int): {}\n", signed_long_int, sizeof(signed_long_int));
+	fmt::print("\nunsigned_long_int: {}\nsizeof(unsigned_long_int): {}\n", unsigned_long_int, sizeof(unsigned_long_int));
+
+	long long long_long{92233720365477};	// 8 Bytes
+	long long int long_long_int{922337236854};
+	signed long long signed_long_long_var{-92233736854775};
+	signed long long int signed_long_long_int{-922337205807};
+	unsigned long long int unsigned_long_long_var{184467440770955};
+
+	fmt::print("\nlong_long: {}\nsizeof(long_long): {}\n", long_long, sizeof(long_long));
+	fmt::print("\nlong_long_int: {}\nsizeof(long_long_int): {}\n", long_long_int, sizeof(long_long_int));
+	fmt::print("\nsigned_long_long_var: {}\nsizeof(signed_long_long_var): {}\n", signed_long_long_var, sizeof(signed_long_long_var));
+	fmt::print("\nsigned_long_long_int: {}\nsizeof(signed_long_long_int): {}\n", signed_long_long_int, sizeof(signed_long_long_int));
+	fmt::print("\nunsigned_long_long_var: {}\nsizeof(unsigned_long_long_var): {}\n", unsigned_long_long_var, sizeof(unsigned_long_long_var));
+
 }
