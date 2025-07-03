@@ -516,3 +516,34 @@ double number7{1.924e8};  // Scientific notation
   - Resulting in a "Not a Number"
     - Something that cannot be accurately represented
   - Which is represented as `nan` in C++
+
+## Boolean
+
+Booleans are types that you use to store `true` and `false` values
+
+- This type has two states:
+  - True
+  - False
+- Example:
+  - We have a variable that tracks if we are happy or sad
+  - So at any point we could be happy or sad
+  - This would be a boolean
+    - Since there are two possible states
+- We represent booleans using the `bool` type
+  - We specify the type `bool`
+  - Give it a variable name `some_name`
+  - Then initialize the variable with `true` or `false`
+    - We could also initialize the bool with integers other than `0` and `1`
+      - But they would be considered equivalent to `0`, which is `false`
+- If you try to print out a bool
+  - They will be printed out as a `0` or `1`
+    - Rather than false or true, respectively
+  - _In our code example `fmt` automatically formats bool output as true or false_
+- In summary, we use bools to store information that has a binary state
+  - The value is going to be true or false
+
+## Characters & Text
+
+We will be exploring the type that C++ provides to store characters.
+
+- C++ stores characters in the data type `char`

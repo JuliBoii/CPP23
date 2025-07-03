@@ -295,5 +295,43 @@ export void infinity_and_nan()
 	// NaN
 	result = number2 / number3;
 
-	fmt::println("{} / {} yields {}", number2, number3, result);
+	fmt::println("{} / {} yields {}\n", number2, number3, result);
+}
+
+export void bool_type()
+{
+	bool red_light{true};
+	bool green_light{false};
+
+	if (red_light == true)
+	{
+		fmt::println("Stop!!!");
+	} else
+	{
+		fmt::println("Go Through!");
+	}
+
+	// An implicit variation of the example above
+	if (green_light)
+	{
+		fmt::println("Go on...");
+	} else
+	{
+		fmt::println("NOT GREEN!!!");
+	}
+
+	// sizeof()
+	fmt::println("Size of a Bool: {}", sizeof(bool));
+
+	// Printing out a bool
+	// 1 = true
+	// 0 = false
+	fmt::println("red_light: {}", red_light);
+	fmt::println("green_light: {}\n", green_light);
+
+}
+
+export void char_type()
+{
+
 }

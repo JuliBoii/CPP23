@@ -9,8 +9,9 @@ int main() {
     // Section 2
     // types_of_initializers();
     // integer_mods();
-    floating_point_representation();
-    infinity_and_nan();
+    // floating_point_representation();
+    // infinity_and_nan();
+    bool_type();
 
     return 0;
 }
