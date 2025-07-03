@@ -29,7 +29,10 @@ Part 2
     - Infinity and NaN
   - Booleans
   - Characters & Text
+    - `char`
+    - Collections
   - `auto`
+
 ---
 
 ## Number Systems
@@ -444,6 +447,8 @@ These are not the only modifiers in C++. The following two can also be used
 It should be noted, the previous sets can be used together. Looking in the `utilities.ixx` file,
 navigating to the `export void integer_mods()` function, we can see examples of the possible combinations.
 
+---
+
 ## Fractional Number Representation
 
 ### Precision
@@ -517,6 +522,8 @@ double number7{1.924e8};  // Scientific notation
     - Something that cannot be accurately represented
   - Which is represented as `nan` in C++
 
+---
+
 ## Boolean
 
 Booleans are types that you use to store `true` and `false` values
@@ -542,7 +549,11 @@ Booleans are types that you use to store `true` and `false` values
 - In summary, we use bools to store information that has a binary state
   - The value is going to be true or false
 
+---
+
 ## Characters & Text
+
+### Char
 
 We will be exploring the type that C++ provides to store characters.
 
@@ -563,3 +574,7 @@ char char_variable_name{'a'};
   - Looking at an [ASCII table](https://www.asciitable.com/), we can see such information
   - Lowercase letters are mapped between `97 ~ 122`
   - Uppercase letters are mapped between `65 ~ 90`
+
+### Collections
+
+Collections are facilities that allow you to store groups of data.
