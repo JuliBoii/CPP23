@@ -11,7 +11,8 @@ int main() {
     // integer_mods();
     // floating_point_representation();
     // infinity_and_nan();
-    bool_type();
+    // bool_type();
+    char_type();
 
     return 0;
 }

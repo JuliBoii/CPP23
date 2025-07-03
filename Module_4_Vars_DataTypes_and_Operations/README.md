@@ -547,3 +547,19 @@ Booleans are types that you use to store `true` and `false` values
 We will be exploring the type that C++ provides to store characters.
 
 - C++ stores characters in the data type `char`
+- To use the data type, we first type `char`
+  - Followed by a variable name `some_name`
+  - Then initialized with a character literal surrounded by single quotes
+  - Example below:
+
+```c++
+char char_variable_name{'a'};
+```
+
+- In most cases, `char` is going to occupy 1 byte of memory
+  - So, its range is $`2^{8} = 256`$ different values: `(0 ~ 255)`
+- We can also store an integer equivalent of a character
+- Using the ASCII System, numbers are mapped to characters
+  - Looking at an [ASCII table](https://www.asciitable.com/), we can see such information
+  - Lowercase letters are mapped between `97 ~ 122`
+  - Uppercase letters are mapped between `65 ~ 90`

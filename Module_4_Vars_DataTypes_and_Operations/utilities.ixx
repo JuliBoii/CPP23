@@ -333,5 +333,19 @@ export void bool_type()
 
 export void char_type()
 {
+	char character1{'a'};
+	char character2{'r'};
+	char character3{'r'};
+	char character4{'o'};
+	char character5{'w'};
 
+	fmt::println("{}", character1);
+	fmt::println("{}", character2);
+	fmt::println("{}", character3);
+	fmt::println("{}", character4);
+	fmt::println("{}", character5);
+
+	char value = 65;	// ASCII character code for 'A'
+	fmt::println("value: {}", value);	// 'A'
+	fmt::println("value(int): {}\n", static_cast<int>(value));
 }
