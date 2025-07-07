@@ -7,7 +7,7 @@
 Part 1
 
 - Exploring variables and data types
-- Topics
+- Topics:
   - Number systems for integers
     - Decimal, Octal, Hexadecimal and Binary
   - Data representation in memory
@@ -17,7 +17,7 @@ Part 1
 Part 2
 
 - Integer Modifies, Characters, Text, & `auto`
-- Topics
+- Topics:
   - Initialization:
     - Braced initialization
     - Function style initialization
@@ -35,6 +35,28 @@ Part 2
     - `std::array`
     - `std::string`
   - `auto`
+
+Part 3
+
+- Operations, Math Functions, and Weird Integer Types
+- Topics:
+  - Basic Operations
+    - Addition
+    - Subtraction
+    - Multiplication
+    - Division
+    - Modulus
+  - Precedence & Associativity
+  - Increment & Decrement (Prefix & Postfix)
+  - Compound Assignment Operators
+  - Relational Operators
+  - Logical Operators
+  - Math Functions
+  - Weird Integral Types
+  - Data Conversion
+    - Implicit
+    - Explicit
+    - Overflow & Underflow
 
 ---
 
@@ -655,3 +677,8 @@ A way to declare variables without explicitly specifying their types.
 - The compiler deduces the variable type based on what you initialize your variable with
 - If we want the compiler to use a more specific type of variable
   - We can provide modifier suffixes
+
+---
+
+## Basic Operations
+
