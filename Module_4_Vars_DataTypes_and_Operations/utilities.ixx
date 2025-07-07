@@ -1,7 +1,10 @@
 module;
 
 # include <fmt/format.h>
+# include <array>
 # include <limits>
+# include <string>
+# include <vector>
 
 export module utilities;
 
@@ -348,4 +351,36 @@ export void char_type()
 	char value = 65;	// ASCII character code for 'A'
 	fmt::println("value: {}", value);	// 'A'
 	fmt::println("value(int): {}\n", static_cast<int>(value));
+}
+
+export void collection_of_chars()
+{
+	const std::vector<char> characters1{'a', 'r', 'r', 'o', 'w'};
+	constexpr std::array<char, 5> characters2{'a', 'r', 'r', 'o', 'w'};
+
+	fmt::print("Vector:\n");
+	fmt::print("{}\n", characters1[0]);
+	fmt::print("{}\n", characters1[1]);
+	fmt::print("{}\n", characters1[2]);
+	fmt::print("{}\n", characters1[3]);
+	fmt::print("{}\n\n", characters1[4]);
+
+	fmt::print("Array:\n");
+	fmt::print("{}\n", characters2[0]);
+	fmt::print("{}\n", characters2[1]);
+	fmt::print("{}\n", characters2[2]);
+	fmt::print("{}\n", characters2[3]);
+	fmt::print("{}\n\n", characters2[4]);
+
+	// Print all characters in one go: compiler error
+	// fmt::print("{}", characters1);
+
+	fmt::print("Printing string:\n");
+	std::string message{"arrow"};
+	fmt::print("{}\n", message);
+
+	// Doing more stuff with std::string
+	message = "Hello";
+	message.append(" there!");
+	fmt::print("{}\n\n", message);
 }

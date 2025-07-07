@@ -12,7 +12,8 @@ int main() {
     // floating_point_representation();
     // infinity_and_nan();
     // bool_type();
-    char_type();
+    // char_type();
+    collection_of_chars();
 
     return 0;
 }

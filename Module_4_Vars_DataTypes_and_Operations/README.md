@@ -578,3 +578,69 @@ char char_variable_name{'a'};
 ### Collections
 
 Collections are facilities that allow you to store groups of data.
+
+We want to the ways we can group things together and treat them as a single unity. Think of it as 
+putting items in a box, and handling them as a single thing.
+
+- We are introduced to two types
+  - `std::vector`
+  - `std::array`
+    - If we want a more detailed information we can use [CPP Reference](https://cppreference.com/)
+
+#### `std::vector`
+
+- Is a sequence container that encapsulates dynamic sized arrays
+- This will be storing elements in a sequence
+  - Thus being aligned in sequence in memory
+- To use a vector we declare it like the following:
+  - But first, we have to declare that we are using the `vector` library
+
+```c++
+#include <vector>
+
+//std::vector<data_type> some_name{};
+std::vector<char> some_name{'s','f','g','r','l'};
+```
+
+#### `std::array`
+
+- Is a container that encapsulates fixed sized arrays
+- This container is _"fixed"_, so we have to define the size of the array
+  - Additionally, once defined, we cannot increase nor decrease the size of the array
+- To use an array we declare it like the following:
+  - But first, we have to declare that we are using the `array` library
+
+```c++
+#include <array>
+
+//std::array<data_type, array_size> some_name{};
+std::array<char, 5> some_name{'s','f','g','r','l'};
+```
+
+_An important thing to remember is that each container can **only** hold a single type of data_
+
+So we cannot add various types of data into either container, if we do, it will result in a compiler error
+
+#### std::string
+
+There is another method to group characters. We use the `string` type
+
+- This type is can print the collection of characters as one output.
+- To use a string, we declare it like the following:
+  - But first, we have to declare that we are using the `string` library
+
+```c++
+#include <string>
+
+std::string some_name{"A string"};
+```
+
+- We specify a variable name
+- Then we specify our characters within double quotes
+
+_Not mentioned, but each of these containers have additional functions that can manipulate
+each container. Each have their independent functions that can be found respectively using the
+resource mentioned earlier (CPP Reference)._
+
+---
+
