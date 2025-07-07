@@ -384,3 +384,26 @@ export void collection_of_chars()
 	message.append(" there!");
 	fmt::print("{}\n\n", message);
 }
+
+export void auto_example()
+{
+	auto var1{12};
+	auto var2{13.542};
+	auto var3{14.0f};
+	auto var4{15.0l};
+	auto var5{'e'};
+
+	// int modifier suffix
+	auto var6{123u};	// unsigned
+	auto var7{1243ul};	// unsigned long
+	auto var8{1234ll};	// long long
+
+	fmt::print("var1 occupies: {} bytes\n", sizeof(var1));
+	fmt::print("var2 occupies: {} bytes\n", sizeof(var2));
+	fmt::print("var3 occupies: {} bytes\n", sizeof(var3));
+	fmt::print("var4 occupies: {} bytes\n", sizeof(var4));
+	fmt::print("var5 occupies: {} bytes\n", sizeof(var5));
+	fmt::print("var6 occupies: {} bytes\n", sizeof(var6));
+	fmt::print("var7 occupies: {} bytes\n", sizeof(var7));
+	fmt::print("var8 occupies: {} bytes\n", sizeof(var8));
+}

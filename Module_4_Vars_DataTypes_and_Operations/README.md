@@ -30,7 +30,10 @@ Part 2
   - Booleans
   - Characters & Text
     - `char`
-    - Collections
+  - Collections
+    - `std::vector`
+    - `std::array`
+    - `std::string`
   - `auto`
 
 ---
@@ -644,3 +647,11 @@ resource mentioned earlier (CPP Reference)._
 
 ---
 
+## `auto` Keyword
+
+A way to declare variables without explicitly specifying their types.
+
+- Handy especially in generic programming
+- The compiler deduces the variable type based on what you initialize your variable with
+- If we want the compiler to use a more specific type of variable
+  - We can provide modifier suffixes

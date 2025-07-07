@@ -13,7 +13,8 @@ int main() {
     // infinity_and_nan();
     // bool_type();
     // char_type();
-    collection_of_chars();
+    // collection_of_chars();
+    auto_example();
 
     return 0;
 }
