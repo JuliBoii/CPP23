@@ -426,7 +426,7 @@ Integer modifiers are words that you can prepend to the variable type to change 
 - The range of values they can store is:
 
 ```math
--2^{n-1} ~ 2^{n-1}-1
+-2^{n-1} \thicksim 2^{n-1}-1
 ```
 
 - `n` is the number of bits for a type in memory
@@ -438,7 +438,7 @@ Integer modifiers are words that you can prepend to the variable type to change 
 - The range of values they can store is:
 
 ```math
-0 ~ 2^{n}-1
+0 \thicksim 2^{n}-1
 ```
 
 - `n` is the number of bits for a type in memory
