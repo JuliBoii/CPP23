@@ -566,10 +566,10 @@ Booleans are types that you use to store `true` and `false` values
   - Give it a variable name `some_name`
   - Then initialize the variable with `true` or `false`
     - We could also initialize the bool with integers other than `0` and `1`
-      - But they would be considered equivalent to `0`, which is `false`
+      - But they would be considered equivalent to `1`, which is `true`
 - If you try to print out a bool
   - They will be printed out as a `0` or `1`
-    - Rather than false or true, respectively
+    - Rather than `false` or `true`, respectively
   - _In our code example `fmt` automatically formats bool output as true or false_
 - In summary, we use bools to store information that has a binary state
   - The value is going to be true or false
@@ -682,3 +682,391 @@ A way to declare variables without explicitly specifying their types.
 
 ## Basic Operations
 
+### Addition
+
+```c++
+int a{5};
+int b{25};
+
+int result = a + b;
+std::cout << result << std::endl;
+```
+
+### Subtraction
+
+```c++
+int a{13};
+int b{24};
+
+int result = b - a;
+std::cout << result << std::endl;
+```
+
+### Multiplication
+
+```c++
+int a{7};
+int b{41};
+
+int result = a * b;
+std::cout << result << std::endl;
+```
+
+### Division
+
+```c++
+int a{45};
+int b{25};
+
+int result = a / b;
+std::cout << result << std::endl;
+```
+
+### Modulus
+
+```c++
+int a{17};
+int b{25};
+
+int result = b % a;
+std::cout << result << std::endl;
+```
+
+---
+
+## Precedence & Associativity
+
+A concept in C++ that allows you to know from where to start if you happen to have a compound expression.
+Like the one below:
+
+```c++
+const int a{25};
+const int b{32};
+const int c{814};
+const int d{-14};
+
+int result{a + b * c - d / b};
+```
+
+What precedence & associativity gives us is:
+
+- a set of rules to follow to know the correct result of a compound expression.
+- Looking at [CPP Reference](https://cppreference.com/w/cpp/language/operator_precedence.html) we can find a precedence & associativity chart
+  - Giving us detailed information about the precedence order
+- Precedence & associativity are compile-time concepts
+- Associativity will determine the order things are done if the operators have the same precedence level
+  - That is why the example above does not give us the result: `1450`
+    - Instead, we get the result: `26073`
+  - That is why, using parentheses is necessary to structure the behavior of operators, in some cases
+    - Which we show a minor example in `utilities.ixx`, in the `precedence_and_associativity()` function
+      - How parentheses can change the outcome
+
+---
+
+## Prefix & Postfix Increment/Decrement
+
+- These operators can be used with numeric data types (`int, double, float,` etc)
+- When we talk about incrementing `++`
+  - We mean the operation of adding one to a value
+  - Thus, adding is incrementing
+- When we talk about decrementing `--`
+  - We mean the operation of subtracting one to a value
+  - Thus, subtracting is decrementing
+
+### Prefix
+
+- In Prefix operations, the operator is used as the prefix of the variable
+- The decrementing/incrementing occurs as soon as the operator is encountered
+- Syntax of Prefix:
+
+```c++
+int value{5};
+
+// For pre-decrementing
+--value; // value = 4
+
+// For pre-incrementing
+++value; // value = 5
+```
+
+### Postfix
+
+- In Postfix operations, the operator is used as the postfix of the variable
+- The decrementing/incrementing occurs after all the other operations are performed
+  - In other words, other operators are evaluated
+- Syntax of Postfix:
+
+```c++
+int value {5};
+
+// For post-decrementing
+value--; // value = 4
+
+// For post-incrementing
+value++; // value = 5
+```
+
+- Both examples above are equivalent to the following:
+
+```c++
+int value{5};
+
+value = value - 1; // value = 4
+
+value = value + 1 // value = 5
+```
+
+- Looking at `prefix_postfix_increment_and_decrement_operators()` in `utilities.ixx`
+  - The pre-decrement & post-decrement example, the output shows us:
+    - the value of `postNum` is 10, which is not the decremented value of `value2`
+      - Because post-decrement assigns the value before the decrement.
+      - Thus, when we print `value2` it is decremented by 1
+    - On the other hand, `preNum` and `value` are 4
+      - Because pre-decrement first decreased the value by 1 and then assigned its value to another variable (in this case)
+
+---
+
+## Compound Assignment Operators
+
+Suppose we have a value in our variable:
+
+- We take whatever value we have in our variable
+- Then want to do some operation on it
+- Take the result, and assign it to the same (initial) variable
+- Which would look like the following:
+
+```c++
+int value {5};
+value = value + 5;
+```
+
+Compound assignment has a special syntax that simplifies the verbosity
+
+```c++
+int value{5};
+
+// Addition
+value += 5;
+std::cout << value << '\n';
+
+// Subtraction
+value -= 5;
+std::cout << value << '\n';
+
+// Multiplication
+value *= 5;
+std::cout << value << '\n';
+
+// Division
+value /= 5;
+std::cout << value << '\n';
+
+// Modulus
+value %= 3;
+std::cout << value << '\n';
+```
+
+---
+
+## Relational Operators
+
+These are operators that we use to compare things.
+
+```c++
+int num1{20};
+int num2{10};
+
+// Less than
+std::cout << "num1 < num2: " <<  num1 < num2 << '\n';
+
+// Less than or equal to
+std::cout << "num1 <= num2: " <<  num1 <= num2 << '\n';
+
+// Greater than
+std::cout << "num1 > num2: " <<  num1 > num2 << '\n';
+
+// Greater than or equal to
+std::cout << "num1 >= num2: " <<  num1 >= num2 << '\n';
+
+// Equal to
+std::cout << "num1 == num2: " <<  num1 == num2 << '\n';
+
+// Not Equal to
+std::cout << "num1 != num2: " <<  num1 != num2 << '\n';
+```
+
+---
+
+## Logical Operators
+
+Are useful if you try to make decisions dependant on varying results in a program
+
+### && (AND)
+
+`AND` operator evaluates to `true` when **_all_** operands are `true`.
+
+- A single `false` operand will drag the entire expression to evaluating `false`
+
+```c++
+bool a{true}, b{false}, c{true};
+
+std::cout << "a && b: " << a && b << '\n'; // false
+std::cout << "a && c: " << a && c << '\n'; // true
+std::cout << "a && b && c: " << a && b && c << '\n'; // false
+```
+
+### || (OR)
+
+`OR` evaluates to `true` when **_at least_** one operand is `true`
+
+- A single `true` operand will push the entire expression to evaluating `true`
+
+```c++
+bool a{true}, b{false}, c{true};
+
+std::cout << "a || b: " << a || b << '\n'; // true
+std::cout << "a || c: " << a || c << '\n'; // true
+std::cout << "a || b && c: " << a || b || c << '\n'; // true
+```
+
+### ! (NOT and combinations)
+
+`!` negates whatever operand you combine it with
+
+- So it prefixes an operand: `!bool_value`
+  - Thus, a `true` value becomes `false` with the operand added
+  - And `false` becomes `true` with the operand added
+- This can also be added to longer logical operation
+
+```c++
+bool a{true}, b{false};
+
+std::cout << "a: " << a << "\n!a" << !a << '\n';
+std::cout << "b: " << b << "\n!b" << !b << '\n';
+std::cout << "a && b: " << a && b << "\n!(a && b)" << !(a && b) << '\n';
+std::cout << "a && b: " << a && b << "\na && !b" << a && !b << '\n';
+```
+
+---
+
+## Math Functions
+
+We are exploring a few math functions in the `cmath` library that we can utilize. Like
+in previous instances, we need to state that we are using the `cmath` library, in order to access
+the functions. Thus, we write the following in our code:
+
+```c++
+#include <cmath>
+```
+
+### `std::floor` (Flooring)
+
+- Used to round down a decimal number
+- We use it to compute the largest integer value
+  - That is not greater than our number
+
+```c++
+double num{14.143315};
+
+std::cout << num << " is floored to: " << std::floor(num) << '\n';
+// num is floored to: 14
+```
+
+### `std::ceil` (Ceiling)
+
+- Used to round up a decimal number
+- We use it to compute the least integer value
+  - That is not less than our number
+
+```c++
+double num{14.143315};
+
+std::cout << num << " is ceiled to: " << std::ceil(num) << '\n';
+// num is ceiled to: 15
+```
+
+### `std::abs` (Absolute Value)
+
+- Used to obtain the absolute value of a floating-point value
+  - Meaning, the value is exact and does not depend on any rounding modes
+  - So, if we input a negative value, we will receive a positive equivalent of the value
+
+```c++
+double num{-148.145};
+
+std::cout << "ABS of num is: " << std::abs(num) << '\n';
+// ABS of num is: 148.145 
+```
+
+### `std::exp` (Exponential)
+
+- This is how we use the provided exponential function: $`f\left(x\right) = e^{x}`$
+  - Where $`e`$ is equal to `2.7182818...`
+- This command computes Euler's Number raised to the given power, `x`, that we provide
+
+```c++
+double result{std::exp(10)};
+
+std::cout << "The exponential of 10 is: " << result << '\n';
+// The exponential of 10 is: 22026.465794806718
+```
+
+### `std::pow` (Power)
+
+- This is how we raise a value to a desired power: $`base^{x}`$
+  - Where `base` is the base, and it is raised to the power of `x`
+  - Base can be a floating-point or integer value
+  - Exponent `x` is a floating-point or integer value
+
+```c++
+double result{std::pow(5, 7)};
+
+std::cout << "5^7 is: " << result << '\n';
+// 5^7 is: 78125
+```
+
+### `std::log`, `std::log10`, & `std::log2` (Logarithms)
+
+- `std::log` computes the natural (base-$`e`$) logarithm of a number, `x`: $`\log(x)`$
+  - `x` can be a floating-point or integer value
+
+```c++
+double result{std::log(1)};
+
+std::cout << "base-e log of 1 = " << result << '\n';
+// base-e log of 1 = 0
+```
+
+- `std::log10` computes the common (base-10) logarithm of a number, `x`: $`\log_{10}(x)`$
+  - `x` can be a floating-point or integer value
+
+```c++
+double result{std::log10(1000)};
+
+std::cout << "base-10 log of 1000 = " << result << '\n';
+// base-10 log of 1000 = 3
+```
+
+- `std::log2` computes the binary (base-2) logarithm of a number, `x`: $`\log_{2}(x)`$
+  - `x` can be a floating-point or integer value
+
+```c++
+double result{std::log2(65536)};
+
+std::cout << "base-2 log of 65536 = " << result << '\n';
+// base-2 log of 65536 = 16
+```
+
+### `std::sqrt` (Square Root)
+
+- Computes the square root of a number: $`\sqrt{x}`$
+  - `x` can be a floating-point or integer value
+
+```c++
+double result{std::sqrt(100)};
+
+std::cout << "Square root of 100 is: " << result << '\n';
+// Square root of 100 is: 10
+```
+
+---

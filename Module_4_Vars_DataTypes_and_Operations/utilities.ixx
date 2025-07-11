@@ -3,11 +3,13 @@ module;
 # include <fmt/format.h>
 # include <array>
 # include <limits>
+# include <cmath>
 # include <string>
 # include <vector>
 
 export module utilities;
 
+//	Part 1
 export void number_systems()
 {
 	/*
@@ -128,6 +130,7 @@ export void print_type_ranges()
 	fmt::print("int digits: {}\n\n", std::numeric_limits<int>::digits);
 }
 
+//	Part 2
 export void types_of_initializers()
 {
 	fmt::print("Braced Initialization Example:\n");
@@ -406,4 +409,253 @@ export void auto_example()
 	fmt::print("var6 occupies: {} bytes\n", sizeof(var6));
 	fmt::print("var7 occupies: {} bytes\n", sizeof(var7));
 	fmt::print("var8 occupies: {} bytes\n", sizeof(var8));
+}
+
+//	Part 3
+export void basic_ops()
+{
+	fmt::print("Basic Operations:\n");
+	// Addition
+	int num1{5};
+	int num2{6};
+	int num3{51};
+
+	fmt::print("Addition Result: {}\n", num1 + num2);
+
+	// Subtraction
+	fmt::print("Subtraction Result: {}\n", num1 - num2);
+	fmt::print("Subtraction Result: {}\n", num2 - num1);
+
+	// Multiplication
+	fmt::print("Multiplication Result: {}\n", num1 * num2);
+
+	// Division
+	fmt::print("Division Result: {}\n", num1 / num2);
+	fmt::print("Division Result: {}\n", num2 / num1);
+
+	// Modulus
+	fmt::print("Modulo Result: {}\n", num1 % num2);
+	fmt::print("Modulo Result: {}\n\n", num3 % num2);
+}
+
+export void precedence_and_associativity()
+{
+	fmt::print("Precedence and Associativity:\n");
+	const int a{6};
+	const int b{3};
+	const int c{8};
+	const int d{9};
+	const int e{3};
+	const int f{2};
+	const int g{5};
+
+	int result{a + b * c - d / e - f + g}; // 6 + 24 - 3 - 2 + 5
+	fmt::print("Result is: {}\n", result);
+
+	result = a / b * c + d - e + f;	// 16 + 9 - 3 + 2
+	fmt::print("Result is: {}\n", result);
+
+	result = (a + b) * c - d / e - f + g;	// 72 - 3 - 2 + 5
+	fmt::print("Result is: {}\n\n", result);
+}
+
+export void prefix_postfix_increment_and_decrement_operators()
+{
+	fmt::print("Pre- and Postfix Incrementing/Decrementing Operations:\n");
+	int value{5};
+	int value2{10};
+	int preNum{};
+	int postNum{};
+
+	fmt::print("Initial value: {}\n", value);
+
+	// Increment by 1
+	value++;
+	fmt::print("Incremented value: {}\n", value);
+
+	// Decrement by 1
+	value--;
+	fmt::print("Decremented value: {}\n\n", value);
+
+	// A look at the difference between pre- & postfix
+	fmt::print("Difference in pre- and post- incrementing/decrementing:\n");
+	preNum = --value;
+	postNum = value2--;
+
+	// Printing value of preNum after pre-decrement
+	fmt::print("Pre-decremented value: {}\n", preNum);
+	fmt::print("Original value variable: {}\n\n", value);
+
+	// Printing value of postNum after post-decrement
+	fmt::print("Post-decremented value: {}\n", postNum);
+	fmt::print("Original value2 variable: {}\n\n", value2);
+}
+
+export void compound_assignment_operators()
+{
+	fmt::print("Compound Assignment Operators:\n");
+
+	int value{5};
+	fmt::print("Initial Value: {}\n", value);
+
+	value += 5;
+	fmt::print("Add 5 to Value: {}\n", value);
+
+	value -= 5;
+	fmt::print("Subtract 5 to Value: {}\n", value);
+
+	value *= 5;
+	fmt::print("Multiply Value by 5: {}\n", value);
+
+	value /= 5;
+	fmt::print("Divide Value by 5: {}\n", value);
+
+	value %= 3;
+	fmt::print("Mod 3, Value: {}\n\n", value);
+}
+
+export void relational_operators()
+{
+	fmt::print("Relational Operators:\n");
+
+	int num1{20};
+	int num2{10};
+
+	fmt::print("num1: {}\n", num1);
+	fmt::print("num2: {}\n\n", num2);
+
+	fmt::print("Comparing Numbers:\n");
+
+	fmt::print("num1 < num2: {}\n", num1 < num2);
+	fmt::print("num1 <= num2: {}\n", num1 <= num2);
+	fmt::print("num1 > num2: {}\n", num1 > num2);
+	fmt::print("num1 >= num2: {}\n", num1 >= num2);
+	fmt::print("num1 == num2: {}\n", num1 == num2);
+	fmt::print("num1 != num2: {}\n\n", num1 != num2);
+
+	fmt::print("Store comparison results and use it later\n");
+	bool result {num1 == num2};
+	fmt::print("{} == {}: {}\n\n", num1, num2, result);
+}
+
+export void logical_operators()
+{
+	fmt::print("Logical Operators:\n");
+
+	bool a{true}, b{false}, c{true};
+	fmt::print("a: {}\n", a);
+	fmt::print("b: {}\n", b);
+	fmt::print("c: {}\n\n", c);
+
+	fmt::println("Basic AND Operations:");
+	fmt::println("a && b: {}", a && b);
+	fmt::println("a && c: {}", a && c);
+	fmt::println("a && b && c: {}\n", a && b && c);
+
+	fmt::println("Basic OR Operations:");
+	fmt::println("a || b: {}", a || b);
+	fmt::println("a || c: {}", a || c);
+	fmt::println("a || b || c: {}\n", a || b || c);
+
+	fmt::println("Basic OR Operations:");
+	fmt::println("a || b: {}", a || b);
+	fmt::println("a || c: {}", a || c);
+	fmt::println("a || b || c: {}\n", a || b || c);
+
+	fmt::println("Basic NOT Operations:");
+	fmt::println("!a: {}", !a);
+	fmt::println("!b: {}", !b);
+	fmt::println("!c: {}\n", !c);
+
+	// Combination of all these operators
+	fmt::println("Combining logical operators\n");
+	fmt::println("(a && b) || !c: {}", (a && b) || !c);
+	fmt::println("!(a && b) || c: {}\n", !(a && b) || c);
+}
+
+export void relational_and_logical_operators()
+{
+	fmt::print("Relational and Logical Operations Examples:\n");
+
+	int a{45};
+	int b{-13};
+	int c{98};
+	bool d{true};
+
+	fmt::println("a: {}", a);
+	fmt::println("b: {}", b);
+	fmt::println("c: {}", c);
+	fmt::println("d: {}\n", d);
+
+	fmt::println("(a > b) && (a > c): {}", (a > b) && (a > c));
+	fmt::println("(a == b) || (b <= c): {}", (a == b) || (b <= c));
+	fmt::println("(a < b) || (a > c): {}", (a < b) || (a > c));
+	fmt::println("(c > b) || (a < c): {}", (c > b) || (a < c));
+	fmt::println("(a > c) && (c <= a): {}", (a > c) && (c <= a));
+	fmt::println("(a > b) && (a <= c): {}", (a > b) && (a <= c));
+	fmt::println("(!d) && (a == b): {}", (!d) && (a == b));
+	fmt::println("(!d) || (a == b): {}\n", (!d) || (a == b));
+}
+
+export void math_functions()
+{
+	double weight{7.7};
+	double num1{14.143315};
+
+	// floor
+	fmt::println("Flooring:");
+	fmt::println("num1 is floored to: {}", std::floor(num1));
+	fmt::println("Weight rounded to floor is: {}\n", std::floor(weight));
+
+	// ceil
+	fmt::println("Ceiling:");
+	fmt::println("num1 is ceiled to: {}", std::ceil(num1));
+	fmt::println("Weight rounded to ceiling: {}\n", std::ceil(weight));
+
+	// absolute value
+	double num{-148.145};
+	double savings{-4241.73};
+	fmt::println("Absoulte Value:");
+	fmt::println("ABS of num is: {}", std::abs(num));
+	fmt::println("ABS of weight is: {}", std::abs(weight));
+	fmt::println("ABS of savings is: {}\n", std::abs(savings));
+
+	// Rounding
+	fmt::println("Rounding:");
+	// Half-way points are rounded up
+	fmt::println("3.654 rounded to: {}", std::round(3.654));
+	fmt::println("2.5 rounded to: {}", std::round(2.5));
+	fmt::println("2.4 rounded to: {}", std::round(2.4));
+	fmt::println("-2.4 rounded to: {}\n", std::round(-2.4));
+
+	// Exponential
+	fmt::println("Exponential:");
+	double result{std::exp(10)};
+	fmt::println("The exponential of 10 is: {}\n", result);
+
+	// Power
+	fmt::println("Power:");
+	fmt::println("3^4 is: {}", std::pow(3, 4));
+	fmt::println("9^3 is: {}", std::pow(9, 3));
+	fmt::println("5^7 is: {}\n", std::pow(5, 7));
+
+	// Log (base e (Euler's Number))
+	fmt::println("Logs:");
+	fmt::println("Base-e log of 1: {}", std::log(1));
+	fmt::println("Base-e log of 22026.465794806718: {}", std::log(22026.465794806718));
+	fmt::println("Base-e log of 54.59: {}\n", std::log(54.59));
+
+	// Log (base 10)
+	fmt::println("Base-10 log of 1000: {}", std::log10(1000));
+	fmt::println("Base-10 log of 0.001: {}\n", std::log10(0.001));
+
+	// Log (base 2)
+	fmt::println("Base-2 log of 65536: {}", std::log2(65536));
+	fmt::println("Base-2 log of 0.125: {}\n", std::log2(0.125));
+
+	// Square Root
+	fmt::println("Square Root:");
+	fmt::println("sqrt(2): {}", std::sqrt(2));
+	fmt::println("sqrt(100): {}", std::sqrt(100));
+	fmt::println("sqrt(81): {}\n", std::sqrt(81));
 }
