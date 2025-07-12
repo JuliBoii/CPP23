@@ -765,7 +765,7 @@ What precedence & associativity gives us is:
 
 ## Prefix & Postfix Increment/Decrement
 
-- These operators can be used with numeric data types (`int, double, float,` etc)
+- These operators can be used with numeric data types (`int, double, float,` etc.)
 - When we talk about incrementing `++`
   - We mean the operation of adding one to a value
   - Thus, adding is incrementing
@@ -899,7 +899,7 @@ std::cout << "num1 != num2: " <<  num1 != num2 << '\n';
 
 ## Logical Operators
 
-Are useful if you try to make decisions dependant on varying results in a program
+Are useful if you try to make decisions dependent on varying results in a program
 
 ### && (AND)
 
@@ -952,7 +952,7 @@ std::cout << "a && b: " << a && b << "\na && !b" << a && !b << '\n';
 ## Math Functions
 
 We are exploring a few math functions in the `cmath` library that we can utilize. Like
-in previous instances, we need to state that we are using the `cmath` library, in order to access
+in previous instances, we need to state that we are using the `cmath` library, to access
 the functions. Thus, we write the following in our code:
 
 ```c++
@@ -1067,6 +1067,178 @@ double result{std::sqrt(100)};
 
 std::cout << "Square root of 100 is: " << result << '\n';
 // Square root of 100 is: 10
+```
+
+---
+
+## Weird Integral Types
+
+Looking at some integers, one may find weird
+
+- Example:
+  - Suppose we have two `short int` variables
+  - If we do an operation on these variables, the result will not be the same type
+    - And we can see this, just from the size of the result in comparison to the initial variables
+    - In this case, we receive an integer back
+  - So, despite the variables being the same type we do not receive the same type back
+
+```c++
+short int var1{10}; // 2 Bytes
+short int var2{20};
+
+std::cout << "Size of var1: " <<  sizeof(var1) << '\n'; // 2
+std::cout << "Size of var2: " <<  sizeof(var2) << '\n'; // 2
+
+auto result1{var1 + var2};
+
+std::cout << "Size of resul1t: " << sizeof(result1) << '\n'; // 4
+```
+
+- Why?
+  - When we do an operation on the values, the computer processor converts the type
+  - The smallest unit with which it can do operations it can do operations is 4 bytes
+    - But we are giving it something that contains two bytes
+  - So, that is why the computer takes our value type and pads zeros in front to make them a full 4 bytes
+    - Since, 4 bytes is the smallest unit it can do operations with
+  - That is why the same behavior occurs with any data type that is smaller than 4 bytes.
+
+```c++
+char value3{40};
+char value4{50};
+
+std::cout << "Size of var3: " << sizeof(var3) << '\n';
+std::cout << "Size of var4: " << sizeof(var4) << '\n';
+
+auto result2{var3 + var4};
+
+std::cout << "Size of result2: " << sizeof(result2) << '\n';
+```
+
+---
+
+## Data Conversions
+
+### Implicit Conversion in Expressions
+
+- Compiler applies implicit conversion when types are different in an expression
+- Conversions are always done from the smallest to the largest type
+- Suppose we have an integer as the first operand, and you have a double as the second
+  - We want to add both values
+  - So what is the resulting data type?
+    - In the case below, `int` is transformed to double before the expression is evaluated
+    - _Unless we are doing an assignment_
+
+```c++
+double price{41.14};
+int units{10};
+
+auto total_price{price * units};
+
+std::cout << "Total price: " << total_price << '\n';
+std::cout << "sizeof(total_price): " << sizeof(total_price) << '\n';
+```
+
+- In C++, when an operation involves two different numeric types
+  - The operand of the smaller type is implicitly converted to the larger type before the operation is performed
+- This is known as **_type promotion_**
+- In the case above, `units` is implicitly converted to `double` before the multiplication
+  - So the result of the operation is also a `double`
+  - Therefore, `total_price` is deduced to be of type `double`
+
+### Implicit Conversions in Assignment
+
+- Assignment operation is also going to cause an implicit narrowing conversion
+- In the example below
+  - `y` is converted to `int` before assignment
+
+```c++
+int x{};
+double y{148.13};
+
+x = y; // double to int
+
+std::cout << "The value of x is: " << x << '\n';
+std::cout << "sizeof(x): " << sizeof(x) << '\n';
+```
+
+- We are taking a `double` and assigning that to something that is an integer
+- For this to occur
+  - Compiler is going to have to transform the `double` to an `integer`
+  - Before the assignment, since the compiler can't assign things of different types
+
+### Explicit Conversion in Expressions
+
+What if we want to convert variables explicitly, without hoping for the compiler to possibly make the conversion.
+One of those facilities is `static_cast<>`
+
+- `static_cast<target-type>(x)`
+- Converts between types using a combination of implicit and user-defined conversions
+- This command returns a value of `target-type`, i.e., `int, float, double, etc.`
+  - For full detail about `static_cast` conversion rules, refer to [CPP Reference](https://www.en.cppreference.com/w/cpp/language/static_cast.html)
+
+```c++
+double x{12.5};
+double y{34.6};
+
+// Convert then sum
+int sum1 = static_cast<int>(x) + static_cast<int>(y);
+
+// Sum then convert
+int sum2 = static_cast<int>(x + y);
+
+std::cout << "Sum1 = " << sum1 << '\n';
+std::cout << "Sum2 = " << sum2 << '\n';
+```
+
+- As shown above, when we choose to cast can cause differing results
+  - In the first case
+    - We are dropping the decimal points in the values to convert them to `int`
+    - But, doing so, results in smaller values
+  - In the second case
+    - We are summing the values first
+    - Retaining data we dropped in the first case
+    - Then converting the sum into an `int`
+      - Once again, dropping the decimal values
+
+---
+
+## Overflow & Underflow
+
+- Overflow is a phenomenon that happens if you try to go over the range that is available for a data type
+- Underflow is a phenomenon that happens if you try to go under the range that is available for a data type
+- In C++, data types are allocated with a certain number of bits
+  - If a variable takes more bits than it can allocate
+    - We may encounter an overflow or underflow
+- This is a harmful type of numerical error
+- For example
+  - A `char` is 1 byte, which is 8 bits in memory
+  - So the possible values for an `unsigned char` type is:
+    - All `0`'s: `00000000` (Decimal 0)
+    - ...
+    - All `1`'s: `11111111` (Decimal 255)
+  - What happens if we try to store something lower than 0 (negative), or greater than 255?
+    - Underflow & Overflow, respectively
+    - For Underflow
+      - It will try to set the lower value to the `unsigned char`, but since the data type cannot be lower
+      - It will reset the value to the maximum value for the data type
+    - For Overflow
+      - It will try to set the higher value to the `unsigned char`, but since the data type cannot be higher
+      - It will reset the value to the minimum value for the data type
+- This can be seen in our example below:
+
+```c++
+unsigned char data{255};
+
+std::cout << "Data: " << static_cast<int>(data) << '\n';
+data++;
+std::cout << "Overflow: " << static_cast<int>(data) << '\n';
+
+std::cout << "Reset to data to zero" << '\n';
+data = 0;
+std::cout << "Data: " << static_cast<int>(data) << '\n';
+
+data--;
+std::cout << "Underflow: " << static_cast<int>(data) << '\n';
 ```
 
 ---

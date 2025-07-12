@@ -53,77 +53,77 @@ export void print_type_ranges()
 	fmt::println("Ranges for various data types:");
 	// Ranges
 	fmt::print("The range for short is from {} to {}\n",
-		std::numeric_limits<short>::min(),
-		std::numeric_limits<short>::max());
+	           std::numeric_limits<short>::min(),
+	           std::numeric_limits<short>::max());
 
 	fmt::print("The range for short int is from {} to {}\n",
-		std::numeric_limits<short int>::min(),
-		std::numeric_limits<short int>::max()
+	           std::numeric_limits<short int>::min(),
+	           std::numeric_limits<short int>::max()
 	);
 
 	fmt::print("The range for unsigned short is from {} to {}\n",
-		std::numeric_limits<unsigned short>::min(),
-		std::numeric_limits<unsigned short>::max());
+	           std::numeric_limits<unsigned short>::min(),
+	           std::numeric_limits<unsigned short>::max());
 
 	fmt::print("The range for an unsigned short int is from {} to {}\n",
-		std::numeric_limits<unsigned short int>::min(),
-		std::numeric_limits<unsigned short int>::max()
+	           std::numeric_limits<unsigned short int>::min(),
+	           std::numeric_limits<unsigned short int>::max()
 	);
 
 	fmt::print("\nThe range for int is from {} to {}\n",
-		std::numeric_limits<int>::min(),
-		std::numeric_limits<int>::max());
+	           std::numeric_limits<int>::min(),
+	           std::numeric_limits<int>::max());
 
 	fmt::print("The range for unsigned int is from {} to {}\n",
-		std::numeric_limits<unsigned int>::min(),
-		std::numeric_limits<unsigned int>::max());
+	           std::numeric_limits<unsigned int>::min(),
+	           std::numeric_limits<unsigned int>::max());
 
 	fmt::print("\nThe range for long is from {} to {}\n",
-		std::numeric_limits<long>::min(),
-		std::numeric_limits<long>::max());
+	           std::numeric_limits<long>::min(),
+	           std::numeric_limits<long>::max());
 
 	fmt::print("The range for long int is from {} to {}\n",
-		std::numeric_limits<long int>::min(),
-		std::numeric_limits<long int>::max()
+	           std::numeric_limits<long int>::min(),
+	           std::numeric_limits<long int>::max()
 	);
 
 	fmt::print("The range for signed long int is from {} to {}\n",
-		std::numeric_limits<signed long int>::min(),
-		std::numeric_limits<signed long int>::max()
+	           std::numeric_limits<signed long int>::min(),
+	           std::numeric_limits<signed long int>::max()
 	);
 
 	fmt::print("The range for unsigned long is from {} to {}\n",
-		std::numeric_limits<unsigned long>::min(),
-		std::numeric_limits<unsigned long >::max()
+	           std::numeric_limits<unsigned long>::min(),
+	           std::numeric_limits<unsigned long>::max()
 	);
 
 
 	fmt::print("The range for unsigned long int is from {} to {}\n",
-		std::numeric_limits<unsigned long int>::min(),
-		std::numeric_limits<unsigned long int>::max()
+	           std::numeric_limits<unsigned long int>::min(),
+	           std::numeric_limits<unsigned long int>::max()
 	);
 
 	fmt::print("The range for long long is from {} to {}\n",
-		std::numeric_limits<long long>::min(),
-		std::numeric_limits<long long>::max()
+	           std::numeric_limits<long long>::min(),
+	           std::numeric_limits<long long>::max()
 	);
 
 
 	fmt::print("\nThe range for float is from {} to {}\n",
-		std::numeric_limits<float>::min(),
-		std::numeric_limits<float>::max());
+	           std::numeric_limits<float>::min(),
+	           std::numeric_limits<float>::max());
 
 	fmt::print("The range (with lowest) for float is from {} to {}\n",
-		std::numeric_limits<float>::lowest(),
-		std::numeric_limits<float>::max());
+	           std::numeric_limits<float>::lowest(),
+	           std::numeric_limits<float>::max());
 
 	fmt::print("The range (with lowest) for double is from {} to {}\n",
-		std::numeric_limits<double>::lowest(),
-		std::numeric_limits<double>::max());
+	           std::numeric_limits<double>::lowest(),
+	           std::numeric_limits<double>::max());
 
 	fmt::print("The range (with lowest) for long double is from {} to {}\n",
-		std::numeric_limits<long double>::lowest(),
-		std::numeric_limits<long double>::max());
+	           std::numeric_limits<long double>::lowest(),
+	           std::numeric_limits<long double>::max());
 
 	fmt::print("\nint is signed: {}\n", std::numeric_limits<int>::is_signed);
 
@@ -134,10 +134,10 @@ export void print_type_ranges()
 export void types_of_initializers()
 {
 	fmt::print("Braced Initialization Example:\n");
-	int elephant_count;	// Initialized to junk
-	int lion_count{};	// Initialized to zero
-	int dog_count{10};	// Initialized to 10
-	int cat_count{15};	// Initialized to 15
+	int elephant_count; // Initialized to junk
+	int lion_count{}; // Initialized to zero
+	int dog_count{10}; // Initialized to 10
+	int cat_count{15}; // Initialized to 15
 
 	// Can use expression as initializer
 	int domesticated_animals{dog_count + cat_count};
@@ -202,7 +202,7 @@ export void integer_mods()
 
 	fmt::print("\nShort & Long variables:\n");
 
-	short short_var{-32768};	// 2 Bytes
+	short short_var{-32768}; // 2 Bytes
 	short int short_int{455};
 	signed short signed_short_var{-122};
 	signed short int signed_short_int{-456};
@@ -212,9 +212,10 @@ export void integer_mods()
 	fmt::print("\nshort_int: {}\nsizeof(short_int): {}\n", short_int, sizeof(short_int));
 	fmt::print("\nsigned_short_var: {}\nsizeof(signed_short_var): {}\n", signed_short_var, sizeof(signed_short_var));
 	fmt::print("\nsigned_short_int: {}\nsizeof(signed_short_int): {}\n", signed_short_int, sizeof(signed_short_int));
-	fmt::print("\nunsigned_short_int: {}\nsizeof(unsigned_short_int): {}\n", unsigned_short_int, sizeof(unsigned_short_int));
+	fmt::print("\nunsigned_short_int: {}\nsizeof(unsigned_short_int): {}\n", unsigned_short_int,
+	           sizeof(unsigned_short_int));
 
-	int int_var{55};			// 4 Bytes
+	int int_var{55}; // 4 Bytes
 	signed signed_var{4566};
 	signed int signed_int{-21474836};
 	unsigned int unsigned_int{42949672};
@@ -224,7 +225,7 @@ export void integer_mods()
 	fmt::print("\nsigned_int: {}\nsizeof(signed_int): {}\n", signed_int, sizeof(signed_int));
 	fmt::print("\nunsigned_int: {}\nsizeof(unsigned_int): {}\n", unsigned_int, sizeof(unsigned_int));
 
-	long long_var{-922337};			// 4 or 8 Bytes
+	long long_var{-922337}; // 4 or 8 Bytes
 	long int long_int{9223};
 	signed long signed_long_var{-9223372};
 	signed long int signed_long_int{9223372};
@@ -234,9 +235,10 @@ export void integer_mods()
 	fmt::print("\nlong_int: {}\nsizeof(long_int): {}\n", long_int, sizeof(long_int));
 	fmt::print("\nsigned_long_var: {}\nsizeof(signed_long_var): {}\n", signed_long_var, sizeof(signed_long_var));
 	fmt::print("\nsigned_long_int: {}\nsizeof(signed_long_int): {}\n", signed_long_int, sizeof(signed_long_int));
-	fmt::print("\nunsigned_long_int: {}\nsizeof(unsigned_long_int): {}\n", unsigned_long_int, sizeof(unsigned_long_int));
+	fmt::print("\nunsigned_long_int: {}\nsizeof(unsigned_long_int): {}\n", unsigned_long_int,
+	           sizeof(unsigned_long_int));
 
-	long long long_long{92233720365477};	// 8 Bytes
+	long long long_long{92233720365477}; // 8 Bytes
 	long long int long_long_int{922337236854};
 	signed long long signed_long_long_var{-92233736854775};
 	signed long long int signed_long_long_int{-922337205807};
@@ -244,9 +246,12 @@ export void integer_mods()
 
 	fmt::print("\nlong_long: {}\nsizeof(long_long): {}\n", long_long, sizeof(long_long));
 	fmt::print("\nlong_long_int: {}\nsizeof(long_long_int): {}\n", long_long_int, sizeof(long_long_int));
-	fmt::print("\nsigned_long_long_var: {}\nsizeof(signed_long_long_var): {}\n", signed_long_long_var, sizeof(signed_long_long_var));
-	fmt::print("\nsigned_long_long_int: {}\nsizeof(signed_long_long_int): {}\n", signed_long_long_int, sizeof(signed_long_long_int));
-	fmt::print("\nunsigned_long_long_var: {}\nsizeof(unsigned_long_long_var): {}\n", unsigned_long_long_var, sizeof(unsigned_long_long_var));
+	fmt::print("\nsigned_long_long_var: {}\nsizeof(signed_long_long_var): {}\n", signed_long_long_var,
+	           sizeof(signed_long_long_var));
+	fmt::print("\nsigned_long_long_int: {}\nsizeof(signed_long_long_int): {}\n", signed_long_long_int,
+	           sizeof(signed_long_long_int));
+	fmt::print("\nunsigned_long_long_var: {}\nsizeof(unsigned_long_long_var): {}\n", unsigned_long_long_var,
+	           sizeof(unsigned_long_long_var));
 }
 
 export void floating_point_representation()
@@ -266,7 +271,7 @@ export void floating_point_representation()
 	fmt::print("number2: {}\n", number2);
 	fmt::print("number3: {}\n", number3);
 
-	float number4 = 192400023.0f;	// Error: Narrowing Conversion
+	float number4 = 192400023.0f; // Error: Narrowing Conversion
 
 	fmt::println("number4: {}", number4);
 
@@ -289,8 +294,8 @@ export void infinity_and_nan()
 	fmt::println("Infinity & NaN:");
 	// Infinity & NaN
 	double number1{-5.6};
-	double number2{};	// Init to 0
-	double number3{};	// Init to 0
+	double number2{}; // Init to 0
+	double number3{}; // Init to 0
 
 	// Infinity
 	double result{number1 / number2};
@@ -312,7 +317,8 @@ export void bool_type()
 	if (red_light == true)
 	{
 		fmt::println("Stop!!!");
-	} else
+	}
+	else
 	{
 		fmt::println("Go Through!");
 	}
@@ -321,7 +327,8 @@ export void bool_type()
 	if (green_light)
 	{
 		fmt::println("Go on...");
-	} else
+	}
+	else
 	{
 		fmt::println("NOT GREEN!!!");
 	}
@@ -334,7 +341,6 @@ export void bool_type()
 	// 0 = false
 	fmt::println("red_light: {}", red_light);
 	fmt::println("green_light: {}\n", green_light);
-
 }
 
 export void char_type()
@@ -351,8 +357,8 @@ export void char_type()
 	fmt::println("{}", character4);
 	fmt::println("{}", character5);
 
-	char value = 65;	// ASCII character code for 'A'
-	fmt::println("value: {}", value);	// 'A'
+	char value = 65; // ASCII character code for 'A'
+	fmt::println("value: {}", value); // 'A'
 	fmt::println("value(int): {}\n", static_cast<int>(value));
 }
 
@@ -397,9 +403,9 @@ export void auto_example()
 	auto var5{'e'};
 
 	// int modifier suffix
-	auto var6{123u};	// unsigned
-	auto var7{1243ul};	// unsigned long
-	auto var8{1234ll};	// long long
+	auto var6{123u}; // unsigned
+	auto var7{1243ul}; // unsigned long
+	auto var8{1234ll}; // long long
 
 	fmt::print("var1 occupies: {} bytes\n", sizeof(var1));
 	fmt::print("var2 occupies: {} bytes\n", sizeof(var2));
@@ -452,10 +458,10 @@ export void precedence_and_associativity()
 	int result{a + b * c - d / e - f + g}; // 6 + 24 - 3 - 2 + 5
 	fmt::print("Result is: {}\n", result);
 
-	result = a / b * c + d - e + f;	// 16 + 9 - 3 + 2
+	result = a / b * c + d - e + f; // 16 + 9 - 3 + 2
 	fmt::print("Result is: {}\n", result);
 
-	result = (a + b) * c - d / e - f + g;	// 72 - 3 - 2 + 5
+	result = (a + b) * c - d / e - f + g; // 72 - 3 - 2 + 5
 	fmt::print("Result is: {}\n\n", result);
 }
 
@@ -534,7 +540,7 @@ export void relational_operators()
 	fmt::print("num1 != num2: {}\n\n", num1 != num2);
 
 	fmt::print("Store comparison results and use it later\n");
-	bool result {num1 == num2};
+	bool result{num1 == num2};
 	fmt::print("{} == {}: {}\n\n", num1, num2, result);
 }
 
@@ -658,4 +664,99 @@ export void math_functions()
 	fmt::println("sqrt(2): {}", std::sqrt(2));
 	fmt::println("sqrt(100): {}", std::sqrt(100));
 	fmt::println("sqrt(81): {}\n", std::sqrt(81));
+}
+
+export void weird_integral_types()
+{
+	fmt::println("Weird integral Types:");
+
+	short int var1{10}; // 2 Bytes
+	short int var2{20};
+	char var3{40}; // 1 Byte
+	char var4{50};
+
+	fmt::println("Size of var1: {}", sizeof(var1));
+	fmt::println("Size of var2: {}", sizeof(var2));
+	fmt::println("Size of var3: {}", sizeof(var3));
+	fmt::println("Size of var4: {}\n", sizeof(var4));
+
+	auto result1{var1 + var2};
+	auto result2{var3 + var4};
+
+	fmt::println("Size of resul1t: {}", sizeof(result1)); // 4
+	fmt::println("Size of result2: {}\n", sizeof(result2)); // 4
+}
+
+export void implicit_conversion()
+{
+	fmt::println("Implicit Conversion in Expression:");
+	double price{41.15};
+	int units{10};
+
+	auto total_price{price * units};
+
+	fmt::println("Total price: {}", total_price);
+	fmt::println("sizeof(total_price): {}\n", sizeof(total_price));
+
+	fmt::println("Implicit Conversion in Assignment:");
+	int x{};
+	double y{148.13};
+
+	x = y; // double to int
+
+	fmt::println("The value of y is: {}", y);
+	fmt::println("The value of x is: {}\n", x);
+
+	fmt::println("sizeof(y): {}", sizeof(y));
+	fmt::println("sizeof(x): {}\n", sizeof(x));
+}
+
+export void explicit_conversion()
+{
+	fmt::println("Explicit Conversion in Expression:");
+	double x{12.5}, y{34.6};
+
+
+	fmt::println("Converting data first, then sum:");
+	int sum1 = static_cast<int>(x) + static_cast<int>(y);
+	fmt::println("The sum1 is: {}\n", sum1);
+
+	fmt::println("Sum then converting data:");
+	int sum2 = static_cast<int>(x + y);
+	fmt::println("The sum2 is: {}\n", sum2);
+}
+
+export void overflow_and_underflow()
+{
+	fmt::println("Overflow Example:");
+	unsigned char data{250};
+
+	fmt::println("unsigned char: \nmin: {} \nmax: {}\n",
+		std::numeric_limits<unsigned char>::min(),
+		std::numeric_limits<unsigned char>::max()
+		);
+
+	++data;
+	fmt::println("Data: {}", static_cast<int>(data));
+	++data;
+	fmt::println("Data: {}", static_cast<int>(data));
+	++data;
+	fmt::println("Data: {}", static_cast<int>(data));
+	++data;
+	fmt::println("Data: {}", static_cast<int>(data));
+	++data;
+	fmt::println("Data: {}", static_cast<int>(data));
+
+	++data;
+	fmt::println("Data Overflow: {}\n", static_cast<int>(data)); // 256 -> 0
+
+	fmt::println("Underflow Example:");
+
+	data = 1;;
+	fmt::println("Data: {}", static_cast<int>(data));
+
+	--data;
+	fmt::println("Data: {}", static_cast<int>(data)); // 0
+	--data;
+	fmt::println("Data Underflow: {}\n", static_cast<int>(data)); // 255
 }

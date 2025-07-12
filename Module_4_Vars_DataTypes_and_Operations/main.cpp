@@ -17,14 +17,18 @@ int main() {
     auto_example();*/
 
     // Part 3
-    basic_ops();
-    precedence_and_associativity();
-    prefix_postfix_increment_and_decrement_operators();
-    compound_assignment_operators();
-    relational_operators();
-    logical_operators();
-    relational_and_logical_operators();
-    math_functions();
+    // basic_ops();
+    // precedence_and_associativity();
+    // prefix_postfix_increment_and_decrement_operators();
+    // compound_assignment_operators();
+    // relational_operators();
+    // logical_operators();
+    // relational_and_logical_operators();
+    // math_functions();
+    weird_integral_types();
+    implicit_conversion();
+    explicit_conversion();
+    overflow_and_underflow();
 
     return 0;
 }
