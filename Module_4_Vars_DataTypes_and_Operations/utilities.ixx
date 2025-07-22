@@ -2,8 +2,10 @@ module;
 
 # include <fmt/format.h>
 # include <array>
-# include <limits>
+# include <bitset>
 # include <cmath>
+# include <iostream>
+# include <limits>
 # include <string>
 # include <vector>
 
@@ -396,16 +398,16 @@ export void collection_of_chars()
 
 export void auto_example()
 {
-	auto var1{12};
-	auto var2{13.542};
-	auto var3{14.0f};
-	auto var4{15.0l};
-	auto var5{'e'};
+	[[maybe_unused]] constexpr auto var1{12};
+	[[maybe_unused]] constexpr auto var2{13.542};
+	[[maybe_unused]] constexpr auto var3{14.0f};
+	[[maybe_unused]] constexpr auto var4{15.0l};
+	[[maybe_unused]] constexpr auto var5{'e'};
 
 	// int modifier suffix
-	auto var6{123u}; // unsigned
-	auto var7{1243ul}; // unsigned long
-	auto var8{1234ll}; // long long
+	[[maybe_unused]] constexpr auto var6{123u}; // unsigned
+	[[maybe_unused]] constexpr auto var7{1243ul}; // unsigned long
+	[[maybe_unused]] constexpr auto var8{1234ll}; // long long
 
 	fmt::print("var1 occupies: {} bytes\n", sizeof(var1));
 	fmt::print("var2 occupies: {} bytes\n", sizeof(var2));
@@ -422,9 +424,9 @@ export void basic_ops()
 {
 	fmt::print("Basic Operations:\n");
 	// Addition
-	int num1{5};
-	int num2{6};
-	int num3{51};
+	constexpr int num1{5};
+	constexpr int num2{6};
+	constexpr int num3{51};
 
 	fmt::print("Addition Result: {}\n", num1 + num2);
 
@@ -447,13 +449,13 @@ export void basic_ops()
 export void precedence_and_associativity()
 {
 	fmt::print("Precedence and Associativity:\n");
-	const int a{6};
-	const int b{3};
-	const int c{8};
-	const int d{9};
-	const int e{3};
-	const int f{2};
-	const int g{5};
+	constexpr int a{6};
+	constexpr int b{3};
+	constexpr int c{8};
+	constexpr int d{9};
+	constexpr int e{3};
+	constexpr int f{2};
+	constexpr int g{5};
 
 	int result{a + b * c - d / e - f + g}; // 6 + 24 - 3 - 2 + 5
 	fmt::print("Result is: {}\n", result);
@@ -621,7 +623,7 @@ export void math_functions()
 	// absolute value
 	double num{-148.145};
 	double savings{-4241.73};
-	fmt::println("Absoulte Value:");
+	fmt::println("Absolute Value:");
 	fmt::println("ABS of num is: {}", std::abs(num));
 	fmt::println("ABS of weight is: {}", std::abs(weight));
 	fmt::println("ABS of savings is: {}\n", std::abs(savings));
@@ -670,18 +672,18 @@ export void weird_integral_types()
 {
 	fmt::println("Weird integral Types:");
 
-	short int var1{10}; // 2 Bytes
-	short int var2{20};
-	char var3{40}; // 1 Byte
-	char var4{50};
+	constexpr short int var1{10}; // 2 Bytes
+	constexpr short int var2{20};
+	constexpr char var3{40}; // 1 Byte
+	constexpr char var4{50};
 
 	fmt::println("Size of var1: {}", sizeof(var1));
 	fmt::println("Size of var2: {}", sizeof(var2));
 	fmt::println("Size of var3: {}", sizeof(var3));
 	fmt::println("Size of var4: {}\n", sizeof(var4));
 
-	auto result1{var1 + var2};
-	auto result2{var3 + var4};
+	[[maybe_unused]] constexpr auto result1{var1 + var2};
+	[[maybe_unused]] constexpr auto result2{var3 + var4};
 
 	fmt::println("Size of resul1t: {}", sizeof(result1)); // 4
 	fmt::println("Size of result2: {}\n", sizeof(result2)); // 4
@@ -690,8 +692,8 @@ export void weird_integral_types()
 export void implicit_conversion()
 {
 	fmt::println("Implicit Conversion in Expression:");
-	double price{41.15};
-	int units{10};
+	constexpr double price{41.15};
+	constexpr int units{10};
 
 	auto total_price{price * units};
 
@@ -732,9 +734,9 @@ export void overflow_and_underflow()
 	unsigned char data{250};
 
 	fmt::println("unsigned char: \nmin: {} \nmax: {}\n",
-		std::numeric_limits<unsigned char>::min(),
-		std::numeric_limits<unsigned char>::max()
-		);
+	             std::numeric_limits<unsigned char>::min(),
+	             std::numeric_limits<unsigned char>::max()
+	);
 
 	++data;
 	fmt::println("Data: {}", static_cast<int>(data));
@@ -759,4 +761,182 @@ export void overflow_and_underflow()
 	fmt::println("Data: {}", static_cast<int>(data)); // 0
 	--data;
 	fmt::println("Data Underflow: {}\n", static_cast<int>(data)); // 255
+}
+
+// Part 4
+export void printing_binary()
+{
+	constexpr unsigned short int data{413};
+	/*std::cout << "Data (dec) " << std::dec << data << '\n';
+	std::cout << "Data (hex) " << std::hex << std::showbase << data << '\n';
+	std::cout << "Data (bin) " << std::bitset<16>( data ) << '\n';*/
+
+	fmt::println("Printing Binary:");
+	fmt::println("Data (dec): {0:d}", data); // Decimal
+	fmt::println("Data (octo): {0:o}", data); // Octal
+	fmt::println("Data (hex): {0:x}", data); // Hexadecimal
+	fmt::println("Data (bin): {:016b}\n", data); // Binary (16 Bits = 4 Bytes)
+}
+
+export void shift_operators()
+{
+	unsigned short int value{4080u};
+
+	fmt::println("Shift Operators:");
+	fmt::println("Size of unsigned short int: {}\n", sizeof(unsigned short int));
+
+	fmt::println("Initial value:");
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("Left Shift by 1:");
+	value = value << 1;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("Left Shift by 1:");
+	value = value << 1;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("Left Shift by 1:");
+	value = value << 1;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("Left Shift by 1:");
+	value = value << 1;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("Left Shift by 1:");
+	value = value << 1;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("Right Shift by 1:");
+	value = value >> 1;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+
+	fmt::println("right Shift by 4:");
+	value = value >> 4;
+	fmt::println("Binary Value: {:016b} \nDecimal Value: {}\n", value, value);
+}
+
+export void bitwise_logical_operators()
+{
+	unsigned int value1{0x3}; // 0000 0011
+	unsigned int value2{0x5}; // 0000 0101
+
+	fmt::println("Bitwise Logical Operators:");
+	fmt::println("value1: {:032b}", value1);
+	fmt::println("value2: {:032b}\n", value2);
+
+	// AND
+	fmt::println("Bitwise AND:");
+	fmt::println("value1 & value2: {:032b}\n", value1 & value2);
+
+	// OR
+	fmt::println("Bitwise OR:");
+	fmt::println("value1 | value2: {:032b}\n", value1 | value2);
+
+	// NOT
+	fmt::println("Bitwise  NOT:");
+	fmt::println("~value1: {:032b}", ~value1);
+	fmt::println("~value2: {:032b}\n", ~value2);
+
+	// XOR
+	fmt::println("Bitwise XOR:");
+	fmt::println("value1 ^ value2: {:032b}\n", value1 ^ value2);
+}
+
+export void compound_bitwise_operators()
+{
+	fmt::println("Compound Bitwise Operators:");
+	unsigned int sandbox_var{0b00110100}; // 8 bits: positive numbers only
+
+	// Print out initial value
+	fmt::println("Initial Value:\n {:032b}", sandbox_var);
+
+	// Compound left shift
+	fmt::println("Shift left 2 bit positions in place:");
+	sandbox_var <<= 2;
+	fmt::println("sandbox_var: {:032b}", sandbox_var);
+
+	// Compound right shift
+	fmt::println("Shift right 4 bit positions in place:");
+	sandbox_var >>= 4;
+	fmt::println("sandbox_var: {:032b}", sandbox_var);
+
+	// Compound OR with 0000 0010
+	fmt::println("Compound Bitwise OR with 0000 1111:");
+	sandbox_var |= 0b00001111;
+	fmt::println("sandbox_var: {:032b}", sandbox_var);
+
+	// Compound AND with 0000 1100
+	fmt::println("Compound Bitwise AND with 0000 1100:");
+	sandbox_var &= 0b00001100;
+	fmt::println("sandbox_var: {:032b}", sandbox_var);
+
+	// Compound XOR with 0000 0011
+	fmt::println("Compound Bitwise XOR with 0000 0011:");
+	sandbox_var &= 0b00000011;
+	fmt::println("sandbox_var: {:032b}\n", sandbox_var);
+}
+
+export void bit_masking()
+{
+	int var{0b10101101};
+	constexpr unsigned int mask_bit_0{ 0b00000001 }; // bit 0
+	constexpr unsigned int mask_bit_1{ 0b00000010 }; // bit 1
+	constexpr unsigned int mask_bit_2{ 0b00000100 }; // bit 2
+	constexpr unsigned int mask_bit_3{ 0b00001000 }; // bit 3
+	constexpr unsigned int mask_bit_4{ 0b00010000 }; // bit 4
+	constexpr unsigned int mask_bit_5{ 0b00100000 }; // bit 5
+	constexpr unsigned int mask_bit_6{ 0b01000000 }; // bit 6
+	constexpr unsigned int mask_bit_7{ 0b10000000 }; // bit 7
+
+	fmt::println("Bit Masking:");
+	fmt::println("var: {:032b}\n", var);
+
+	// Setting: (|=) with a mask of the bit
+	fmt::println("Setting Bits:");
+	// Set bit 1
+	fmt::println("Setting bit in Position 1");
+	var |= mask_bit_1;
+	fmt::println("var: {:032b}", var);
+
+	// Setting
+	fmt::println("Setting bit in Position 4");
+	var |= mask_bit_4;
+	fmt::println("var: {:032b}\n", var);
+
+	// Resetting: (&= with ~mask) set to 0
+	fmt::println("Resetting Bits:");
+	fmt::println("Resetting bit in Position 0");
+	var &= ~mask_bit_0;
+	fmt::println("var: {:032b}", var);
+	// Resetting
+	fmt::println("Resetting bit in Position 1");
+	var &= ~mask_bit_1;
+	fmt::println("var: {:032b}\n", var);
+
+	// Check state of a bit: AND with mask
+	fmt::println("Checking the state of each bit position (true/false):");
+	fmt::println("Bit[0] is {}", static_cast<bool>(var & mask_bit_0));
+	fmt::println("Bit[1] is {}", static_cast<bool>(var & mask_bit_1));
+	fmt::println("Bit[2] is {}", static_cast<bool>(var & mask_bit_2));
+	fmt::println("Bit[3] is {}", static_cast<bool>(var & mask_bit_3));
+	fmt::println("Bit[4] is {}", static_cast<bool>(var & mask_bit_4));
+	fmt::println("Bit[5] is {}", static_cast<bool>(var & mask_bit_5));
+	fmt::println("Bit[6] is {}", static_cast<bool>(var & mask_bit_6));
+	fmt::println("Bit[7] is {}\n", static_cast<bool>(var & mask_bit_7));
+
+	// Toggle Bits
+	fmt::println("Toggle Bit 4:");
+	var ^= mask_bit_4;
+	fmt::println("var: {:032b}", var);
+
+	fmt::println("Toggle Bit 6:");
+	var ^= mask_bit_6;
+	fmt::println("var: {:032b}", var);
+
+	// Toggle multiple bits in one go: the 4 higher bits
+	fmt::println("Toggle multiple bits in one go (The higher 4 bits):");
+	var ^= (mask_bit_7 | mask_bit_6 | mask_bit_5 | mask_bit_4);
+	fmt::println("var: {:032b}\n", var);
 }

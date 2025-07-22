@@ -25,10 +25,17 @@ int main() {
     // logical_operators();
     // relational_and_logical_operators();
     // math_functions();
-    weird_integral_types();
-    implicit_conversion();
-    explicit_conversion();
-    overflow_and_underflow();
+    // weird_integral_types();
+    // implicit_conversion();
+    // explicit_conversion();
+    // overflow_and_underflow();
+
+    // Part 4
+    printing_binary();
+    shift_operators();
+    bitwise_logical_operators();
+    compound_bitwise_operators();
+    bit_masking();
 
     return 0;
 }

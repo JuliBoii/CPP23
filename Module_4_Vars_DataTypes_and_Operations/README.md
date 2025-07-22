@@ -6,7 +6,7 @@
 
 Part 1
 
-- Exploring variables and data types
+Exploring variables and data types
 - Topics:
   - Number systems for integers
     - Decimal, Octal, Hexadecimal and Binary
@@ -16,7 +16,7 @@ Part 1
 
 Part 2
 
-- Integer Modifies, Characters, Text, & `auto`
+Integer Modifies, Characters, Text, & `auto`
 - Topics:
   - Initialization:
     - Braced initialization
@@ -38,7 +38,7 @@ Part 2
 
 Part 3
 
-- Operations, Math Functions, and Weird Integer Types
+Operations, Math Functions, and Weird Integer Types
 - Topics:
   - Basic Operations
     - Addition
@@ -57,6 +57,16 @@ Part 3
     - Implicit
     - Explicit
   - Overflow & Underflow
+
+Part 4
+
+Bitwise Operators
+- Topics
+  - Printing Integers in Binary
+  - Shift Operators
+  - Logical Bitwise Operators
+  - Compound Bitwise Operators
+  - Masks
 
 ---
 
@@ -1241,4 +1251,264 @@ data--;
 std::cout << "Underflow: " << static_cast<int>(data) << '\n';
 ```
 
+---
+
+The following part cover operations that are going to be manipulating your data at the bit level
+
+## Printing Integers in Binary
+
+
+
+Realistically, for the standard printing library in C++, there is no manner of printing in a binary format.
+You can control the type of literal you put in your data, as you initialize it. But, `std::cout` falls short on
+how we can do this in a binary form. So we introduce a new function that helps to print items in a binary format.
+First, we need to include the necessary library to access needed functions
+
+```c++
+#include <bitset>
+
+int main() {
+  unsigned short int data {15};
+  
+  std::cout << "Data (dec): " << std::dec << data << '\n';
+  std::cout << "Data (hex): " << std::hex << << std::showbase<< data << '\n';
+  std::cout << "Data (bin): " << std::bitset<16>(data) << '\n';
+  return 0;
+}
+```
+
+---
+
+## Shift Operators
+
+Shift operators are things you use to move your data left or right, with the data being in binary form.
+
+- Binary bitwise operators
+  - Used to shift the bits either left or right of the first operand by the number of positions specified by the second operand
+  - Allowing efficient data manipulation
+  - `<<`, left shift
+    - Is a binary operator that takes two numbers
+    - left shifts the bits of the first operand
+    - the second operand decides the number of places to shift
+      - i.e., left shifting an integer `a` with an integer `b` denoted as `a << b`
+      - Which is equivalent to multiplying `a` with $`2^{b}`$
+    - Applications of Left Shift Operator
+      - Multiplication by Powers of Two
+      - Efficient Calculations
+      - Bit Manipulation
+  - `>>`, right shift
+    - Is a binary operator that takes two numbers
+    - right shifts the bits of the first operand
+    - the second operand decides the number of places to shift
+      - i.e., right shifting an integer `a` with an integer `b` denoted as `a >> b`
+      - Which is equivalent to dividing `a` with $`2^{b}`$
+    - Application of Right Shift Operator
+      - Division by Powers of Two
+      - Efficient Calculations
+      - Bit Manipulation
+- **_Important Notes_**
+  - **Left-shift and right-shift operators should not be used for negative numbers**
+    - Results in undefined behavior, if any of the operands is a negative number
+  - **If the number is shifted more than the size of the integer, the behavior is undefined**
+    - Results in Overflow in left-shifts and Underflow in right-shift
+  - **The left-shift by 1 and right-shift by 1 are equivalent to the product of the first term and 2 to the power given element**
+    - i.e., `1 << 3` is equal to `1 * pow(2,3)` and `1 >> 3` is equal to `1 / pow(2,3)`
+- Below is an example of bit shifting
+  - As stated in the important notes, when we shift more bits than the data type has
+  - We lose data (`1`'s), that cannot be recovered, when we shift right
+
+|    Binary Value     | Decimal Value | Note                                    |
+|:-------------------:|:--------------|:----------------------------------------|
+| 0000 1111 1111 0000 | 4000          | Initial Value                           |
+| 0001 1111 1110 0000 | 8160          | Shift left by 1 bit                     |
+| 0011 1111 1100 0000 | 16320         | Shift left by 1 bit                     |
+| 0111 1111 1000 0000 | 32640         | Shift left by 1 bit                     |
+| 1111 1111 0000 0000 | 65280         | Shift left by 1 bit                     |
+| 1111 1110 0000 0000 | 65024         | Shift left by 1 bit (truncation occurs) |
+| 0111 1111 0000 0000 | 32512         | Shift right by 1 bit                    |
+| 0000 0111 1111 0000 | 2032          | Shift right by 4 bit                    |
+
+---
+
+## Logical Bitwise Operators
+
+Logical operators specialized to **_work on each bit in a byte_**
+
+We have the following:
+- Bitwise AND (`&`)
+  - Works like the logical AND (`&&`)
+  - The result will only be `1` if both operands are `1`
+
+| value1 (bit) | value2 (bit) | value1 & value2 |
+|--------------|--------------|-----------------|
+| 0            | 0            | 0               |
+| 0            | 1            | 0               |
+| 1            | 0            | 0               |
+| 1            | 1            | 1               |
+
+- Bitwise OR (`|`)
+  - Works like the logical OR (`||`)
+  - The result will only be `1` if either operands are `1`
+  - So, we only get `0` if both operands are `0`
+
+| value1 (bit) | value2 (bit) | value1 \| value2 |
+|--------------|--------------|------------------|
+| 0            | 0            | 0                |
+| 0            | 1            | 1                |
+| 1            | 0            | 1                |
+| 1            | 1            | 1                |
+
+- Bitwise NOT (`~`)
+  - Result will be the inverse of original operand
+  - So if the operand was `1`, the result will be `0` and vice versa
+
+| value1 (bit) | ~value1 (bit) |
+|--------------|---------------|
+| 0            | 1             |
+| 0            | 1             |
+| 1            | 0             |
+| 1            | 0             |
+
+- Bitwise XOR (`^`)
+- Bitwise OR (`|`)
+  - The result will only be `1` if one operand is `1` and other is `0`
+  - So, we get `0` if both operands are `0` or `1`, respectively
+
+| value1 (bit) | value2 (bit) | value1 ^ value2 |
+|--------------|--------------|-----------------|
+| 0            | 0            | 0               |
+| 0            | 1            | 1               |
+| 1            | 0            | 1               |
+| 1            | 1            | 0               |
+
+---
+
+## Compound Bitwise Operators
+
+We will be compounding bitwise and logical operators.
+We will be using the compound operator to immediately assign the result into our operand.
+
+```c++
+unsigned int sandbox_var{0b00110100};
+
+// Compound Left Shift by 2
+sandbox_var <<= 2;
+std::cout << std::bitset<32>(sandbox_var) << '\n';
+
+// Compound Right Shift by 4
+sandbox_var >>= 4;
+std::cout << std::bitset<32>(sandbox_var) << '\n';
+
+// Compound OR with 0000 0010
+sandbox_var |= 0b00001111;
+std::cout << std::bitset<32>(sandbox_var) << '\n';
+
+// Compound AND with 0000 1100
+sandbox_var &= 0b00001100;
+std::cout << std::bitset<32>(sandbox_var) << '\n';
+
+// Compound XOR with 0000 0011
+sandbox_var &= 0b00000011;
+std::cout << std::bitset<32>(sandbox_var) << '\n';
+```
+
+---
+
+## Masks
+
+A mask is a sequence of bits, used to highlight or hide a value inside another bit. It is a technique
+used in programming to perform operations more efficiently on binary data.
+
+Bit-masking in C++ involves manipulating individual bits of a number to achieve the desired output.
+It is achieved by generating a bit mask and doing the following operations:
+- **Bit Toggle**: If a bit is set to `0`
+  - It can be toggled to `1` and vice versa
+- **Bit Setting**: If a bit is set to `0` then it's called 'bit is NOT set'
+  - We can change it to `0` by performing a toggle operation this is called a 'Bit-clearing' operation
+- **Checking specific bit is on or off**: A bit is said to be on if it is `1` and off it is `0`
+
+Bit mask is the fundamental technique to achieve bit-masking.
+It is basically a binary pattern used to perform various bit-level operations.
+The mask is created in the following ways:
+_Assuming we have the set of numbers, whose binary representation has 8 bits in it_
+
+```text
+// Focusing on right-most (least significant) bit
+mask example: 0000 0001
+```
+
+- The mask above will only manipulate the bit in the right-most position
+- But realistically, the mask can be used to manipulate any bit we want
+
+```c++
+constexpr unsigned int mask_bit_0{ 0b00000001 }; // bit 0
+constexpr unsigned int mask_bit_1{ 0b00000010 }; // bit 1
+constexpr unsigned int mask_bit_2{ 0b00000100 }; // bit 2
+constexpr unsigned int mask_bit_3{ 0b00001000 }; // bit 3
+constexpr unsigned int mask_bit_4{ 0b00010000 }; // bit 4
+constexpr unsigned int mask_bit_5{ 0b00100000 }; // bit 5
+constexpr unsigned int mask_bit_6{ 0b01000000 }; // bit 6
+constexpr unsigned int mask_bit_7{ 0b10000000 }; // bit 7
+```
+
+Bit-masking is done by creating a bit mask for the operation that we need to perform.
+This bit mask will then be followed by a bitwise operation to achieve the desired output.
+
+### Setting a Specific Bit
+
+Setting a specific bit basically means changing it from `0` to `1`.
+Achieved by utilizing the Bitwise OR and Bitwise Left Shift.
+We use bitwise OR for its property to give `1` if either of the bits is set to `1`.
+So, we will shift the bit of `1` to the specified position that we want to set and then perform a bitwise OR operation.
+
+```text
+//Option 1
+integer | (1 << bit_position_to_be_set)
+
+// Option 2
+unsigned int mask_position_to_set{0b00000001}
+integer | mask_position_to_be_set
+```
+
+### Resetting Bits
+
+Clearing/Resetting a bit means we set the bit to `0`, if it is `1`. 
+Without touching or affecting any other bit.
+This is done by using Bitwise AND and the negation operator (Bitwise NOT).
+Bitwise NOT flips all the bits that are `1` to `0` and `0` to `1`.
+Which helps us in clearing a set bit.
+
+```text
+//Option 1
+integer & ~(1 << bit_position_to_be_clear)
+
+// Option 2
+unsigned int mask_position_to_clear{0b00000001}
+integer & ~mask_position_to_be_set
+```
+
+### Toggle A Bit
+
+Toggling a bit is where we flip a bit.
+If a bit is set to `1`, we set it to `0`.
+If a bit is set to `0`, we set it to `1`.
+We achieve this by the Bitwise XOR and the Bitwise Left Shift.
+Utilizing the property of the XOR operator to flip the bits, given that the bits of 2 different numbers are not the same.
+
+```text
+// Option 1
+integer ^ (1 << bit_position_to_be_toggle)
+
+// Option 2
+unsigned int mask_position_to_toggle {0b}
+integer ^ mask_position_to_toggle
+```
+
+### Checking if a Bit is a Set or Not
+
+Check if a bit at a specific position is set or not.
+This is done by using the Bitwise AND and Bitwise Left Shift.
+We are essentially left shifting the set bit of `1` to the specified position for which we want to perform a check.
+Then perform a Bitwise AND.
+If the bit is set, then the answer will be: $`2^{\text{Bit_Position}}`$.
 ---
