@@ -16,19 +16,19 @@ int main() {
     collection_of_chars();
     auto_example();*/
 
-    // Part 3
-    // basic_ops();
-    // precedence_and_associativity();
-    // prefix_postfix_increment_and_decrement_operators();
-    // compound_assignment_operators();
-    // relational_operators();
-    // logical_operators();
-    // relational_and_logical_operators();
-    // math_functions();
-    // weird_integral_types();
-    // implicit_conversion();
-    // explicit_conversion();
-    // overflow_and_underflow();
+    /*Part 3
+    basic_ops();
+    precedence_and_associativity();
+    prefix_postfix_increment_and_decrement_operators();
+    compound_assignment_operators();
+    relational_operators();
+    logical_operators();
+    relational_and_logical_operators();
+    math_functions();
+    weird_integral_types();
+    implicit_conversion();
+    explicit_conversion();
+    overflow_and_underflow();*/
 
     // Part 4
     printing_binary();

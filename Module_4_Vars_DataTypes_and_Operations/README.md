@@ -1510,5 +1510,10 @@ Check if a bit at a specific position is set or not.
 This is done by using the Bitwise AND and Bitwise Left Shift.
 We are essentially left shifting the set bit of `1` to the specified position for which we want to perform a check.
 Then perform a Bitwise AND.
-If the bit is set, then the answer will be: $`2^{\text{Bit_Position}}`$.
+If the bit is set, then the answer will be: 
+
+```math
+2^{\text{Bit_Position}}
+```
+
 ---
