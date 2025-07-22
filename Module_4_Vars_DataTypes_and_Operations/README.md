@@ -1513,7 +1513,7 @@ Then perform a Bitwise AND.
 If the bit is set, then the answer will be: 
 
 ```math
-2^{\text{Bit_Position}}
+2^{\text{Bit Position}}
 ```
 
 ---
