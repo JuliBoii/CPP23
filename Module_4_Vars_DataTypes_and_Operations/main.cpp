@@ -30,12 +30,15 @@ int main() {
     explicit_conversion();
     overflow_and_underflow();*/
 
-    // Part 4
+    /*// Part 4
     printing_binary();
     shift_operators();
     bitwise_logical_operators();
     compound_bitwise_operators();
-    bit_masking();
+    bit_masking();*/
+
+    // Part 5
+    pack_colors();
 
     return 0;
 }

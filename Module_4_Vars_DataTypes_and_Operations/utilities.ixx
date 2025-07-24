@@ -940,3 +940,61 @@ export void bit_masking()
 	var ^= (mask_bit_7 | mask_bit_6 | mask_bit_5 | mask_bit_4);
 	fmt::println("var: {:032b}\n", var);
 }
+
+// Part 5 (Mask Examples)
+
+// Avoid doing mask like this
+// We are also not using the following code, its just a visual example
+export void use_options_v0(bool flag0, bool flag1, bool flag2, bool flag3, bool flag4, bool flag5, bool flag6, bool flag7)
+{
+	fmt::println("Flag 0 is: {}, Do something with it.", flag0);
+	fmt::println("Flag 1 is: {}, Do something with it.", flag1);
+	fmt::println("Flag 2 is: {}, Do something with it.", flag2);
+	fmt::println("Flag 3 is: {}, Do something with it.", flag3);
+	fmt::println("Flag 4 is: {}, Do something with it.", flag4);
+	fmt::println("Flag 5 is: {}, Do something with it.", flag5);
+	fmt::println("Flag 6 is: {}, Do something with it.", flag6);
+	fmt::println("Flag 7 is: {}, Do something with it.", flag7);
+}
+
+export void use_options_v1(const unsigned char flags)
+{
+	// Assuming this exist in earlier implementations
+	constexpr unsigned int mask_bit_0{ 0b00000001 }; // bit 0
+	constexpr unsigned int mask_bit_1{ 0b00000010 }; // bit 1
+	constexpr unsigned int mask_bit_2{ 0b00000100 }; // bit 2
+	constexpr unsigned int mask_bit_3{ 0b00001000 }; // bit 3
+	constexpr unsigned int mask_bit_4{ 0b00010000 }; // bit 4
+	constexpr unsigned int mask_bit_5{ 0b00100000 }; // bit 5
+	constexpr unsigned int mask_bit_6{ 0b01000000 }; // bit 6
+	constexpr unsigned int mask_bit_7{ 0b10000000 }; // bit 7
+
+	fmt::println("Flag 0 is: {}, Do something with it.", (flags & mask_bit_0) >> 0);
+	fmt::println("Flag 1 is: {}, Do something with it.", (flags & mask_bit_1) >> 1);
+	fmt::println("Flag 2 is: {}, Do something with it.", (flags & mask_bit_2) >> 2);
+	fmt::println("Flag 3 is: {}, Do something with it.", (flags & mask_bit_3) >> 3);
+	fmt::println("Flag 4 is: {}, Do something with it.", (flags & mask_bit_4) >> 4);
+	fmt::println("Flag 5 is: {}, Do something with it.", (flags & mask_bit_5) >> 5);
+	fmt::println("Flag 6 is: {}, Do something with it.", (flags & mask_bit_6) >> 6);
+	fmt::println("Flag 7 is: {}, Do something with it.", (flags & mask_bit_7) >> 7);
+}
+
+export void pack_colors()
+{
+	constexpr unsigned int red_mask{0xFF000000};
+	constexpr unsigned int green_mask{0x00FF0000};
+	constexpr unsigned int blue_mask{0x0000FF00};
+	constexpr unsigned int alpha_mask{0x000000FF}; // Transparency Information
+
+	constexpr unsigned int my_color{0xAABCDE00};
+
+	/*
+	 * We shift to make sure the color byte of interest is in the lower index
+	 * byte position so that we can interpret that as an integer,
+	 * which will be between 0 and 255
+	 */
+	fmt::println("Red is: {0:d}", (my_color & red_mask) >> 24);
+	fmt::println("Green is: {0:d}", (my_color & green_mask) >> 16);
+	fmt::println("Blue is: {0:d}", (my_color & blue_mask) >> 8);
+	fmt::println("Alpha is: {0:d}", (my_color & alpha_mask) >> 0);
+}
