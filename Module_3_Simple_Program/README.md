@@ -67,7 +67,7 @@ int main(){
 
 ## C++ Execution Model
 
-###**_ Need to add information!!!_**
+### **_ Need to add information!!!_**
 
 ---
 
@@ -123,7 +123,7 @@ We will be using SFML, specifically their premade example script, to get underst
     - Ran the image
     - Then tried compiling and building the project, but it did not work
 - So I am thinking of trying to use a Virtual Machine to test my project for Linux
-- The project does work for my MacOS, so I think, it is a docker problem
+- The project does work for my macOS, so I think, it is a docker problem
     - Was not meant for GUI applications
 
 ### **_Not using GCC for this project_**
@@ -138,8 +138,8 @@ We will be using SFML, specifically their premade example script, to get underst
     See <https://github.com/Homebrew/homebrew-core/issues> for instructions.
     ninja: build stopped: subcommand failed.
     ```
-    - Meaning that it failed because of the compiler, not my code
-- IDK what to do, but for a heads up, I will be using LLVM for my system
+    - Meaning it failed because of the compiler, not my code
+- IDK what to do, but for a heads-up, I will be using LLVM for my system
     - _My system being a 2017 MacBook Pro_
     - _**Another Side Note:_ I am using clang that I downloaded through Homebrew
         - Just a reminder in case someone does not read my other notes
