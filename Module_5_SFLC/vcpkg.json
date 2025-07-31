@@ -1,0 +1,6 @@
+{
+  "name": "sflc",
+  "dependencies": [
+    "fmt"
+  ]
+}
