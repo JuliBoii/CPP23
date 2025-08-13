@@ -6,6 +6,9 @@
   - Input and Output Streams
   - Stream Formatting
   - The Format Library
+	- Printing and Formatting facilities from C++23
+	- How mainstream compilers support them
+	- The `fmt` library to the rescue
   - Literals
   - Constants
 
@@ -39,16 +42,16 @@ int main() {
 - We can end a line that is being printed by using two options
   - `std::endl`
   - `'\n'` or `"\n"`
-    - We use single quotes when we know we only want to output the newline character
-      - After outputting some variable data
-    - We use double quotes when we add the newline character
-      - When outputting a string
-      - Like the example above
-- But the main difference between both methods is that `std::endl` flushes the buffer 
+	- We use single quotes when we know we only want to output the newline character
+	  - After outputting some variable data
+	- We use double quotes when we add the newline character
+	  - When outputting a string
+	  - Like the example above
+- But the main difference between both methods is that `std::endl` flushes the buffer
   - when it is called
-    - Meaning it clears anything in the buffer, which has not been printed
-    - Yet, when doing so, we risk clearing data that we may or may not have needed
-    - So, we use `'\n'` to start a newline, but not flush the buffer
+	- Meaning it clears anything in the buffer, which has not been printed
+	- Yet, when doing so, we risk clearing data that we may or may not have needed
+	- So, we use `'\n'` to start a newline, but not flush the buffer
 
 ### Inputting
 
@@ -113,7 +116,7 @@ int main() {
 - When used, it sets the width parameter of the stream `out` or `in` to exactly `n`
 - Some operations reset the width to zero
   - So `std::setw()` may need to be repeatedly called to set the width for multiple operations
- 
+
 The Unformatted Table will look like the following:
 
 ```text
@@ -165,10 +168,10 @@ The following commands modify the positioning of the fill characters in an outpu
 - Alignment can one of three options
   - `std::left`
   - `std::right`
-    - `left` and `right` apply to any type being output
+	- `left` and `right` apply to any type being output
   - `std::internal`
-    - `internal` applies to integer, floating-point, and monetary output
-    - Most use this alignment to fix the negative sign from the number
+	- `internal` applies to integer, floating-point, and monetary output
+	- Most use this alignment to fix the negative sign from the number
 - All the options have no effect on input
 - The initial default for standard streams is equivalent to right
 
@@ -338,7 +341,8 @@ c: 1.34e-10
 
 ### `std::setprecision(n)`
 
-When used in an expression `out << setprecision(n)` or `in >> setprecision(n)`, sets the precision parameter of the stream `out`
+When used in an expression `out << setprecision(n)` or `in >> setprecision(n)`, sets the precision parameter of the
+stream `out`
 or `in` to exactly `n`.
 
 - With `n` being a new value for precision.
@@ -388,3 +392,455 @@ g: 55
 
 ## Format Library
 
+Comparison of `<format>` and `<iostream>`
+
+| Feature                    | `<format>` C++20               | `<iostream>`                              |
+|----------------------------|--------------------------------|-------------------------------------------|
+| Syntax Simplicity          | Clean `'{}'` placeholders      | Verbose; needs manipulators like `setw()` |
+| Type Safety                | Compile-time `type` checks     | Errors occur at runtime                   |
+| Performance                | Faster; Compile-time optimized | Slower; Runtime overhead                  |
+| Formatting Options         | Rich, Compact syntax           | Verbose; multiple calls/manipulators      |
+| Customizability            | Easy via `std::formatter`      | Requires `operator<<` overloads.          |
+| Localization               | Supported when needed          | Default, but needs customization          |
+| Error-Prone Constructors   | Eliminates format string issue | Safer than `printf`, but lacks checks     |
+| Readability                | Compact and expressive         | Verbose for complex formatting            |
+| Strings                    | Produces strings directly      | Needs `std::ostringstream`                |
+| Extensibility              | Flexible for custom types      | Limited; needs overloads/manipulators     |
+| Cross-Platform Consistency | Uniform across platforms       | Relies on `std::locale`                   |
+
+C++23 adds `std::print` and `std::println`, but moving forward in the course we will be working with `fmt`.
+Below is an example of the `<print>` library.
+
+**_Reminder that some compilers do support this library, but not all IDE's (ex. CLion) will support the latest compiler or build system_**
+
+Formatting Library
+
+- Text formatting library offers a safe and extensible alternative to the `printf` family of functions
+- It is intended to complement the existing C++ I/O streams library
+- **_Again, this libraries main function is to format data not print_**
+- Starting from C++23 the standard library introduces convenient functions like `std::print` and `std::println` for formatted output
+- These functions simplify output by allowing easy formatting directly to standard streams
+  - Without the verbosity of `std::cout` or `printf`
+- Not all compilers fully support C++23 features
+  - Including `std::print` and `std::println`
+- If your compiler supports these functions, use them
+  - As they align with modern C++ practices
+- We will be using the `fmt` library, which provides similar functionality
+  - With `fmt::print` and `fmt::println`, ensuring portability and consistency
+- Using fmt, we can take advantage of modern formatting capabilities today
+  - Even on compilers that do not yet fully support C++23
+
+```c++
+	auto value = std::format("Hello, {}!", "World");
+	std::cout << value << '\n';
+	const std::array<std::string, 6> first_name{"Daniel", "Stanley", "Jordan", "Joe", "Josh", "Izaiah"};
+	const std::array<std::string, 6> last_name{"Gray", "Woods", "Parker", "Ball", "Carr", "Robinson"};
+	constexpr std::array<unsigned int, 6> age{25u, 33u, 45u, 21u, 27u, 29u};
+
+	std::print("Hello, {}!\n", "World");
+	std::print("Hello, {}!", "World\n");
+	std::println("Unformatted Table:");
+	for (int i = 0; i < 6; i++)
+	{
+		std::println("{} {} {}", first_name[i], last_name[i], age[i]);
+	}
+```
+
+- Each line of code prints a formatted string containing:
+  - A person's first name, last name, age
+- The `{}` symbols in the string are placeholders
+  - Which will be replaced with the corresponding values
+    - ex. "Daniel", "Gray", "25"
+- The `std::println` function from the `<print>` library
+  - Ensures the formatted string is printed to the console
+  - Followed by a newline
+- The same format `("{} {} {}")` is reused for each line
+  - Simplifying the process of printing consistent output
+- The output will appear neatly as one line per person with their name and age
+
+As shown below:
+
+```text
+Unformatted Table:
+First Name Last Name Age
+Daniel Gray 25
+Stanley Woods 33
+Jordan Parker 45
+Joe Ball 21
+Josh Carr 27
+Izaiah Robinson 29
+
+```
+
+We can also add formatting to the lines being printed, as shown below:
+
+```c++
+	std::println("Formatted Table:");
+	for (int i = 0; i < 6; i++)
+	{
+		std::println("{:<10} {:<10} {:<5}", first_name[i], last_name[i], age[i]);
+	}
+```
+
+- The first line creates a header formatted (First Name, Last Name, Age)
+  - With consistent column widths for readability
+- The `{:<10}, {:<5}` placeholders ensure lef-aligned text
+  - With column widths of 10 and 5 respectively.
+- The output appears as a table where data is organized into three neatly aligned columns
+- 
+
+Having the following output:
+
+```text
+First Name Last Name  Age  
+Daniel     Gray       25   
+Stanley    Woods      33   
+Jordan     Parker     45   
+Joe        Ball       21   
+Josh       Carr       27   
+Izaiah     Robinson   29 
+```
+
+## `<fmt>`
+
+We can also use external formatting libraries, such as `<fmt>`. Which we have been using so far.
+But using external libraries is not as easy to import as built-in libraries. That is why we are using
+`vcpkg` to help import and manage our external libraries. Which we learned about previously. In this case,
+we can simply change `std` to `fmt` and import the `fmt/format` library.
+
+```c++
+#include <fmt/format.h>
+
+int main() {
+	auto value = fmt::format("Hello, {}!", "World");
+	std::cout << value << '\n';
+	const std::array<std::string, 6> first_name{"Daniel", "Stanley", "Jordan", "Joe", "Josh", "Izaiah"};
+	const std::array<std::string, 6> last_name{"Gray", "Woods", "Parker", "Ball", "Carr", "Robinson"};
+	constexpr std::array<unsigned int, 6> age{25u, 33u, 45u, 21u, 27u, 29u};
+
+	fmt::print("Hello, {}!\n", "World");
+	fmt::print("Hello, {}!", "World\n");
+	fmt::println("Unformatted Table:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{} {} {}", "First Name", "Last Name", "Age");
+		fmt::println("{} {} {}", first_name[i], last_name[i], age[i]);
+	}
+
+	fmt::println("Formatted Table:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:<10} {:<10} {:<5}", "First Name", "Last Name", "Age");
+		fmt::println("{:<10} {:<10} {:<5}", first_name[i], last_name[i], age[i]);
+	}
+
+}
+```
+
+### Dynamic Tables with Formatting
+
+Another example is:
+
+```c++
+	// Dynamic Widths
+	constexpr int col_width{10};
+
+	fmt::println("Formatted table with Dynamic Widths:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:<{}} {:<{}} {:<{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
+		fmt::println("{:<{}} {:<{}} {:<{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+	}
+```
+
+- Placeholders with Widths:
+  - The `{:<{}}` placeholders use:
+    - Left-aligned formatting `(:<)`
+    - Column widths determined by `col_width` 
+      - Or `col_width/2` for the "Age" column
+
+### Bool Values with Formatting
+
+- By default, `fmt::println` formats Bool Values as `true` or `false`
+  - When using `{}` placeholders
+- The `{:d}` placeholder is a workaround to format Bool Values as integers
+  - `1` for True
+  - `0` for False
+  - As the library does not natively support formatting for Bools yet.
+
+### Show Sign for Positive Numbers
+
+- We can also format to show or hide the `+` sign for positive numbers
+- To show the sign we add the following inside the `{}` placeholders
+  - `:+` is added inside the placeholders
+
+Example below:
+
+```c++
+	constexpr int positive_num{34}, negative_num{-23};
+
+	fmt::println("Positive Number: {}", positive_num);
+	fmt::println("Negative Number: {}", negative_num);
+
+	fmt::println("Positive Number: {:+}", positive_num);
+	fmt::println("Negative Number: {:-}", negative_num);
+```
+
+Giving the following output:
+
+```text
+Positive Number: 34
+Negative Number: -23
+Positive Number: +34
+Negative Number: -23
+```
+
+### Changing Number Systems
+
+We can also control the number system our integer data is represented as.
+
+#### Decimal
+
+```c++
+#include <fmt/format.h>
+
+int main() {
+	constexpr int case_number{717171};
+	fmt::println("case_number (decimal): {}", case_number);
+}
+```
+
+Output:
+
+```text
+case_number (decimal): 717171
+```
+
+#### Hexadecimal (Upper and Noupper)
+
+```c++
+	...
+	fmt::println("case_number (hexadecimal): {:x}", case_number);
+	fmt::println("case_number (Hex): {:X}", case_number);
+	...
+```
+
+Output:
+
+```text
+case_number (hexadecimal): af173
+case_number (Hex): AF173
+```
+
+#### Octal
+
+```c++
+	...
+	fmt::println("case_number (octal): {:o}", case_number);
+	...
+```
+
+Output:
+
+```text
+case_number (octal): 2570563
+```
+
+#### Binary
+
+```c++
+	...
+	fmt::println("case_number (Binary): {:b}\n", case_number);
+	...
+```
+
+Output:
+
+```text
+case_number (Binary): 10101111000101110011
+```
+
+#### Showbase for Numbers
+
+```c++
+	fmt::println("case_number (Hex): {:#X}", case_number);
+	fmt::println("case_number (Octal): {:#o}", case_number);
+	fmt::println("case_number (Binary): {:#b}", case_number);
+```
+
+Output:
+
+```text
+case_number (Hex): 0XAF173
+case_number (Octal): 02570563
+case_number (Binary): 0b10101111000101110011
+```
+
+### Floating-Point Formatting
+
+#### Controlling Precision
+
+```c++
+#include <fmt/format.h>
+
+int main() {
+	constexpr double long_double{3.1415926535897932384626433832795};
+	constexpr double stand_double{2006.2};
+	constexpr double sci_double{1.34e-10};
+	
+	fmt::println("Double values (Default)");
+	fmt::println("pi: {}", long_double);
+	fmt::println("double: {}", stand_double);
+	fmt::println("scientific double: {}\n", sci_double);
+
+	fmt::println("Double Values (Precision: 6)");
+	fmt::println("pi: {:.6}", long_double);
+	fmt::println("double: {:.6}", stand_double);
+	fmt::println("scientific double: {:.6}\n", sci_double);
+}
+```
+
+Output:
+
+```text
+Double values (Default)
+pi: 3.141592653589793
+double: 2006.2
+scientific double: 1.34e-10
+
+Double Values (Precision: 6)
+pi: 3.14159
+double: 2006.2
+scientific double: 1.34e-10
+```
+
+#### Fixed Precision
+
+```c++
+	...
+	fmt::println("Double Values (Fixed: 6)");
+	fmt::println("pi: {:.6f}", long_double);
+	fmt::println("double: {:.6f}", stand_double);
+	fmt::println("scientific double: {:.6f}\n", sci_double);
+
+	fmt::println("Double Values (Fixed: 10)");
+	fmt::println("pi: {:.10f}", long_double);
+	fmt::println("double: {:.10f}", stand_double);
+	fmt::println("scientific double: {:.10f}\n", sci_double);
+	...
+```
+
+Output:
+
+```text
+Double Values (Fixed: 6)
+pi: 3.141593
+double: 2006.200000
+scientific double: 0.000000
+
+Double Values (Fixed: 10)
+pi: 3.1415926536
+double: 2006.2000000000
+scientific double: 0.0000000001
+```
+
+#### Scientific Precision
+
+```c++
+	...
+	fmt::println("Double Values (Scientific: 6)");
+	fmt::println("pi: {:.6e}", long_double);
+	fmt::println("double: {:.6e}", stand_double);
+	fmt::println("scientific double: {:.6e}\n", sci_double);
+
+	fmt::println("Double Values (Scientific: 10)");
+	fmt::println("pi: {:.10e}", long_double);
+	fmt::println("double: {:.10e}", stand_double);
+	fmt::println("scientific double: {:.10e}\n", sci_double);
+	...
+```
+
+Output:
+
+```text
+Double Values (Scientific: 6)
+pi: 3.141593e+00
+double: 2.006200e+03
+scientific double: 1.340000e-10
+
+Double Values (Scientific: 10)
+pi: 3.1415926536e+00
+double: 2.0062000000e+03
+scientific double: 1.3400000000e-10
+```
+
+### Specify Argument Indexes
+
+We can specify the order things will print out by specifying the argument index.
+
+```c++
+	...
+	fmt::println("Argument Indexes:");
+	fmt::println("It is {:.2f} degrees outside and it is {}", 34.5, "sunny");
+	fmt::println("It is {1} degrees outside and it is {0:.2f}", 34.5, "sunny");
+	...
+```
+
+- In the first `println()` we do not specify the order of the argument indexes
+  - Thus, the print order is done by FIFO
+- The second `println()` does specify the order with the added indexes `{1}` and `{0:`
+  - Thus, the order is specified in how we want things printed.
+
+Having the following output:
+
+```text
+Argument Indexes:
+It is 34.50 degrees outside and it is sunny
+It is sunny degrees outside and it is 34.50
+```
+
+
+### General Form for Format Specifiers
+
+The next thing we want to check out is how to specify argument indexes.
+Which is something available in the `format` library.
+With the format structure being:
+
+```text
+[[fill]align][sign][#][0][width][.precision][type]
+```
+
+- `[fill]`
+  - Specifies the character used to fill any unused space 
+    - when the value does not fully occupy the specified width
+  - Default is space, but you can choose other characters (e.g. 0 for padding zeros)
+  - Example:
+    - `0` fills space with zeros (e.g., `0` in `{:0>10}`)
+- `[align]`
+  - Specifies the alignment of the value within its field
+  - Options:
+    - `<`: Left-align the value
+    - `>`: Right-align the value (default)
+    - `^`: Centers the value
+  -Example:
+    - `{:>10}` aligns the value to the right
+- `[sign]`
+  - Specifies whether to show a sign for numbers
+  - Options
+    - `+`: Forces a sign to appear for both positive and negative numbers (e.g., `+5`, `-5`)
+    - `-`: Only negative numbers have a sign (default for numeric types).
+  - Example:
+    - `{:5}` will output positive and negative numbers with a sign if specified
+
+```c++
+	...
+	fmt::println("Argument Indexes:");
+	fmt::println("It is {:.2f} degrees outside and it is {}", 34.5, "sunny");
+	fmt::println("It is {1} degrees outside and it is {0:.2f}", 34.5, "sunny");
+	...
+```
+
+---

@@ -1,9 +1,13 @@
 module;
 
+#include <array>
 #include <iostream>
 #include <iomanip>
 #include <ios>
 #include <string>
+#include <format>
+#include <fmt/format.h>
+#include <print>
 
 export module utilities;
 
@@ -241,4 +245,170 @@ export void output_formatting()
 	std::cout << "f: " << f << std::endl;
 	std::cout << "g: " << g << std::endl;
 	std::cout << std::endl;
+}
+
+export void format_library_test()
+{
+	auto value = fmt::format("Hello, {}!", "World");
+	std::cout << value << '\n';
+	const std::array<std::string, 6> first_name{"Daniel", "Stanley", "Jordan", "Joe", "Josh", "Izaiah"};
+	const std::array<std::string, 6> last_name{"Gray", "Woods", "Parker", "Ball", "Carr", "Robinson"};
+	constexpr std::array<unsigned int, 6> age{25u, 33u, 45u, 21u, 27u, 29u};
+
+	fmt::print("Hello, {}!\n", "World");
+	fmt::print("Hello, {}!", "World\n");
+	fmt::println("Unformatted Table:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{} {} {}", "First Name", "Last Name", "Age");
+		fmt::println("{} {} {}", first_name[i], last_name[i], age[i]);
+	}
+	fmt::println("-------\n");
+
+	fmt::println("Formatted Table:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:<10} {:<10} {:<5}", "First Name", "Last Name", "Age");
+		fmt::println("{:<10} {:<10} {:<5}", first_name[i], last_name[i], age[i]);
+	}
+	fmt::println("-------\n");
+
+
+	// Dynamic Widths
+	constexpr int col_width{25};
+
+	fmt::println("Formatted Left-Justified Table with Dynamic Widths:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:<{}} {:<{}} {:<{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
+		fmt::println("{:<{}} {:<{}} {:<{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+	}
+	fmt::println("-------\n");
+
+	fmt::println("Formatted Right-Justified Table with Dynamic Widths:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:>{}} {:>{}} {:>{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
+		fmt::println("{:>{}} {:>{}} {:>{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+	}
+	fmt::println("-------\n");
+
+	fmt::println("Formatted Internal-Justified Table with Dynamic Widths:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:^{}} {:^{}} {:^{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
+		fmt::println("{:^{}} {:^{}} {:^{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+	}
+	fmt::println("-------\n");
+
+	fmt::println("Differences with Justification and Numbers:");
+	fmt::println("{:<10}", -12.31);
+	fmt::println("{:^10}", -12.31);
+	fmt::println("{:>10}", -12.31);
+	fmt::println("-------\n");
+
+	fmt::println("Table with Fill Characters:");
+	for (int i = 0; i < 6; i++)
+	{
+		if (i == 0)
+			fmt::println("{:*<{}} {:*<{}} {:*<{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
+		fmt::println("{:*<{}} {:*<{}} {:*<{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+	}
+	fmt::println("-------\n");
+
+	fmt::println("Boolean Data with FMT:");
+	constexpr bool first{true};
+	constexpr bool last{false};
+
+	fmt::println("True Condition Default: {}", first);
+	fmt::println("False Condition Default: {}", last);
+
+	// Workaround for Bool Printing -ref: https://github.com/fmtlib/fmt/issues/170
+	fmt::println("True Condition Workaround: {:<d}", first);
+	fmt::println("False Condition Workaround: {:<d}", last);
+	fmt::println("-------\n");
+
+	// Show sign for positive numbers
+	fmt::println("Show or Hide the + sign for Positive Numbers:");
+	constexpr int positive_num{34}, negative_num{-23};
+
+	fmt::println("Positive Number: {}", positive_num);
+	fmt::println("Negative Number: {}", negative_num);
+
+	fmt::println("Positive Number: {:+}", positive_num);
+	fmt::println("Negative Number: {:-}", negative_num);
+	fmt::println("-------\n");
+
+	// Controlling the Number System for Integers
+	// Along with Case Sizing
+	fmt::println("Uppercase and Nouppercase Examples:");
+	constexpr int case_number{717171};
+	fmt::println("case_number Default (No Upper Case):");
+	fmt::println("case_number (decimal): {}", case_number);
+	fmt::println("case_number (hexadecimal): {:x}", case_number);
+	fmt::println("case_number (octal): {:o}", case_number);
+	fmt::println("case_number (Binary): {:b}\n", case_number);
+
+	fmt::println("case_number (Uppercase):");
+	fmt::println("case_number (Hex): {:X}\n", case_number);
+
+	// For integers, the "#" toggles the alternative format flag
+	// This shows the base prefix like '0b' and '0x'
+	fmt::println("case_number (Showbase):");
+	fmt::println("case_number (Hex): {:#X}", case_number);
+	fmt::println("case_number (Octal): {:#o}", case_number);
+	fmt::println("case_number (Binary): {:#b}", case_number);
+	fmt::println("-------\n");
+
+	// Fixed and Scientific: for floating-point values
+	// Control the precision
+	constexpr double long_double{3.1415926535897932384626433832795};
+	constexpr double stand_double{2006.2};
+	constexpr double sci_double{1.34e-10};
+
+	fmt::println("Double values (Default)");
+	fmt::println("pi: {}", long_double);
+	fmt::println("double: {}", stand_double);
+	fmt::println("scientific double: {}\n", sci_double);
+
+	fmt::println("Double Values (Precision: 6)");
+	fmt::println("pi: {:.6}", long_double);
+	fmt::println("double: {:.6}", stand_double);
+	fmt::println("scientific double: {:.6}\n", sci_double);
+
+	fmt::println("Double Values (Precision: 10)");
+	fmt::println("pi: {:.10}", long_double);
+	fmt::println("double: {:.10}", stand_double);
+	fmt::println("scientific double: {:.10}\n", sci_double);
+
+	fmt::println("Double Values (Fixed: 6)");
+	fmt::println("pi: {:.6f}", long_double);
+	fmt::println("double: {:.6f}", stand_double);
+	fmt::println("scientific double: {:.6f}\n", sci_double);
+
+	fmt::println("Double Values (Fixed: 10)");
+	fmt::println("pi: {:.10f}", long_double);
+	fmt::println("double: {:.10f}", stand_double);
+	fmt::println("scientific double: {:.10f}\n", sci_double);
+
+	fmt::println("Double Values (Scientific: 6)");
+	fmt::println("pi: {:.6e}", long_double);
+	fmt::println("double: {:.6e}", stand_double);
+	fmt::println("scientific double: {:.6e}\n", sci_double);
+
+	fmt::println("Double Values (Scientific: 10)");
+	fmt::println("pi: {:.10e}", long_double);
+	fmt::println("double: {:.10e}", stand_double);
+	fmt::println("scientific double: {:.10e}", sci_double);
+	fmt::println("-------\n");
+
+	fmt::println("Argument Indexes:");
+	fmt::println("It is {:.2f} degrees outside and it is {}", 34.5, "sunny");
+	fmt::println("It is {1} degrees outside and it is {0:.2f}", 34.5, "sunny");
+	fmt::println("-------\n");
 }
