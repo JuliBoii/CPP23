@@ -8,9 +8,11 @@
   - The Format Library
 	- Printing and Formatting facilities from C++23
 	- How mainstream compilers support them
-	- The `fmt` library to the rescue
-  - Literals
-  - Constants
+  - `fmt` Library (Alternative)
+  - Literals & Constants
+    - `constexpr`
+    - `consteval`
+    - `constinit`
 
 ---
 
@@ -844,3 +846,41 @@ With the format structure being:
 ```
 
 ---
+
+## Literals & Constants
+
+A constant is a piece of data that you do not expect to change.
+Thus, declare it as `const` to make it clear to the compiler.
+`constexpr` in short will allow us to do things at compile time, rather than run-time.
+Instead of doing major computations at runtime we can improve on the performance of our application by moving
+that computation at compile time, if possible.
+
+- What is a Literal?
+  - A literal is a fixed value directly written in the code
+    - Representing a constant of a basic type.
+  - Examples:
+    - Integers (42, 4, 13, etc.)
+    - Floating-point numbers (2.42, 3.14, etc.)
+    - Characters ('A', 'b', 'z', etc.)
+    - Strings ("Hello", "World", etc.)
+    - Booleans (true, false)
+  - **Literals are not variables** and cannot be modified
+
+We use the following literal types for specific data types:
+  - `u` or `U`
+    - Used for `unsigned` data
+  - `l` or `L`
+    - Used for `long` data
+  - `ll` or `LL`
+    - Used for `long long` data
+  - They can be combined
+
+We can also set up our literals to be more readable.
+The example below showcases an how to make long numbers more readable using single quotes `(')`.
+
+```c++
+unsigned int number{1'500'00'0u};
+```
+
+---
+

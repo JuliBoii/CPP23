@@ -412,3 +412,68 @@ export void format_library_test()
 	fmt::println("It is {1} degrees outside and it is {0:.2f}", 34.5, "sunny");
 	fmt::println("-------\n");
 }
+
+export void literals_examples() {
+	// 2 Bytes
+	short short_var{-32768};	// No special literal type for short
+	short int short_int{455};	// No special literal type for short
+	signed short signed_short_var{-32768};	// No special literal type for short
+	signed int signed_short_int{-455};	// No special literal type for short
+	unsigned short int unsigned_short_var{65535U};
+
+	// 4 Bytes
+	const int int_var{32767};
+	signed signed_var{-32768};
+	signed int signed_int_var{-455};
+	unsigned int unsigned_var{65535U};
+
+	// 4 Or 8 Bytes
+	long long_var{-9223372036854775807L}; // 4 or 8 bytes
+	long int long_int_var{-9223372036854775807L};
+	signed long signed_long_var{-9223372036854775807L};
+	signed long int signed_long_int_var{-9223372036854775807L};
+	unsigned long int unsigned_long_var{4294967295UL};
+
+	long long long_long_var{-9223372036854775807LL}; // 8 Bytes
+	long long int long_long_int_var{-9223372036854775807LL};
+	signed long long signed_long_long_var{-9223372036854775807LL};
+	signed long long int signed_long_long_int_var{-9223372036854775807LL};
+
+	// Grouping Numbers: C++14 and Onwards
+	unsigned int prize{1'500'00'0U};
+	fmt::println("The prize is: {}", prize);
+	fmt::println("signed_long_long_int: {}\n", signed_long_long_int_var);
+
+	// With number systems: Hex (prefixed with 0x)
+	unsigned int hex_number_1 {0x22BU};	// Decimal: 555
+	int hex_number_2{0x400};	// Decimal: 1024
+	fmt::println("The hex number is: {:x}", hex_number_1);
+	fmt::println("The hex number is: {:x}\n", hex_number_2);
+
+	// Representing colors with hex
+	int black_color_hex{0xffffff};
+	fmt::println("Black color is: {:X}\n", black_color_hex);
+
+	// Octal literals: Prefix with 0
+	int octal_number{0777u};	// Decimal: 511
+	fmt::println("The octal number is: {:o}", octal_number);
+	// BE CAREFUL NOT TO PREFIX YOUR INTEGERS WITH 0 IF YOU MEAN DECIMAL
+	int error_octal_number{055};	// This is not 55 in memory, it is 45 in Decimal
+	fmt::println("The erroneous octal number is: {}\n", error_octal_number);
+
+	// Binary Literals
+	unsigned int binary_literal{0b11111111u};
+	fmt::println("The binary literal is: {:b}\n", binary_literal);
+
+	// Literals Examples
+	char char_var{'a'};
+	int number_literal{15};
+	float fractional_literal{1.5101f};
+	std::string string_literal{"This is a string literal"};
+
+	// Print the literals with fmt
+	fmt::println("The char literal is: {}", char_var);
+	fmt::println("The number literal is: {}", number_literal);
+	fmt::println("The fractional literal is: {}", fractional_literal);
+	fmt::println("The string literal is: {}\n", string_literal);
+}
