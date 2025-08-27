@@ -876,10 +876,40 @@ We use the following literal types for specific data types:
   - They can be combined
 
 We can also set up our literals to be more readable.
-The example below showcases an how to make long numbers more readable using single quotes `(')`.
+The example below showcases how to make long numbers more readable using single quotes `(')`.
 
 ```c++
 unsigned int number{1'500'00'0u};
+```
+
+For constants, we can only initialize a constant variable.
+We **cannot** update the variable with new data later on.
+
+- A constant variable can be represented with basic types
+- Examples
+  - Integers (`int`)
+  - Floating-point (`float`, `double`, etc.)
+  - Characters (`char`)
+  - Strings (`std::string`)
+  - Boolean (`bool`)
+
+One may ask why we should make variables `const`, but it is the recommended manner to declare variables, in C++.
+
+- We make it `const` by default to
+  - Prevent accidental changes to the variable
+  - Making our code a little bit safer
+  - So, it is good practice to declare variables as const
+    - Unless, we explicitly want the variable to change in our code
+
+We will be showcasing an example of constants:
+
+```c++
+const int age{34};
+const float height{1.67f};
+
+// Compiler Errors: constants cannot be updated with new literals
+// age = 33;
+// height = 1.8f;
 ```
 
 ---

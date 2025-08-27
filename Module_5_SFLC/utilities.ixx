@@ -477,3 +477,19 @@ export void literals_examples() {
 	fmt::println("The fractional literal is: {}", fractional_literal);
 	fmt::println("The string literal is: {}\n", string_literal);
 }
+
+export void constant_example()
+{
+	const int age{42};
+	const float height{1.67f};
+
+	/*Compiler Error: Cannot update const variables
+	*age = 11;
+	* height = 1.8f;
+	*/
+
+	int years{3 * age};
+	fmt::println("Age: {}", age);
+	fmt::println("Height: {}", height);
+	fmt::println("Years: {}\n", years);
+}
