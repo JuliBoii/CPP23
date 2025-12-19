@@ -14,7 +14,8 @@ RUN apk add --no-cache autoconf \
                         bash \
                         build-base \
                         ccache \
-                        clang20-dev \
+                        clang \
+                        clang-dev \
                         clang20-extra-tools \
                         cmake \
                         curl \
