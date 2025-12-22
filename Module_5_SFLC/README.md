@@ -912,5 +912,61 @@ const float height{1.67f};
 // height = 1.8f;
 ```
 
+
+### `constexpr` Variables
+
+Off bat, we want to make a clear distinction for this section.
+We are **_strictly_** discussing `constexpr` variables, not `constexpr` functions.
+`constexpr` is an important part of Modern C++, because it allows us to move computations to compile-time.
+`constexpr` specifies that the value of a variable or function can appear in constant expressions.
+
+A `constexpr` variable must satisfy the following requirements:
+
+- Its type must be a `LiteralType`
+- It must be immediately initialized
+- The full-expression of its initialization, including all implicit conversions, constructors calls, etc., must be a **constant expression**
+
+
+We declare `constexpr` variables like the following:
+
+```c++
+constexpr int SOME_LIB_MAJOR_VERSION{5};
+constexpr double height{1.59};
+```
+
+Previously, the usual compile flow would initialize values at runtime. When we hit the main
+function and execute our program. But now, we can move this step of initialization to compile
+time. Plus, make sure we use something that is already initialized even before we get to run
+the main function. So, `constexpr` will be doing things when we are generating our binary.
+
+```c++
+constexpr int eye_count{2};
+//eye_count = 4;    // Compile Error
+```
+
+- `constexpr` are `const`
+- So something declared as `constexpr`:
+  - Compiler is going to make sure that it is `const`
+  - Thus, the variable cannot be changed once initialized
+
+```c++
+constexpr int arm_count{2};
+arm_count = 1;  // Results in compiler error
+```
+
+Also need to note that we **_cannot_** use a `non-constexpr` or `non-const`
+variable to initialize a `constexpr`
+
+- Which can be re-worded as:
+  - We **cannot** use a runtime variable to initialize a compile-time variable
+  - Results in a compiler error
+- Thus, we can use `constexpr` or `const` variables to initialize `constexpr` variables
+
+```c++
+const int toys_owned{4};
+constexpr int new_toys{toys_owned * 5};
+```
+
 ---
 
+## `constexpr` Functions

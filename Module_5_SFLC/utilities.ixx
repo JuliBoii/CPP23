@@ -493,3 +493,32 @@ export void constant_example()
 	fmt::println("Height: {}", height);
 	fmt::println("Years: {}\n", years);
 }
+
+export void constexpr_example()
+{
+	// constexpr variables
+	// They are always evaluated at compile-time
+	// constexpr implies const
+	constexpr int SOME_LIB_MAJOR_VERSION{21};
+	constexpr int eye_count{2};
+	constexpr double PI{3.1415926535};
+	// eye_count = 4; // Error: constexpr variable are const
+	fmt::println("Eye count: {}", eye_count);
+	fmt::println("PI: {}", PI);
+
+	// int leg_count{2};
+	// constexpr int arm_count{leg_count}; // Error
+
+	constexpr int room_count{3};
+	constexpr int door_count{room_count * 2}; // Okay
+	fmt::println("Door count: {}", door_count);
+
+	const int table_count{5};
+	constexpr int chair_count{table_count * 5}; // Works
+	fmt::println("Chair count: {}", chair_count);
+
+	static_assert(SOME_LIB_MAJOR_VERSION == 21);
+
+	// int age = 5;	// Run-time variable
+	//static_assert(age == 5);	// Error: age is not a compile-time variable
+}

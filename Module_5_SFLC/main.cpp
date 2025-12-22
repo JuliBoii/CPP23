@@ -5,5 +5,6 @@ int main() {
 	// output_formatting();
 	// format_library_test();
 	// literals_examples();
-	constant_example();
+	// constant_example();
+	constexpr_example();
 }
