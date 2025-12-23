@@ -18,10 +18,15 @@ export void if_statements_example()
 
     // Free standing if statement
     fmt::println("Free standing if Statement");
-    // if (result) {}
 
+    // if (result) {}
     if (result == true)
     {
         fmt::println("{} is less than {}", number1, number2);
     }
+
+	// if(!result) {}
+	if (!(result == true)) {
+		fmt::println("{} is NOT less than {}", number1, number2);
+	}
 }

@@ -1,6 +1,6 @@
 import utilities;
 
 int main() {
-    flow_control_types();
+    if_statements_example();
     return 0;
 }
