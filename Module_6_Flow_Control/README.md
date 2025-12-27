@@ -222,3 +222,31 @@ Example:
 ---
 
 ## Switch Statements
+
+The `switch` statement is similar to the function of `else if`.
+Having the format of: 
+
+```c++
+switch( conditional )
+{
+    case //int value or int variable: 
+    {
+        // Operations
+    } break;
+    default:
+    {
+        // Operations
+    } break;
+}
+```
+
+- We pass our conditional in the parentheses of the `switch()` keyword
+  - In the curly braces following the `switch()` statement
+    - We enter the `case` options we want to check for
+      -  Where each case could have operations done or "fall down" to the operations of other `cases`
+    - After each `case`'s operations, following the curly braces, we add a `break`
+      - This ensures that we do not "fall down" to other `case` options and execute their operations, if any
+  - At the end of all the `case` options, we add a `default` option
+    - The `default` case handles situations we do not account for or simply want to ignore
+- Similar to `if` statements, we can add an initializer within the `switch()` parentheses
+  - Which also only exist within the `switch()` statements scope

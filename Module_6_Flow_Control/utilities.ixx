@@ -5,6 +5,14 @@ module;
 
 export module utilities;
 
+// Tools
+constexpr int pen{10};
+constexpr int marker{20};
+constexpr int eraser{30};
+constexpr int rectangle{45};
+constexpr int circle{15};
+constexpr int ellipse{7};
+
 //	Part 1
 export void if_statements_example()
 {
@@ -101,17 +109,9 @@ export void if_statements_example()
 
 	fmt::println("Else-If Statement");
 
-	// Tools
-	constexpr int pen{10};
-	constexpr int marker{20};
-	constexpr int eraser{30};
-	constexpr int rectangle{45};
-	constexpr int circle{15};
-	constexpr int ellipse{7};
-
 	constexpr int tool{eraser};
 
-	if (tool == pens) {
+	if (tool == pen) {
 		fmt::println("Active tool is pen.");
 	} else if (tool == marker) {
 		fmt::println("Active tool is marker.");
@@ -124,4 +124,31 @@ export void if_statements_example()
 	} else if (tool == ellipse) {
 		fmt::println("Active tool is ellipse.");
 	}
+	fmt::println("");
+}
+
+export void switch_statements() {
+	fmt::println("Switch statements Example:");
+	constexpr int tool{circle};
+
+	switch (double strength {3.50}; tool) {
+		case pen: {
+			fmt::println("Active too is Pen. Strength: {}", strength);
+		} break;
+		case marker: {
+			fmt::println("Active too is Marker. Strength: {}", strength);
+		} break;
+		case eraser: {
+			fmt::println("Active too is Eraser. Strength: {}", strength);
+		} break;
+		case rectangle:
+		case circle:
+		case ellipse: {
+			fmt::println("Active tool is a Shape. Strength: {}", strength);
+		} break;
+		default: {
+			fmt::println("No match Found!");
+		} break;
+	}
+	fmt::println("");
 }
