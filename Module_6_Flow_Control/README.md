@@ -312,3 +312,5 @@ So this has the same concept as the previous operator.
   - Find the first one (`true`)
   - Then decide that the result is going to be one (`true`)
     - While also ignoring all other evaluations to achieve that result
+
+---

@@ -6,6 +6,27 @@ module;
 export module utilities;
 
 // Tools
+bool house()
+{
+	fmt::println("house() is running");
+	return false;
+}
+bool spouse()
+{
+	fmt::println("spouse() is running");
+	return true;
+}
+bool car()
+{
+	fmt::println("car() is running");
+	return true;
+}
+bool tv()
+{
+	fmt::println("tv() is running");
+	return true;
+}
+
 constexpr int pen{10};
 constexpr int marker{20};
 constexpr int eraser{30};
@@ -65,7 +86,7 @@ export void if_statements_example()
         fmt::println("GO");
     }
 
-    fmt::println("Police Officer stops(verbose)");
+    fmt::println("Police Officer Stops (Verbose)");
     if (green)
     {
         if (police_stop)
@@ -106,7 +127,7 @@ export void if_statements_example()
 	}
 
 	//fmt::println("{}", speed);
-
+	fmt::println("");
 	fmt::println("Else-If Statement");
 
 	constexpr int tool{eraser};
@@ -153,14 +174,9 @@ export void switch_statements() {
 	fmt::println("");
 }
 
-bool house(){ return true; }
-bool spouse(){ return false; }
-bool car(){ return true; }
-bool tv(){ return true; }
-
 export void short_circuit_evaluations()
 {
-	fmt::println("Short Circuit Evaluations:");
+	fmt::println("Short Circuit Evaluations:\n");
 
 	constexpr bool a{true}, b{true}, c{true}, d{false};
 	constexpr bool p{false}, q{false}, r{false}, m{true};
@@ -182,6 +198,18 @@ export void short_circuit_evaluations()
 	if (car() && house() && tv() && spouse())
 	{
 		fmt::println("AND - I am happy");
+	} else
+	{
+		fmt::println("AND - I am not happy!");
 	}
 
+	if (car() || tv() || spouse() || house())
+	{
+		fmt::println("OR - I am happy");
+	} else
+	{
+		fmt::println("OR - I am not happy!");
+	}
+	fmt::println("");
 }
+
