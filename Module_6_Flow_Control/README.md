@@ -23,7 +23,6 @@
     - Ternary operators
     - etc.
 
-
 ---
 
 ## If Statements
@@ -250,3 +249,66 @@ switch( conditional )
     - The `default` case handles situations we do not account for or simply want to ignore
 - Similar to `if` statements, we can add an initializer within the `switch()` parentheses
   - Which also only exist within the `switch()` statements scope
+
+---
+
+## Short Circuit Evaluation
+
+This is a phenomenon that happens when the compiler takes a shortcut and avoids
+doing all the work. 
+
+**How does this happen?**
+
+```c++
+...
+
+constexpr bool a{true}, b{true}, c{true}, d{false};
+
+// AND: If one of the operands is false, the result is false
+fmt::println("AND Short Circuit Example:");
+constexpr bool result_and{a && b && c && d};
+fmt::println("result (AND): {}", result_and);
+fmt::println("");
+
+...
+```
+
+- Suppose we have the logical expression for `result_and`
+  - Acknowledging that an `AND` operator is going to be brought down by a single zero (`false`)
+  - i.e., regardless of the numerous `true` statements
+    - A single `false` leads to a `false` result
+- This is what the compiler does
+  - Sees only `AND` operators in the logical expression
+  - Find the first zero (`false`)
+  - Then decide that the result is going to be zero (`false`)
+    - While also ignoring all other evaluations to achieve that result
+- Thus, the name `short circuit evaluation`
+  - Meaning it is simply a phrase that represents the compilers behavior
+    - Ignoring to do all the unnecessary evaluations to achieve the same result
+
+**This also happens with the `OR` operator.**
+
+```c++
+...
+
+constexpr bool p{false}, q{false}, r{false}, m{true};
+
+// OR: If one of the operands is true, the result is true
+fmt::println("OR Short Circuit Example:");
+constexpr bool result_or{a || b || c || d};
+fmt::println("result (OR): {}", result_or);
+fmt::println("");
+
+...
+```
+
+So this has the same concept as the previous operator.
+
+- Suppose we have the logical expression for `result_or`
+  - regardless of the numerous `false` statements
+    - A single `true` leads to a `true` result
+- This is what the compiler does
+  - Sees only `OR` operators in the logical expression
+  - Find the first one (`true`)
+  - Then decide that the result is going to be one (`true`)
+    - While also ignoring all other evaluations to achieve that result

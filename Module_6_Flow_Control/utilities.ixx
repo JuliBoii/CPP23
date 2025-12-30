@@ -152,3 +152,36 @@ export void switch_statements() {
 	}
 	fmt::println("");
 }
+
+bool house(){ return true; }
+bool spouse(){ return false; }
+bool car(){ return true; }
+bool tv(){ return true; }
+
+export void short_circuit_evaluations()
+{
+	fmt::println("Short Circuit Evaluations:");
+
+	constexpr bool a{true}, b{true}, c{true}, d{false};
+	constexpr bool p{false}, q{false}, r{false}, m{true};
+
+	// AND: If one of the operands is false, the result is false
+	fmt::println("AND Short Circuit Example:");
+	constexpr bool result_and{a && b && c && d};
+	fmt::println("result (AND): {}", result_and);
+	fmt::println("");
+
+	// OR: If one of the operands is true, the result is true
+	fmt::println("OR Short Circuit Example:");
+	constexpr bool result_or{a || b || c || d};
+	fmt::println("result (OR): {}", result_or);
+	fmt::println("");
+
+	// Example using functions
+	fmt::println("Short Circuit Example using Functions:");
+	if (car() && house() && tv() && spouse())
+	{
+		fmt::println("AND - I am happy");
+	}
+
+}
