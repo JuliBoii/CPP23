@@ -213,3 +213,24 @@ export void short_circuit_evaluations()
 	fmt::println("");
 }
 
+export void ternary_operator_example()
+{
+	fmt::println("Ternary Operator Example:");
+
+	int max{};
+	constexpr int a{35}, b{120};
+
+	//if (a > b)
+	//{
+	//	max = a;
+	//} else
+	//{
+	//	max = b;
+	//}
+
+	max = (a > b) ? a : b;
+
+	fmt::println("max: {}", max);
+	fmt::println("");
+}
+

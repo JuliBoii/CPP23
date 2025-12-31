@@ -7,6 +7,7 @@
 - If statement
 - Switch
 - Ternary Operator
+- `std::unreachable` (C++23)
 - Loops:
   - `for()`
   - `while()`
@@ -314,3 +315,85 @@ So this has the same concept as the previous operator.
     - While also ignoring all other evaluations to achieve that result
 
 ---
+
+## Ternary Operator (Conditional Operator)
+
+This is an operator you can use to simplify your code.
+
+Look at the following example:
+
+```c++
+int max{};
+constexpr int a{35}, b{120};
+
+if (a > b)
+{
+    max = a;
+} else
+{
+    max = b;
+}
+```
+
+The previous `if` statement is a simple logical expression. Yet, it takes multiple
+lines to write out, to verbose. Expression where two possible outcomes are possible, can be
+written as such:
+
+```c++
+max = (a > b) ? a : b;
+```
+
+- It is a ternary operator because:
+  - It has three operators
+    1. The first is the greater than operator
+    2. Followed by the question mark
+    3. Having two things acting as the answer/result
+       - if `a` is greater than `b`
+         - We assign `a` to the `max` variable
+       - Otherwise
+         - We assign `b` to the `max` variable
+
+---
+
+## `std::unreachable` (C++23)
+
+We will be discussing a facility that was introduced in C++23, `std::unreachable`.
+This is just a suggestion or a helper line tha you will put in your code to
+tell the compiler a part of your cod is going to be unreachable. So, the compiler
+will do optimizations in turn.
+
+- `std::unreachable()` is a function introduced as part of `<utility>`
+  - Marks code paths that should never be reached
+- Used to inform the compiler
+  - Certain parts of code are logically unreachable
+  - Which can lead to optimization opportunities
+
+Example below:
+
+```c++
+void handleColor(const int& color)
+{
+    switch (color)
+    {
+        case Red:
+            fmt::println("Handling Red");
+            break;
+        case Green:
+            fmt::println("Handling Green");
+            break;
+        case Blue:
+            fmt::println("Handling Blue");
+            break;
+        default:
+            // We expect that all cases are covered
+            // So reaching here should never happen.
+            std::unreachable();
+    }
+}
+
+int main()
+{   
+    handleColor(Red);
+    
+}
+```
