@@ -2,6 +2,7 @@ module;
 
 #include <fmt/format.h>
 #include <iostream>
+#include <utility>
 
 export module utilities;
 
@@ -33,6 +34,30 @@ constexpr int eraser{30};
 constexpr int rectangle{45};
 constexpr int circle{15};
 constexpr int ellipse{7};
+
+constexpr int Red{70};
+constexpr int Green{150};
+constexpr int Blue{200};
+
+void handle_color(int color)
+{
+	switch (color)
+	{
+		case Red:
+			fmt::println("Handling Red.");
+			break;
+		case Green:
+			fmt::println("Handling Green.");
+			break;
+		case Blue:
+			fmt::println("Handling Blue.");
+			break;
+		default:
+			// We expect that all cases are covered
+			// So reaching here sould never happen
+			std::unreachable();
+	}
+}
 
 //	Part 1
 export void if_statements_example()
@@ -234,3 +259,13 @@ export void ternary_operator_example()
 	fmt::println("");
 }
 
+export void unreachable_example()
+{
+	fmt::println("Unreachable Example:");
+	fmt::println("");
+
+	handle_color(Red);
+	handle_color(Green);
+	handle_color(Blue);
+	//handle_color(55);
+}

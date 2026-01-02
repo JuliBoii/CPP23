@@ -4,7 +4,8 @@ int main() {
     //if_statements_example();
     //switch_statements();
     //short_circuit_evaluations();
-    ternary_operator_example();
+    //ternary_operator_example();
+    unreachable_example();
 
     return 0;
 }

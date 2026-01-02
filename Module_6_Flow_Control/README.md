@@ -394,6 +394,22 @@ void handleColor(const int& color)
 int main()
 {   
     handleColor(Red);
-    
+    handleColor(Green);
+    handleColor(Blue);
 }
 ```
+
+- In the case above
+  - We have a `switch` statement
+    - Testing for certain cases
+  - If we receive a case that does not exist
+    - Then we do not expect to run the `default`
+    - Thus mark it as **_unreachable_**
+      - Helping the compiler out in processing it
+      - Saving on that compilation
+- _**We would mainly use `std::unreachable` in the optimization phase**_
+  - e.i., using the `default`, for example, is not helping
+  - Then we would add the `std::unreachable()`
+
+---
+
