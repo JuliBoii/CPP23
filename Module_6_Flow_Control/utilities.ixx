@@ -269,3 +269,18 @@ export void unreachable_example()
 	handle_color(Blue);
 	//handle_color(55);
 }
+
+export void loops_example()
+{
+	fmt::println("Loops Example:");
+	fmt::println("");
+
+	fmt::println("For loops:");
+	for (size_t i{0}; i < 10; ++i)
+	{
+		// Whatever we want the loop to run
+		fmt::println("{} : I love C++", i);
+	}
+
+	fmt::println("Loop Done\n");
+}

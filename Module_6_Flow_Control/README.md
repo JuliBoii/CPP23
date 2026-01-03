@@ -413,3 +413,55 @@ int main()
 
 ---
 
+## Loops
+
+We will start learning about loops.
+
+_Side Note:_ I may just not add much notes to this section other than
+showing an example or minor information that may be helpful.
+
+- Loop components
+  - Initializer
+  - End Condition
+  - Incrementation
+  - Body
+
+### `for` loops
+
+Example:
+
+```c++
+// for loop: the good way
+for (unsigned int i{0}; i < 100; ++i)
+{
+    // Whatever we want the loop to run
+    fmt::println("{} : I love C++", i);
+}
+
+// "i" is only available within the scope of the for loop
+//fmt::println("{}", i);
+```
+
+- Breakdown:
+  - Initializer
+    - `unsigned int i{0}`
+  - End Condition
+    - `i < 100`
+  - Incrementation
+    - `++i`
+  - Body
+    - `fmt::println("{} : I love C++", i);`
+
+When using a positive integer to count things, in C++, it is
+best to do such process with `size_t` variables.
+Which is just another name for `unsigned integer`, but that is
+just a surface level explanation.
+
+```c++
+// Previous code with size_t
+for (size_t i{0}; i < 100; ++i)
+{
+    // Whatever we want the loop to run
+    fmt::println("{} : I love C++", i);
+}
+```
