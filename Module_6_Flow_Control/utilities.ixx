@@ -281,5 +281,6 @@ export void loops_example() {
 		fmt::println("value: {}", value);
 	}
 	fmt::println("");
+}
 
-// While Loops Examples}
+// While Loops Examples
