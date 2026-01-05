@@ -9,20 +9,20 @@
 - Ternary Operator
 - `std::unreachable` (C++23)
 - Loops:
-  - `for()`
-  - `while()`
-  - `do{} while()`
+    - `for()`
+    - `while()`
+    - `do{} while()`
 
 ---
 
 - Flow control are tools that C++, or any programming language, provides to control the flow of your program
-  - Through the execution pipeline
+    - Through the execution pipeline
 - Using the tools, we can decide the path an instruction takes
-  - We will also see different facilities that C++ provides.
-  - Like:
-    - Switches
-    - Ternary operators
-    - etc.
+    - We will also see different facilities that C++ provides.
+    - Like:
+        - Switches
+        - Ternary operators
+        - etc.
 
 ---
 
@@ -54,22 +54,22 @@ Example:
 ```
 
 - Based on the result of the code above
-  - We can do decisions
+    - We can do decisions
 - We can say:
-  - If result is true:
-    - We want to do this thing we have within the curly braces
-    - Following the syntax:
-      - `if( // Conditions ) { // Code to run if conditions met }`
-      - Use logical operators for conditions
+    - If result is true:
+        - We want to do this thing we have within the curly braces
+        - Following the syntax:
+            - `if( // Conditions ) { // Code to run if conditions met }`
+            - Use logical operators for conditions
 - We can also implicitly check our conditions
-  - we can shorten our condition in the example above
-  - Following the syntax:
-    - `if (result) {}`
-    - This is equivalent to writing out `if (result == true) {}`
+    - we can shorten our condition in the example above
+    - Following the syntax:
+        - `if (result) {}`
+        - This is equivalent to writing out `if (result == true) {}`
 - We can also check if the result is `false` rather than `true`
-  - Using the following syntax:
-    - `if (!result) {}`
-    - which is equivalent to: `if (~(result == true)) {}`
+    - Using the following syntax:
+        - `if (!result) {}`
+        - which is equivalent to: `if (~(result == true)) {}`
 
 We can also set up two branches.
 If you say something is `true`, I will run a set of operations.
@@ -89,7 +89,7 @@ Example:
 
 - In the example above we combined our previous `if` statements
 - If we know our second condition will be true given our first condition fails
-  - We simply run the operations for the second condition without checking its condition
+    - We simply run the operations for the second condition without checking its condition
 
 ### Nested If Statements
 
@@ -122,9 +122,9 @@ We can also do nested `if` statements. Look at the following example:
 ```
 
 - The code block above showcases an example of a nested `if` statement.
-  - But we should also not abuse this function.
-  - Nesting large quantities of `if` statements is not good code practice.
-    - In general, nesting 2 to 3 `if` statements is common.
+    - But we should also not abuse this function.
+    - Nesting large quantities of `if` statements is not good code practice.
+        - In general, nesting 2 to 3 `if` statements is common.
 
 Most often, we can shorten the use of nested `if` statements by checking the conditions together.
 Meaning, if there already exist a relationship between two or more conditions they can be combined
@@ -173,9 +173,9 @@ if (int speed{10}; go)
 
 - At this point we are also providing an initializer variable
 - Variable is only accessible within the `if` statement scope
-  - if we tried using the variable outside the `if` statement
-    - An error would occur when building the program
-    - Showcased below:
+    - if we tried using the variable outside the `if` statement
+        - An error would occur when building the program
+        - Showcased below:
 
 ```c++
 error: use of undeclared identifier 'speed'
@@ -224,7 +224,7 @@ Example:
 ## Switch Statements
 
 The `switch` statement is similar to the function of `else if`.
-Having the format of: 
+Having the format of:
 
 ```c++
 switch( conditional )
@@ -241,22 +241,22 @@ switch( conditional )
 ```
 
 - We pass our conditional in the parentheses of the `switch()` keyword
-  - In the curly braces following the `switch()` statement
-    - We enter the `case` options we want to check for
-      -  Where each case could have operations done or "fall down" to the operations of other `cases`
-    - After each `case`'s operations, following the curly braces, we add a `break`
-      - This ensures that we do not "fall down" to other `case` options and execute their operations, if any
-  - At the end of all the `case` options, we add a `default` option
-    - The `default` case handles situations we do not account for or simply want to ignore
+    - In the curly braces following the `switch()` statement
+        - We enter the `case` options we want to check for
+            - Where each case could have operations done or "fall down" to the operations of other `cases`
+        - After each `case`'s operations, following the curly braces, we add a `break`
+            - This ensures that we do not "fall down" to other `case` options and execute their operations, if any
+    - At the end of all the `case` options, we add a `default` option
+        - The `default` case handles situations we do not account for or simply want to ignore
 - Similar to `if` statements, we can add an initializer within the `switch()` parentheses
-  - Which also only exist within the `switch()` statements scope
+    - Which also only exist within the `switch()` statements scope
 
 ---
 
 ## Short Circuit Evaluation
 
 This is a phenomenon that happens when the compiler takes a shortcut and avoids
-doing all the work. 
+doing all the work.
 
 **How does this happen?**
 
@@ -275,17 +275,17 @@ fmt::println("");
 ```
 
 - Suppose we have the logical expression for `result_and`
-  - Acknowledging that an `AND` operator is going to be brought down by a single zero (`false`)
-  - i.e., regardless of the numerous `true` statements
-    - A single `false` leads to a `false` result
+    - Acknowledging that an `AND` operator is going to be brought down by a single zero (`false`)
+    - i.e., regardless of the numerous `true` statements
+        - A single `false` leads to a `false` result
 - This is what the compiler does
-  - Sees only `AND` operators in the logical expression
-  - Find the first zero (`false`)
-  - Then decide that the result is going to be zero (`false`)
-    - While also ignoring all other evaluations to achieve that result
+    - Sees only `AND` operators in the logical expression
+    - Find the first zero (`false`)
+    - Then decide that the result is going to be zero (`false`)
+        - While also ignoring all other evaluations to achieve that result
 - Thus, the name `short circuit evaluation`
-  - Meaning it is simply a phrase that represents the compilers behavior
-    - Ignoring to do all the unnecessary evaluations to achieve the same result
+    - Meaning it is simply a phrase that represents the compilers behavior
+        - Ignoring to do all the unnecessary evaluations to achieve the same result
 
 **This also happens with the `OR` operator.**
 
@@ -306,13 +306,13 @@ fmt::println("");
 So this has the same concept as the previous operator.
 
 - Suppose we have the logical expression for `result_or`
-  - regardless of the numerous `false` statements
-    - A single `true` leads to a `true` result
+    - regardless of the numerous `false` statements
+        - A single `true` leads to a `true` result
 - This is what the compiler does
-  - Sees only `OR` operators in the logical expression
-  - Find the first one (`true`)
-  - Then decide that the result is going to be one (`true`)
-    - While also ignoring all other evaluations to achieve that result
+    - Sees only `OR` operators in the logical expression
+    - Find the first one (`true`)
+    - Then decide that the result is going to be one (`true`)
+        - While also ignoring all other evaluations to achieve that result
 
 ---
 
@@ -344,14 +344,14 @@ max = (a > b) ? a : b;
 ```
 
 - It is a ternary operator because:
-  - It has three operators
-    1. The first is the greater than operator
-    2. Followed by the question mark
-    3. Having two things acting as the answer/result
-       - if `a` is greater than `b`
-         - We assign `a` to the `max` variable
-       - Otherwise
-         - We assign `b` to the `max` variable
+    - It has three operators
+        1. The first is the greater than operator
+        2. Followed by the question mark
+        3. Having two things acting as the answer/result
+            - if `a` is greater than `b`
+                - We assign `a` to the `max` variable
+            - Otherwise
+                - We assign `b` to the `max` variable
 
 ---
 
@@ -363,10 +363,10 @@ tell the compiler a part of your cod is going to be unreachable. So, the compile
 will do optimizations in turn.
 
 - `std::unreachable()` is a function introduced as part of `<utility>`
-  - Marks code paths that should never be reached
+    - Marks code paths that should never be reached
 - Used to inform the compiler
-  - Certain parts of code are logically unreachable
-  - Which can lead to optimization opportunities
+    - Certain parts of code are logically unreachable
+    - Which can lead to optimization opportunities
 
 Example below:
 
@@ -400,16 +400,16 @@ int main()
 ```
 
 - In the case above
-  - We have a `switch` statement
-    - Testing for certain cases
-  - If we receive a case that does not exist
-    - Then we do not expect to run the `default`
-    - Thus mark it as **_unreachable_**
-      - Helping the compiler out in processing it
-      - Saving on that compilation
+    - We have a `switch` statement
+        - Testing for certain cases
+    - If we receive a case that does not exist
+        - Then we do not expect to run the `default`
+        - Thus mark it as **_unreachable_**
+            - Helping the compiler out in processing it
+            - Saving on that compilation
 - _**We would mainly use `std::unreachable` in the optimization phase**_
-  - e.i., using the `default`, for example, is not helping
-  - Then we would add the `std::unreachable()`
+    - e.i., using the `default`, for example, is not helping
+    - Then we would add the `std::unreachable()`
 
 ---
 
@@ -421,10 +421,10 @@ _Side Note:_ I may just not add much notes to this section other than
 showing an example or minor information that may be helpful.
 
 - Loop components
-  - Initializer
-  - End Condition
-  - Incrementation
-  - Body
+    - Initializer
+    - End Condition
+    - Incrementation
+    - Body
 
 ### `for` loops
 
@@ -443,14 +443,14 @@ for (unsigned int i{0}; i < 100; ++i)
 ```
 
 - Breakdown:
-  - Initializer
-    - `unsigned int i{0}`
-  - End Condition
-    - `i < 100`
-  - Incrementation
-    - `++i`
-  - Body
-    - `fmt::println("{} : I love C++", i);`
+    - Initializer
+        - `unsigned int i{0}`
+    - End Condition
+        - `i < 100`
+    - Incrementation
+        - `++i`
+    - Body
+        - `fmt::println("{} : I love C++", i);`
 
 When using a positive integer to count things, in C++, it is
 best to do such process with `size_t` variables.
@@ -465,3 +465,44 @@ for (size_t i{0}; i < 100; ++i)
     fmt::println("{} : I love C++", i);
 }
 ```
+
+**We also want to remember to never hard code our count size.**
+Instead, we should get comfortable using counter variables.
+As shown below:
+
+```c++
+constexpr size_t COUNT{100};
+
+for (size_t i{0}; i < COUNT; ++i)
+{
+    // Whatever we want the loop to run
+    fmt::println("{} : I love C++", i);
+}
+```
+
+We can also use range-based `for` loops in C++.
+Showcased below:
+
+```c++
+// Ranged based for loop
+std::vector<int> values {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+for (int value : values) {
+    // Value holds a copy of the current iteration in the whole collection
+    fmt::println("value: {}", value);
+}
+```
+
+- Work best with collections/containers
+
+We can also use the `auto` type deduction to make our
+code more workable.
+
+```c++
+for (auto value : {1, 2, 3, 4, 5, 6, 7}) {
+    fmt::println("value : {}", value);
+}
+```
+
+---
+
