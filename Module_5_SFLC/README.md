@@ -970,3 +970,40 @@ constexpr int new_toys{toys_owned * 5};
 ---
 
 ## `constexpr` Functions
+
+We will be discussing `constexpr` functions. Which will have the capability to evaluate
+at compile-time. To set up a `constexpr` function, all we have to do is prefix a
+function with the `constexpr` keyword.
+
+While we are stating that it can be evaluated at compile-time, **_it will not always_**
+be evaluated at compile-time.
+
+- This will only happen if the passed parameters are `constexpr` or `const` expressions
+  - i.e., variables have to be compile-time variables
+
+Example:
+
+```c++
+constexpr int add(const int& a, const int& b)
+{
+    return a + b;
+}
+
+int main()
+{
+    auto value1(add(3, 4));
+    
+    int factor{2};
+    
+    auto value2(add(3, factor));
+}
+```
+
+- In the examples above
+  - `auto value1(...)` would be evaluated at compile-time
+    - Due to `(3, 4)` being literals
+    - Literals are known at compile-time
+  - `auto value2(...)` would be evaluated at run-time
+    - This is due to `int factor{2}` being a run-time value
+    - Not known at compile-time
+

@@ -11,8 +11,15 @@ module;
 
 export module utilities;
 
+constexpr int add(const int& a, const int& b)
+{
+	return a + b;
+}
+
 export void output_and_input()
 {
+	fmt::println("Output & Input Example");
+
 	// Data Output
 	std::cout << "Hello Modern C++" << std::endl;
 	std::cout << "How are you?\n";
@@ -39,6 +46,8 @@ export void output_and_input()
 
 export void output_formatting()
 {
+	fmt::println("Output Formatting Example");
+
 	// Output Formatting
 	std::cout << "Unformatted Table" << std::endl;
 	std::cout << "First Name" << " " << "Last Name" << " " << "Age" << std::endl;
@@ -249,6 +258,8 @@ export void output_formatting()
 
 export void format_library_test()
 {
+	fmt::println("Format Library Example");
+
 	auto value = fmt::format("Hello, {}!", "World");
 	std::cout << value << '\n';
 	const std::array<std::string, 6> first_name{"Daniel", "Stanley", "Jordan", "Joe", "Josh", "Izaiah"};
@@ -414,6 +425,7 @@ export void format_library_test()
 }
 
 export void literals_examples() {
+	fmt::println("Literals Example");
 	// 2 Bytes
 	short short_var{-32768};	// No special literal type for short
 	short int short_int{455};	// No special literal type for short
@@ -480,6 +492,7 @@ export void literals_examples() {
 
 export void constant_example()
 {
+	fmt::println("Const Examples");
 	const int age{42};
 	const float height{1.67f};
 
@@ -491,11 +504,13 @@ export void constant_example()
 	int years{3 * age};
 	fmt::println("Age: {}", age);
 	fmt::println("Height: {}", height);
-	fmt::println("Years: {}\n", years);
+	fmt::println("Years: {}", years);
+	fmt::println("");
 }
 
 export void constexpr_example()
 {
+	fmt::println("Constexpr Example");
 	// constexpr variables
 	// They are always evaluated at compile-time
 	// constexpr implies const
@@ -521,4 +536,6 @@ export void constexpr_example()
 
 	// int age = 5;	// Run-time variable
 	//static_assert(age == 5);	// Error: age is not a compile-time variable
+	fmt::println("");
+
 }
