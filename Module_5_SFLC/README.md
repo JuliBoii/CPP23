@@ -981,6 +981,14 @@ be evaluated at compile-time.
 - This will only happen if the passed parameters are `constexpr` or `const` expressions
   - i.e., variables have to be compile-time variables
 
+`constexpr` functions can be evaluated at run-time if:
+
+- They call run-time (non-`constexpr`) functions
+- They contain references to run-time global variables
+
+We also want to express that **not all** functions can be `constexpr`.
+There are limitations that we won't list at this point in time.
+
 Example:
 
 ```c++

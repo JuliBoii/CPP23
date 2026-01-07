@@ -538,4 +538,16 @@ export void constexpr_example()
 	//static_assert(age == 5);	// Error: age is not a compile-time variable
 	fmt::println("");
 
+	fmt::println("Constexpr Function Examples:");
+
+	constexpr int value1{22};
+	constexpr int value2{33};
+	int value3{40};
+
+	auto result{add(value1, value2)}; // Evaluated at compile-time
+	fmt::println("result: {}", result);
+
+	auto result2{add(value1, value3)}; // Evaluated at run-time
+	fmt::println("result2: {}", result2);
+	fmt::println("");
 }
