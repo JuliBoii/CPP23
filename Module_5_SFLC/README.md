@@ -1015,3 +1015,46 @@ int main()
     - This is due to `int factor{2}` being a run-time value
     - Not known at compile-time
 
+---
+
+## `consteval` Functions
+
+`consteval` functions are like `constexpr` functions, but
+they remove the ability for the computation to be moved to run-time.
+Given that you do not have proper `constexpr` or compile-time input
+for the `consteval` function.
+
+Format Example:
+```c++
+consteval int multiply(int a, int b)
+{
+    return a * b;
+}
+
+int main()
+{
+    auto value3 {multiply(3, 4)};
+    int value4{2};
+    auto value5{multiply(3, value4)};
+}
+```
+
+- `auto value3` gets evaluated at compile-time
+- `int value4` is a run-time variable
+  - Thus it is not known at compile-time
+- `auto value5` results in an error
+  - Due to `value4` not being known until run-time
+
+When ran in our example, we obtain the following output:
+
+```shell
+/tmp/Module_5_SFLC/utilities.ixx:565:14: error: call to consteval function 'multiply' is not a constant expression
+  565 |         auto value3{multiply(3, value2)};
+      |                     ^
+/tmp/Module_5_SFLC/utilities.ixx:565:26: note: read of non-const variable 'value2' is not allowed in a constant expression
+  565 |         auto value3{multiply(3, value2)};
+      |                                 ^
+/tmp/Module_5_SFLC/utilities.ixx:564:6: note: declared here
+  564 |         int value2{5};
+      |  
+```

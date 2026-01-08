@@ -16,6 +16,12 @@ constexpr int add(const int& a, const int& b)
 	return a + b;
 }
 
+consteval int multiply(int a, int b)
+{
+	return a * b;
+	return a * b;
+}
+
 export void output_and_input()
 {
 	fmt::println("Output & Input Example");
@@ -550,4 +556,16 @@ export void constexpr_example()
 	auto result2{add(value1, value3)}; // Evaluated at run-time
 	fmt::println("result2: {}", result2);
 	fmt::println("");
+}
+
+export void consteval_example()
+{
+	fmt::println("Consteval Example");
+
+	auto value1{multiply(3, 4)};
+
+	fmt::println("value1: {}", value1);
+
+	int value2{5};
+	// auto value3{multiply(3, value2)};
 }
