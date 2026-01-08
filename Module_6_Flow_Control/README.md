@@ -417,7 +417,7 @@ int main()
 
 We will start learning about loops.
 
-_Side Note:_ I may just not add much notes to this section other than
+_Side Note:_ I may just not add many notes to this section other than
 showing an example or minor information that may be helpful.
 
 - Loop components
@@ -506,3 +506,62 @@ for (auto value : {1, 2, 3, 4, 5, 6, 7}) {
 
 ---
 
+### `while` Loops
+
+Syntax:
+
+```c++
+size_t i{0};
+
+while (i < COUNT) // Test Condition
+{
+    fmt::println("{} : I love C++", i);
+    ++i; // Incrementation
+}
+```
+
+- `COUNT` is being utilized from previous `for` loop examples
+- `size_t i` iterates through the `while` loop
+    - We do not make it `const`
+        - Since we will be incrementing the value
+    - We also make sure to declare and init prior to use
+    - `++i` is incrementing the value
+- The component are the same as a `for` loop
+    - Just placed at other locations
+
+---
+
+### `do-while` Loops
+
+While not as heavily utilized by many, could be useful
+to someone, depending on the use-case.
+Example below:
+
+```c++
+size_t i {0};
+
+do {
+    fmt::println("{} : I love C++", i);
+    ++i;
+} while (i < COUNT);
+```
+
+- `COUNT` is being utilized from `for` loop examples
+- `size_t i` iterates through the `do-while` loop
+    - We also make sure to declare and init prior to use
+    - `++i` is incrementing the value
+- The component are the same as a `while` loop
+    - End condition is placed at the end
+- Main difference is:
+    - The body will run prior to testing the conditional
+
+---
+
+### Infinity Loops
+
+If we are not careful, we can set up a loop which is never going
+to stop.
+
+We will get an infinite loop if:
+
+- 

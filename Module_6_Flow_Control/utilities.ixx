@@ -281,6 +281,23 @@ export void loops_example() {
 		fmt::println("value: {}", value);
 	}
 	fmt::println("");
-}
 
-// While Loops Examples
+	// While Loops Example
+	fmt::println("While Loop Examples:");
+
+	size_t i{0};
+
+	while (i < COUNT) {
+		fmt::println("{} : I love C++", i);
+		++i;
+	}
+	fmt::println("");
+
+	i = 0;
+	// Do-While Loops
+	fmt::println("Do-While Loop Example:");
+	do {
+		fmt::println("{} : I love C++", i);
+		++i;
+	} while (i < COUNT);
+}
