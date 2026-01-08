@@ -3,16 +3,16 @@
 ---
 
 - Topics
-  - Input and Output Streams
-  - Stream Formatting
-  - The Format Library
-	- Printing and Formatting facilities from C++23
-	- How mainstream compilers support them
-  - `fmt` Library (Alternative)
-  - Literals & Constants
-    - `constexpr`
-    - `consteval`
-    - `constinit`
+    - Input and Output Streams
+    - Stream Formatting
+    - The Format Library
+        - Printing and Formatting facilities from C++23
+        - How mainstream compilers support them
+    - `fmt` Library (Alternative)
+    - Literals & Constants
+        - `constexpr`
+        - `consteval`
+        - `constinit`
 
 ---
 
@@ -40,20 +40,20 @@ int main() {
 ```
 
 - The use of `std::cerr` and `std::clog` is for terminal applications/uses
-  - The terminal may treat the respective commands differently
+    - The terminal may treat the respective commands differently
 - We can end a line that is being printed by using two options
-  - `std::endl`
-  - `'\n'` or `"\n"`
-	- We use single quotes when we know we only want to output the newline character
-	  - After outputting some variable data
-	- We use double quotes when we add the newline character
-	  - When outputting a string
-	  - Like the example above
+    - `std::endl`
+    - `'\n'` or `"\n"`
+        - We use single quotes when we know we only want to output the newline character
+            - After outputting some variable data
+        - We use double quotes when we add the newline character
+            - When outputting a string
+            - Like the example above
 - But the main difference between both methods is that `std::endl` flushes the buffer
-  - when it is called
-	- Meaning it clears anything in the buffer, which has not been printed
-	- Yet, when doing so, we risk clearing data that we may or may not have needed
-	- So, we use `'\n'` to start a newline, but not flush the buffer
+    - when it is called
+        - Meaning it clears anything in the buffer, which has not been printed
+        - Yet, when doing so, we risk clearing data that we may or may not have needed
+        - So, we use `'\n'` to start a newline, but not flush the buffer
 
 ### Inputting
 
@@ -74,10 +74,10 @@ int main() {
 
 - We can get input in two different manners
 - The standard method is using `std::cin` to read data being inputted
-  - This method does not work well with reading an entire string
+    - This method does not work well with reading an entire string
 - Thus, we use the second method to read an entire string
 - We can use `std::getline()` to read an entire string and store said information into a string type variable
-  - But this method requires the use of the `string` library
+    - But this method requires the use of the `string` library
 - The example above showcases this use case
 
 ## Stream Formatting
@@ -117,7 +117,7 @@ int main() {
 
 - When used, it sets the width parameter of the stream `out` or `in` to exactly `n`
 - Some operations reset the width to zero
-  - So `std::setw()` may need to be repeatedly called to set the width for multiple operations
+    - So `std::setw()` may need to be repeatedly called to set the width for multiple operations
 
 The Unformatted Table will look like the following:
 
@@ -168,12 +168,12 @@ We can also change the alignment, of the data.
 The following commands modify the positioning of the fill characters in an output stream.
 
 - Alignment can one of three options
-  - `std::left`
-  - `std::right`
-	- `left` and `right` apply to any type being output
-  - `std::internal`
-	- `internal` applies to integer, floating-point, and monetary output
-	- Most use this alignment to fix the negative sign from the number
+    - `std::left`
+    - `std::right`
+        - `left` and `right` apply to any type being output
+    - `std::internal`
+        - `internal` applies to integer, floating-point, and monetary output
+        - Most use this alignment to fix the negative sign from the number
 - All the options have no effect on input
 - The initial default for standard streams is equivalent to right
 
@@ -201,8 +201,8 @@ But to be on the safe side, you could include it by adding the header `ios`
 ### `std::setfill()`
 
 - When used in an expression `out << setfill(c)`
-  - it sets the fill character of the stream `out` to `c`
-  - With `c` being a new value for the fill character
+    - it sets the fill character of the stream `out` to `c`
+    - With `c` being a new value for the fill character
 
 Applying this to our existing table code will look like the following:
 
@@ -307,11 +307,11 @@ Modifies the default formatting for floating-point output.
 - `std::fixed` sets the floatfield of the stream to fixed
 - `std::scientific` sets the floatfield of the stream to scientific
 - `std::hexfloat` sets the floatfield of the stream to fixed and scientific simultaneously
-  - Enabling hexadecimal floating-point formatting
-  - Which is different from fixed and scientific
+    - Enabling hexadecimal floating-point formatting
+    - Which is different from fixed and scientific
 - `std::defaultfloat` sets the floatfield of the stream to zero
-  - This enables the default floating-point formatting
-  - Which is defferent from fixed and scientific
+    - This enables the default floating-point formatting
+    - Which is defferent from fixed and scientific
 
 This is an I/O manipulator.
 The following is the output, using `std::fixed`:
@@ -349,7 +349,7 @@ or `in` to exactly `n`.
 
 - With `n` being a new value for precision.
 - _If we set the precision to be larger than the data type is capable of_
-  - Junk data will fill in the remaining points
+    - Junk data will fill in the remaining points
 
 Example output below using the variable `double pi{3.1415926535897932384626433832795}`:
 
@@ -413,24 +413,26 @@ Comparison of `<format>` and `<iostream>`
 C++23 adds `std::print` and `std::println`, but moving forward in the course we will be working with `fmt`.
 Below is an example of the `<print>` library.
 
-**_Reminder that some compilers do support this library, but not all IDE's (ex. CLion) will support the latest compiler or build system_**
+**_Reminder that some compilers do support this library, but not all IDE's (ex. CLion) will support the latest compiler
+or build system_**
 
 Formatting Library
 
 - Text formatting library offers a safe and extensible alternative to the `printf` family of functions
 - It is intended to complement the existing C++ I/O streams library
 - **_Again, this libraries main function is to format data not print_**
-- Starting from C++23 the standard library introduces convenient functions like `std::print` and `std::println` for formatted output
+- Starting from C++23 the standard library introduces convenient functions like `std::print` and `std::println` for
+  formatted output
 - These functions simplify output by allowing easy formatting directly to standard streams
-  - Without the verbosity of `std::cout` or `printf`
+    - Without the verbosity of `std::cout` or `printf`
 - Not all compilers fully support C++23 features
-  - Including `std::print` and `std::println`
+    - Including `std::print` and `std::println`
 - If your compiler supports these functions, use them
-  - As they align with modern C++ practices
+    - As they align with modern C++ practices
 - We will be using the `fmt` library, which provides similar functionality
-  - With `fmt::print` and `fmt::println`, ensuring portability and consistency
+    - With `fmt::print` and `fmt::println`, ensuring portability and consistency
 - Using fmt, we can take advantage of modern formatting capabilities today
-  - Even on compilers that do not yet fully support C++23
+    - Even on compilers that do not yet fully support C++23
 
 ```c++
 	auto value = std::format("Hello, {}!", "World");
@@ -449,15 +451,15 @@ Formatting Library
 ```
 
 - Each line of code prints a formatted string containing:
-  - A person's first name, last name, age
+    - A person's first name, last name, age
 - The `{}` symbols in the string are placeholders
-  - Which will be replaced with the corresponding values
-    - ex. "Daniel", "Gray", "25"
+    - Which will be replaced with the corresponding values
+        - ex. "Daniel", "Gray", "25"
 - The `std::println` function from the `<print>` library
-  - Ensures the formatted string is printed to the console
-  - Followed by a newline
+    - Ensures the formatted string is printed to the console
+    - Followed by a newline
 - The same format `("{} {} {}")` is reused for each line
-  - Simplifying the process of printing consistent output
+    - Simplifying the process of printing consistent output
 - The output will appear neatly as one line per person with their name and age
 
 As shown below:
@@ -485,11 +487,11 @@ We can also add formatting to the lines being printed, as shown below:
 ```
 
 - The first line creates a header formatted (First Name, Last Name, Age)
-  - With consistent column widths for readability
+    - With consistent column widths for readability
 - The `{:<10}, {:<5}` placeholders ensure lef-aligned text
-  - With column widths of 10 and 5 respectively.
+    - With column widths of 10 and 5 respectively.
 - The output appears as a table where data is organized into three neatly aligned columns
-- 
+-
 
 Having the following output:
 
@@ -559,25 +561,25 @@ Another example is:
 ```
 
 - Placeholders with Widths:
-  - The `{:<{}}` placeholders use:
-    - Left-aligned formatting `(:<)`
-    - Column widths determined by `col_width` 
-      - Or `col_width/2` for the "Age" column
+    - The `{:<{}}` placeholders use:
+        - Left-aligned formatting `(:<)`
+        - Column widths determined by `col_width`
+            - Or `col_width/2` for the "Age" column
 
 ### Bool Values with Formatting
 
 - By default, `fmt::println` formats Bool Values as `true` or `false`
-  - When using `{}` placeholders
+    - When using `{}` placeholders
 - The `{:d}` placeholder is a workaround to format Bool Values as integers
-  - `1` for True
-  - `0` for False
-  - As the library does not natively support formatting for Bools yet.
+    - `1` for True
+    - `0` for False
+    - As the library does not natively support formatting for Bools yet.
 
 ### Show Sign for Positive Numbers
 
 - We can also format to show or hide the `+` sign for positive numbers
 - To show the sign we add the following inside the `{}` placeholders
-  - `:+` is added inside the placeholders
+    - `:+` is added inside the placeholders
 
 Example below:
 
@@ -792,9 +794,9 @@ We can specify the order things will print out by specifying the argument index.
 ```
 
 - In the first `println()` we do not specify the order of the argument indexes
-  - Thus, the print order is done by FIFO
+    - Thus, the print order is done by FIFO
 - The second `println()` does specify the order with the added indexes `{1}` and `{0:`
-  - Thus, the order is specified in how we want things printed.
+    - Thus, the order is specified in how we want things printed.
 
 Having the following output:
 
@@ -803,7 +805,6 @@ Argument Indexes:
 It is 34.50 degrees outside and it is sunny
 It is sunny degrees outside and it is 34.50
 ```
-
 
 ### General Form for Format Specifiers
 
@@ -816,26 +817,26 @@ With the format structure being:
 ```
 
 - `[fill]`
-  - Specifies the character used to fill any unused space 
-    - when the value does not fully occupy the specified width
-  - Default is space, but you can choose other characters (e.g. 0 for padding zeros)
-  - Example:
-    - `0` fills space with zeros (e.g., `0` in `{:0>10}`)
+    - Specifies the character used to fill any unused space
+        - when the value does not fully occupy the specified width
+    - Default is space, but you can choose other characters (e.g. 0 for padding zeros)
+    - Example:
+        - `0` fills space with zeros (e.g., `0` in `{:0>10}`)
 - `[align]`
-  - Specifies the alignment of the value within its field
-  - Options:
-    - `<`: Left-align the value
-    - `>`: Right-align the value (default)
-    - `^`: Centers the value
-  -Example:
-    - `{:>10}` aligns the value to the right
+    - Specifies the alignment of the value within its field
+    - Options:
+        - `<`: Left-align the value
+        - `>`: Right-align the value (default)
+        - `^`: Centers the value
+          -Example:
+        - `{:>10}` aligns the value to the right
 - `[sign]`
-  - Specifies whether to show a sign for numbers
-  - Options
-    - `+`: Forces a sign to appear for both positive and negative numbers (e.g., `+5`, `-5`)
-    - `-`: Only negative numbers have a sign (default for numeric types).
-  - Example:
-    - `{:5}` will output positive and negative numbers with a sign if specified
+    - Specifies whether to show a sign for numbers
+    - Options
+        - `+`: Forces a sign to appear for both positive and negative numbers (e.g., `+5`, `-5`)
+        - `-`: Only negative numbers have a sign (default for numeric types).
+    - Example:
+        - `{:5}` will output positive and negative numbers with a sign if specified
 
 ```c++
 	...
@@ -856,24 +857,25 @@ Instead of doing major computations at runtime we can improve on the performance
 that computation at compile time, if possible.
 
 - What is a Literal?
-  - A literal is a fixed value directly written in the code
-    - Representing a constant of a basic type.
-  - Examples:
-    - Integers (42, 4, 13, etc.)
-    - Floating-point numbers (2.42, 3.14, etc.)
-    - Characters ('A', 'b', 'z', etc.)
-    - Strings ("Hello", "World", etc.)
-    - Booleans (true, false)
-  - **Literals are not variables** and cannot be modified
+    - A literal is a fixed value directly written in the code
+        - Representing a constant of a basic type.
+    - Examples:
+        - Integers (42, 4, 13, etc.)
+        - Floating-point numbers (2.42, 3.14, etc.)
+        - Characters ('A', 'b', 'z', etc.)
+        - Strings ("Hello", "World", etc.)
+        - Booleans (true, false)
+    - **Literals are not variables** and cannot be modified
 
 We use the following literal types for specific data types:
-  - `u` or `U`
+
+- `u` or `U`
     - Used for `unsigned` data
-  - `l` or `L`
+- `l` or `L`
     - Used for `long` data
-  - `ll` or `LL`
+- `ll` or `LL`
     - Used for `long long` data
-  - They can be combined
+- They can be combined
 
 We can also set up our literals to be more readable.
 The example below showcases how to make long numbers more readable using single quotes `(')`.
@@ -887,19 +889,19 @@ We **cannot** update the variable with new data later on.
 
 - A constant variable can be represented with basic types
 - Examples
-  - Integers (`int`)
-  - Floating-point (`float`, `double`, etc.)
-  - Characters (`char`)
-  - Strings (`std::string`)
-  - Boolean (`bool`)
+    - Integers (`int`)
+    - Floating-point (`float`, `double`, etc.)
+    - Characters (`char`)
+    - Strings (`std::string`)
+    - Boolean (`bool`)
 
 One may ask why we should make variables `const`, but it is the recommended manner to declare variables, in C++.
 
 - We make it `const` by default to
-  - Prevent accidental changes to the variable
-  - Making our code a little bit safer
-  - So, it is good practice to declare variables as const
-    - Unless, we explicitly want the variable to change in our code
+    - Prevent accidental changes to the variable
+    - Making our code a little bit safer
+    - So, it is good practice to declare variables as const
+        - Unless, we explicitly want the variable to change in our code
 
 We will be showcasing an example of constants:
 
@@ -912,7 +914,6 @@ const float height{1.67f};
 // height = 1.8f;
 ```
 
-
 ### `constexpr` Variables
 
 Off bat, we want to make a clear distinction for this section.
@@ -924,8 +925,8 @@ A `constexpr` variable must satisfy the following requirements:
 
 - Its type must be a `LiteralType`
 - It must be immediately initialized
-- The full-expression of its initialization, including all implicit conversions, constructors calls, etc., must be a **constant expression**
-
+- The full-expression of its initialization, including all implicit conversions, constructors calls, etc., must be a *
+  *constant expression**
 
 We declare `constexpr` variables like the following:
 
@@ -946,8 +947,8 @@ constexpr int eye_count{2};
 
 - `constexpr` are `const`
 - So something declared as `constexpr`:
-  - Compiler is going to make sure that it is `const`
-  - Thus, the variable cannot be changed once initialized
+    - Compiler is going to make sure that it is `const`
+    - Thus, the variable cannot be changed once initialized
 
 ```c++
 constexpr int arm_count{2};
@@ -958,8 +959,8 @@ Also need to note that we **_cannot_** use a `non-constexpr` or `non-const`
 variable to initialize a `constexpr`
 
 - Which can be re-worded as:
-  - We **cannot** use a runtime variable to initialize a compile-time variable
-  - Results in a compiler error
+    - We **cannot** use a runtime variable to initialize a compile-time variable
+    - Results in a compiler error
 - Thus, we can use `constexpr` or `const` variables to initialize `constexpr` variables
 
 ```c++
@@ -979,7 +980,7 @@ While we are stating that it can be evaluated at compile-time, **_it will not al
 be evaluated at compile-time.
 
 - This will only happen if the passed parameters are `constexpr` or `const` expressions
-  - i.e., variables have to be compile-time variables
+    - i.e., variables have to be compile-time variables
 
 `constexpr` functions can be evaluated at run-time if:
 
@@ -1008,12 +1009,12 @@ int main()
 ```
 
 - In the examples above
-  - `auto value1(...)` would be evaluated at compile-time
-    - Due to `(3, 4)` being literals
-    - Literals are known at compile-time
-  - `auto value2(...)` would be evaluated at run-time
-    - This is due to `int factor{2}` being a run-time value
-    - Not known at compile-time
+    - `auto value1(...)` would be evaluated at compile-time
+        - Due to `(3, 4)` being literals
+        - Literals are known at compile-time
+    - `auto value2(...)` would be evaluated at run-time
+        - This is due to `int factor{2}` being a run-time value
+        - Not known at compile-time
 
 ---
 
@@ -1025,6 +1026,7 @@ Given that you do not have proper `constexpr` or compile-time input
 for the `consteval` function.
 
 Format Example:
+
 ```c++
 consteval int multiply(int a, int b)
 {
@@ -1041,9 +1043,9 @@ int main()
 
 - `auto value3` gets evaluated at compile-time
 - `int value4` is a run-time variable
-  - Thus it is not known at compile-time
+    - Thus, it is not known at compile-time
 - `auto value5` results in an error
-  - Due to `value4` not being known until run-time
+    - Due to `value4` not being known until run-time
 
 When ran in our example, we obtain the following output:
 
@@ -1058,3 +1060,79 @@ When ran in our example, we obtain the following output:
   564 |         int value2{5};
       |  
 ```
+
+Showcasing, the inability to run the `consteval` function at run-time. With it
+only being able to be run at run-time, throwing an error.
+
+---
+
+## `constinit`
+
+We will be exploring the `constinit` keyword in C++.
+_One thing to note:_ This keyword is meant for variables that live in the global scope.
+If you try to use it inside the `main()` function, an error will be thrown.
+
+Example below:
+
+```c++
+int main() {
+    constinit int age{14};
+    constinit double height{1.76};
+    
+    return 0;
+}
+```
+
+If compiled, the compiler will print the following:
+
+```shell
+/tmp/Module_5_SFLC/utilities.ixx:579:2: error: local variable cannot be declared 'constinit'
+  579 |         constinit int age{14};
+      |         ^
+/tmp/Module_5_SFLC/utilities.ixx:580:2: error: local variable cannot be declared 'constinit'
+  580 |         constinit double height{1.76};
+      |         ^
+2 errors generated.
+```
+
+`constinit` mainly:
+
+- Guarantees that the variable is initialized at compile-time
+- asserts that a variable has static initialization
+    - i.e., zero initialization and constant initialization
+- If you attempt to initialize a run-time variable
+    - Compiler will throw an error
+
+The following is an example of using `constinit`
+
+```c++
+constinit int age{add(3, 4)};
+const constinit double height{1.74};
+int randomizer = 5;
+//constinit int car_count{add(3, randomizer)}; // Error. Randomizer is not a compile-time value
+
+int main() {
+    age = 40;
+    // height = 1.8;
+    
+    fmt::println("Age: {}, Height: {}", age, height);
+}
+```
+
+In the new example:
+
+- We are initializing `age` with function `add`
+    - Since `age` is in the global scope and initialized with compile-time values
+        - We know it will work
+        - _Assumed_ `add` is `const` or `consteval`
+- `height` we prefixed our previous initialization with `const`
+    - Since `constinit` can be combined with:
+        - `const`
+        - Thus, we cannot use any run-time variables with to init it
+- We also need to know that:
+    - `constinit` does not imply that something is `const`
+    - All it enforces initialization at compile-time
+    - **But does not enforce the `const`**
+- That is why we can change the value of `constinit` variables
+
+---

@@ -11,19 +11,22 @@ module;
 
 export module utilities;
 
-constexpr int add(const int& a, const int& b)
-{
+constinit int age{40};
+const constinit double height{1.9}; // const or constexpr can be combined with constinit
+// int randomizer{5};
+
+constexpr int add(const int &a, const int &b) {
 	return a + b;
 }
 
-consteval int multiply(int a, int b)
-{
+consteval int multiply(int a, int b) {
 	return a * b;
 	return a * b;
 }
 
-export void output_and_input()
-{
+// constinit int car_count {add(3, randomizer)}; // Error. Randomizer is not a compile-time values
+
+export void output_and_input() {
 	fmt::println("Output & Input Example");
 
 	// Data Output
@@ -47,11 +50,10 @@ export void output_and_input()
 	std::cout << "Age: ";
 	std::cin >> age1;
 	std::cout << "Hello " << name << "!\n"
-	<< "So, you are " << age1 << " years old.\n\n";
+			<< "So, you are " << age1 << " years old.\n\n";
 }
 
-export void output_formatting()
-{
+export void output_formatting() {
 	fmt::println("Output Formatting Example");
 
 	// Output Formatting
@@ -79,44 +81,65 @@ export void output_formatting()
 
 	constexpr int column_width{20};
 	std::cout << std::left;
-	std::cout << std::setw(column_width) << "First Name" << std::setw(column_width) << "Last Name" << std::setw(column_width/2) << "Age" << std::endl;
-	std::cout << std::setw(column_width) << "Daniel" << std::setw(column_width) << "Gray" << std::setw(column_width/2) << "25" << std::endl;
-	std::cout << std::setw(column_width) << "Stanley" << std::setw(column_width) << "Woods" << std::setw(column_width/2) << "33" << std::endl;
-	std::cout << std::setw(column_width) << "Jordan" << std::setw(column_width) << "Parker" << std::setw(column_width/2) << "45" << std::endl;
-	std::cout << std::setw(column_width) << "Joe" << std::setw(column_width) << "Ball" << std::setw(column_width/2) << "21" << std::endl;
-	std::cout << std::setw(column_width) << "Josh" << std::setw(column_width) << "Carr" << std::setw(column_width/2) << "27" << std::endl;
-	std::cout << std::setw(column_width) << "Izaiah" << std::setw(column_width) << "Robinson" << std::setw(column_width/2) << "29" << std::endl;
+	std::cout << std::setw(column_width) << "First Name" << std::setw(column_width) << "Last Name" <<
+			std::setw(column_width / 2) << "Age" << std::endl;
+	std::cout << std::setw(column_width) << "Daniel" << std::setw(column_width) << "Gray" << std::setw(column_width / 2)
+			<< "25" << std::endl;
+	std::cout << std::setw(column_width) << "Stanley" << std::setw(column_width) << "Woods" <<
+			std::setw(column_width / 2) << "33" << std::endl;
+	std::cout << std::setw(column_width) << "Jordan" << std::setw(column_width) << "Parker" <<
+			std::setw(column_width / 2) << "45" << std::endl;
+	std::cout << std::setw(column_width) << "Joe" << std::setw(column_width) << "Ball" << std::setw(column_width / 2) <<
+			"21" << std::endl;
+	std::cout << std::setw(column_width) << "Josh" << std::setw(column_width) << "Carr" << std::setw(column_width / 2)
+			<< "27" << std::endl;
+	std::cout << std::setw(column_width) << "Izaiah" << std::setw(column_width) << "Robinson" <<
+			std::setw(column_width / 2) << "29" << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "Right-Aligned Formatted Table with Variables:" << std::endl;
 	std::cout << std::right;
-	std::cout << std::setw(column_width) << "First Name" << std::setw(column_width) << "Last Name" << std::setw(column_width/2) << "Age" << std::endl;
-	std::cout << std::setw(column_width) << "Daniel" << std::setw(column_width) << "Gray" << std::setw(column_width/2) << "25" << std::endl;
-	std::cout << std::setw(column_width) << "Stanley" << std::setw(column_width) << "Woods" << std::setw(column_width/2) << "33" << std::endl;
-	std::cout << std::setw(column_width) << "Jordan" << std::setw(column_width) << "Parker" << std::setw(column_width/2) << "45" << std::endl;
-	std::cout << std::setw(column_width) << "Joe" << std::setw(column_width) << "Ball" << std::setw(column_width/2) << "21" << std::endl;
-	std::cout << std::setw(column_width) << "Josh" << std::setw(column_width) << "Carr" << std::setw(column_width/2) << "27" << std::endl;
-	std::cout << std::setw(column_width) << "Izaiah" << std::setw(column_width) << "Robinson" << std::setw(column_width/2) << "29" << std::endl;
+	std::cout << std::setw(column_width) << "First Name" << std::setw(column_width) << "Last Name" <<
+			std::setw(column_width / 2) << "Age" << std::endl;
+	std::cout << std::setw(column_width) << "Daniel" << std::setw(column_width) << "Gray" << std::setw(column_width / 2)
+			<< "25" << std::endl;
+	std::cout << std::setw(column_width) << "Stanley" << std::setw(column_width) << "Woods" <<
+			std::setw(column_width / 2) << "33" << std::endl;
+	std::cout << std::setw(column_width) << "Jordan" << std::setw(column_width) << "Parker" <<
+			std::setw(column_width / 2) << "45" << std::endl;
+	std::cout << std::setw(column_width) << "Joe" << std::setw(column_width) << "Ball" << std::setw(column_width / 2) <<
+			"21" << std::endl;
+	std::cout << std::setw(column_width) << "Josh" << std::setw(column_width) << "Carr" << std::setw(column_width / 2)
+			<< "27" << std::endl;
+	std::cout << std::setw(column_width) << "Izaiah" << std::setw(column_width) << "Robinson" <<
+			std::setw(column_width / 2) << "29" << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "Negative Number Alignment Example:" << std::endl;
 	std::cout << std::right;
-	std::cout << std::setw(column_width/2) << -123.24 << std::endl;
+	std::cout << std::setw(column_width / 2) << -123.24 << std::endl;
 	std::cout << std::internal;
-	std::cout << std::setw(column_width/2) << -123.24 << std::endl;
+	std::cout << std::setw(column_width / 2) << -123.24 << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "Table with fill characters:" << std::endl;
 	std::cout << std::left;
 	std::cout << std::setfill('*');
 
-	std::cout << std::setw(column_width) << "First Name" << std::setw(column_width) << "Last Name" << std::setw(column_width/2) << "Age" << std::endl;
-	std::cout << std::setw(column_width) << "Daniel" << std::setw(column_width) << "Gray" << std::setw(column_width/2) << "25" << std::endl;
-	std::cout << std::setw(column_width) << "Stanley" << std::setw(column_width) << "Woods" << std::setw(column_width/2) << "33" << std::endl;
-	std::cout << std::setw(column_width) << "Jordan" << std::setw(column_width) << "Parker" << std::setw(column_width/2) << "45" << std::endl;
-	std::cout << std::setw(column_width) << "Joe" << std::setw(column_width) << "Ball" << std::setw(column_width/2) << "21" << std::endl;
-	std::cout << std::setw(column_width) << "Josh" << std::setw(column_width) << "Carr" << std::setw(column_width/2) << "27" << std::endl;
-	std::cout << std::setw(column_width) << "Izaiah" << std::setw(column_width) << "Robinson" << std::setw(column_width/2) << "29" << std::endl;
+	std::cout << std::setw(column_width) << "First Name" << std::setw(column_width) << "Last Name" <<
+			std::setw(column_width / 2) << "Age" << std::endl;
+	std::cout << std::setw(column_width) << "Daniel" << std::setw(column_width) << "Gray" << std::setw(column_width / 2)
+			<< "25" << std::endl;
+	std::cout << std::setw(column_width) << "Stanley" << std::setw(column_width) << "Woods" <<
+			std::setw(column_width / 2) << "33" << std::endl;
+	std::cout << std::setw(column_width) << "Jordan" << std::setw(column_width) << "Parker" <<
+			std::setw(column_width / 2) << "45" << std::endl;
+	std::cout << std::setw(column_width) << "Joe" << std::setw(column_width) << "Ball" << std::setw(column_width / 2) <<
+			"21" << std::endl;
+	std::cout << std::setw(column_width) << "Josh" << std::setw(column_width) << "Carr" << std::setw(column_width / 2)
+			<< "27" << std::endl;
+	std::cout << std::setw(column_width) << "Izaiah" << std::setw(column_width) << "Robinson" <<
+			std::setw(column_width / 2) << "29" << std::endl;
 	std::cout << std::endl;
 
 	// Bool Representation
@@ -262,8 +285,7 @@ export void output_formatting()
 	std::cout << std::endl;
 }
 
-export void format_library_test()
-{
+export void format_library_test() {
 	fmt::println("Format Library Example");
 
 	auto value = fmt::format("Hello, {}!", "World");
@@ -275,8 +297,7 @@ export void format_library_test()
 	fmt::print("Hello, {}!\n", "World");
 	fmt::print("Hello, {}!", "World\n");
 	fmt::println("Unformatted Table:");
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		if (i == 0)
 			fmt::println("{} {} {}", "First Name", "Last Name", "Age");
 		fmt::println("{} {} {}", first_name[i], last_name[i], age[i]);
@@ -284,8 +305,7 @@ export void format_library_test()
 	fmt::println("-------\n");
 
 	fmt::println("Formatted Table:");
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		if (i == 0)
 			fmt::println("{:<10} {:<10} {:<5}", "First Name", "Last Name", "Age");
 		fmt::println("{:<10} {:<10} {:<5}", first_name[i], last_name[i], age[i]);
@@ -297,29 +317,26 @@ export void format_library_test()
 	constexpr int col_width{25};
 
 	fmt::println("Formatted Left-Justified Table with Dynamic Widths:");
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		if (i == 0)
-			fmt::println("{:<{}} {:<{}} {:<{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
-		fmt::println("{:<{}} {:<{}} {:<{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+			fmt::println("{:<{}} {:<{}} {:<{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width / 2);
+		fmt::println("{:<{}} {:<{}} {:<{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width / 2);
 	}
 	fmt::println("-------\n");
 
 	fmt::println("Formatted Right-Justified Table with Dynamic Widths:");
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		if (i == 0)
-			fmt::println("{:>{}} {:>{}} {:>{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
-		fmt::println("{:>{}} {:>{}} {:>{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+			fmt::println("{:>{}} {:>{}} {:>{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width / 2);
+		fmt::println("{:>{}} {:>{}} {:>{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width / 2);
 	}
 	fmt::println("-------\n");
 
 	fmt::println("Formatted Internal-Justified Table with Dynamic Widths:");
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		if (i == 0)
-			fmt::println("{:^{}} {:^{}} {:^{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
-		fmt::println("{:^{}} {:^{}} {:^{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+			fmt::println("{:^{}} {:^{}} {:^{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width / 2);
+		fmt::println("{:^{}} {:^{}} {:^{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width / 2);
 	}
 	fmt::println("-------\n");
 
@@ -330,11 +347,12 @@ export void format_library_test()
 	fmt::println("-------\n");
 
 	fmt::println("Table with Fill Characters:");
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		if (i == 0)
-			fmt::println("{:*<{}} {:*<{}} {:*<{}}", "First Name", col_width, "Last Name", col_width, "Age", col_width/2);
-		fmt::println("{:*<{}} {:*<{}} {:*<{}}", first_name[i], col_width, last_name[i], col_width, age[i], col_width/2);
+			fmt::println("{:*<{}} {:*<{}} {:*<{}}", "First Name", col_width, "Last Name", col_width, "Age",
+			             col_width / 2);
+		fmt::println("{:*<{}} {:*<{}} {:*<{}}", first_name[i], col_width, last_name[i], col_width, age[i],
+		             col_width / 2);
 	}
 	fmt::println("-------\n");
 
@@ -433,10 +451,10 @@ export void format_library_test()
 export void literals_examples() {
 	fmt::println("Literals Example");
 	// 2 Bytes
-	short short_var{-32768};	// No special literal type for short
-	short int short_int{455};	// No special literal type for short
-	signed short signed_short_var{-32768};	// No special literal type for short
-	signed int signed_short_int{-455};	// No special literal type for short
+	short short_var{-32768}; // No special literal type for short
+	short int short_int{455}; // No special literal type for short
+	signed short signed_short_var{-32768}; // No special literal type for short
+	signed int signed_short_int{-455}; // No special literal type for short
 	unsigned short int unsigned_short_var{65535U};
 
 	// 4 Bytes
@@ -459,28 +477,33 @@ export void literals_examples() {
 
 	// Grouping Numbers: C++14 and Onwards
 	unsigned int prize{1'500'00'0U};
+	fmt::println("Grouping Numbers (C++14 Onward):");
 	fmt::println("The prize is: {}", prize);
 	fmt::println("signed_long_long_int: {}\n", signed_long_long_int_var);
 
 	// With number systems: Hex (prefixed with 0x)
-	unsigned int hex_number_1 {0x22BU};	// Decimal: 555
-	int hex_number_2{0x400};	// Decimal: 1024
+	unsigned int hex_number_1{0x22BU}; // Decimal: 555
+	int hex_number_2{0x400}; // Decimal: 1024
+	fmt::println("Using Prefixes & Suffixes with Number Systems (Hex):");
 	fmt::println("The hex number is: {:x}", hex_number_1);
 	fmt::println("The hex number is: {:x}\n", hex_number_2);
 
 	// Representing colors with hex
 	int black_color_hex{0xffffff};
+	fmt::println("Representing Colors with Hex:");
 	fmt::println("Black color is: {:X}\n", black_color_hex);
 
 	// Octal literals: Prefix with 0
-	int octal_number{0777u};	// Decimal: 511
+	int octal_number{0777u}; // Decimal: 511
+	fmt::println("Using Prefixes & Suffixes with Number Systems (Octal):");
 	fmt::println("The octal number is: {:o}", octal_number);
 	// BE CAREFUL NOT TO PREFIX YOUR INTEGERS WITH 0 IF YOU MEAN DECIMAL
-	int error_octal_number{055};	// This is not 55 in memory, it is 45 in Decimal
+	int error_octal_number{055}; // This is not 55 in memory, it is 45 in Decimal
 	fmt::println("The erroneous octal number is: {}\n", error_octal_number);
 
 	// Binary Literals
 	unsigned int binary_literal{0b11111111u};
+	fmt::println("Using Prefixes & Suffixes with Number Systems (Binary):");
 	fmt::println("The binary literal is: {:b}\n", binary_literal);
 
 	// Literals Examples
@@ -490,14 +513,15 @@ export void literals_examples() {
 	std::string string_literal{"This is a string literal"};
 
 	// Print the literals with fmt
+	fmt::println("Printing Literals with FMT:");
 	fmt::println("The char literal is: {}", char_var);
 	fmt::println("The number literal is: {}", number_literal);
 	fmt::println("The fractional literal is: {}", fractional_literal);
-	fmt::println("The string literal is: {}\n", string_literal);
+	fmt::println("The string literal is: {}", string_literal);
+	fmt::println("");
 }
 
-export void constant_example()
-{
+export void constant_example() {
 	fmt::println("Const Examples");
 	const int age{42};
 	const float height{1.67f};
@@ -514,8 +538,7 @@ export void constant_example()
 	fmt::println("");
 }
 
-export void constexpr_example()
-{
+export constexpr void constexpr_example() {
 	fmt::println("Constexpr Example");
 	// constexpr variables
 	// They are always evaluated at compile-time
@@ -558,14 +581,16 @@ export void constexpr_example()
 	fmt::println("");
 }
 
-export void consteval_example()
-{
-	fmt::println("Consteval Example");
-
+export consteval void consteval_example() {
 	auto value1{multiply(3, 4)};
-
-	fmt::println("value1: {}", value1);
-
-	int value2{5};
+	// int value2{5};
 	// auto value3{multiply(3, value2)};
+}
+
+export void constinit_example() {
+	fmt::println("Constinit Example:");
+	age = 30; // Can change a constinit variable
+	//height = 1.8; // Error. Height is now const/constexpr
+
+	fmt::println("age: {}, height: {}", age, height);
 }
