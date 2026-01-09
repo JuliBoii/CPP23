@@ -1,6 +1,6 @@
 module;
 
-#include <SMFL/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <string>
 
 export module utilities;
@@ -8,8 +8,8 @@ export module utilities;
 export void app()
 {
     // Store data in pre-defined variable
-    size_t window_width{1920u};
-    size_t window_height{1080u};
+    unsigned int window_width{1920u};
+    unsigned int window_height{1080u};
     constexpr float circle_radius{200.0f};
     const std::string window_title{"SFML Challenge 05"};
     constexpr sf::Color circle_color{128, 0, 0, 255};
