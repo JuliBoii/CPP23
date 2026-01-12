@@ -579,6 +579,18 @@ export constexpr void constexpr_example() {
 	auto result2{add(value1, value3)}; // Evaluated at run-time
 	fmt::println("result2: {}", result2);
 	fmt::println("");
+
+	std::println("If constexpr Example:");
+
+	constexpr bool condition{false};
+
+	if constexpr (condition) {
+		std::cout << "Condition is true" << std::endl;
+	} else {
+		std::cout << "Condition is false" << std::endl;
+	}
+
+	std::println("");
 }
 
 export consteval void consteval_example() {

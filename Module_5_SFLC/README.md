@@ -968,6 +968,31 @@ const int toys_owned{4};
 constexpr int new_toys{toys_owned * 5};
 ```
 
+To add on, we are also able to use `constexpr` with `if` statements.
+Allowing us to do conditional programming at compile-time. Not much is
+currently possible, but is increasing as newer versions of C++ are
+released.
+
+Example below:
+
+```c++
+constexpr bool condition{false};
+
+if constexpr(condition) {
+    std::cout << "Condition is true" << std::endl;
+} else {
+    std::cout << "Condition is false" << std::endl;
+}
+```
+
+- We simply add `constexpr` after `if`
+    - **_Must_** pass a `constexpr` or `const` conditional
+    - Since the value has to be checked at compile-time
+- The branch that fails
+    - Is eliminated at compile-time
+    - Thus, won't show up in the binary
+        - Reducing the amount of code in binary
+
 ---
 
 ## `constexpr` Functions
