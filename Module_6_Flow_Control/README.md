@@ -219,6 +219,48 @@ Example:
   }
 ```
 
+### `if` statement's scope
+
+We also want to revisit scopes with `if` statements
+As previously stated, any variable declared within an `if` statement will
+be temporary. Meaning, if one wanted to use said variable later on in
+their program. An error would be thrown.
+
+Now, let us focus on the internal scopes.
+
+Looking at the example below:
+
+```c++
+#include <print>
+
+int main(int argc, char **argv) {
+    bool green {false};
+    
+    if (green) {
+        int car_count{23};
+        std::println("The color is green. {} Cars on the move!", car_count);
+    } else {
+        std::println("The color is not green. Y'all need to stop!");
+    }
+}
+```
+
+We note that we declared a variable within the if-block of the `if` statement.
+Would we be able to utilize this variable within the else-block of the `if` statement?
+
+The answer is **no**. An error would be thrown.
+Shown below:
+
+```shell
+/tmp/Module_6_Flow_Control/utilities.ixx:166:40: error: use of undeclared identifier 'car_count'
+  166 |                 std::println("{} cars are stopped.", car_count);
+      |                                                      ^~~~~~~~~
+1 error generated.
+```
+
+Likewise, anything declared in the else-block will be constrained to the scope
+of the else-block.
+
 ---
 
 ## Switch Statements
@@ -565,7 +607,7 @@ resources of the program.
 
 We will get an infinite loop if:
 
-- Our end condition is set up to never stop 
+- Our end condition is set up to never stop
 
 Example Infinite `for` below:
 
@@ -601,9 +643,9 @@ do
 ```
 
 - In all the examples above
-  - The loop condition is set to `true`
-  - Thus, regardless of our operations, nothing will change a hard-coded `true`
-  - Resulting in an infinite loop
+    - The loop condition is set to `true`
+    - Thus, regardless of our operations, nothing will change a hard-coded `true`
+    - Resulting in an infinite loop
 - That is why we need something to help prevent such behavior
 
 ---
@@ -629,7 +671,7 @@ These are keywords that are utilized to alter or modify the way loops behave.
 We utilize `continue` to make the loop ignore the current iteration.
 
 - We skip any instruction that would normally occur in previous iterations
-- This does not stop the loop 
+- This does not stop the loop
 
 Example below:
 
@@ -669,9 +711,8 @@ i: 19
 
 - We can note that `i: 5` is missing
 - That is due to the conditional `i == 5`
-  - Where we `continue`
-  - So we skip the print statement
-
+    - Where we `continue`
+    - So we skip the print statement
 
 Now, `break` behaves differently. Rather than skipping the iteration,
 `break` stops looping thereafter being run. In other words, when the
@@ -692,9 +733,9 @@ for (size_t i{0}; i < COUNT; ++i)
 ```
 
 - The new line adds:
-  - The conditional check for `i` being equal to `11`
-    - If the condition is met:
-      - We stop the looping process
+    - The conditional check for `i` being equal to `11`
+        - If the condition is met:
+            - We stop the looping process
 
 So the new output is:
 

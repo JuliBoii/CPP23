@@ -3,6 +3,7 @@ module;
 #include <fmt/format.h>
 #include <iostream>
 #include <utility>
+#include <print>
 #include <vector>
 
 export module utilities;
@@ -85,8 +86,8 @@ export void if_statements_example() {
 	fmt::println("Nested If Statements:");
 
 	constexpr bool red{false};
-	constexpr bool yellow{false};
-	constexpr bool green{true};
+	constexpr bool yellow{true};
+	constexpr bool green{false};
 	constexpr bool police_stop{true};
 
 	// If green: go
@@ -156,6 +157,16 @@ export void if_statements_example() {
 		fmt::println("Active tool is ellipse.");
 	}
 	fmt::println("");
+
+	std::println("Scope of Variables in If Statements:");
+	if (green) {
+		int car_count{23};
+		std::println("The color is green. {} Cars on the move!", car_count);
+	} else {
+		std::println("The color is not green. Y'all need to stop!");
+		// std::println("{} cars are stopped.", car_count);
+	}
+	std::println("");
 }
 
 export void switch_statements() {
@@ -304,15 +315,13 @@ export void loops_example() {
 	fmt::println("");
 
 	fmt::println("Decrementing Loop Example:");
-	for (i = 10; i > 0; --i)
-	{
+	for (i = 10; i > 0; --i) {
 		fmt::println("{} : I love C++", i);
 	}
 	fmt::println("");
 
 	fmt::println("Continue & Break Example:");
-	for (i=0; i < 20; ++i)
-	{
+	for (i = 0; i < 20; ++i) {
 		if (i == 5) continue;
 		if (i == 11) break;
 		fmt::println("i: {}", i);
