@@ -300,4 +300,22 @@ export void loops_example() {
 		fmt::println("{} : I love C++", i);
 		++i;
 	} while (i < COUNT);
+
+	fmt::println("");
+
+	fmt::println("Decrementing Loop Example:");
+	for (i = 10; i > 0; --i)
+	{
+		fmt::println("{} : I love C++", i);
+	}
+	fmt::println("");
+
+	fmt::println("Continue & Break Example:");
+	for (i=0; i < 20; ++i)
+	{
+		if (i == 5) continue;
+		if (i == 11) break;
+		fmt::println("i: {}", i);
+	}
+	fmt::println("");
 }

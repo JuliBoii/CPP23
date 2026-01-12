@@ -560,8 +560,156 @@ do {
 ### Infinity Loops
 
 If we are not careful, we can set up a loop which is never going
-to stop.
+to stop. It will continuously run, trying to do things and exhausting the
+resources of the program.
 
 We will get an infinite loop if:
 
-- 
+- Our end condition is set up to never stop 
+
+Example Infinite `for` below:
+
+```c++
+for (size_t i{}; true; ++i)
+{
+    fmt::println("{}: I love C++", i);
+}
+```
+
+Example Infinite `while` below:
+
+```c++
+size_t i{};
+
+while (true)
+{
+    fmt::println("{}: I love C++", i);
+    ++i;
+}
+```
+
+Example Inifinite `do-while` below:
+
+```c++
+size_t i{};
+
+do
+{
+    fmt::println("{}: I love C++", i);
+    ++i;
+} while (true);
+```
+
+- In all the examples above
+  - The loop condition is set to `true`
+  - Thus, regardless of our operations, nothing will change a hard-coded `true`
+  - Resulting in an infinite loop
+- That is why we need something to help prevent such behavior
+
+---
+
+### Decrementing Loops
+
+Similar to a regular loop, it just counts down rather than up.
+
+```c++
+constexpr size_t COUNT{100};
+for (size_t i{COUNT}; i > 0; --i)
+{
+    fmt::println("{}: I love C++", i);
+}
+```
+
+---
+
+## `break` & `continue`
+
+These are keywords that are utilized to alter or modify the way loops behave.
+
+We utilize `continue` to make the loop ignore the current iteration.
+
+- We skip any instruction that would normally occur in previous iterations
+- This does not stop the loop 
+
+Example below:
+
+```c++
+constexpr size_t COUNT{20};
+
+for (size_t i{0}; i < COUNT; ++i)
+{
+    if (i == 5) continue;
+    fmt::println("i: {}", i);
+}
+```
+
+When run, the program produces the following output:
+
+```shell
+i: 0
+i: 1
+i: 2
+i: 3
+i: 4
+i: 6
+i: 7
+i: 8
+i: 9
+i: 10
+i: 11
+i: 12
+i: 13
+i: 14
+i: 15
+i: 16
+i: 17
+i: 18
+i: 19
+```
+
+- We can note that `i: 5` is missing
+- That is due to the conditional `i == 5`
+  - Where we `continue`
+  - So we skip the print statement
+
+
+Now, `break` behaves differently. Rather than skipping the iteration,
+`break` stops looping thereafter being run. In other words, when the
+program encounters the `break` keyword in a loop, it will stop looping.
+So, the remaining iterations will not be reached.
+
+Modifying the example above, we get:
+
+```c++
+constexpr size_t COUNT{20};
+
+for (size_t i{0}; i < COUNT; ++i)
+{
+    if (i == 5) continue;
+    if (i == 11) break;
+    fmt::println("i: {}", i);
+}
+```
+
+- The new line adds:
+  - The conditional check for `i` being equal to `11`
+    - If the condition is met:
+      - We stop the looping process
+
+So the new output is:
+
+```shell
+Continue & Break Example:
+i: 0
+i: 1
+i: 2
+i: 3
+i: 4
+i: 6
+i: 7
+i: 8
+i: 9
+i: 10
+```
+
+---

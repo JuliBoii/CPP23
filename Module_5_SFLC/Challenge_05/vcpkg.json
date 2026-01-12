@@ -1,0 +1,7 @@
+{
+  "name": "challenge",
+  "version": "1.0",
+  "dependencies": [
+    "sfml"
+  ]
+}
