@@ -12,6 +12,7 @@
     - `for()`
     - `while()`
     - `do{} while()`
+- Comma Operator
 
 ---
 
@@ -546,6 +547,43 @@ for (auto value : {1, 2, 3, 4, 5, 6, 7}) {
 }
 ```
 
+We can also do multiple declarations within the `for` loop.
+
+Example below:
+
+```c++
+#include <iostream>
+
+int main(int argc, int** argv) {
+    for (size_t i{0}, x{5}, y{22}; y > 15; ++i, x+=5, y-=1) {
+        std::cout << "i: " << i << "\nx: " << x << "\ny: " << y << "\n\n";
+    }
+}
+```
+
+To accomplish this, we simply add commas after each variable declaration.
+When utilizing this feature, one has to be comfortable reading the verbose
+loop. Knowing where each section of the `for` loop is starting and ending.
+
+Looking at the three parts
+
+1. Initialized Variables
+    - We have three variables
+        - `i`
+        - `x`
+        - `y`
+2. Conditional
+    - We have one conditional check for `y`
+    - We can use any of the declare variables
+        - But we have to ensure the incrementation is working
+        - i.e., Make sure the loop ends properly and does our desired task
+3. Incrementation
+    - We are incrementing all three variables at **different incrementation**
+    - Each time we:
+        - Add one to `i`
+        - Add 5 to `x`
+        - Subtract 1 from `y`
+
 ---
 
 ### `while` Loops
@@ -754,3 +792,32 @@ i: 10
 ```
 
 ---
+
+## Comma Operator
+
+We will be talking about the comma operator. This operator allows us
+to group multiple expressions and treat them as if they were one expression.
+
+Example below:
+
+```c++
+#include <print>
+
+int main(int argc, int** argv) {
+    int increment{5}, number1{10}, number2{20}, number3{25};
+    int result = (number1 *= ++increment, number2 - (++increment), number3 += ++increment);
+    std::println("number1: {}\nnumber2: {}\nnumber3: {}", number1, number2, number3);
+    std::println("result: {}", result);
+}
+```
+
+This is why we are able to declare multiple variables with one data type
+declaration. Looking at the line for `int result`:
+
+- We are
+    - Compound multiplying `number1` with `increment`
+        - Then incrementing `increment`
+    - Subtracting `number2` with `increment`
+        - Then incrementing `increment`
+    - Compound Adding `number3` with `increment`
+        - Then incrementing `increment`

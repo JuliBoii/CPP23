@@ -328,3 +328,10 @@ export void loops_example() {
 	}
 	fmt::println("");
 }
+
+export void comma_operator_example() {
+	int increment{5}, number1{10}, number2{20}, number3{25};
+	int result = (number1 *= ++increment, number2 - (++increment), number3 += ++increment);
+	std::println("number1: {}\nnumber2: {}\nnumber3: {}", number1, number2, number3);
+	std::println("result: {}", result);
+}
