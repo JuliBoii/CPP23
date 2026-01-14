@@ -15,6 +15,8 @@ C++ provides.
     - More Element Access:
         - `front`
         - `back`
+    - Two Dimensional Arrays
+    - Comparing Arrays
 - `std::vector`
 - `std::string`
 
@@ -28,6 +30,19 @@ container.
 For example, we know the number of students in class,
 and want to store the names of each student. We can make a
 `std::array` of desired size to store our list of names.
+
+Some of the benefits of using `std::array` are:
+
+- Each collection knows its size
+- Easy to pass to functions
+  - Since the size does not need to be included separately
+- Convenient functions to get:
+  - First Element
+  - Last Element
+- Can be compared using comparison operators
+- Can assign a `std::array` to another `std::array`
+- Can store an `std::array` in another container
+- Don't have to mess with low lever arrays and pointers
 
 To start off, let us look at an example in declaring an array.
 
@@ -184,4 +199,139 @@ Printing Filled Array:
 We have two other member functions to access data in a `std::array`.
 
 1. `front()`
+   - This member function will return the first element in the `std::array`
 2. `back()`
+   - This member function will return the last element in the `std::array`
+
+Example below:
+
+```c++
+fmt::println("arr.front() = {}", arr.front());
+fmt::println("arr2.front() = {}", arr2.front());
+
+fmt::println("arr.back() = {}", arr.back());
+fmt::println("arr2.back() = {}", arr2.back());
+```
+
+Which prints the following:
+
+```shell
+arr.front() = 10
+arr2.front() = 7
+arr.back() = 5
+arr2.back() = 7
+```
+
+### Two Dimensional Arrays
+
+Now, we can also set up a 2D array. So far, we have only worked with
+simple one dimensional arrays. Great for data collections that we know
+the size of.
+
+Example below:
+
+```c++
+constexpr std::array<std::array<int, 2>, 3> arr3{{ {1, 2}, {3, 4}, {5,6} }};
+
+for (const auto& row : arr3) {
+    for (const auto& col : row) {
+        fmt::print("{} ", col);
+    }
+    fmt::println("");
+}
+```
+
+For the printing section, notice how we access the elements in the array.
+We first access each "row" within `arr3`. Then, within each row,
+we access a "column"/element. That's how we access each individual
+element in a 2D array.
+
+Which prints the following:
+
+```shell
+1 2 
+3 4 
+5 6 
+```
+
+### Comparing Arrays
+
+What if we want to compare two or more different arrays.
+First we define a set of arrays to test:
+
+```c++
+std::array<int, 3> arr4{1, 2, 3};
+std::array<int, 3> arr5{1, 2, 3};
+std::array<int, 3> arr6{1, 2, 4};
+std::array<int, 3> arr7{0, 2, 4};
+```
+
+_**We also want to take note that on [cppreference](https://en.cppreference.com/w/cpp/container/array.html)
+in the information for `std::array`. It has been noted that some operators, we will be using in our
+example, have been removed. So its best not to use them despite a compiler working — if using
+newer versions of C++.**_
+
+#### Comparing for Equality
+
+```c++
+fmt::println("Comparing for equality:");
+if (arr4 == arr5) {
+    fmt::println("arr4 is equal to arr5");
+} else {
+    fmt::println("arr4 is not equal to arr5");
+}
+```
+
+#### Comparing for Inequality
+
+```c++
+if (arr4 != arr6) {
+    fmt::println("arr4 is not equal to arr6");
+} else {
+    fmt::println("arr4 is equal to arr6");
+}
+```
+
+#### Lexicographical Comparison
+
+##### Less than (<)
+ 
+```c++
+if (arr4 < arr6) {
+    fmt::println("arr4 is less than arr6");
+} else {
+    fmt::println("arr4 is not less than arr6");
+}
+```
+
+##### Less than or equal to (<=)
+
+```c++
+if (arr4 <= arr5) {
+    fmt::println("arr4 is less than or equal to arr5");
+} else {
+    fmt::println("arr4 is not less than or equal to arr5");
+}
+```
+
+##### Greater than (>)
+
+```c++
+if (arr6 > arr7) {
+    fmt::println("arr6 is greater than arr7");
+} else {
+    fmt::println("arr6 is not greater than arr7");
+}
+```
+
+##### Greater than or equal to (>=)
+
+```c++
+if (arr6 >= arr4) {
+    fmt::println("arr6 is greater than or equal to arr4");
+} else {
+    fmt::println("arr6 is not greater than or equal to arr4");
+}
+```
+
+###
