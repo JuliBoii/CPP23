@@ -2,6 +2,7 @@ module;
 
 #include <fmt/format.h>
 #include <array>
+#include <vector>
 
 export module utilities;
 
@@ -118,6 +119,51 @@ export void std_array_example() {
     } else
     {
         fmt::println("arr4 is not less than arr6");
+    }
+    fmt::println("");
+}
+
+export void vector_example()
+{
+    fmt::println("Vectors Example:");
+    std::vector<int> vec{1, 2, 3, 4, 5};
+
+    // Accessing Elements using []
+    fmt::println("Accessing Elements Using []:");
+    for (size_t i = 0; i < vec.size(); ++i)
+    {
+        fmt::println("vec[{}] = {}", i, vec[i]);
+    }
+    fmt::println("");
+
+    // Accessing elements using .at()
+    fmt::println("Accessing Elements using .at():");
+    for (size_t i = 0; i < vec.size(); ++i)
+    {
+        fmt::println("vec.at({}) = {}", i, vec.at(i));
+    }
+    fmt::println("");
+
+    // Modifying elements in the vector
+    fmt::println("Modifying Elements in the Vector:");
+    fmt::println("Modifying Element 0.");
+    vec[0] = 10;
+    fmt::println("Modifying Element 3.");
+    vec[3] = 34;
+    fmt::println("");
+
+    fmt::println("Printing Modified Vector:");
+    for (size_t i = 0; i < vec.size(); ++i)
+    {
+        fmt::println("vec[{}] = {}", i, vec[i]);
+    }
+    fmt::println("");
+
+    // Using range-based for loops
+    fmt::println("Using Range-based For Loops:");
+    for (const auto& element : vec)
+    {
+        fmt::println("{}", element);
     }
     fmt::println("");
 }

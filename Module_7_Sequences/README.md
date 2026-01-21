@@ -18,6 +18,7 @@ C++ provides.
     - Two Dimensional Arrays
     - Comparing Arrays
 - `std::vector`
+  - 
 - `std::string`
 
 ---
@@ -355,54 +356,19 @@ We are now able to access the information contained in our
 array, given we added data. We can access this information
 in one of two ways:
 
-### Using `[]` (square brackets):
+**Let us focus on the differences present in `std::vector`**
 
-```c++
-// Accessing elements using []
-for (size_t i = 0; i < vec.size(); ++i) {
-    fmt::println("vec[{}] = {}", i, vec[i]);
-}
-```
+| `std::array`                                                                                                                 | `std::vector`                                                                                                                |
+|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| Fixed Size:<br/>The size of `std::array` is fixed at compile time and cannot be changed                                      | Dynamic Size:<br/>The size of `std::vector` can be changed at runtime; it can grow and shrink dynamically                    |
+| Memory Allocation:<br/>Allocates memeory on the stack                                                                        | Memory Allocation:<br/>Allocates memory on the heap                                                                          |
+| Performance:<br/>Generally faster access due to stack allocation and no need for dynamic memory allocation                   | Performance:<br/>Slightly slower access due to dynamic memory allocation and potential reallocations                         |
+| Initialization:<br/>Can be initialized with a list of values                                                                 | Initialization:<br/>Can be initialized witha list of values, default constructor, or by specifying the size                  |
+| Bound-Checking:<br/>Provides `.at()` method for bound-checking access; out-of-bounds access using `[]` is undefined behavior | Bound-Checking:<br/>Provides `.at()` method for bound-checking access; out-of-bounds access using `[]` is undefined behavior |
+| Usage:<br/>Suitable for fixed-sized collections where the size is known at compile-time                                      | Usage:<br/>Suitable for collections where the size can vary or is not known at compile time.                                 |
+| Syntax:<br/>Requires specifying the size as a template parameter: `std::array<int, 5>`                                       | Syntax:<br/>Does not require specifying the size as a template parameter: `std::vector<int>`                                 |
+| Iterators:<br/>Supports iterators for range-based loops and standard algorithms                                              | Iterators:<br/>Supports iterators for range-based loops and standard algorithms                                              |
+| Assignment:<br/>Supports direct assignment from another `std::array` of the same type and size                               | Assignment:<br/>Supports direct assignment from another `std::vector` of the same type                                       |
+| Comparison:<br/>Supports comparison operators `(==, !=, <, <=, >, >=)`                                                       | Comparison:<br/>Supports comparison operators `(==, !=, <, <=, >, >=)`                                                       |
 
-In our `for` loop we can see another benefit of `std::vector`.
-We are able to obtain the `size` of the array using the called function:
-`.size()`. So we do not have to maintain a separate variable for the
-vector's size.
-
-- We will loop through the vector
-    - Then access elements in the vector using square brackets
-    - Printing out each value
-    - Along with the current iteration count
-
-### Using `.at()`
-
-```c++
-for (size_t i = 0; i < vec.size(); ++i) {
-    fmt::println("vec.at({}) = {}", i, vec.at(i));
-}
-```
-
-In the other method, we utilize another function of `std::vector`.
-Using `.at()` to call certain elements, like the brackets.
-Again, we will:
-
-- Loop through the vector
-    - Access elements in the vector using `.at()`
-    - Print each value
-    - Along with the current iteration count
-
-With the `.at()` function, we are essentially stating that we
-want to print the element at `i` index.
-
-### Modifying Elements
-
-To modify elements in our `std::vector`, we would do the following:
-
-```c++
-vec[0] = 10;
-vec.at(1) = 20;
-```
-
-Similar to how we printed our array, we state the index (with-in bounds)
-that we want to modify. Again, we can use either square brackets `[]` or
-the `.at()` function.
+---
