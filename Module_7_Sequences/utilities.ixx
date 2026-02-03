@@ -3,6 +3,8 @@ module;
 #include <fmt/format.h>
 #include <array>
 #include <vector>
+#include <algorithm>
+#include <ranges>
 
 export module utilities;
 
@@ -164,6 +166,43 @@ export void vector_example()
     for (const auto& element : vec)
     {
         fmt::println("{}", element);
+    }
+    fmt::println("");
+
+
+    fmt::println("Filling A Vector With A Value:");
+    fmt::println("Declaring An Empty Vector");
+    // Declaring a vector with initial length 5
+    std::vector<int> vec2(5);
+
+    fmt::println("Filling Vector with a Single Value (7):");
+    // Filling vector with a single value
+    std::fill(vec2.begin(), vec2.end(), 7);
+    fmt::println("");
+
+    fmt::println("Printing filled Vector:");
+    for (const auto& element : vec2)
+    {
+        fmt::println("{}", element);
+    }
+    fmt::println("");
+
+    fmt::println("Accessing First & Last Elements:");
+    fmt::println("First element: {}", vec.front());
+    fmt::println("Last element: {}", vec.back());
+    fmt::println("");
+
+
+    fmt::println("Multi-Dimensional Vector:");
+    std::vector<std::vector<int>> multi {{1, 2}, {3, 4}, {5, 6}};
+
+    for (const auto& row : multi)
+    {
+        for (const auto& col : row)
+        {
+            fmt::print("{} ", col);
+        }
+        fmt::println("");
     }
     fmt::println("");
 }

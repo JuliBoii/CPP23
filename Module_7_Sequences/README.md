@@ -371,4 +371,82 @@ in one of two ways:
 | Assignment:<br/>Supports direct assignment from another `std::array` of the same type and size                               | Assignment:<br/>Supports direct assignment from another `std::vector` of the same type                                       |
 | Comparison:<br/>Supports comparison operators `(==, !=, <, <=, >, >=)`                                                       | Comparison:<br/>Supports comparison operators `(==, !=, <, <=, >, >=)`                                                       |
 
+
+### Filling Vector
+
+One other difference would be the lack of a member function `fill()`.
+`std::vector` does not have a built-in function to fill our vector.
+In order to fill, we utilize other C++ features to replicate the action.
+In this case, we utilize `std::fill()`, located in the `<algorithm>` library.
+
+Example below:
+
+```c++
+// Declaring a vector with initial length 5
+std::vector<int> vec(5);
+
+// Filling vector with a single value
+std::fill(vec.begin(), vec.end(), 7);
+```
+
+- Here we are just filling in the parameters:
+  - `first`
+  - `last`
+    - The pair of iterators defining the range of elements to modify
+  - `value`
+    - The value to be assigned
+
+The key difference is that `std::fill` can be used with any container.
+
+### Accessing First & Last Elements
+
+The container provides member functions that allow us to access the first or
+last element available. 
+
+Example:
+
+```c++
+std::vector<int> vec{1, 2, 3, 4, 5, 6, 7};
+
+std::println("First element: {}", vec.front());
+std::println("Last element: {}", vec.back());
+```
+
+- `front()`: returns the first element in the container
+- `back()`: returns the last element in the container
+
+### Multi-Dimensional Vectors
+
+First off, we set up a `std::vector` containing another `std::vector`,
+of a desired type.
+
+```c++
+std::vector<std::vector<int>> vec {{1, 2}, {3, 4}, {5, 6}};
+
+for (const auto& row : vec)
+{
+    for (const auto& col : row)
+    {
+        std::print("{} ", col);
+    }
+    std::println("");
+}
+```
+
+### Lexicographical Comparison
+
+Similar to `std::array`'s we can do Lexicographical Comparisons. But for sake
+of repetitiveness, I will just skip the examples.
+
+### Assignment
+
+We can also assign one `std::vector` to another `std::vector`.
+
+```c++
+std::vector<int> vec1 {1, 2, 3, 4};
+std::vector<int> vec2 {5, 5, 6, 7};
+
+vec2 = vec1;
+```
+
 ---
