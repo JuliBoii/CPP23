@@ -8,17 +8,25 @@ C++ provides.
 ## Topics
 
 - `std::array`
-    - Using `[]` v.s. `.at()`
+    - Using `[]` v.s. `at()`
     - Range-based looping
     - Modifying elements
-    - `.fill()`
+    - `fill()`
     - More Element Access:
         - `front`
         - `back`
     - Two Dimensional Arrays
     - Comparing Arrays
 - `std::vector`
-  - 
+  - Access data in vector
+    - `[]`
+    - `at()`
+  - Differences Between `std::array` & `std::vector`
+  - Filling vector
+  - Accessing First & Last Element
+  - Multi-Dimensional Vectors
+  - Lexicographical Comparison
+  - Assignment
 - `std::string`
 
 ---
@@ -356,6 +364,47 @@ We are now able to access the information contained in our
 array, given we added data. We can access this information
 in one of two ways:
 
+### Using `[]` (square brackets):
+
+```c++
+// Accessing elements using []
+for (size_t i = 0; i < vec.size(); ++i) {
+    fmt::println("vec[{}] = {}", i, vec[i]);
+}
+```
+
+In our `for` loop we can see another benefit of `std::vector`.
+We are able to obtain the `size` of the vector using the called function:
+`size()`. So we do not have to maintain a separate variable for the
+vector's size.
+
+- We will loop through the vector
+  - Then access elements in the vector using square brackets
+  - Printing out each value
+  - Along with the current iteration count
+
+### Using `at()`
+
+```c++
+for (size_t i = 0; i < vec.size(); ++i) {
+    fmt::println("vec.at({}) = {}", i, vec.at(i));
+}
+```
+
+In the other method, we utilize another function of `std::vector`.
+Using `at()` to call certain elements, like the brackets.
+Again, we will:
+
+- Loop through the vector
+  - Access elements in the array using `at()`
+  - Print each value
+  - Along with the current iteration count
+
+With the `at()` function, we are essentially stating that we
+want to print the element at `i` index.
+
+### Differences Between `std::array` & `std::vector`
+
 **Let us focus on the differences present in `std::vector`**
 
 | `std::array`                                                                                                                 | `std::vector`                                                                                                                |
@@ -450,3 +499,4 @@ vec2 = vec1;
 ```
 
 ---
+
