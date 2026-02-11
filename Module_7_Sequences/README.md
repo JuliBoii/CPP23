@@ -500,3 +500,8 @@ vec2 = vec1;
 
 ---
 
+## `std::string`
+
+`std::string` is another collection type. While many do not think of 
+strings as a collection type, it is since its a collection of `char`
+data.
