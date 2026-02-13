@@ -18,16 +18,28 @@ C++ provides.
     - Two Dimensional Arrays
     - Comparing Arrays
 - `std::vector`
-  - Access data in vector
-    - `[]`
-    - `at()`
-  - Differences Between `std::array` & `std::vector`
-  - Filling vector
-  - Accessing First & Last Element
-  - Multi-Dimensional Vectors
-  - Lexicographical Comparison
-  - Assignment
+    - Access data in vector
+        - `[]`
+        - `at()`
+    - Differences Between `std::array` & `std::vector`
+    - Filling vector
+    - Accessing First & Last Element
+    - Multi-Dimensional Vectors
+    - Lexicographical Comparison
+    - Assignment
 - `std::string`
+    - Basic declaration & Initialization
+    - Using Constructors
+    - Accessing Characters
+    - Modifying Strings
+    - Appending and Concatenation
+    - Substrings
+    - Finding
+    - Comparison
+    - Inserting & Erasing
+    - Length & Capacity
+    - Iterating over a String
+    - Clearing a string
 
 ---
 
@@ -44,10 +56,10 @@ Some of the benefits of using `std::array` are:
 
 - Each collection knows its size
 - Easy to pass to functions
-  - Since the size does not need to be included separately
+    - Since the size does not need to be included separately
 - Convenient functions to get:
-  - First Element
-  - Last Element
+    - First Element
+    - Last Element
 - Can be compared using comparison operators
 - Can assign a `std::array` to another `std::array`
 - Can store an `std::array` in another container
@@ -208,9 +220,9 @@ Printing Filled Array:
 We have two other member functions to access data in a `std::array`.
 
 1. `front()`
-   - This member function will return the first element in the `std::array`
+    - This member function will return the first element in the `std::array`
 2. `back()`
-   - This member function will return the last element in the `std::array`
+    - This member function will return the last element in the `std::array`
 
 Example below:
 
@@ -304,7 +316,7 @@ if (arr4 != arr6) {
 #### Lexicographical Comparison
 
 ##### Less than (<)
- 
+
 ```c++
 if (arr4 < arr6) {
     fmt::println("arr4 is less than arr6");
@@ -379,9 +391,9 @@ We are able to obtain the `size` of the vector using the called function:
 vector's size.
 
 - We will loop through the vector
-  - Then access elements in the vector using square brackets
-  - Printing out each value
-  - Along with the current iteration count
+    - Then access elements in the vector using square brackets
+    - Printing out each value
+    - Along with the current iteration count
 
 ### Using `at()`
 
@@ -396,9 +408,9 @@ Using `at()` to call certain elements, like the brackets.
 Again, we will:
 
 - Loop through the vector
-  - Access elements in the array using `at()`
-  - Print each value
-  - Along with the current iteration count
+    - Access elements in the array using `at()`
+    - Print each value
+    - Along with the current iteration count
 
 With the `at()` function, we are essentially stating that we
 want to print the element at `i` index.
@@ -420,7 +432,6 @@ want to print the element at `i` index.
 | Assignment:<br/>Supports direct assignment from another `std::array` of the same type and size                               | Assignment:<br/>Supports direct assignment from another `std::vector` of the same type                                       |
 | Comparison:<br/>Supports comparison operators `(==, !=, <, <=, >, >=)`                                                       | Comparison:<br/>Supports comparison operators `(==, !=, <, <=, >, >=)`                                                       |
 
-
 ### Filling Vector
 
 One other difference would be the lack of a member function `fill()`.
@@ -439,18 +450,18 @@ std::fill(vec.begin(), vec.end(), 7);
 ```
 
 - Here we are just filling in the parameters:
-  - `first`
-  - `last`
-    - The pair of iterators defining the range of elements to modify
-  - `value`
-    - The value to be assigned
+    - `first`
+    - `last`
+        - The pair of iterators defining the range of elements to modify
+    - `value`
+        - The value to be assigned
 
 The key difference is that `std::fill` can be used with any container.
 
 ### Accessing First & Last Elements
 
 The container provides member functions that allow us to access the first or
-last element available. 
+last element available.
 
 Example:
 
@@ -502,6 +513,148 @@ vec2 = vec1;
 
 ## `std::string`
 
-`std::string` is another collection type. While many do not think of 
+`std::string` is another collection type. While many do not think of
 strings as a collection type, it is since its a collection of `char`
-data.
+data. We can think of `std::string` as a vector. Due to sharing many
+behaviors with `std::vector`.
+
+### `std::string` compared to `std::array` & `std::vector`
+
+| Feature                 | `std::vector<T>`                          | `std::array<T, n>`              | `std::string`                               |
+|-------------------------|-------------------------------------------|---------------------------------|---------------------------------------------|
+| Memory Layout           | Dynamic (Heap)                            | Fixed size (stack or embedded)  | Dynamic (Heap)                              |
+| Resizable               | Yes (automatic resizing)                  | No (fixed size)                 | Yes (automatic resizing)                    |
+| Element Type            | Generic (`T` can be any type)             | Generic (`T` can be any type)   | Only `char` ot `wchar_t` (text data)        |
+| Insertion Complexity    | `O(1)` at end, `O(n)` elsewhere           | N/A (Fixed Size)                | `O(1)` at end, `O(n)` elsewhere             |
+| Access Time             | `O(1)` Random access                      | `O(1)` Random access            | `O(1)` Random access                        |
+| Memory Efficeny         | Efficent, but may over-allocate           | Most efficent (fixed size)      | Efficent, but may over-allocate             |
+| Best for                | Dynamic arrays of any type                | Fixed-size arrays               | Handling and manipulating text              |
+| Supports Move Semantics | Yes                                       | Yes                             | Yes                                         |
+| Thread Safety           | Not thread-safe                           | Not thread-safe                 | Not thread-safe                             |
+| Contiguous Mmemory      | Yes                                       | Yes                             | Yes                                         |
+| Iterator Invalidations  | Invalidation on reallocation or insertion | N/A                             | Invalidation on reallocation or insertion   |
+| Default initializations | Elements are default-initialized          | Must be initialized with values | N/A (initialized to empty string by default |
+| Speacial Functions      | `resize`, `push_back`, `pop_back`         | N/A (fixed size, no resizing)   | `append`, `substr`, `find`, `replace`       |
+| Best for String Use     | Not ideal (stores generic types)          | Not applicable                  | Specifically designed for strings           |
+
+### Basic Declaration & Initialization
+
+Example:
+
+```c++
+// Assign to initialize
+std::string str1 = "Hello World!";
+std::println("str1: {}", str1);
+
+// Curly Initialization
+std::string str2{"Hello World!"};
+std::println("str2: {}", str2);
+```
+
+- Following previous data types, declaring a `std::string` we:
+    - State the data type we will store
+    - Give the variable a name
+- To initialize, we:
+    - Either assign a collection of characters
+    - Or, use curly braces, passing a string of characters
+
+### Using Constructors
+
+```c++
+// Creating a std::string using various constructors
+std::string str2(str1);          // Copy constructor
+std::string str3(str1, 7, 5);   // Substring constructor
+std::string str4(10, 'A');      // Fill constructor
+```
+
+In the example above, we are using various constructors to make new strings.
+
+- For `str2`
+  - We use the copy constructor
+    - Where we use parentheses and pass a `std::string` to copy
+- For `str3`
+  - We use the sub-string constructor
+    - Passing a `std::string`
+    - An index for the passed `std::string` where to start copying
+    - Length of how much we want to copy
+- For `str4`
+  - Using fill constructor
+    - Length of the new `std::string`
+    - Character we want to fill our `std::string` with
+
+### Accessing Characters
+
+```c++
+// Accessing individual characters using the [] operator and at() method
+std::println("Accessing Elements in a string:");
+std::println("First character of str1 using []: {}", str1[0]);
+std::println("Second character of str1 using at(): {}", str1.at(1));
+std::println("");
+```
+
+Notice we can utilize the two accessing methods similar to `std::vector`
+and `std::array`. With the same behaviors as previously stated.
+
+### Modifying Strings
+
+```c++
+// Modifying characters in the string
+std::println("Modifying Elements in a string:");
+str1[0] = 't';
+std::println("Modified str1 using []: {}", str1);
+str1.at(7) = 'w';
+std::println("Modified str1 using at(): {}", str1);
+std::println("");
+```
+
+We can utilize both methods of accessing data to modify our `std::string`.
+
+### Appending and Concatenation
+
+```c++
+// Appending
+str1 += " How are you?";
+str2.append(" Goodbye!");
+std::println("Appended str1: {}", str1);
+std::println("Appended str2: {}", str2);
+
+// Concatenation
+str3 = "How are you.";
+std::string str5 = str3 + " Everyone!";
+fmt::println("Concatenated str5: {}", str5);
+```
+
+- Looking at `str1`
+  - We do `+=` to `str1`
+  - This makes `str1` contain the original data plus the new data
+  - **This works because the operator is defined into the `std::string` type**
+    - We can verify this looking at our C++ Reference
+- Looking at `str2`
+  - We utilize the `append()` function
+  - This appends to the string
+    - Adding additional characters to the string
+- The initialization of `str5` is a concatenation
+  - With `str5` being an entirely new object containing the combined data of:
+    - `str3` and `"Everyone!"`
+- With the main difference between **appending** and **concatenation** being:
+  - Appending:
+    - Usually modifies the original object in-place
+  - Concatenation:
+    - Typically creates an entirely new object containing combined data
+    - So, original objects are unchanged
+- With this in mind
+  - The modification of `str1` is actually a concatenation
+
+### Substrings
+
+### Finding
+
+### Comparison
+
+### Inserting & Erasing
+
+### Length & Capacity
+
+### Iterating over a String
+
+### Clearing a string

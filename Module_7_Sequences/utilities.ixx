@@ -4,7 +4,7 @@ module;
 #include <array>
 #include <vector>
 #include <algorithm>
-#include <ranges>
+#include <string>
 
 export module utilities;
 
@@ -203,6 +203,78 @@ export void vector_example()
             fmt::print("{} ", col);
         }
         fmt::println("");
+    }
+    fmt::println("");
+}
+
+export void string_example()
+{
+    // Declaring a std::string and initializing it
+    // with a literal
+    fmt::println("Strings Example:");
+    // std::string str1 = "Hello World!";
+    std::string str1{"Hello World!"};
+    fmt::println("str1: {}", str1);
+    fmt::println("");
+
+    // Using Constructors
+    // Creating a std::string using various constructors
+    fmt::println("Using String Constructor:");
+    std::string str2(str1);             // Copy constructor
+    std::string str3(str1, 7, 5);   // Substring constructor: start at index 7, length 5
+    std::string str4(10, 'A');        // Fill constructor: 10 characters of 'A'
+    fmt::println("str2: {}", str2);
+    fmt::println("str3: {}", str3);
+    fmt::println("str4: {}", str4);
+    fmt::println("");
+
+    // Accessing Characters
+    // Accessing individual characters using the [] operator and at() method
+    fmt::println("Accessing Elements in a string:");
+    fmt::println("First character of str1 using []: {}", str1[0]);
+    fmt::println("Second character of str1 using at(): {}", str1.at(1));
+    fmt::println("");
+
+    // Modifying Strings
+    // Modifying characters in the string
+    fmt::println("Modifying Elements in a string:");
+    str1[0] = 't';
+    fmt::println("Modified str1 using []: {}", str1);
+    str1.at(7) = 'w';
+    fmt::println("Modified str1 using at(): {}", str1);
+    fmt::println("");
+
+    // Appending
+    // Appending to a string using operator+= and append()
+    fmt::println("Appending strings (Using operator+ & append()):");
+    str1 += " How are you?";
+    str2.append(" Goodbye!");
+    fmt::println("Appended str1: {}", str1);
+    fmt::println("Appended str2: {}", str2);
+    fmt::println("");
+
+    // Concatenation
+    // Concatenating strings using operator+
+    fmt::println("Concatenation for strings using operator+:");
+    str3 = "How are you.";
+    std::string str5 = str3 + " Everyone!";
+    fmt::println("Concatenated str5: {}", str5);
+
+    //Substrings
+    // Extracting a substring using substr()
+    fmt::println("Substrings:");
+    std::string subStr = str1.substr(7, 5); // Start at index 7, length 5
+    fmt::println("Substring of str1: {}", subStr);
+    fmt::println("");
+
+    //Finding Substrings
+    // Finding a substring within a string using find()
+    fmt::println("Finding a Substring:");
+    size_t pos = str1.find("World");
+    if (pos != std::string::npos) {
+        fmt::println("'World' found at position: {}", pos);
+    } else {
+        fmt::println("'World' not found");
     }
     fmt::println("");
 }
