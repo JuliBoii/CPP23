@@ -52,7 +52,7 @@ For example, we know the number of students in class,
 and want to store the names of each student. We can make a
 `std::array` of desired size to store our list of names.
 
-Some of the benefits of using `std::array` are:
+Some benefits of using `std::array` are:
 
 - Each collection knows its size
 - Easy to pass to functions
@@ -92,7 +92,7 @@ for (size_t i = 0; i < arr.size(); ++i) {
 ```
 
 In our `for` loop we can see another benefit of `std::array`.
-We are able to obtain the `size` of the array using the called function:
+We can obtain the `size` of the array using the called function:
 `.size()`. So we do not have to maintain a separate variable for the
 array's size.
 
@@ -287,7 +287,7 @@ std::array<int, 3> arr6{1, 2, 4};
 std::array<int, 3> arr7{0, 2, 4};
 ```
 
-_**We also want to take note that on [cppreference](https://en.cppreference.com/w/cpp/container/array.html)
+_**We also want to take note that on [cpp reference](https://en.cppreference.com/w/cpp/container/array.html)
 in the information for `std::array`. It has been noted that some operators, we will be using in our
 example, have been removed. So its best not to use them despite a compiler working — if using
 newer versions of C++.**_
@@ -325,7 +325,7 @@ if (arr4 < arr6) {
 }
 ```
 
-##### Less than or equal to (<=)
+##### Less than or equal to (≤)
 
 ```c++
 if (arr4 <= arr5) {
@@ -386,7 +386,7 @@ for (size_t i = 0; i < vec.size(); ++i) {
 ```
 
 In our `for` loop we can see another benefit of `std::vector`.
-We are able to obtain the `size` of the vector using the called function:
+We can obtain the `size` of the vector using the called function:
 `size()`. So we do not have to maintain a separate variable for the
 vector's size.
 
@@ -436,7 +436,7 @@ want to print the element at `i` index.
 
 One other difference would be the lack of a member function `fill()`.
 `std::vector` does not have a built-in function to fill our vector.
-In order to fill, we utilize other C++ features to replicate the action.
+To fill, we utilize other C++ features to replicate the action.
 In this case, we utilize `std::fill()`, located in the `<algorithm>` library.
 
 Example below:
@@ -514,7 +514,7 @@ vec2 = vec1;
 ## `std::string`
 
 `std::string` is another collection type. While many do not think of
-strings as a collection type, it is since its a collection of `char`
+strings as a collection type, it is since it's a collection of `char`
 data. We can think of `std::string` as a vector. Due to sharing many
 behaviors with `std::vector`.
 
@@ -640,14 +640,47 @@ fmt::println("Concatenated str5: {}", str5);
   - Appending:
     - Usually modifies the original object in-place
   - Concatenation:
-    - Typically creates an entirely new object containing combined data
+    - Typically, creates an entirely new object containing combined data
     - So, original objects are unchanged
 - With this in mind
   - The modification of `str1` is actually a concatenation
 
 ### Substrings
 
+```c++
+std::string subStr = str1.substr(7, 5);
+```
+
+Fairly straightforward, if we have a `std::string` containing a string,
+we can grab a substring of the original and do whatever we want.
+
+In the example above:
+- We use `str1`, containing `"tello Wwrld! How are you?"`
+  - Utilizing the `substr()` function we declare two parameters
+    - `7`, the starting index
+      - Where we want to begin the new string we will be making
+    - `5`, the length of the string
+
 ### Finding
+
+```c++
+size_t pos = str2.find("World");
+
+if (pos != std::string::npos) {
+    fmt::println("'World' found at position: {}", pos);
+} else {
+    fmt::println("'World' not found");
+}
+```
+
+This example does not seem straightforward, but it is.
+The `find()` function does not check if our desired substring,
+`"World"`, exist. `find()` finds the first substring equal to the given
+parameter, then and returns the first character of the found substring
+or `npos` if no such substring is found.
+
+- `size_t pos` is an unsigned integer variable with name `pos`
+  - We assign
 
 ### Comparison
 

@@ -270,7 +270,7 @@ export void string_example()
     //Finding Substrings
     // Finding a substring within a string using find()
     fmt::println("Finding a Substring:");
-    size_t pos = str1.find("World");
+    size_t pos = str2.find("World");
     if (pos != std::string::npos) {
         fmt::println("'World' found at position: {}", pos);
     } else {
