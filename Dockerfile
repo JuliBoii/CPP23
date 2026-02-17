@@ -1,7 +1,7 @@
 # Base image we are building from
 FROM alpine:latest
 LABEL maintainer="Julian H, ah503917@gmail.com" \
-      description="A small image for CPP Development"
+      description="An image for CPP Development"
 
 # Ensuring we have the latest security patches and software updates
 RUN apk update && apk upgrade
@@ -51,11 +51,6 @@ RUN apk add --no-cache autoconf \
                         wget \
                         zip
 
-ENV VCPKG_ROOT=/opt/vcpkg
-
-ENV PATH=${VCPKG_ROOT}:${PATH}
-ENV VCPKG_FORCE_SYSTEM_BINARIES=1
-
 # Cloning Ninja from source
 RUN git clone https://github.com/ninja-build/ninja.git /ninja
 WORKDIR /ninja
@@ -82,6 +77,11 @@ RUN git pull
 
 # Building vcpkg
 RUN ./bootstrap-vcpkg.sh -disableMetrics --useSystemBinaries
+
+ENV VCPKG_ROOT=/opt/vcpkg
+
+ENV PATH=${VCPKG_ROOT}:${PATH}
+ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 
 WORKDIR /
 RUN chmod -R 777 /opt/vcpkg
