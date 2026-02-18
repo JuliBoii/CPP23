@@ -897,3 +897,9 @@ Capacity of str6 before clearing: 30
 Capacity of str6 after clearing: 30
 ```
 
+**I would like for it to be known that all previous sections have so much more depth to them.
+What I am doing is simply learning the general information first, then diving further into more
+complex subsections/applications.**
+
+---
+
