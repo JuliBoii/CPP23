@@ -680,14 +680,220 @@ parameter, then and returns the first character of the found substring
 or `npos` if no such substring is found.
 
 - `size_t pos` is an unsigned integer variable with name `pos`
-  - We assign
+  - We look for the first instance of our desired substring
+  - If found we assign the first character's position (index) to `pos`
+  - Otherwise, `npos` is assigned to `pos`
+    - With `npos` simply being a special value
+      - Which is equal to the maximum value representable by the type `size_type`
+      - For more information look at [CPP Reference](https://en.cppreference.com/w/cpp/string/basic_string/npos.html)
+- We then use an `if` statement to check our `pos` variable
+  - We have to explicitly compare our `pos` variable with the defined `npos`
+  - Which we do by using `std::string::npos`
 
 ### Comparison
 
+```c++
+std::string str6 {"Hello"};
+std::string str7 {"World"};
+
+if (str6.compare(str7) == 0) {
+    fmt::println("str6 is equal to str7");
+} else {
+    fmt::println("str6 is not equal to str7");
+}
+
+if(str6.compare(str7) > 0){
+    fmt::println("str6 is greater");
+}else{
+    fmt::println("str7 is greater");
+}
+```
+
+We can compare strings. Utilizing the `compare()` function in the
+`std::string` class/type. Specifically, it compares two character sequences,
+i.e., strings.
+
+It returns a negative value if `*this` appears before the character sequence
+specified by the arguments, in lexicographical order. Or, returns zero if 
+both character sequences compare equivalent. Or, returns positive if `*this` appears
+after the character sequence specified by the argument, in lexicographical order.
+
+- We define two variables `str6` and `str7`
+  - Initialized with strings
+- We define an `if` statement
+  - We compare `str6` to `str7` using `compare()` function
+  - The result is then checked
+    - In the first `if` statement
+      - We check if the result is `0`
+    - In the second `if` statement
+      - We check if the result is greater than `0`
+
+We can also do the following rather than using the `compare()` function.
+
+```c++
+    if (str6 == str7) {
+        fmt::println("str6 is equal to str7");
+    } else {
+        fmt::println("str6 is not equal to str7");
+    }
+
+    if(str6 > str7){
+        fmt::println("str6 is greater");
+    }else{
+        fmt::println("str7 is greater");
+    }
+```
+
+Running either example will result in the following output:
+
+```shell
+str6 is not equal to str7
+str7 is greater
+```
+
+One may wonder why `str6` is not greater than `str7` despite the 
+length of each being the same and `H` coming before `W`. This is
+due to the ASCII code for `W` being larger than `H`. Thus, resulting
+as such.
+
 ### Inserting & Erasing
+
+How do we insert into a `std::string`. We would utilize the `insert()`
+function, that is defined in the `string` library.
+
+```c++
+str6.insert(5, ", Beautiful");
+```
+
+We utilize the `str6` we defined for our comparison example.
+
+- We utilize the `insert()` function
+  - We add the following parameters
+    - `5` is the index we want to begin inserting
+    - `", Beautiful"` is the `char`'s we want to insert
+
+The following is a visual example of what would occur:
+
+```shell
+Before insertion: Hello
+After insertion: Hello, Beautiful
+```
+
+For erasing, a similar process is followed. We would utilize the `erase()`
+function, that is defined in the `string` library.
+
+```c++
+str6.erase(5, 11);
+```
+
+- Utilizing the `erase()` 
+  - We add the following parameters:
+    - `5` is the index we want to begin erasing
+    - `11` is the number of characters we want to erase
+
+Which results in the following:
+
+```shell
+Before erasing: Hello, Beautiful
+After erasing: Hello
+```
 
 ### Length & Capacity
 
+Now we want to get the length and capacity of a string. Again, this
+is fairly simple. We use the respectively defined functions `length()` or `size()` and
+`capacity()`.
+
+```c++
+std::println("Length of str6: {}", str6.length());
+std::println("Size of str6: {}", str6.size());
+```
+
+We can utilize either `length()` or `size()` to obtain the length
+of a string. In the example above:
+
+- `size()` and `length()` return the number of `char` elements in the string
+  - Of `size_type`
+- Thus, we print the result from using the respective functions
+
+Capacity on the other hand, is the allocated space for the string variable.
+
+```c++
+std::println("Capacity of str6: {}", str6.capacity());
+```
+
+In the example above:
+
+- `capacity()` returns the number of characters that the string has currently allocated space for
+  - Of `size_type`
+- Thus, we print the result from using the `capacity()` function
+
 ### Iterating over a String
 
+We can also iterate over a string. A simple example is using the
+range-based `for` loops:
+
+```c++
+std::println("Characters in str6: ");
+for (const auto& ch : str6) {
+    std::print("{} ", ch);
+}
+```
+
 ### Clearing a string
+
+To clear a string we utilize the `clear` function defined for 
+`string`. This function removes all characters from the string.
+
+```c++
+str6.clear()
+std::println("Cleared str6, new length: {}", str6.length());
+std::println("{}", str6.empty() ? "empty" : "not empty");
+```
+
+- In the example
+- We are calling the clear function
+- Then using a print statement
+  - To verify that `str6` is empty
+    - We call the `length()` function
+    - To make sure the length of the `str6` is `0`
+- We can also use a different method
+  - Where we call the `empty()` function
+  - Depending on the result we print the following
+    - If empty:
+      - `"empty"`
+    - Else:
+      - `"not empty"`
+
+The example above results in the following:
+
+```shell
+Cleared str6, new length: 0
+empty
+```
+
+An interesting thing to note. Unlike other clearing functions
+defined within C++. The function `clear()` for strings are not
+explicitly required that `capacity` be changed when clearing.
+The C++ standard does not explicitly require that `capacity` is
+unchanged by this function.
+
+
+Meaning, the capacity, or allocated space, for the variable remains
+the same despite removing all existing characters.
+
+The example below is a quick showcase of that:
+
+```c++
+std::println("Capacity of str6 before clearing: {}", str6.capacity());
+str6.clear();
+std::println("Capacity of str6 after clearing: {}", str6.capacity());
+```
+
+Which would result in the following output:
+
+```shell
+Capacity of str6 before clearing: 30
+Capacity of str6 after clearing: 30
+```
+

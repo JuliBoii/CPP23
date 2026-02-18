@@ -260,9 +260,9 @@ export void string_example()
     std::string str5 = str3 + " Everyone!";
     fmt::println("Concatenated str5: {}", str5);
 
-    //Substrings
+    // Substrings
     // Extracting a substring using substr()
-    fmt::println("Substrings:");
+    fmt::println("Extracting a substring:");
     std::string subStr = str1.substr(7, 5); // Start at index 7, length 5
     fmt::println("Substring of str1: {}", subStr);
     fmt::println("");
@@ -276,5 +276,81 @@ export void string_example()
     } else {
         fmt::println("'World' not found");
     }
+    fmt::println("");
+
+    // Comparisons
+    // Comparing strings using compare()
+    fmt::println("Comparing strings:");
+    std::string str6 {"Hello"};
+    std::string str7 {"World"};
+
+    /*if (str6.compare(str7) == 0) {
+        fmt::println("str6 is equal to str7");
+    } else {
+        fmt::println("str6 is not equal to str7");
+    }*/
+
+
+    /*if(str6.compare(str7) > 0){
+        fmt::println("str6 is greater");
+    }else{
+        fmt::println("str7 is greater");
+    }*/
+
+    // Comparing strings using logical operators
+    if (str6 == str7) {
+        fmt::println("str6 is equal to str7");
+    } else {
+        fmt::println("str6 is not equal to str7");
+    }
+
+    if(str6 > str7){
+        fmt::println("str6 is greater");
+    }else{
+        fmt::println("str7 is greater");
+    }
+    fmt::println("");
+
+    // Inserting & Erasing
+    // Inserting a substring into a string
+    fmt::println("Inserting a substring into a string:");
+    fmt::println("Before insertion: {}", str6);
+    str6.insert(5, ", Beautiful");
+    fmt::println("After insertion: {}", str6);
+    fmt::println("");
+
+    // Erasing a part of the string
+    fmt::println("Erasing a section of a string");
+    fmt::println("Before erasing: {}", str6);
+    str6.erase(5, 11); // Erase 11 characters starting from index 5
+    fmt::println("After erasing: {}", str6);
+    fmt::println("");
+
+    // Obtaining the length & capacity of a string
+    fmt::println("Obtaining length of a string:");
+    str6 = "Hello World";
+    fmt::println("Length of str6: {}", str6.length());
+    fmt::println("Size of str6: {}", str6.size());
+    fmt::println("");
+
+    fmt::println("Obtaining the capacity of a string:");
+    fmt::println("Capacity of str6: {}", str6.capacity());
+    fmt::println("");
+
+    // Iterating over a string
+    // Using range-based for loop
+    fmt::println("Iterating over a string:");
+    fmt::println("Characters in str6: ");
+    for (const auto& ch : str6) {
+        fmt::print("{} ", ch);
+    }
+    fmt::println("\n");
+
+    // Clearing a string
+    fmt::println("Clearing a string:");
+    str6.clear();
+    fmt::println("Cleared str6, new length: {}", str6.length());
+    fmt::println("{}", str6.empty() ? "empty" : "not empty");
+    fmt::println("Capacity of str6 after clearing: {}", str6.capacity());
     fmt::println("");
 }
