@@ -50,8 +50,8 @@ C++ provides.
   - Array bounds
   - Random Number Generation (Old Method)
   - Random Number Generation (Modern C++)
-  - Multi-dimensional array
-  - Multi-dimensional array of `char`
+  - Multidimensional array
+  - Multidimensional array of `char`
 
 ---
 
@@ -919,7 +919,7 @@ complex subsections/applications.**
 
 **_In Modern C++, it is generally not recommended to use raw arrays due to their limitations and
 potential safety risks. Instead, one should prefer standard library containers like `std::vector`,
-`std::array`, or other container types, as they provide better safety, flexibility, and ease of 
+`std::array`, or other container types, as they provide better safety, flexibility and ease of 
 use._**
 
 A raw array is a construct that allows you to store collections of data.
@@ -954,8 +954,8 @@ we do overuse the stack, it results in a "stack overflow".
 
 This region of computer memory stores local variables, function parameters, and return addresses.
 
-Overall, the stack is safe and an inexpensive option to store the memory, but is limited to the local
-scope and is fixed in size which may lead to shortage problems.
+Overall, the stack is safe, and an inexpensive option to store the memory, but is limited to the local
+scope and is fixed in size, which may lead to shortage problems.
 
 
 ### Heap
