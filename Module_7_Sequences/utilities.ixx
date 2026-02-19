@@ -354,3 +354,9 @@ export void string_example()
     fmt::println("Capacity of str6 after clearing: {}", str6.capacity());
     fmt::println("");
 }
+
+
+export void built_in_arrays()
+{
+
+}

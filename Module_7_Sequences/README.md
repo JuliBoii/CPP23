@@ -40,6 +40,18 @@ C++ provides.
     - Length & Capacity
     - Iterating over a String
     - Clearing a string
+- Raw Arrays
+  - Computer Memory
+    - Stack
+    - Heap
+  - Declaration and initialization
+  - Size of an array
+  - Array of `char`
+  - Array bounds
+  - Random Number Generation (Old Method)
+  - Random Number Generation (Modern C++)
+  - Multi-dimensional array
+  - Multi-dimensional array of `char`
 
 ---
 
@@ -902,4 +914,49 @@ What I am doing is simply learning the general information first, then diving fu
 complex subsections/applications.**
 
 ---
+
+## Raw Arrays
+
+**_In Modern C++, it is generally not recommended to use raw arrays due to their limitations and
+potential safety risks. Instead, one should prefer standard library containers like `std::vector`,
+`std::array`, or other container types, as they provide better safety, flexibility, and ease of 
+use._**
+
+A raw array is a construct that allows you to store collections of data.
+A raw array is a very low-level tool in C++. Raw arrays are the lowest form to put information
+in the computer, mapping directly to the data that we have in memory.
+
+Side note: "low-level"/"lowest" simply signifies writing code with little to no abstraction
+from a computer's physical hardware, operating directly on processor instruction and memory.
+
+So, tools like `std::vector` and `std::array` are higher-level tools, because they are 
+abstractions that simplify the process of storing data and manipulating said data.
+
+We have seen that arrays are collections of data. Raw arrays are going to be using data on the
+_stack_.
+
+### Computer Memory
+
+The following will be some notes on the **Stack** and **Heap**. These are the two distinct regions of 
+computer memory used during program runtime. Which we so far have worked with, but have not explicitly
+defined.
+
+### Stack
+
+The stack is linear. The data that comes in last, leaves first.
+
+Memory management is automatic. Memory is allocated and deallocated when functions are called/return.
+Stack memory is stored in contiguous blocks and is assigned much larger memory addresses in descending
+order.
+
+Known to be faster, but a limited size is available. Thus, we are not able to use so much of it. When
+we do overuse the stack, it results in a "stack overflow".
+
+This region of computer memory stores local variables, function parameters, and return addresses.
+
+Overall, the stack is safe and an inexpensive option to store the memory, but is limited to the local
+scope and is fixed in size which may lead to shortage problems.
+
+
+### Heap
 
