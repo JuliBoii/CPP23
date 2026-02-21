@@ -933,7 +933,7 @@ So, tools like `std::vector` and `std::array` are higher-level tools, because th
 abstractions that simplify the process of storing data and manipulating said data.
 
 We have seen that arrays are collections of data. Raw arrays are going to be using data on the
-_stack_.
+stack. Actions we were able to do in previous examples will be much more verbose with raw arrays.
 
 ### Computer Memory
 
@@ -941,7 +941,7 @@ The following will be some notes on the **Stack** and **Heap**. These are the tw
 computer memory used during program runtime. Which we so far have worked with, but have not explicitly
 defined.
 
-### Stack
+#### Stack
 
 The stack is linear. The data that comes in last, leaves first.
 
@@ -957,11 +957,26 @@ This region of computer memory stores local variables, function parameters, and 
 Overall, the stack is safe, and an inexpensive option to store the memory, but is limited to the local
 scope and is fixed in size, which may lead to shortage problems.
 
+#### Heap
 
-### Heap
+Heap on the other hand, is dynamic. It can be resized and continue to retain the data
+even after exiting a scope.
 
+Memory management is manual. Thus, the programmer has to manage the memory. One does this
+by utilizing C++ keywords designated for managing memory, such as `new` & `delete`. These 
+keywords will be further explored later. Heap memory is not stored in contiguous blocks.
+Instead, are chosen randomly, causing fragmentation between addresses. Hence, the heap 
+overcomes the stack's problem with memory shortages. In fact, this causes another problem, 
+memory leakage. Since, the heap can store the data even after the program is terminated, which
+may slow down the system. Therefore, the programmmer is responsible for deallocating 
+the heap memory themselves. Potentially dangerous if negleected.
 
-#### Declaration & Initialization
+In addition, while memory addresses are stored on the stack through a pointer declaration (another
+topic that will be covered later) the actual value is stored on the heap.
+
+This region of computer memory stores objects and data structures.
+
+### Declaration & Initialization
 
 We will be declaring a raw array, which is going to be using the stack.
 
