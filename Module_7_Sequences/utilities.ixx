@@ -358,5 +358,12 @@ export void string_example()
 
 export void built_in_arrays()
 {
+    // Declaration & Initialization
+    fmt::println("Declaring and Initializing a Raw Array:");
+    constexpr size_t array_size {5};
+    fmt::println("Declaring an array of int's, length = 5:");
+    int scores[array_size]; // Filled with junk data
+    fmt::println("");
+
 
 }

@@ -960,3 +960,28 @@ scope and is fixed in size, which may lead to shortage problems.
 
 ### Heap
 
+
+#### Declaration & Initialization
+
+We will be declaring a raw array, which is going to be using the stack.
+
+```c++
+constexpr size_t array_size {5};
+int scores[array_size];
+```
+
+- The first thing we specify is the `size` of the array
+  - Which is `size_t`
+    - To keep track of the length/size of our array
+  - The `size` is also `constexpr`
+    - Since it is good practice
+- We now declare our array
+  - Like always, we declare the data type
+  - Give the array a name
+  - Followed by square brackets
+    - With the `size` variable in between the brackets
+- Once the line is executed
+  - An array will be allocated in memory
+  - Recalling the byte size of an integer (4 bytes)
+    - The array will be 20 bytes in total
+- 
