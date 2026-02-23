@@ -1,5 +1,7 @@
 # C++23 Fundamentals with Projects & Algorithms
 
+> **Reminder this is a repository of me following a tutorial.** This is not me making a tutorial.
+
 ## Modern C++ with Real-World Projects & Industry Tools
 
 - C++ is the language behind powerful systems, apps, and games.
@@ -63,7 +65,8 @@ The C++ code you write in this course is fully portable and can be complied and 
 - Build efficient and scalable solutions through practical assignments
 - Strengthen your problem-solving mindset with quizzes, projects, and coding challenges
 - Why does this matter?
-    - Thinking like a developer means breaking down problems, optimizing solutions, and writing better code-skills that will set you apart in any tech field
+    - Thinking like a developer means breaking down problems, optimizing solutions, and writing better code-skills that
+      will set you apart in any tech field
 
 # Debugging & Compile-Time Mastery
 
