@@ -359,11 +359,30 @@ export void string_example()
 export void built_in_arrays()
 {
     // Declaration & Initialization
-    fmt::println("Declaring and Initializing a Raw Array:");
+    fmt::println("Declaring a Raw Array:");
     constexpr size_t array_size {5};
     fmt::println("Declaring an array of int's, length = 5:");
     int scores[array_size]; // Filled with junk data
+
+    for (size_t i{0}; i < array_size; i++)
+    {
+        fmt::println("scores[{}] = {}", i, scores[i]);
+    }
     fmt::println("");
+
+    fmt::println("Declaring & Initializing a raw array");
+    double salaries[5] {12.7, 7.5, 13.2, 8.1, 9.3};
+    for(size_t i{0}; i < 5; ++i){
+        fmt::println("salaries [{}]: {}", i, salaries[i] );
+    }
+
+    // If you don't initialize all the elements, those you leave out
+    // are initialized to 0
+    int families[5] {12, 7, 5};
+    for(size_t i{0}; i < 5; ++i){
+        fmt::println("families [{}]: {}", i, families[i] );
+    }
+
 
 
 }

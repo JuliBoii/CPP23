@@ -999,4 +999,33 @@ int scores[array_size];
   - An array will be allocated in memory
   - Recalling the byte size of an integer (4 bytes)
     - The array will be 20 bytes in total
-- 
+- The array will be allocated in a way that:
+  - The data is contiguous 
+  - This can be useful depending on the application
+- **_Notice that in our example we are only declaring the array_**
+  - Thus, the array is initialized with "junk data"
+  - Meaning, the literals (int values) are random
+  - Something to remember for situations where raw arrays are used
+
+We can try printing the array.
+
+```c++
+for (size_t i{0}; i < array_size; i++)
+{
+    std::println("scores[{}] = {}", i, scores[i]);
+}
+```
+
+Which outputs:
+
+```shell
+scores[0] = 0
+scores[1] = 0
+scores[2] = 0
+scores[3] = 0
+scores[4] = 0
+```
+
+One may be tempted to simply declare an array in similar manner,
+but the `0`'s are not guaranteed. Which is why we say the array is
+filled with "junk data".
