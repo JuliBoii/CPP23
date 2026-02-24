@@ -45,7 +45,8 @@ C++ provides.
     - Stack
     - Heap
   - Declaration and initialization
-  - Size of an array
+    - Reading/printing raw arrays
+    - Size of an array
   - Array of `char`
   - Array bounds
   - Random Number Generation (Old Method)
@@ -1007,6 +1008,8 @@ int scores[array_size];
   - Meaning, the literals (int values) are random
   - Something to remember for situations where raw arrays are used
 
+#### Reading/Printing Raw Arrays
+ 
 We can try printing the array.
 
 ```c++
@@ -1029,3 +1032,67 @@ scores[4] = 0
 One may be tempted to simply declare an array in similar manner,
 but the `0`'s are not guaranteed. Which is why we say the array is
 filled with "junk data".
+
+We can also notice that we can read the array with `[]` (square brackets), similar
+to every previous container in this section.
+
+_However, we are not able to use the `at()` method._ Why? Because raw arrays are bare-bones,
+obviously. So, the `at()` method is not pre-defined by the C++ Committee that develops the
+language. Meaning, we cannot use a method that does not exist.
+
+#### Size of a Raw Array
+
+We should also notice, in our previous example we printed the raw array in a `for` loop.
+Utilizing a variable called `array_size`, to dictate how long we want to loop for. If we did
+not create a separate variable to track our array's size, we would have initialized our array
+with a literal.
+
+```c++
+int arr[5]; // using a literal "5"
+```
+
+Thus, we would have to remember the size of the array ourselves. But anytime you need to utilize the size of the
+array, you would have to use literals.
+
+This presents various problems:
+
+1. We have to remember the size manually
+2. Every time we increase or decrease the size
+   - We have to remember the new size
+   - Plus, update any instance we reference the size
+3. At large scales, remembering and maintaining the size becomes impossible
+
+Focusing back on declaration and initialization. We can initialize indexes in our array like the following:
+
+```c++
+scores[0] = 20;
+scores[1] = 2;
+scores[2] = 50;
+```
+
+When printed we have:
+
+```shell
+Printing Array:
+scores[0] = 20
+scores[1] = 2
+scores[2] = 50
+scores[3] = 22079
+scores[4] = -149325264
+```
+
+We also can initialize our arrays when we declare them. There are two methods to do so:
+
+We can initialize our array using braced initialization (`{}`), as seen in Module 4.
+
+```c++
+int families[5] {12, 7, 5};
+```
+
+> Braced initialization would be the preferred method.
+
+We could also initialize the array using Assignment initialization (`=`).
+
+```c++
+double lengths[array_size] = {7.5, 8.1, 33.1};
+```

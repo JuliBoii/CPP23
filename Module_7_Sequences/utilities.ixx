@@ -364,6 +364,16 @@ export void built_in_arrays()
     fmt::println("Declaring an array of int's, length = 5:");
     int scores[array_size]; // Filled with junk data
 
+    fmt::println("Initializing 3 Indexes in the Array:");
+    fmt::println("scores[0] = 20");
+    fmt::println("scores[1] = 2");
+    fmt::println("scores[2] = 50");
+    scores[0] = 20;
+    scores[1] = 2;
+    scores[2] = 50;
+    fmt::println("");
+
+    fmt::println("Printing Array:");
     for (size_t i{0}; i < array_size; i++)
     {
         fmt::println("scores[{}] = {}", i, scores[i]);
@@ -371,18 +381,22 @@ export void built_in_arrays()
     fmt::println("");
 
     fmt::println("Declaring & Initializing a raw array");
-    double salaries[5] {12.7, 7.5, 13.2, 8.1, 9.3};
-    for(size_t i{0}; i < 5; ++i){
-        fmt::println("salaries [{}]: {}", i, salaries[i] );
-    }
+    fmt::println("Assign Initialization");
+    double lengths[array_size] = {7.5, 8.1, 33.1};
 
+    fmt::println("Printing Initialized Array:");
+    for(size_t i{0}; i < array_size; ++i){
+        fmt::println("lengths [{}]: {}", i, lengths[i] );
+    }
+    fmt::println("");
+
+    fmt::println("Braced Initialization");
     // If you don't initialize all the elements, those you leave out
     // are initialized to 0
     int families[5] {12, 7, 5};
     for(size_t i{0}; i < 5; ++i){
         fmt::println("families [{}]: {}", i, families[i] );
     }
-
-
+    fmt::println("");
 
 }
