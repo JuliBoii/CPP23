@@ -244,7 +244,6 @@ export void string_example()
     fmt::println("Modified str1 using at(): {}", str1);
     fmt::println("");
 
-    // Appending
     // Appending to a string using operator+= and append()
     fmt::println("Appending strings (Using operator+ & append()):");
     str1 += " How are you?";
@@ -394,9 +393,34 @@ export void built_in_arrays()
     // If you don't initialize all the elements, those you leave out
     // are initialized to 0
     int families[5] {12, 7, 5};
+
+    fmt::println("Printing Initialized Array:");
     for(size_t i{0}; i < 5; ++i){
         fmt::println("families [{}]: {}", i, families[i] );
     }
     fmt::println("");
 
+    fmt::println("Declaring & Initializing without stating explicit size:");
+    // Omit the size of the array at declaration
+    int class_sizes[] {10,12,15,11,18,17,23,56};
+
+    fmt::println("Printing Raw Array, where we do not know its length:");
+    for(const auto& value : class_sizes){
+        fmt::println("value: {}", value);
+    }
+    fmt::println("");
+
+    // Read-only array: const arrays
+    constexpr int birds[] {10, 12, 15, 11, 18, 16, 23, 56};
+    //birds[0] = 11;
+
+    fmt::println("Size of an Array:");
+    fmt::println("Method 1: std::size()");
+    fmt::println("std::size(class_sizes) = {}", std::size(class_sizes));
+    fmt::println("");
+
+    fmt::println("Method 2: sizeof()");
+    fmt::println("sizeof(class_sizes) = {}", sizeof(class_sizes));
+    fmt::println("sizeof(class_sizes) / sizeof(int) = {}", sizeof(class_sizes) / sizeof(int));
+    fmt::println("");
 }

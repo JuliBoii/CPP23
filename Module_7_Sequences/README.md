@@ -46,7 +46,9 @@ C++ provides.
     - Heap
   - Declaration and initialization
     - Reading/printing raw arrays
-    - Size of an array
+  - Size of an array
+    - Method 1 (`std::size`)
+    - Method 2 (`sizeof()`)
   - Array of `char`
   - Array bounds
   - Random Number Generation (Old Method)
@@ -1061,6 +1063,11 @@ This presents various problems:
    - We have to remember the new size
    - Plus, update any instance we reference the size
 3. At large scales, remembering and maintaining the size becomes impossible
+4. When using the array with out-of-bounds indexes:
+    - We run the risk of corrupting our data
+    - Since, we are utilizing memory that does not belong to the array
+
+> Thus, it is best practice to keep track of our array size, with a separate variable.
 
 Focusing back on declaration and initialization. We can initialize indexes in our array like the following:
 
@@ -1096,3 +1103,92 @@ We could also initialize the array using Assignment initialization (`=`).
 ```c++
 double lengths[array_size] = {7.5, 8.1, 33.1};
 ```
+
+We can also declare and initialize our array without explicitly stating the size.
+Look at the example below:
+
+```c++
+int class_sizes[] {10,12,15,11,18,17,23,56};
+```
+
+When printed (using a range-based `for` loop), we see:
+
+```shell
+value: 10
+value: 12
+value: 15
+value: 11
+value: 18
+value: 17
+value: 23
+value: 56
+```
+
+Notice that we used a range-based loop rather than a regular `for` loop.
+
+This is due to the size being omitted. This may not work in older
+C++ compilers, but I could be wrong. But the compiler is iterating the 
+array. Thus, the size is not needed, since an iterator is traversing
+through the array. Going one element at a time.
+
+We can also make our array read-only. This is done by making the array
+have the prefix `const` or `constexpr`, which we previously covered.
+
+```c++
+const int arr[]{21, 5, 5641, 21, 41, 78, 85, 16};
+```
+
+ Notice that we do not have to specify the size.
+ 
+By making an array "read-only", we lose the ability to change the data being
+stored.
+
+**_Considering everything._ This begs the question: why even use raw arrays
+when we have containers such as `std::vector` and `std::array`?** Which provide
+much more tools.
+
+### Size of Raw Array
+
+There are two ways to obtain the size of a raw array. Which is useful when working
+with an array that changes in size or has an unknown size.
+
+#### Method 1 `std::size()`
+
+```c++
+int arr[] {31, 41, 89, 32};
+int count{std::size(scores)};   // std::size, introduced in C++17
+
+std::println("count = {}", count);
+```
+
+Which returns:
+
+```shell
+count = 8
+```
+
+This is a newer function that returns the size of an array. Thus, this is the current
+recommendation for determining the size of an array in modern C++. The next method
+is an older way to determine the size of an array.
+
+Luckily, this function is defined in multiple libraries, but it is best to check out
+which libraries provide the definitions to utilize the function.
+
+#### Method 2 `std::sizeof()`
+
+```c++
+int arr[] {31, 41, 89, 32};
+int count( sizeof(scores) / sizeof(int) );
+
+std::println("count = {}")
+```
+
+Which returns:
+
+```shell
+count = 8
+```
+
+This example is significantly different from the previous method. Here we are
+doing a math operation to obtain the size of the array. `sizeof()` is an operator that
+
