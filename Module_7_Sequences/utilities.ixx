@@ -5,6 +5,7 @@ module;
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <print>
 
 export module utilities;
 
@@ -23,7 +24,7 @@ export void std_array_example() {
 
     fmt::println("Using Range-based for Loops With std::array:");
     // Use range based for loop
-    for (const auto &element: arr) {
+    for (const auto &element : arr) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -45,7 +46,7 @@ export void std_array_example() {
 
     fmt::println("Printing Modified Array:");
     // Printing modified array
-    for (const auto &element: arr) {
+    for (const auto &element : arr) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -60,7 +61,7 @@ export void std_array_example() {
 
     fmt::println("Printing Filled Array:");
     // Printing filled array
-    for (const auto &element: arr2) {
+    for (const auto &element : arr2) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -76,11 +77,11 @@ export void std_array_example() {
     fmt::println("");
 
     fmt::println("Making 2D Arrays:");
-    constexpr std::array<std::array<int, 2>, 3> arr3{{ {1, 2}, {3, 4}, {5,6} }};
+    constexpr std::array<std::array<int, 2>, 3> arr3{{{1, 2}, {3, 4}, {5, 6}}};
 
     fmt::println("Printing 2D Array:");
-    for (const auto& row : arr3) {
-        for (const auto& col : row) {
+    for (const auto &row : arr3) {
+        for (const auto &col : row) {
             fmt::print("{} ", col);
         }
         fmt::println("");
@@ -93,55 +94,46 @@ export void std_array_example() {
 
     // Comparing for equality
     fmt::println("Comparing for equality:");
-    if (arr4 == arr5)
-    {
+    if (arr4 == arr5) {
         fmt::println("arr4 is equal to arr5");
-    } else
-    {
+    } else {
         fmt::println("arr4 is not equal to arr5");
     }
     fmt::println("");
 
     // Comparing for inequality
     fmt::println("Comparing for inequality:");
-    if (arr4 != arr6)
-    {
+    if (arr4 != arr6) {
         fmt::println("arr4 is not equal to arr6");
-    } else
-    {
+    } else {
         fmt::println("arr4 is equal to arr6");
     }
     fmt::println("");
 
     //Lexicographical comparison
     fmt::println("Lexicographical array comparison:");
-    if (arr4 < arr6)
-    {
+    if (arr4 < arr6) {
         fmt::println("arr4 is less than arr6");
-    } else
-    {
+    } else {
         fmt::println("arr4 is not less than arr6");
     }
     fmt::println("");
 }
 
-export void vector_example()
-{
+export void vector_example() {
     fmt::println("Vectors Example:");
     std::vector<int> vec{1, 2, 3, 4, 5};
 
     // Accessing Elements using []
     fmt::println("Accessing Elements Using []:");
-    for (size_t i = 0; i < vec.size(); ++i)
-    {
+    for (size_t i = 0; i < vec.size(); ++i) {
         fmt::println("vec[{}] = {}", i, vec[i]);
     }
     fmt::println("");
 
     // Accessing elements using .at()
     fmt::println("Accessing Elements using .at():");
-    for (size_t i = 0; i < vec.size(); ++i)
-    {
+    for (size_t i = 0; i < vec.size(); ++i) {
         fmt::println("vec.at({}) = {}", i, vec.at(i));
     }
     fmt::println("");
@@ -155,16 +147,14 @@ export void vector_example()
     fmt::println("");
 
     fmt::println("Printing Modified Vector:");
-    for (size_t i = 0; i < vec.size(); ++i)
-    {
+    for (size_t i = 0; i < vec.size(); ++i) {
         fmt::println("vec[{}] = {}", i, vec[i]);
     }
     fmt::println("");
 
     // Using range-based for loops
     fmt::println("Using Range-based For Loops:");
-    for (const auto& element : vec)
-    {
+    for (const auto &element : vec) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -181,8 +171,7 @@ export void vector_example()
     fmt::println("");
 
     fmt::println("Printing filled Vector:");
-    for (const auto& element : vec2)
-    {
+    for (const auto &element : vec2) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -194,12 +183,10 @@ export void vector_example()
 
 
     fmt::println("Multi-Dimensional Vector:");
-    std::vector<std::vector<int>> multi {{1, 2}, {3, 4}, {5, 6}};
+    std::vector<std::vector<int>> multi{{1, 2}, {3, 4}, {5, 6}};
 
-    for (const auto& row : multi)
-    {
-        for (const auto& col : row)
-        {
+    for (const auto &row : multi) {
+        for (const auto &col : row) {
             fmt::print("{} ", col);
         }
         fmt::println("");
@@ -207,8 +194,7 @@ export void vector_example()
     fmt::println("");
 }
 
-export void string_example()
-{
+export void string_example() {
     // Declaring a std::string and initializing it
     // with a literal
     fmt::println("Strings Example:");
@@ -220,9 +206,9 @@ export void string_example()
     // Using Constructors
     // Creating a std::string using various constructors
     fmt::println("Using String Constructor:");
-    std::string str2(str1);             // Copy constructor
-    std::string str3(str1, 7, 5);   // Substring constructor: start at index 7, length 5
-    std::string str4(10, 'A');        // Fill constructor: 10 characters of 'A'
+    std::string str2(str1);       // Copy constructor
+    std::string str3(str1, 7, 5); // Substring constructor: start at index 7, length 5
+    std::string str4(10, 'A');    // Fill constructor: 10 characters of 'A'
     fmt::println("str2: {}", str2);
     fmt::println("str3: {}", str3);
     fmt::println("str4: {}", str4);
@@ -280,8 +266,8 @@ export void string_example()
     // Comparisons
     // Comparing strings using compare()
     fmt::println("Comparing strings:");
-    std::string str6 {"Hello"};
-    std::string str7 {"World"};
+    std::string str6{"Hello"};
+    std::string str7{"World"};
 
     /*if (str6.compare(str7) == 0) {
         fmt::println("str6 is equal to str7");
@@ -303,9 +289,9 @@ export void string_example()
         fmt::println("str6 is not equal to str7");
     }
 
-    if(str6 > str7){
+    if (str6 > str7) {
         fmt::println("str6 is greater");
-    }else{
+    } else {
         fmt::println("str7 is greater");
     }
     fmt::println("");
@@ -340,7 +326,7 @@ export void string_example()
     // Using range-based for loop
     fmt::println("Iterating over a string:");
     fmt::println("Characters in str6: ");
-    for (const auto& ch : str6) {
+    for (const auto &ch : str6) {
         fmt::print("{} ", ch);
     }
     fmt::println("\n");
@@ -355,11 +341,10 @@ export void string_example()
 }
 
 
-export void built_in_arrays()
-{
+export void built_in_arrays() {
     // Declaration & Initialization
     fmt::println("Declaring a Raw Array:");
-    constexpr size_t array_size {5};
+    constexpr size_t array_size{5};
     fmt::println("Declaring an array of int's, length = 5:");
     int scores[array_size]; // Filled with junk data
 
@@ -373,8 +358,7 @@ export void built_in_arrays()
     fmt::println("");
 
     fmt::println("Printing Array:");
-    for (size_t i{0}; i < array_size; i++)
-    {
+    for (size_t i{0}; i < array_size; i++) {
         fmt::println("scores[{}] = {}", i, scores[i]);
     }
     fmt::println("");
@@ -384,43 +368,114 @@ export void built_in_arrays()
     double lengths[array_size] = {7.5, 8.1, 33.1};
 
     fmt::println("Printing Initialized Array:");
-    for(size_t i{0}; i < array_size; ++i){
-        fmt::println("lengths [{}]: {}", i, lengths[i] );
+    for (size_t i{0}; i < array_size; ++i) {
+        fmt::println("lengths [{}]: {}", i, lengths[i]);
     }
     fmt::println("");
 
     fmt::println("Braced Initialization");
     // If you don't initialize all the elements, those you leave out
     // are initialized to 0
-    int families[5] {12, 7, 5};
+    int families[5]{12, 7, 5};
 
     fmt::println("Printing Initialized Array:");
-    for(size_t i{0}; i < 5; ++i){
-        fmt::println("families [{}]: {}", i, families[i] );
+    for (size_t i{0}; i < 5; ++i) {
+        fmt::println("families [{}]: {}", i, families[i]);
     }
     fmt::println("");
 
     fmt::println("Declaring & Initializing without stating explicit size:");
     // Omit the size of the array at declaration
-    int class_sizes[] {10,12,15,11,18,17,23,56};
+    int class_sizes[]{10, 12, 15, 11, 18, 17, 23, 56};
 
     fmt::println("Printing Raw Array, where we do not know its length:");
-    for(const auto& value : class_sizes){
+    for (const auto &value : class_sizes) {
         fmt::println("value: {}", value);
     }
     fmt::println("");
 
     // Read-only array: const arrays
-    constexpr int birds[] {10, 12, 15, 11, 18, 16, 23, 56};
+    [[maybe_unused]] constexpr int birds[]{10, 12, 15, 11, 18, 16, 23, 56};
     //birds[0] = 11;
 
+    // Getting size of a raw array
     fmt::println("Size of an Array:");
     fmt::println("Method 1: std::size()");
     fmt::println("std::size(class_sizes) = {}", std::size(class_sizes));
+    int count = std::size(class_sizes);
     fmt::println("");
 
     fmt::println("Method 2: sizeof()");
     fmt::println("sizeof(class_sizes) = {}", sizeof(class_sizes));
     fmt::println("sizeof(class_sizes) / sizeof(int) = {}", sizeof(class_sizes) / sizeof(int));
+    fmt::println("");
+
+    fmt::println("Looping through class_sizes using count variable, init with method 1:");
+    for (size_t i{0}; i < count; ++i) {
+        fmt::println("class_sizes[{}] = {}", i, class_sizes[i]);
+    }
+    fmt::println("");
+
+    //Arrays of characters
+    fmt::println("Example of Char Raw Arrays:");
+    // char message_1[5] {'H', 'e', 'l', 'l', 'o'};
+    char message[6]{'H', 'e', 'l', 'l', 'o', '\0'};
+    // char message_3[] {'H', 'e', 'l', 'l', 'o', '\0'};
+    // char message_4[] {'H', 'e', 'l', 'l', 'o'};
+    // char message_5[6]{'H', 'e', 'l', 'l', 'o'};
+
+    fmt::println("Message: {}", message);
+    fmt::println("");
+
+    int data[5]{1, 2, 3, 4, 5};
+    // fmt::println("Data: {}", data); // cannot handle printing other data types, unlike char
+
+    // Print out the array through looping
+    fmt::println("Printing Char Array, one element at a time:");
+    fmt::print("Message: ");
+    for (const auto &c : message) {
+        fmt::print("{} ", c);
+    }
+    fmt::println("\n");
+
+    //Change characters in our array
+    fmt::println("Changing an element in a char array:");
+    fmt::println("message[1] = \'a\'");
+    message[1] = 'a';
+    fmt::println("");
+
+    //Print out the array through looping
+    fmt::println("Printing modified char array:");
+    fmt::print("Message: ");
+    for (const auto &c : message) {
+        fmt::print("{} ", c);
+    }
+    fmt::println("\n");
+
+    // If a character array is null terminated, it's called as C-String
+    fmt::println("Char raw arrays with a null terminator are referred to as C-Strings:");
+    char message1[]{'H', 'e', 'l', 'l', 'o', '\0'};
+    fmt::println("message1: {}", message1);
+    fmt::println("sizeof(message1): {}", sizeof(message1)); // 6
+    fmt::println("");
+
+    // String literal
+    fmt::println("Char array initialized with a string literal, no null terminator added explicitly:");
+    char message4[]{"Hello"}; // The null terminator is autofilled in.
+    fmt::println("message4: {}", message4);
+    fmt::println("sizeof(message4): {}", sizeof(message4)); // 6
+    fmt::println("");
+
+    //Array bounds
+    fmt::println("Bounds Checking:");
+    int numbers[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    fmt::println("We do not have allocated memory for index 12:");
+    fmt::println("numbers[12]: {}", numbers[12]);
+    fmt::println("");
+
+    fmt::println("We are assigning data to an out-of-bounds index and printing data");
+    numbers[129] = 1000;
+    fmt::println("numbers[129]: {}", numbers[129]);
     fmt::println("");
 }

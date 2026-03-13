@@ -41,20 +41,21 @@ C++ provides.
     - Iterating over a String
     - Clearing a string
 - Raw Arrays
-  - Computer Memory
-    - Stack
-    - Heap
-  - Declaration and initialization
-    - Reading/printing raw arrays
-  - Size of an array
-    - Method 1 (`std::size`)
-    - Method 2 (`sizeof()`)
-  - Array of `char`
-  - Array bounds
-  - Random Number Generation (Old Method)
-  - Random Number Generation (Modern C++)
-  - Multidimensional array
-  - Multidimensional array of `char`
+    - Computer Memory
+        - Stack
+        - Heap
+    - Declaration and initialization
+        - Reading/printing raw arrays
+    - Size of an array
+        - Method 1 (`std::size`)
+        - Method 2 (`sizeof()`)
+    - Array of `char`
+        - Difference when Printing
+    - Array bounds
+- Random Number Generation (Old Method)
+- Random Number Generation (Modern C++)
+- Multidimensional array
+- Multidimensional array of `char`
 
 ---
 
@@ -84,7 +85,9 @@ To start off, let us look at an example in declaring an array.
 
 ```c++
 // Declaration and init 
-std::array<int, 5> arr{1, 2, 3, 4, 5};
+std::array<int, 5> arr{
+1, 2, 3, 4, 5
+};
 ```
 
 - Notice that we have to declare two parameters:
@@ -102,7 +105,7 @@ in one of two ways:
 ```c++
 // Accessing elements using []
 for (size_t i = 0; i < arr.size(); ++i) {
-    fmt::println("arr[{}] = {}", i, arr[i]);
+fmt::println("arr[{}] = {}", i, arr[i]);
 }
 ```
 
@@ -379,7 +382,9 @@ To start off, let us look at an example in declaring an array.
 
 ```c++
 // Declaration and init 
-std::vector<int> vec{1, 2, 3, 4, 5};
+std::vector<int> vec{
+1, 2, 3, 4, 5
+};
 ```
 
 - Notice that we have to declare **_only_** one parameter:
@@ -396,7 +401,7 @@ in one of two ways:
 ```c++
 // Accessing elements using []
 for (size_t i = 0; i < vec.size(); ++i) {
-    fmt::println("vec[{}] = {}", i, vec[i]);
+fmt::println("vec[{}] = {}", i, vec[i]);
 }
 ```
 
@@ -562,7 +567,9 @@ std::string str1 = "Hello World!";
 std::println("str1: {}", str1);
 
 // Curly Initialization
-std::string str2{"Hello World!"};
+std::string str2{
+"Hello World!"
+};
 std::println("str2: {}", str2);
 ```
 
@@ -585,17 +592,17 @@ std::string str4(10, 'A');      // Fill constructor
 In the example above, we are using various constructors to make new strings.
 
 - For `str2`
-  - We use the copy constructor
-    - Where we use parentheses and pass a `std::string` to copy
+    - We use the copy constructor
+        - Where we use parentheses and pass a `std::string` to copy
 - For `str3`
-  - We use the sub-string constructor
-    - Passing a `std::string`
-    - An index for the passed `std::string` where to start copying
-    - Length of how much we want to copy
+    - We use the sub-string constructor
+        - Passing a `std::string`
+        - An index for the passed `std::string` where to start copying
+        - Length of how much we want to copy
 - For `str4`
-  - Using fill constructor
-    - Length of the new `std::string`
-    - Character we want to fill our `std::string` with
+    - Using fill constructor
+        - Length of the new `std::string`
+        - Character we want to fill our `std::string` with
 
 ### Accessing Characters
 
@@ -640,25 +647,25 @@ fmt::println("Concatenated str5: {}", str5);
 ```
 
 - Looking at `str1`
-  - We do `+=` to `str1`
-  - This makes `str1` contain the original data plus the new data
-  - **This works because the operator is defined into the `std::string` type**
-    - We can verify this looking at our C++ Reference
+    - We do `+=` to `str1`
+    - This makes `str1` contain the original data plus the new data
+    - **This works because the operator is defined into the `std::string` type**
+        - We can verify this looking at our C++ Reference
 - Looking at `str2`
-  - We utilize the `append()` function
-  - This appends to the string
-    - Adding additional characters to the string
+    - We utilize the `append()` function
+    - This appends to the string
+        - Adding additional characters to the string
 - The initialization of `str5` is a concatenation
-  - With `str5` being an entirely new object containing the combined data of:
-    - `str3` and `"Everyone!"`
+    - With `str5` being an entirely new object containing the combined data of:
+        - `str3` and `"Everyone!"`
 - With the main difference between **appending** and **concatenation** being:
-  - Appending:
-    - Usually modifies the original object in-place
-  - Concatenation:
-    - Typically, creates an entirely new object containing combined data
-    - So, original objects are unchanged
+    - Appending:
+        - Usually modifies the original object in-place
+    - Concatenation:
+        - Typically, creates an entirely new object containing combined data
+        - So, original objects are unchanged
 - With this in mind
-  - The modification of `str1` is actually a concatenation
+    - The modification of `str1` is actually a concatenation
 
 ### Substrings
 
@@ -670,11 +677,12 @@ Fairly straightforward, if we have a `std::string` containing a string,
 we can grab a substring of the original and do whatever we want.
 
 In the example above:
+
 - We use `str1`, containing `"tello Wwrld! How are you?"`
-  - Utilizing the `substr()` function we declare two parameters
-    - `7`, the starting index
-      - Where we want to begin the new string we will be making
-    - `5`, the length of the string
+    - Utilizing the `substr()` function we declare two parameters
+        - `7`, the starting index
+            - Where we want to begin the new string we will be making
+        - `5`, the length of the string
 
 ### Finding
 
@@ -695,15 +703,16 @@ parameter, then and returns the first character of the found substring
 or `npos` if no such substring is found.
 
 - `size_t pos` is an unsigned integer variable with name `pos`
-  - We look for the first instance of our desired substring
-  - If found we assign the first character's position (index) to `pos`
-  - Otherwise, `npos` is assigned to `pos`
-    - With `npos` simply being a special value
-      - Which is equal to the maximum value representable by the type `size_type`
-      - For more information look at [CPP Reference](https://en.cppreference.com/w/cpp/string/basic_string/npos.html)
+    - We look for the first instance of our desired substring
+    - If found we assign the first character's position (index) to `pos`
+    - Otherwise, `npos` is assigned to `pos`
+        - With `npos` simply being a special value
+            - Which is equal to the maximum value representable by the type `size_type`
+            - For more information look
+              at [CPP Reference](https://en.cppreference.com/w/cpp/string/basic_string/npos.html)
 - We then use an `if` statement to check our `pos` variable
-  - We have to explicitly compare our `pos` variable with the defined `npos`
-  - Which we do by using `std::string::npos`
+    - We have to explicitly compare our `pos` variable with the defined `npos`
+    - Which we do by using `std::string::npos`
 
 ### Comparison
 
@@ -729,34 +738,34 @@ We can compare strings. Utilizing the `compare()` function in the
 i.e., strings.
 
 It returns a negative value if `*this` appears before the character sequence
-specified by the arguments, in lexicographical order. Or, returns zero if 
+specified by the arguments, in lexicographical order. Or, returns zero if
 both character sequences compare equivalent. Or, returns positive if `*this` appears
 after the character sequence specified by the argument, in lexicographical order.
 
 - We define two variables `str6` and `str7`
-  - Initialized with strings
+    - Initialized with strings
 - We define an `if` statement
-  - We compare `str6` to `str7` using `compare()` function
-  - The result is then checked
-    - In the first `if` statement
-      - We check if the result is `0`
-    - In the second `if` statement
-      - We check if the result is greater than `0`
+    - We compare `str6` to `str7` using `compare()` function
+    - The result is then checked
+        - In the first `if` statement
+            - We check if the result is `0`
+        - In the second `if` statement
+            - We check if the result is greater than `0`
 
 We can also do the following rather than using the `compare()` function.
 
 ```c++
     if (str6 == str7) {
-        fmt::println("str6 is equal to str7");
-    } else {
-        fmt::println("str6 is not equal to str7");
-    }
+fmt::println("str6 is equal to str7");
+} else {
+fmt::println("str6 is not equal to str7");
+}
 
-    if(str6 > str7){
-        fmt::println("str6 is greater");
-    }else{
-        fmt::println("str7 is greater");
-    }
+if (str6 > str7){
+fmt::println("str6 is greater");
+}else{
+fmt::println("str7 is greater");
+}
 ```
 
 Running either example will result in the following output:
@@ -766,7 +775,7 @@ str6 is not equal to str7
 str7 is greater
 ```
 
-One may wonder why `str6` is not greater than `str7` despite the 
+One may wonder why `str6` is not greater than `str7` despite the
 length of each being the same and `H` coming before `W`. This is
 due to the ASCII code for `W` being larger than `H`. Thus, resulting
 as such.
@@ -783,9 +792,9 @@ str6.insert(5, ", Beautiful");
 We utilize the `str6` we defined for our comparison example.
 
 - We utilize the `insert()` function
-  - We add the following parameters
-    - `5` is the index we want to begin inserting
-    - `", Beautiful"` is the `char`'s we want to insert
+    - We add the following parameters
+        - `5` is the index we want to begin inserting
+        - `", Beautiful"` is the `char`'s we want to insert
 
 The following is a visual example of what would occur:
 
@@ -801,10 +810,10 @@ function, that is defined in the `string` library.
 str6.erase(5, 11);
 ```
 
-- Utilizing the `erase()` 
-  - We add the following parameters:
-    - `5` is the index we want to begin erasing
-    - `11` is the number of characters we want to erase
+- Utilizing the `erase()`
+    - We add the following parameters:
+        - `5` is the index we want to begin erasing
+        - `11` is the number of characters we want to erase
 
 Which results in the following:
 
@@ -828,7 +837,7 @@ We can utilize either `length()` or `size()` to obtain the length
 of a string. In the example above:
 
 - `size()` and `length()` return the number of `char` elements in the string
-  - Of `size_type`
+    - Of `size_type`
 - Thus, we print the result from using the respective functions
 
 Capacity on the other hand, is the allocated space for the string variable.
@@ -840,7 +849,7 @@ std::println("Capacity of str6: {}", str6.capacity());
 In the example above:
 
 - `capacity()` returns the number of characters that the string has currently allocated space for
-  - Of `size_type`
+    - Of `size_type`
 - Thus, we print the result from using the `capacity()` function
 
 ### Iterating over a String
@@ -857,7 +866,7 @@ for (const auto& ch : str6) {
 
 ### Clearing a string
 
-To clear a string we utilize the `clear` function defined for 
+To clear a string we utilize the `clear` function defined for
 `string`. This function removes all characters from the string.
 
 ```c++
@@ -869,16 +878,16 @@ std::println("{}", str6.empty() ? "empty" : "not empty");
 - In the example
 - We are calling the clear function
 - Then using a print statement
-  - To verify that `str6` is empty
-    - We call the `length()` function
-    - To make sure the length of the `str6` is `0`
+    - To verify that `str6` is empty
+        - We call the `length()` function
+        - To make sure the length of the `str6` is `0`
 - We can also use a different method
-  - Where we call the `empty()` function
-  - Depending on the result we print the following
-    - If empty:
-      - `"empty"`
-    - Else:
-      - `"not empty"`
+    - Where we call the `empty()` function
+    - Depending on the result we print the following
+        - If empty:
+            - `"empty"`
+        - Else:
+            - `"not empty"`
 
 The example above results in the following:
 
@@ -892,7 +901,6 @@ defined within C++. The function `clear()` for strings are not
 explicitly required that `capacity` be changed when clearing.
 The C++ standard does not explicitly require that `capacity` is
 unchanged by this function.
-
 
 Meaning, the capacity, or allocated space, for the variable remains
 the same despite removing all existing characters.
@@ -922,7 +930,7 @@ complex subsections/applications.**
 
 **_In Modern C++, it is generally not recommended to use raw arrays due to their limitations and
 potential safety risks. Instead, one should prefer standard library containers like `std::vector`,
-`std::array`, or other container types, as they provide better safety, flexibility and ease of 
+`std::array`, or other container types, as they provide better safety, flexibility and ease of
 use._**
 
 A raw array is a construct that allows you to store collections of data.
@@ -932,7 +940,7 @@ in the computer, mapping directly to the data that we have in memory.
 Side note: "low-level"/"lowest" simply signifies writing code with little to no abstraction
 from a computer's physical hardware, operating directly on processor instruction and memory.
 
-So, tools like `std::vector` and `std::array` are higher-level tools, because they are 
+So, tools like `std::vector` and `std::array` are higher-level tools, because they are
 abstractions that simplify the process of storing data and manipulating said data.
 
 We have seen that arrays are collections of data. Raw arrays are going to be using data on the
@@ -940,7 +948,7 @@ stack. Actions we were able to do in previous examples will be much more verbose
 
 ### Computer Memory
 
-The following will be some notes on the **Stack** and **Heap**. These are the two distinct regions of 
+The following will be some notes on the **Stack** and **Heap**. These are the two distinct regions of
 computer memory used during program runtime. Which we so far have worked with, but have not explicitly
 defined.
 
@@ -966,12 +974,12 @@ Heap on the other hand, is dynamic. It can be resized and continue to retain the
 even after exiting a scope.
 
 Memory management is manual. Thus, the programmer has to manage the memory. One does this
-by utilizing C++ keywords designated for managing memory, such as `new` & `delete`. These 
+by utilizing C++ keywords designated for managing memory, such as `new` & `delete`. These
 keywords will be further explored later. Heap memory is not stored in contiguous blocks.
-Instead, are chosen randomly, causing fragmentation between addresses. Hence, the heap 
-overcomes the stack's problem with memory shortages. In fact, this causes another problem, 
+Instead, are chosen randomly, causing fragmentation between addresses. Hence, the heap
+overcomes the stack's problem with memory shortages. In fact, this causes another problem,
 memory leakage. Since, the heap can store the data even after the program is terminated, which
-may slow down the system. Therefore, the programmmer is responsible for deallocating 
+may slow down the system. Therefore, the programmmer is responsible for deallocating
 the heap memory themselves. Potentially dangerous if negleected.
 
 In addition, while memory addresses are stored on the stack through a pointer declaration (another
@@ -989,29 +997,29 @@ int scores[array_size];
 ```
 
 - The first thing we specify is the `size` of the array
-  - Which is `size_t`
-    - To keep track of the length/size of our array
-  - The `size` is also `constexpr`
-    - Since it is good practice
+    - Which is `size_t`
+        - To keep track of the length/size of our array
+    - The `size` is also `constexpr`
+        - Since it is good practice
 - We now declare our array
-  - Like always, we declare the data type
-  - Give the array a name
-  - Followed by square brackets
-    - With the `size` variable in between the brackets
+    - Like always, we declare the data type
+    - Give the array a name
+    - Followed by square brackets
+        - With the `size` variable in between the brackets
 - Once the line is executed
-  - An array will be allocated in memory
-  - Recalling the byte size of an integer (4 bytes)
-    - The array will be 20 bytes in total
+    - An array will be allocated in memory
+    - Recalling the byte size of an integer (4 bytes)
+        - The array will be 20 bytes in total
 - The array will be allocated in a way that:
-  - The data is contiguous 
-  - This can be useful depending on the application
+    - The data is contiguous
+    - This can be useful depending on the application
 - **_Notice that in our example we are only declaring the array_**
-  - Thus, the array is initialized with "junk data"
-  - Meaning, the literals (int values) are random
-  - Something to remember for situations where raw arrays are used
+    - Thus, the array is initialized with "junk data"
+    - Meaning, the literals (int values) are random
+    - Something to remember for situations where raw arrays are used
 
 #### Reading/Printing Raw Arrays
- 
+
 We can try printing the array.
 
 ```c++
@@ -1060,8 +1068,8 @@ This presents various problems:
 
 1. We have to remember the size manually
 2. Every time we increase or decrease the size
-   - We have to remember the new size
-   - Plus, update any instance we reference the size
+    - We have to remember the new size
+    - Plus, update any instance we reference the size
 3. At large scales, remembering and maintaining the size becomes impossible
 4. When using the array with out-of-bounds indexes:
     - We run the risk of corrupting our data
@@ -1127,7 +1135,7 @@ value: 56
 Notice that we used a range-based loop rather than a regular `for` loop.
 
 This is due to the size being omitted. This may not work in older
-C++ compilers, but I could be wrong. But the compiler is iterating the 
+C++ compilers, but I could be wrong. But the compiler is iterating the
 array. Thus, the size is not needed, since an iterator is traversing
 through the array. Going one element at a time.
 
@@ -1138,8 +1146,8 @@ have the prefix `const` or `constexpr`, which we previously covered.
 const int arr[]{21, 5, 5641, 21, 41, 78, 85, 16};
 ```
 
- Notice that we do not have to specify the size.
- 
+Notice that we do not have to specify the size.
+
 By making an array "read-only", we lose the ability to change the data being
 stored.
 
@@ -1167,8 +1175,9 @@ Which returns:
 count = 8
 ```
 
-This is a newer function that returns the size of an array. Thus, this is the current
-recommendation for determining the size of an array in modern C++. The next method
+This is a newer function that returns the size of an array. Function was introduced in
+C++17, which is starting to become more common now. **Thus, this is the current
+recommendation for determining the size of an array in modern C++.** The next method
 is an older way to determine the size of an array.
 
 Luckily, this function is defined in multiple libraries, but it is best to check out
@@ -1191,4 +1200,185 @@ count = 8
 
 This example is significantly different from the previous method. Here we are
 doing a math operation to obtain the size of the array. `sizeof()` is an operator that
+returns the number of bytes an object occupies in memory.
 
+In this case, an `int` takes 4 bytes, `sizeof()` returns 4 times the numbers of elements
+in the raw array. That is why we divide by `sizeof(int)` to obtain the number of elements.
+
+**_Note:_** This method should not be used, if `std::size()` is available. It is **not** best
+practice to use `sizeof()` in your programs, when determining the size of an array.
+
+### Arrays of Characters
+
+Arrays of characters are not different from other arrays we have worked with. But they are
+special because they store information that is meant to be read by humans. That is how
+we are generalizing it. Look at the example below:
+
+```c++
+char message_1[5] {'H', 'e', 'l', 'l', 'o'};
+char message_2[6] {'H', 'e', 'l', 'l', 'o', '\0'};
+char message_3[] {'H', 'e', 'l', 'l', 'o', '\0'};
+char message_4[] {'H', 'e', 'l', 'l', 'o'};
+char message_5[6]{'H', 'e', 'l', 'l', 'o'};
+```
+
+Just like previous arrays:
+
+- We define the data type
+    - `char`
+- We define a variable name
+    - `message_#`
+- Then, specify the size of the array
+    - For messages: 1, 2, & 5
+- We initialize the arrays with `char` literals
+    - In this case, they all have the `char`'s that make up:
+    - `Hello`
+- In some examples above: `message_2` & `message_3` we added `'\0'`
+    - This is what we call a null terminator
+    - It will tell the compiler that it has reached the end of our "string"
+
+Now let us explain why we wrote each example:
+
+- `message_1`:
+    - We might have trouble processing this string
+    - For the fact that we have no defined space for our null terminator
+        - Which is bad
+    - So the program may crash
+- `message_2`
+    - We defined sufficient space for our null terminator
+    - Thus, the `char` array will work & compile
+    - This is a valid `char` array
+- `message_3`
+    - This is also another valid `char` array
+    - The difference is: we do not define the array's size
+        - So compiler will deduce the size of the array
+    - But we explicitly define the null terminator, which is fine
+- `message_4`
+    - Since we did not include an explicit null terminator
+    - The compiler will deduce the size of the array
+        - In this case, length = `5`
+        - Recalling `message_1`, `message_4` is not a valid `char` array
+            - For the same reasons as `message_1`
+- `message_5`
+    - This is a valid `char` array
+    - We define the array for `6` elements, but only fill in `5`
+        - With extra space
+            - the compiler will autofill in the null terminator
+    - But one should not rely on the compiler
+    - Thus, not a recommended
+
+Overall, this is mainly just examples of previous methods to make strings.
+Hence, when a `char` array is made and ends with the null terminator, we refer
+to that array as a `c-style` string. For modern C++, we should be using `string`
+rather than `c-style` stings. Since they are generally considered less safe and more
+error-prone.
+
+#### Difference in Printing
+
+It should also be noted that there is another major difference between
+`char` raw arrays and raw arrays of different data types. Look at the
+example below:
+
+```c++
+int data[5] {1, 2, 3, 4, 5};
+
+fmt::println("data: {}", data);
+fmt::println("message: {}", message_2);
+```
+
+When passing `char` array's most printing facilities/libraries will print
+out the array with no problem. Since they can handle this case.
+But when trying to use printing facilites/libraries to print a raw array
+of differing data type. The program will fail.
+
+In the case above we try to print an array of type `int`. However, when
+trying to build the program, the compiler will fail.
+
+### Array of Characters (cont.)
+
+Just like other data type raw arrays, a `char` raw array can be printed
+by looping through the array.
+
+```c++
+for (size_t i = 0; i < 6; i++)
+{
+    std::print("{}", message[i]);
+}
+
+for (const auto& letter : message)
+{
+    std::print("{}", letter);
+}
+```
+
+_Reminder:_ we either have to remember the size of the raw array or
+iterate through the array, when printing.
+
+When changing the data at a specific index, we can only change it using
+the square brackets `[]` method:
+
+```c++
+message[1] = 'a';
+```
+
+Unlike previous containers, which allowed us to use either square brackets or
+the `at()` function.
+
+One last thing to add for this subsection. We can also initialize a `char` raw
+array with a string literal. We do this by using `""` (double quotes) for our
+string, rather than individual characters with `''` (single quotes).
+
+```c++
+char new_message[] {"Hello"};
+```
+
+So, when the compiler encounters this senario, it will detect the characters
+that make up the string and also take into account that this is a string
+literal, thus "autofill" a null terminator at the end of the array.
+
+### Raw Array Bounds
+
+We need to discuss bounds checking for raw arrays.
+
+When working with raw arrays, we need to be careful not to go out-of-bounds.
+If we do, bad things can happen for our application. Look at the example below:
+
+```c++
+int numbers[10] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+```
+
+We set up an integer array containing numbers, counting up. With a total of
+10 integers. Now, we do the following:
+
+```c++
+std::println("numbers[12] : {}", numbers[12]);
+```
+
+We need to remember what declaring & initalizing a raw array does. It allocates
+memory for the array to handle our data. Especially in this case, where we do
+not declare a size for our array, there is only enough space to handle the
+elements we already provided.
+
+Thus, by going beyond the allocated space, we are accessing memory that does
+not belong to our program. The result could be our program crashing, getting
+junk data, but in gerneral such command will not return our desired action.
+
+When building the example we obtain the following in the terminal:
+
+```shell
+/utilities.ixx:473:37: warning: array index 12 is past the end of the array (that has type 'int[10]') [-Warray-bounds]
+  473 |     std::println("numbers[12]: {}", numbers[12]);
+```
+
+When running the program the following it outputted:
+
+```shell
+numbers[12]: 1
+```
+
+To reiterate, we need to be extremely careful when working with raw arrays.
+Since the low-level nature lacks proper bounds-checking. Showcased above
+with our example being able to compile and run, despite knowing the problem
+present.
+
+That is why it is recommended to use `std::string` for `char` "arrays".
