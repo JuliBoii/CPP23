@@ -496,6 +496,13 @@ export void random_number_generation_old() {
         fmt::println("Random Number {}: {}", i, random_val);
     }
     fmt::println("");
+
+    fmt::println("Using Modulus with Random Number Generation (mod 10):");
+    for (size_t i{0}; i < 10; ++i) {
+        random_val = std::rand() % 10;
+        fmt::println("Random Number {}: {}", i, random_val);
+    }
+    fmt::println("");
 }
 
 export void random_number_generation_modern() {
