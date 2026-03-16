@@ -6,6 +6,8 @@ module;
 #include <algorithm>
 #include <string>
 #include <print>
+#include <cstdlib>
+#include <ctime>
 
 export module utilities;
 
@@ -24,7 +26,7 @@ export void std_array_example() {
 
     fmt::println("Using Range-based for Loops With std::array:");
     // Use range based for loop
-    for (const auto &element : arr) {
+    for (const auto &element: arr) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -46,7 +48,7 @@ export void std_array_example() {
 
     fmt::println("Printing Modified Array:");
     // Printing modified array
-    for (const auto &element : arr) {
+    for (const auto &element: arr) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -61,7 +63,7 @@ export void std_array_example() {
 
     fmt::println("Printing Filled Array:");
     // Printing filled array
-    for (const auto &element : arr2) {
+    for (const auto &element: arr2) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -80,8 +82,8 @@ export void std_array_example() {
     constexpr std::array<std::array<int, 2>, 3> arr3{{{1, 2}, {3, 4}, {5, 6}}};
 
     fmt::println("Printing 2D Array:");
-    for (const auto &row : arr3) {
-        for (const auto &col : row) {
+    for (const auto &row: arr3) {
+        for (const auto &col: row) {
             fmt::print("{} ", col);
         }
         fmt::println("");
@@ -154,7 +156,7 @@ export void vector_example() {
 
     // Using range-based for loops
     fmt::println("Using Range-based For Loops:");
-    for (const auto &element : vec) {
+    for (const auto &element: vec) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -171,7 +173,7 @@ export void vector_example() {
     fmt::println("");
 
     fmt::println("Printing filled Vector:");
-    for (const auto &element : vec2) {
+    for (const auto &element: vec2) {
         fmt::println("{}", element);
     }
     fmt::println("");
@@ -183,10 +185,10 @@ export void vector_example() {
 
 
     fmt::println("Multi-Dimensional Vector:");
-    std::vector<std::vector<int>> multi{{1, 2}, {3, 4}, {5, 6}};
+    std::vector<std::vector<int> > multi{{1, 2}, {3, 4}, {5, 6}};
 
-    for (const auto &row : multi) {
-        for (const auto &col : row) {
+    for (const auto &row: multi) {
+        for (const auto &col: row) {
             fmt::print("{} ", col);
         }
         fmt::println("");
@@ -206,9 +208,9 @@ export void string_example() {
     // Using Constructors
     // Creating a std::string using various constructors
     fmt::println("Using String Constructor:");
-    std::string str2(str1);       // Copy constructor
+    std::string str2(str1); // Copy constructor
     std::string str3(str1, 7, 5); // Substring constructor: start at index 7, length 5
-    std::string str4(10, 'A');    // Fill constructor: 10 characters of 'A'
+    std::string str4(10, 'A'); // Fill constructor: 10 characters of 'A'
     fmt::println("str2: {}", str2);
     fmt::println("str3: {}", str3);
     fmt::println("str4: {}", str4);
@@ -326,7 +328,7 @@ export void string_example() {
     // Using range-based for loop
     fmt::println("Iterating over a string:");
     fmt::println("Characters in str6: ");
-    for (const auto &ch : str6) {
+    for (const auto &ch: str6) {
         fmt::print("{} ", ch);
     }
     fmt::println("\n");
@@ -389,7 +391,7 @@ export void built_in_arrays() {
     int class_sizes[]{10, 12, 15, 11, 18, 17, 23, 56};
 
     fmt::println("Printing Raw Array, where we do not know its length:");
-    for (const auto &value : class_sizes) {
+    for (const auto &value: class_sizes) {
         fmt::println("value: {}", value);
     }
     fmt::println("");
@@ -433,7 +435,7 @@ export void built_in_arrays() {
     // Print out the array through looping
     fmt::println("Printing Char Array, one element at a time:");
     fmt::print("Message: ");
-    for (const auto &c : message) {
+    for (const auto &c: message) {
         fmt::print("{} ", c);
     }
     fmt::println("\n");
@@ -447,7 +449,7 @@ export void built_in_arrays() {
     //Print out the array through looping
     fmt::println("Printing modified char array:");
     fmt::print("Message: ");
-    for (const auto &c : message) {
+    for (const auto &c: message) {
         fmt::print("{} ", c);
     }
     fmt::println("\n");
@@ -470,12 +472,27 @@ export void built_in_arrays() {
     fmt::println("Bounds Checking:");
     int numbers[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    fmt::println("We do not have allocated memory for index 12:");
+    /*fmt::println("We do not have allocated memory for index 12:");
     fmt::println("numbers[12]: {}", numbers[12]);
     fmt::println("");
 
     fmt::println("We are assigning data to an out-of-bounds index and printing data");
     numbers[129] = 1000;
     fmt::println("numbers[129]: {}", numbers[129]);
+    fmt::println("");*/
+}
+
+export void random_number_generation_old() {
+    fmt::println("Example of Generating Random Numbers(Old Method):");
+    std::srand(std::time(nullptr)); // Uses current time as seed for random generator
+    int random_val = std::rand();
+    fmt::println("Random Number: {}", random_val);
+    fmt::println("");
+
+    fmt::println("Generating Multiple Random Numbers:");
+    for (size_t i{0}; i < 10; ++i) {
+        random_val = std::rand();
+        fmt::println("Random Number {}: {}", i, random_val);
+    }
     fmt::println("");
 }

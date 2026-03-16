@@ -1382,3 +1382,67 @@ with our example being able to compile and run, despite knowing the problem
 present.
 
 That is why it is recommended to use `std::string` for `char` "arrays".
+
+## Random Number Generator (Old-Style)
+
+We will be covering random number generation in C++. Random numbers are a very
+important topic that will be useful and required in many applications.
+
+This topic is mainly the action of: running our program and getting a different
+number each time.
+
+The first thing we want to do is generate a seed.
+
+```c++
+std::srand(std::time(nullptr));   // Seed
+```
+
+A seed will make sure everytime we receive a random number, said number is going
+to be different and "won't be predicable". _[Realistically, no number that is generated
+by a computer will truly be random.](https://en.wikipedia.org/wiki/Random_number_generation)_
+
+In the example above we use `std::srand` and `std::time` to create our seed.
+
+`std::time()` is going to pick up the time from our system and use said information
+to give a random number.
+
+When we have a seed. We will do the following:
+
+```c++
+int main() {
+    int random_number = std::rand();
+    std::println("Random Number: {}", random_number);
+}
+```
+
+We call the `std::rand()` function. Once called, it will return a random number
+between `0` and a number defined by `RAND_MAX`.
+
+`RAND_MAX` is a number that is dependent on our compiler and system.
+
+Each time `rand()` is seeded with `std::srand()`, it must produce the same
+sequence of values on successive calls. Other functions in the standard library
+may call `rand()`. It is implementation-defined which functions do so.
+
+Overall, these are the things we need to generate random numbers in C++.
+
+Below is an example of generating multiple random numbers:
+
+```c++
+int random_number;
+for (size_t i{0}; i < 10; ++i) {
+    random_number = std::rand();
+    std::println("Random Number {}: {}", i, random_val);
+}
+```
+
+Nothing complicated or new in this example.
+
+However, what if we need to control/limit the range of our random numbers
+in a C++ program. We are currently, generating a number between `0` and
+`RAND_MAX`, but we may not need such a range.
+
+Well, the modulus operator is going to be needed. Used to control the
+range of number generation. The modulus (`%`) operator will return the
+remainder of dividing a value with another.
+
