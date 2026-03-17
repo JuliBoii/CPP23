@@ -6,6 +6,7 @@ int main() {
     // string_example();
     // built_in_arrays();
     random_number_generation_old();
+    random_number_generation_modern();
 
     return 0;
 }

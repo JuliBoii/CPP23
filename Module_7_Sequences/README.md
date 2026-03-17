@@ -1446,3 +1446,33 @@ Well, the modulus operator is going to be needed. Used to control the
 range of number generation. The modulus (`%`) operator will return the
 remainder of dividing a value with another.
 
+## Random Number Generation (Modern)
+
+We will be looking at an example of random number generation that would be
+currently implemented in modern C++. To utilize the following functions
+we need to define the `<random>` library at the top of our program.
+
+```c++
+// Random Numbers (C++17)
+std::random_device rd;
+std::mt19937 marsenne{ rd() };
+std::uniform_int_distribution die{1, 6};
+
+for (size_t count{0}; count < 48; ++count) {
+    std::println("{}", die(marsenne));
+}
+```
+
+- `std::random_device rd` provides seeds with less predictability
+    - In comparison to the legacy method
+- `std::mt19937 marsenne{rd()}` defines the generator
+    - Which is initialized with a random seed
+    - In this case we use the Mersenne Twister Generator
+- After this, we need a distribution
+    - We define this with `std::uniform_int_distribution die{1, 6}`
+        - Makes sure that each number we generate has the same chance of appearing
+    - There are many types of distributions available in Modern C++
+- Now we need to generate our number
+- We do this by calling the distribution, such as
+    - `die(marsenne)`
+        - Which is part of the print statement.

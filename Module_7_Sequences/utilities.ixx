@@ -1,13 +1,14 @@
 module;
 
 #include <fmt/format.h>
-#include <array>
-#include <vector>
-#include <algorithm>
-#include <string>
+// #include <array>
+// #include <vector>
+// #include <algorithm>
+// #include <string>
 #include <print>
-#include <cstdlib>
-#include <ctime>
+// #include <cstdlib>
+// #include <ctime>
+#include <random>
 
 export module utilities;
 
@@ -483,7 +484,7 @@ export void built_in_arrays() {
 }
 
 export void random_number_generation_old() {
-    fmt::println("Example of Generating Random Numbers(Old Method):");
+    fmt::println("Example of Generating Random Numbers (Old Method):");
     std::srand(std::time(nullptr)); // Uses current time as seed for random generator
     int random_val = std::rand();
     fmt::println("Random Number: {}", random_val);
@@ -495,4 +496,15 @@ export void random_number_generation_old() {
         fmt::println("Random Number {}: {}", i, random_val);
     }
     fmt::println("");
+}
+
+export void random_number_generation_modern() {
+    fmt::println("Example of Generating Random Numbers (Modern Method):");
+    std::random_device rd;
+    std::mt19937 marsenne{rd()};
+    std::uniform_int_distribution die{1, 6};
+
+    for (size_t i{0}; i < 48; ++i) {
+        std::println("{}", die(marsenne));
+    }
 }
