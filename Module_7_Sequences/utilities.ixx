@@ -1,10 +1,10 @@
 module;
 
 #include <fmt/format.h>
-// #include <array>
-// #include <vector>
-// #include <algorithm>
-// #include <string>
+#include <array>
+#include <vector>
+#include <algorithm>
+#include <string>
 #include <print>
 // #include <cstdlib>
 // #include <ctime>
@@ -430,7 +430,7 @@ export void built_in_arrays() {
     fmt::println("Message: {}", message);
     fmt::println("");
 
-    int data[5]{1, 2, 3, 4, 5};
+    [[maybe_unused]] int data[5]{1, 2, 3, 4, 5};
     // fmt::println("Data: {}", data); // cannot handle printing other data types, unlike char
 
     // Print out the array through looping
@@ -471,7 +471,7 @@ export void built_in_arrays() {
 
     //Array bounds
     fmt::println("Bounds Checking:");
-    int numbers[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    [[maybe_unused]] int numbers[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     /*fmt::println("We do not have allocated memory for index 12:");
     fmt::println("numbers[12]: {}", numbers[12]);
@@ -504,7 +504,35 @@ export void random_number_generation_modern() {
     std::mt19937 marsenne{rd()};
     std::uniform_int_distribution die{1, 6};
 
-    for (size_t i{0}; i < 48; ++i) {
+    for (size_t i{0}; i < 10; ++i) {
         std::println("{}", die(marsenne));
     }
+}
+
+export void random_number_example() {
+    fmt::println("Example of Generating Random Numbers:");
+
+    std::vector<std::string> predictions{
+        "I see a lot of kids running in the street!",
+        "I see a lot of empty beer bottles on your work table.",
+        "I see you partying too much with kids wearing weird clothes.",
+        "I see you running away from something really scary",
+        "I see clouds gathering in the sky with an army standing ready for war",
+        "I see dogs running around in a deserted city",
+        "I see a lot of cars stuck in a terrible traffic jam",
+        "I see you sitting in the dark typing lots of lines of code on your dirty computer",
+        "I see you yelling at your boss. And oh no! You get fired!",
+        "I see you laughing your lungs out. I've never seen this before.",
+        "Uhm , I don't see anything!",
+        "I see you eating nice food"
+    };
+
+    std::random_device rd;
+    std::mt19937 marsenne{rd()};
+    const int size(predictions.size() - 1);
+    std::uniform_int_distribution<int> choice{0, size};
+
+    auto index{choice(marsenne)};
+
+    fmt::println("Prediction: {}", predictions[index]);
 }

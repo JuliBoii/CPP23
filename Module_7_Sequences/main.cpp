@@ -5,8 +5,9 @@ int main() {
     // vector_example();
     // string_example();
     // built_in_arrays();
-    random_number_generation_old();
-    random_number_generation_modern();
+    // random_number_generation_old();
+    // random_number_generation_modern();
+    random_number_example();
 
     return 0;
 }

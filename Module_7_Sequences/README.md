@@ -1476,3 +1476,26 @@ for (size_t count{0}; count < 48; ++count) {
 - We do this by calling the distribution, such as
     - `die(marsenne)`
         - Which is part of the print statement.
+
+When ran, the program prints:
+
+```c++
+Example of Generating Random Numbers (Modern Method):
+1
+3
+3
+6
+1
+3
+...
+4
+2
+3
+
+```
+
+The range can easily be changed by increasing the upper limit in the statement: `die{1,6}`.
+
+> This is the method that should be used when generating random numbers.
+
+---
