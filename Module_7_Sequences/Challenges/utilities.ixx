@@ -44,7 +44,7 @@ export void fortune_teller() {
         size_t random_index{dist(rng)};
         fmt::println("{}", predictions[random_index]);
 
-        fmt::println("Would you like another prediction? (Y or y to continue)");
+        fmt::print("Would you like another prediction? (Y or y to continue): ");
         char continue_prediction{};
         std::cin >> continue_prediction;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
