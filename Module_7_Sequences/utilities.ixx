@@ -496,16 +496,23 @@ export void random_number_generation_old() {
         fmt::println("Random Number {}: {}", i, random_val);
     }
     fmt::println("");
+
+    fmt::println("Using Modulus with Random Number Generation (mod 10):");
+    for (size_t i{0}; i < 10; ++i) {
+        random_val = std::rand() % 10;
+        fmt::println("Random Number {}: {}", i, random_val);
+    }
+    fmt::println("");
 }
 
 export void random_number_generation_modern() {
     fmt::println("Example of Generating Random Numbers (Modern Method):");
     std::random_device rd;
-    std::mt19937 marsenne{rd()};
+    std::mt19937 mersenne{rd()};
     std::uniform_int_distribution die{1, 6};
 
     for (size_t i{0}; i < 10; ++i) {
-        std::println("{}", die(marsenne));
+        std::println("{}", die(mersenne));
     }
 }
 
@@ -528,11 +535,11 @@ export void random_number_example() {
     };
 
     std::random_device rd;
-    std::mt19937 marsenne{rd()};
+    std::mt19937 mersenne{rd()};
     const int size(predictions.size() - 1);
     std::uniform_int_distribution<int> choice{0, size};
 
-    auto index{choice(marsenne)};
+    auto index{choice(mersenne)};
 
     fmt::println("Prediction: {}", predictions[index]);
 }
