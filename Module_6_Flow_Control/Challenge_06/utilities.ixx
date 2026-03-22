@@ -87,6 +87,22 @@ export void app() {
                 }
             }
 
+            // Added Mouse Button Events
+            if (const auto *mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                // Each button on the mouse changes the color of the shape
+                if (mousePressed->button == sf::Mouse::Button::Left) {
+                    // Checks if we already changed the color
+                    // So we do not have to redo the command
+                    if (shape.getFillColor() != sf::Color::Magenta)
+                        shape.setFillColor(sf::Color::Magenta);
+                }
+
+                if (mousePressed->button == sf::Mouse::Button::Right) {
+                    if (shape.getFillColor() != sf::Color::Cyan)
+                        shape.setFillColor(sf::Color::Cyan);
+                }
+            }
+
             // Outputs new dimensions when window is resized by user
             if (const auto *resized = event->getIf<sf::Event::Resized>()) {
                 fmt::println("New Width: {}", resized->size.x);
