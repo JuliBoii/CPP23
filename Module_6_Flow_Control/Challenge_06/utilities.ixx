@@ -93,13 +93,17 @@ export void app() {
                 if (mousePressed->button == sf::Mouse::Button::Left) {
                     // Checks if we already changed the color
                     // So we do not have to redo the command
-                    if (shape.getFillColor() != sf::Color::Magenta)
+                    if (shape.getFillColor() != sf::Color::Magenta && shape.getRadius() < 300.0f && shape.getRadius() >
+                        100.0f) {
                         shape.setFillColor(sf::Color::Magenta);
+                    }
                 }
 
                 if (mousePressed->button == sf::Mouse::Button::Right) {
-                    if (shape.getFillColor() != sf::Color::Cyan)
+                    if (shape.getFillColor() != sf::Color::Cyan && shape.getRadius() < 300.0f && shape.getRadius() >
+                        100.0f) {
                         shape.setFillColor(sf::Color::Cyan);
+                    }
                 }
             }
 
@@ -108,6 +112,13 @@ export void app() {
                 fmt::println("New Width: {}", resized->size.x);
                 fmt::println("New Height: {}", resized->size.y);
             }
+        }
+
+        // Setting up conditions for shape
+        if (shape.getRadius() > 300.0f) {
+            shape.setFillColor(sf::Color::Yellow);
+        } else if (shape.getRadius() < 100.0f) {
+            shape.setFillColor(sf::Color::Black);
         }
 
         // Renders to window
