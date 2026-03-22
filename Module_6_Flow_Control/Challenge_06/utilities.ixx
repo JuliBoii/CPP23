@@ -10,7 +10,7 @@ export void app() {
     // Storing data in pre-defined variable for window and shapes
     unsigned int window_width{1920u};
     unsigned int window_height{1080u};
-    constexpr float circle_radius{200.0f};
+    float circle_radius{200.0f};
     const std::string window_title{"SFML Challenge 05"};
     sf::Color circle_color{128, 0, 0, 255};
     sf::Color bg_color{255, 255, 255, 255};
@@ -43,6 +43,25 @@ export void app() {
                     window.close();
                 }
 
+                // When "c" is pressed the shape increases in scale
+                // with the shapes position accounting for new scale
+                if (keyPressed->scancode == sf::Keyboard::Scancode::C) {
+                    shape.setRadius(circle_radius += 10.0f);
+                    circle_position.x -= 10.0f;
+                    circle_position.y -= 10.0f;
+                    shape.setPosition(circle_position);
+                }
+
+                // When "d" is pressed the shape decreases in scale
+                // with the shapes position accounting for new scale
+                if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
+                    shape.setRadius(circle_radius -= 10.0f);
+                    circle_position.x += 10.0f;
+                    circle_position.y += 10.0f;
+                    shape.setPosition(circle_position);
+                }
+
+                // Arrow keys move the shape
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Left) {
                     // fmt::println("Moving Left");
                     circle_position.x -= 10;
