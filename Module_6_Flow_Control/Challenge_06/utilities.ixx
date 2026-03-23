@@ -10,8 +10,9 @@ export void app() {
     // Storing data in pre-defined variable for window and shapes
     unsigned int window_width{1920u};
     unsigned int window_height{1080u};
-    float circle_radius{200.0f};
     const std::string window_title{"SFML Challenge 05"};
+    float circle_radius{200.0f};
+    constexpr float clock_period{5.0f};
     sf::Color circle_color{128, 0, 0, 255};
     sf::Color bg_color{255, 255, 255, 255};
 
@@ -29,8 +30,24 @@ export void app() {
     };
     shape.setPosition(circle_position);
 
+    // Measuring Time
+    sf::Clock clock; // Starts the clock
+    unsigned int counter{0};
+
     // Main loop
     while (window.isOpen()) {
+        if (sf::Time elapsed{clock.getElapsedTime()}; elapsed.asSeconds() > clock_period) {
+            counter++;
+
+            if (counter % 2 == 0) {
+                shape.setFillColor(sf::Color::Green);
+            } else {
+                shape.setFillColor(sf::Color::Red);
+            }
+
+            clock.restart();
+        }
+
         // Checking for events
         while (const std::optional event = window.pollEvent()) {
             // Checking if window is closed
