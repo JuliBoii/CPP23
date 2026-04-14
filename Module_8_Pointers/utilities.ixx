@@ -5,7 +5,7 @@ export module utilities;
 import pointer1;
 
 export void pointers_example() {
-    declaration_and_initialization();
-    assignment_and_access();
-    char_pointers();
+    pointer1::declaration_and_initialization();
+    pointer1::assignment_and_access();
+    pointer1::char_pointers();
 }
