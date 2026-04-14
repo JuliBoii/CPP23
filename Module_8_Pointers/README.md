@@ -394,5 +394,5 @@ Resulting in the following output:
 Message: Bello World
 ```
 
-The C++ code also showcases our previous point. The variable, most of the time,
+The C++ code also showcases our previous point. The variable name, most of the time,
 is a "Pointer".
