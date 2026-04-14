@@ -354,3 +354,45 @@ In this example we are:
     pointer1.ixx(55): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast
     ```
 
+### `Char` Pointers
+
+For this section, there is nothing different from what we have been doing. The only difference
+is working with the `char` data type. Below is a simple example of an array:
+
+```c++
+const char *message{"Hello world!"};
+```
+
+When we make a raw array. The name we assign to the variable,
+is a pointer to the first element. This behavior is not exclusive to
+raw arrays, just wanted to mention it here.
+
+In the example above we make the array `const`. What if we want to modify
+the data.
+
+We simply use a different syntax when declaring & initializing.
+
+```c++
+char message[]{"Hello World"};
+```
+
+- We specify that our `char` type is an array
+    - Using `[]`
+- Then initialize the array with a string literal
+    - Indicated by using double quotes
+    - The compiler will understand what we are trying to accomplish
+    - Thus, we will be able to modify elements within the array
+
+```c++
+*message = 'B';
+std::println("Message: {}", message);
+```
+
+Resulting in the following output:
+
+```shell
+Message: Bello World
+```
+
+The C++ code also showcases our previous point. The variable, most of the time,
+is a "Pointer".

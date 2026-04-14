@@ -49,8 +49,27 @@ export void assignment_and_access() {
     int integer_variable_2{1451};
     p_int = &integer_variable_2;
 
-    fmt::println("New Address of p_int: {}", static_cast<void *>(p_int));
+    fmt::println("New Address of p_int: {}\n", static_cast<void *>(p_int));
 
     /*double double_variable{3.14};
     p_int = &double_variable;*/
+}
+
+export void char_pointers() {
+    fmt::println("Char Pointers (Using Raw Arrays):");
+    const char *message{"Hello world!"};
+
+    fmt::println("Printing Char Array:");
+    fmt::println("Message: {}\n", message);
+
+    fmt::println("Printing First Element:");
+    fmt::println("Message[0]: {}\n", *message);
+
+    fmt::println("Printing Address:");
+    fmt::println("Address of Message (First Element): {}\n", static_cast<void *>(&message));
+
+    fmt::println("Modifiable C-Strings");
+    char message2[]{"Hello World"};
+    *message2 = 'B';
+    fmt::println("Message: {}\n", message2);
 }
