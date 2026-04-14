@@ -3,6 +3,7 @@ module;
 export module utilities;
 
 import pointer1;
+import pointer2;
 
 export void pointers_example() {
     pointer1::declaration_and_initialization();

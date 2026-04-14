@@ -396,3 +396,17 @@ Message: Bello World
 
 The C++ code also showcases our previous point. The variable name, most of the time,
 is a "Pointer".
+
+## `const` Pointers & Pointer to `const`
+
+### Raw Variables that can be modified
+
+### Non-`const` Pointer to Non-`const` Data
+
+### Non-`const` Pointer to `const` Data
+
+### `const` Pointer to `const` Data
+
+### `const` Pointer to Non-`const` Data
+
+---
