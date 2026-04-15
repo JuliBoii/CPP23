@@ -399,7 +399,63 @@ is a "Pointer".
 
 ## `const` Pointers & Pointer to `const`
 
-### Raw Variables that can be modified
+We will be exploring the concept of how one can combine pointers and constants.
+Meaning, we may have a piece of data living somewhere in our program, with a
+pointer pointing to that piece of data.
+
+We can make the pointer `const`, thus one cannot use the pointer to modify
+the data it is pointing to.
+
+Or we can make the data `const`, thus the data cannot change regardless of what is
+pointing to it.
+
+### Raw Variables That Can Be Modified
+
+In this example/case we want to see a situation where we are able to modify a
+raw variable. Seeing what we should expect.
+
+```c++
+int number{5}; // Not const
+
+std::println("Number: {}", number);
+std::println("Number Address: {}\n", static_cast<void*>(&number));
+
+std::println("Modifying 'number':");
+number = 12;
+number += 13;
+
+std::println("New Number: {}", number);
+std::println("Number Address: {}", static_cast<void*>(&number));
+```
+
+In the example above we are doing the following:
+
+- Declaring a variable
+  - That is not `const`
+- Printing the literal stored in the variable
+- Printing the address of the variable
+- Then modifying the information stored.
+  - Reassigning the literal to `12`
+  - Then compound summation with `13`
+- Finally, we print the new literal
+- Then the address of the variable
+
+Resulting in the following:
+
+```shell
+Number: 5
+Number Address: 0x7ff7bd055c5c
+
+Modifying 'number':
+New Number: 25
+Number Address: 0x7ff7bd055c5c
+```
+
+Notice what happened:
+
+- We were able to change the literal stored
+  - Due to the variable not being `const`
+- The address of the variable remains the same
 
 ### Non-`const` Pointer to Non-`const` Data
 
