@@ -431,12 +431,12 @@ std::println("Number Address: {}", static_cast<void*>(&number));
 In the example above we are doing the following:
 
 - Declaring a variable
-  - That is not `const`
+    - That is not `const`
 - Printing the literal stored in the variable
 - Printing the address of the variable
 - Then modifying the information stored.
-  - Reassigning the literal to `12`
-  - Then compound summation with `13`
+    - Reassigning the literal to `12`
+    - Then compound summation with `13`
 - Finally, we print the new literal
 - Then the address of the variable
 
@@ -454,15 +454,269 @@ Number Address: 0x7ff7bd055c5c
 Notice what happened:
 
 - We were able to change the literal stored
-  - Due to the variable not being `const`
+    - Due to the variable not being `const`
 - The address of the variable remains the same
 
 ### Non-`const` Pointer to Non-`const` Data
 
+In this example/case we want to see a situation where we are able to modify a
+variable and pointer.
+
+```c++
+int *ptr_number1(nullptr);
+int number1{23};
+
+ptr_number1 = &number1;
+std::println("ptr_number1 Address: {}", static_cast<void *>(ptr_number1));
+std::println("ptr_number1 Value Pointed To: {}", *ptr_number1);
+std::println("number1 Value Stored: {}", number1);
+std::println("number1 Address: {}", static_cast<void *>(&number1));
+```
+
+In the example above we are doing the following:
+
+- Declaring & initialing a pointer: `ptr_number1`
+    - Init to `nullptr`
+- Declaring & initializing a variable: `number1`
+- We then assign the address of `number1` to `ptr_number1`
+    - Using the `&` operator
+
+From here we print the following:
+
+- Printing the address stored in `ptr_number1`
+- Printing the value stored in the address we printed
+- Print the literal stored in the variable `number1`
+- Then the address of the variable
+
+Resulting in the following:
+
+```shell
+ptr_number1 Address: 0x4ddbf9f6e4
+ptr_number1 Value Pointed To: 23
+number1 Value Stored: 23
+number1 Address: 0x4ddbf9f6e4
+```
+
+With the result, we wanted to confirm the address being pointed to by
+`ptr_number1` is the same as `number1` and that we can access the data
+stored.
+
+Now let us modify the value stored by `number1` using the pointer.
+
+```c++
+*ptr_number1 = 432;
+std::println("ptr_number1 Address: {}", static_cast<void *>(ptr_number1));
+std::println("ptr_number1 Value Pointed To: {}", *ptr_number1);
+std::println("number1 Value Stored: {}", number1);
+std::println("number1 Address: {}", static_cast<void *>(&number1));
+```
+
+Resulting in the output:
+
+```shell
+Reassigning the value stored through a the pointer:
+ptr_number1 Address: 0x4ddbf9f6e4
+ptr_number1 Value Pointed To: 432
+number1 Value Stored: 432
+number1 Address: 0x4ddbf9f6e4
+```
+
+Notice what happened:
+
+- We were able to change the literal stored
+    - Storing `432` instead of `23`
+    - We were able to do this due to `number1` not being `const`
+- The address of the variable remains the same
+    - Showing the location of the data has not changed
+
+Likewise, since the pointer itself is not `const` either. We are
+able to change what the pointer is pointing to. That can be another
+pointer or a different variable.
+
+```c++
+int number2{41};
+
+ptr_number1 = &number2;
+std::println("ptr_number1 Address: {}", static_cast<void *>(ptr_number1));
+std::println("ptr_number1 Value Pointed To: {}", *ptr_number1);
+std::println("number1 Value Stored: {}", number1);
+std::println("number1 Address: {}", static_cast<void *>(&number1));
+std::println("number2 Value Stored: {}", number2);
+std::println("number2 Address: {}", static_cast<void *>(&number2));
+```
+
+Resulting in:
+
+```shell
+ptr_number1 Address: 0x4ddbf9f704
+ptr_number1 Value Pointed To: 41
+number1 Value Stored: 432
+number1 Address: 0x4ddbf9f6e4
+number2 Value Stored: 41
+number2 Address: 0x4ddbf9f704
+```
+
+What happened?
+
+- We declared a new variable: `number2`
+    - Initialized with `41`
+- We reassign `ptr_number1` with the address of `number2`
+    - Using the `&` operator
+- From here we are simply printing the values & addresses
+    - We print the address pointed to by `ptr_number1`
+    - Data stored at the pointed address
+    - Data stored in `number1`
+    - Address of `number1`
+    - Data stored in `number2`
+    - Address of `number2`
+
+We can see from the printed result:
+
+- The address pointed to by `ptr_number1` changed
+    - It is no longer the same as the address of `number1`
+    - Plus the value stored does not match the value stored in `number1`
+- The address and value match those of `number2`
+    - Meaning we were able to modify the pointer
+
+To summarize:
+
+- Non-`const` variable
+    - We are able to assign a different value
+        - Either directly or using the pointer
+- Non-`const` pointer
+    - We are able to change what address we are pointing to
+
 ### Non-`const` Pointer to `const` Data
 
-### `const` Pointer to `const` Data
+In this example/case we want to see a situation where we are able to modify a pointer
+but the variable is `const`
+
+```c++
+int *ptr_number1(nullptr);
+const int number1{23};
+ptr_number1 = &number1;
+```
+
+Before we continue, I need to let the reader know that this case
+is not possible. If attempted, the compiler will not build the
+project. Giving the following output:
+
+```shell
+pointer2.ixx(60): error C2440: '=': cannot convert from 'const int *' to 'int *'
+pointer2.ixx(60): note: Conversion loses qualifiers
+```
+
+Reason: Allowing this case would permit one to bypass the `const`
+restriction and modify a value that was intended to be immutable,
+which is unsafe.
+
+> You can read more about
+> this [here](https://www.learncpp.com/cpp-tutorial/pointers-and-const/).
 
 ### `const` Pointer to Non-`const` Data
+
+In this example/case we want to see a situation where we are able to modify a variable
+but the pointer is `const`
+
+```c++
+int number1{4214};
+const int *p_number1{&number1};
+```
+
+We then want to quickly print the usual information:
+
+```c++
+std::println("p_number1 Value Pointed To: {}", *p_number1);
+std::println("p_number1 Address Stored: {}", static_cast<const void *>(p_number1));
+std::println("number1 Value Stored: {}", number1);
+std::println("number1 Address: {}", static_cast<void *>(&number1));
+```
+
+Resulting in:
+
+```shell
+p_number1 Value Pointed To: 4214
+p_number1 Address Stored: 0x306e6ff9d4
+number1 Value Stored: 4214
+number1 Address: 0x306e6ff9d4
+```
+
+Similar to our previous examples.
+
+Now, what if we want to change the value stored in `number1`.
+
+Let us try modifying the value of `number1` through the pointer:
+
+```c++
+*p_number1 = 4321;
+```
+
+When compiled, the compiler fails. Returning the following in the terminal:
+
+```shell
+pointer2.ixx(77): error C3892: 'p_number1': you cannot assign to a variable that is const
+```
+
+Demonstrating that the pointer is not able to modify the data located
+at the address being pointed at. Thus, "limiting" the capability of the
+pointer.
+
+Let us look at what is being stated by the compiler first.
+
+```shell
+you cannot assign to a variable that is const
+```
+
+We never made `number1` a `const` variable. Why is the compiler
+stating it is? Because, we are implicitly stating the
+variable we are pointing to is a `const` variable. Obviously
+there is more to this, but this is a simplified explanation.
+
+What if we modified the variable directly:
+
+```c++
+number1 = 14;
+```
+
+The program is able to compile. So let us print the usual information:
+
+```c++
+p_number1 Value Pointed To: 14
+p_number1 Address Stored: 0x306e6ff9d4
+number1 Value Stored: 14
+number1 Address: 0x306e6ff9d4
+```
+
+- Notice the value has changed
+- Despite `p_number1` being `const`
+    - We were able to modify the variable directly
+    - And the address has not changed
+        - Which should have not changed regardless (Duh)
+
+Now, what if we try changing what the pointer is pointing to:
+
+```c++
+int number2{54};
+p_number1 = &number2;
+```
+
+Once agin, the compiler was able to build successfully.
+
+```shell
+p_number1 Value Pointed To: 54
+p_number1 Address Stored: 0x306e6ff9f4
+number1 Value Stored: 14
+number1 Address: 0x306e6ff9d4
+number2 Value Stored: 54
+number2 Address: 0x306e6ff9f4
+```
+
+Printing the usual information we can see:
+
+- We were able to change what `p_number1` is pointing to
+    - Thus, the address changed and the value
+    - Having the same address of the new variable introduced
+
+### `const` Pointer to `const` Data
 
 ---
