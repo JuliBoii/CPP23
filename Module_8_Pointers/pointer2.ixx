@@ -61,7 +61,7 @@ namespace pointer2 {
         p_number1 = &number1;*/
     }
 
-    export void const_pointer_to_modifiable_data() {
+    export void semi_const_pointer_to_modifiable_data() {
         fmt::println("Case: Const Pointer to Non-const Data");
         int number1{4214};
         const int *p_number1{&number1};
@@ -92,5 +92,13 @@ namespace pointer2 {
         fmt::println("number1 Address: {}", static_cast<void *>(&number1));
         fmt::println("number2 Value Stored: {}", number2);
         fmt::println("number2 Address: {}\n", static_cast<void *>(&number2));
+
+        fmt::println("Making the variable explicitly constant when declaring & initializing:");
+        constexpr int protected_number{4214};
+        const int *p_protected_number{&protected_number};
+    }
+
+    export void const_pointer_to_const_data() {
+        fmt::println("Case: Const Pointer to Const Data");
     }
 }

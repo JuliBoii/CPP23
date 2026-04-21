@@ -613,7 +613,7 @@ which is unsafe.
 > You can read more about
 > this [here](https://www.learncpp.com/cpp-tutorial/pointers-and-const/).
 
-### `const` Pointer to Non-`const` Data
+### (Semi) `const` Pointer to Non-`const` Data
 
 In this example/case we want to see a situation where we are able to modify a variable
 but the pointer is `const`
@@ -716,7 +716,29 @@ Printing the usual information we can see:
 - We were able to change what `p_number1` is pointing to
     - Thus, the address changed and the value
     - Having the same address of the new variable introduced
+- We also have to remember:
+    - Even though we were able to change what is being pointed to
+    - We still cannot modify the data using the pointer
+
+Overall, we need to remember the error output when we attempted to modify the data.
+We said the point is making the variable/memory address implicitly `const`. So,
+the pointer itself is not `const`. Which is why we are able to modify what is
+being pointed to, but not change the data.
+
+That is why, it is better to explicitly add `const` to the variable, when
+declared. Given that we do not want to modify the data pointed to, either directly
+or indirectly, but still would like to change what the pointer points to. Like below:
+
+```c++
+constexpr int protected_number{4214};
+const int *p_protected_number{&protected_number};
+```
 
 ### `const` Pointer to `const` Data
+
+In this example/case we want to see a situation where we are not able to modify
+either the variable or the pointer. Once declared & initialized, the variable cannot
+change its data and the pointer cannot modify the data. Nor can the pointer be
+redirected to point to a new location/variable.
 
 ---

@@ -13,5 +13,5 @@ export void pointers_example() {
     pointer2::modifiable_raw_data();
     pointer2::modifiable_data_and_modifiable_pointer();
     // pointer2::modifiable_pointer_to_const_data();
-    pointer2::const_pointer_to_modifiable_data();
+    pointer2::semi_const_pointer_to_modifiable_data();
 }
