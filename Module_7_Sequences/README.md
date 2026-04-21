@@ -5,57 +5,65 @@ C++ provides.
 
 ---
 
-## Topics
-
-- `std::array`
-    - Using `[]` v.s. `at()`
-    - Range-based looping
-    - Modifying elements
-    - `fill()`
-    - More Element Access:
-        - `front`
-        - `back`
-    - Two Dimensional Arrays
-    - Comparing Arrays
-- `std::vector`
-    - Access data in vector
-        - `[]`
-        - `at()`
-    - Differences Between `std::array` & `std::vector`
-    - Filling vector
-    - Accessing First & Last Element
-    - Multi-Dimensional Vectors
-    - Lexicographical Comparison
-    - Assignment
-- `std::string`
-    - Basic declaration & Initialization
-    - Using Constructors
-    - Accessing Characters
-    - Modifying Strings
-    - Appending and Concatenation
-    - Substrings
-    - Finding
-    - Comparison
-    - Inserting & Erasing
-    - Length & Capacity
-    - Iterating over a String
-    - Clearing a string
-- Raw Arrays
-    - Computer Memory
-        - Stack
-        - Heap
-    - Declaration and initialization
-        - Reading/printing raw arrays
-    - Size of an array
-        - Method 1 (`std::size`)
-        - Method 2 (`sizeof()`)
-    - Array of `char`
-        - Difference when Printing
-    - Array bounds
-- Random Number Generation (Old Method)
-- Random Number Generation (Modern C++)
-- Multidimensional array
-- Multidimensional array of `char`
+<!-- TOC -->
+* [Sequences](#sequences)
+  * [`std::array`](#stdarray)
+    * [Using `[]` (square brackets):](#using--square-brackets)
+    * [Using `.at()`](#using-at)
+    * [Difference between `[]` and `.at()`](#difference-between--and-at)
+    * [Range-based loop](#range-based-loop)
+    * [Modifying elements](#modifying-elements)
+    * [Filling `std::array`](#filling-stdarray)
+    * [More Element Access](#more-element-access)
+    * [Two Dimensional Arrays](#two-dimensional-arrays)
+    * [Comparing Arrays](#comparing-arrays)
+      * [Comparing for Equality](#comparing-for-equality)
+      * [Comparing for Inequality](#comparing-for-inequality)
+      * [Lexicographical Comparison](#lexicographical-comparison)
+        * [Less than (<)](#less-than-)
+        * [Less than or equal to (≤)](#less-than-or-equal-to-)
+        * [Greater than (>)](#greater-than-)
+        * [Greater than or equal to (>=)](#greater-than-or-equal-to-)
+  * [`std::vector`](#stdvector)
+    * [Using `[]` (square brackets):](#using--square-brackets-1)
+    * [Using `at()`](#using-at-1)
+    * [Differences Between `std::array` & `std::vector`](#differences-between-stdarray--stdvector)
+    * [Filling Vector](#filling-vector)
+    * [Accessing First & Last Elements](#accessing-first--last-elements)
+    * [Multi-Dimensional Vectors](#multi-dimensional-vectors)
+    * [Lexicographical Comparison](#lexicographical-comparison-1)
+    * [Assignment](#assignment)
+  * [`std::string`](#stdstring)
+    * [`std::string` compared to `std::array` & `std::vector`](#stdstring-compared-to-stdarray--stdvector)
+    * [Basic Declaration & Initialization](#basic-declaration--initialization)
+    * [Using Constructors](#using-constructors)
+    * [Accessing Characters](#accessing-characters)
+    * [Modifying Strings](#modifying-strings)
+    * [Appending and Concatenation](#appending-and-concatenation)
+    * [Substrings](#substrings)
+    * [Finding](#finding)
+    * [Comparison](#comparison)
+    * [Inserting & Erasing](#inserting--erasing)
+    * [Length & Capacity](#length--capacity)
+    * [Iterating over a String](#iterating-over-a-string)
+    * [Clearing a string](#clearing-a-string)
+  * [Raw Arrays](#raw-arrays)
+    * [Computer Memory](#computer-memory)
+      * [Stack](#stack)
+      * [Heap](#heap)
+    * [Declaration & Initialization](#declaration--initialization)
+      * [Reading/Printing Raw Arrays](#readingprinting-raw-arrays)
+      * [Size of a Raw Array](#size-of-a-raw-array)
+    * [Size of Raw Array](#size-of-raw-array)
+      * [Method 1 `std::size()`](#method-1-stdsize)
+      * [Method 2 `std::sizeof()`](#method-2-stdsizeof)
+    * [Arrays of Characters](#arrays-of-characters)
+      * [Difference in Printing](#difference-in-printing)
+    * [Array of Characters (cont.)](#array-of-characters-cont)
+    * [Raw Array Bounds](#raw-array-bounds)
+  * [Random Number Generator (Old-Style)](#random-number-generator-old-style)
+  * [Random Number Generation (Modern)](#random-number-generation-modern)
+<!-- TOC -->
 
 ---
 

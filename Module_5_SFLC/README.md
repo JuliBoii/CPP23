@@ -2,17 +2,44 @@
 
 ---
 
-- Topics
-    - Input and Output Streams
-    - Stream Formatting
-    - The Format Library
-        - Printing and Formatting facilities from C++23
-        - How mainstream compilers support them
-    - `fmt` Library (Alternative)
-    - Literals & Constants
-        - `constexpr`
-        - `consteval`
-        - `constinit`
+<!-- TOC -->
+* [Streams, Formatting, Literals and Constants](#streams-formatting-literals-and-constants)
+  * [Input & Output Streams](#input--output-streams)
+    * [Outputting](#outputting)
+    * [Inputting](#inputting)
+  * [Stream Formatting](#stream-formatting)
+    * [`std::setw()`](#stdsetw)
+    * [Output Alignment](#output-alignment)
+    * [`std::setfill()`](#stdsetfill)
+    * [`std::boolalpha` & `std::noboolalpha`](#stdboolalpha--stdnoboolalpha)
+    * [`std::showpos` & `std::noshowpos`](#stdshowpos--stdnoshowpos)
+    * [`std::uppercase` & `std::nouppercase`](#stduppercase--stdnouppercase)
+    * [`std::fixed`, `std::scientific`, & `std::defaultfloat`](#stdfixed-stdscientific--stddefaultfloat)
+    * [`std::setprecision(n)`](#stdsetprecisionn)
+    * [`std::showpoint` & `std::noshowpoint`](#stdshowpoint--stdnoshowpoint)
+  * [Format Library](#format-library)
+  * [`<fmt>`](#fmt)
+    * [Dynamic Tables with Formatting](#dynamic-tables-with-formatting)
+    * [Bool Values with Formatting](#bool-values-with-formatting)
+    * [Show Sign for Positive Numbers](#show-sign-for-positive-numbers)
+    * [Changing Number Systems](#changing-number-systems)
+      * [Decimal](#decimal)
+      * [Hexadecimal (Upper and Noupper)](#hexadecimal-upper-and-noupper)
+      * [Octal](#octal)
+      * [Binary](#binary)
+      * [Showbase for Numbers](#showbase-for-numbers)
+    * [Floating-Point Formatting](#floating-point-formatting)
+      * [Controlling Precision](#controlling-precision)
+      * [Fixed Precision](#fixed-precision)
+      * [Scientific Precision](#scientific-precision)
+    * [Specify Argument Indexes](#specify-argument-indexes)
+    * [General Form for Format Specifiers](#general-form-for-format-specifiers)
+  * [Literals & Constants](#literals--constants)
+    * [`constexpr` Variables](#constexpr-variables)
+  * [`constexpr` Functions](#constexpr-functions)
+  * [`consteval` Functions](#consteval-functions)
+  * [`constinit`](#constinit)
+<!-- TOC -->
 
 ---
 

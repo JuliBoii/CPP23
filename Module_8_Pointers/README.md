@@ -586,6 +586,34 @@ To summarize:
 - Non-`const` pointer
     - We are able to change what address we are pointing to
 
+In this case, we are looking at situations where we have
+a non-`const` variable that has a non-`const` pointer pointing
+at the variable's memory address.
+
+```c++
+int *ptr_number1(nullptr);
+int number1{23};
+
+ptr_number1 = &number1;
+fmt::println("ptr_number1 Address: {}", static_cast<void *>(ptr_number1));
+fmt::println("ptr_number1 Value Pointed To: {}", *ptr_number1);
+fmt::println("number1 Value Stored: {}", number1);
+```
+
+In the example above, we are declaring and initializing two elements:
+
+1. A pointer: `ptr_number1`
+2. An `int` variable: `number1`
+
+From there we are assigning the address of the variable to the pointer.
+
+
+```shell
+ptr_number1 Address: 0x7ff7bb839f3c
+ptr_number1 Value Pointed To: 23
+number1 Value Stored: 23
+```
+
 ### Non-`const` Pointer to `const` Data
 
 In this example/case we want to see a situation where we are able to modify a pointer
