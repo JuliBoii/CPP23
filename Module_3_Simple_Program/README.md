@@ -2,6 +2,19 @@
 
 ---
 
+<!-- TOC -->
+* [Simple C++ Program](#simple-c-program)
+  * [First C++ Program of the Course](#first-c-program-of-the-course)
+  * [C++ Execution Model](#c-execution-model)
+    * [**_ Need to add information!!!_**](#_-need-to-add-information_)
+  * [Why is the C++ Execution Model Important?](#why-is-the-c-execution-model-important)
+  * [We will now be testing other packages](#we-will-now-be-testing-other-packages)
+    * [**_Using Docker for this project (SFML) is not recommended, in my honest opinion_**](#_using-docker-for-this-project-sfml-is-not-recommended-in-my-honest-opinion_)
+    * [**_Not using GCC for this project_**](#_not-using-gcc-for-this-project_)
+<!-- TOC -->
+
+---
+
 ## First C++ Program of the Course
 
 - Introduces comments

@@ -2,71 +2,79 @@
 
 ---
 
-## Overview
-
-Part 1
-
-Exploring variables and data types
-- Topics:
-  - Number systems for integers
-    - Decimal, Octal, Hexadecimal and Binary
-  - Data representation in memory
-    - Integers, Floating point types
-  - Type ranges for ints & floats
-
-Part 2
-
-Integer Modifies, Characters, Text, & `auto`
-- Topics:
-  - Initialization:
-    - Braced initialization
-    - Function style initialization
-    - Assignment initialization
-  - Integer modifiers
-  - Floating point numbers:
-    - Precision
-    - Scientific notation
-    - Infinity and NaN
-  - Booleans
-  - Characters & Text
-    - `char`
-  - Collections
-    - `std::vector`
-    - `std::array`
-    - `std::string`
-  - `auto`
-
-Part 3
-
-Operations, Math Functions, and Weird Integer Types
-- Topics:
-  - Basic Operations
-    - Addition
-    - Subtraction
-    - Multiplication
-    - Division
-    - Modulus
-  - Precedence & Associativity
-  - Increment & Decrement (Prefix & Postfix)
-  - Compound Assignment Operators
-  - Relational Operators
-  - Logical Operators
-  - Math Functions
-  - Weird Integral Types
-  - Data Conversion
-    - Implicit
-    - Explicit
-  - Overflow & Underflow
-
-Part 4
-
-Bitwise Operators
-- Topics
-  - Printing Integers in Binary
-  - Shift Operators
-  - Logical Bitwise Operators
-  - Compound Bitwise Operators
-  - Masks
+<!-- TOC -->
+* [Variables, Data Types & Basic Operations](#variables-data-types--basic-operations)
+  * [Number Systems](#number-systems)
+    * [Decimal](#decimal)
+    * [Binary](#binary)
+    * [Hexadecimal](#hexadecimal)
+    * [Octal](#octal)
+  * [Data Representation](#data-representation)
+    * [Float](#float)
+    * [Double](#double)
+    * [Long Double](#long-double)
+  * [Memory Representation](#memory-representation)
+  * [Initialization](#initialization)
+    * [Braced Initialization (Recommended)](#braced-initialization-recommended)
+    * [Functional Initialization](#functional-initialization)
+    * [Assignment Initialization](#assignment-initialization)
+  * [Integer Modifiers](#integer-modifiers)
+    * [Signed](#signed)
+    * [Unsigned](#unsigned)
+    * [Short](#short)
+    * [Long](#long)
+  * [Fractional Number Representation](#fractional-number-representation)
+    * [Precision](#precision)
+    * [Scientific Notation](#scientific-notation)
+    * [Infinity & NaN](#infinity--nan)
+  * [Boolean](#boolean)
+  * [Characters & Text](#characters--text)
+    * [Char](#char)
+    * [Collections](#collections)
+      * [`std::vector`](#stdvector)
+      * [`std::array`](#stdarray)
+      * [std::string](#stdstring)
+  * [`auto` Keyword](#auto-keyword)
+  * [Basic Operations](#basic-operations)
+    * [Addition](#addition)
+    * [Subtraction](#subtraction)
+    * [Multiplication](#multiplication)
+    * [Division](#division)
+    * [Modulus](#modulus)
+  * [Precedence & Associativity](#precedence--associativity)
+  * [Prefix & Postfix Increment/Decrement](#prefix--postfix-incrementdecrement)
+    * [Prefix](#prefix)
+    * [Postfix](#postfix)
+  * [Compound Assignment Operators](#compound-assignment-operators)
+  * [Relational Operators](#relational-operators)
+  * [Logical Operators](#logical-operators)
+    * [&& (AND)](#-and)
+    * [|| (OR)](#-or)
+    * [! (NOT and combinations)](#-not-and-combinations)
+  * [Math Functions](#math-functions)
+    * [`std::floor` (Flooring)](#stdfloor-flooring)
+    * [`std::ceil` (Ceiling)](#stdceil-ceiling)
+    * [`std::abs` (Absolute Value)](#stdabs-absolute-value)
+    * [`std::exp` (Exponential)](#stdexp-exponential)
+    * [`std::pow` (Power)](#stdpow-power)
+    * [`std::log`, `std::log10`, & `std::log2` (Logarithms)](#stdlog-stdlog10--stdlog2-logarithms)
+    * [`std::sqrt` (Square Root)](#stdsqrt-square-root)
+  * [Weird Integral Types](#weird-integral-types)
+  * [Data Conversions](#data-conversions)
+    * [Implicit Conversion in Expressions](#implicit-conversion-in-expressions)
+    * [Implicit Conversions in Assignment](#implicit-conversions-in-assignment)
+    * [Explicit Conversion in Expressions](#explicit-conversion-in-expressions)
+  * [Overflow & Underflow](#overflow--underflow)
+  * [Printing Integers in Binary](#printing-integers-in-binary)
+  * [Shift Operators](#shift-operators)
+  * [Logical Bitwise Operators](#logical-bitwise-operators)
+  * [Compound Bitwise Operators](#compound-bitwise-operators)
+  * [Masks](#masks)
+    * [Setting a Specific Bit](#setting-a-specific-bit)
+    * [Resetting Bits](#resetting-bits)
+    * [Toggle A Bit](#toggle-a-bit)
+    * [Checking if a Bit is a Set or Not](#checking-if-a-bit-is-a-set-or-not)
+<!-- TOC -->
 
 ---
 

@@ -1,3 +1,17 @@
+<!-- TOC -->
+* [Enviornment Setup](#enviornment-setup)
+  * [Modern C++ On Windows](#modern-c-on-windows)
+  * [Modern C++ on Linux (Ubuntu 24.04)](#modern-c-on-linux-ubuntu-2404)
+  * [Modern C++ on Mac (Apple Clang)](#modern-c-on-mac-apple-clang)
+    * [**! Apple Clang tends to lag behind in C++ features !**](#-apple-clang-tends-to-lag-behind-in-c-features-)
+    * [_Another Note:_ For this project I will be using JetBrains' Fleet Editor, rather than VS Code. Just a matter of preference.](#_another-note_-for-this-project-i-will-be-using-jetbrains-fleet-editor-rather-than-vs-code-just-a-matter-of-preference)
+    * [If you chose to use Homebrew follow these steps](#if-you-chose-to-use-homebrew-follow-these-steps)
+  * [Modern C++ On Docker](#modern-c-on-docker)
+    * [What is Docker?](#what-is-docker)
+<!-- TOC -->
+
+---
+
 # Enviornment Setup
 
 - Windows

@@ -2,17 +2,26 @@
 
 ---
 
-## Topics
-
-- If statement
-- Switch
-- Ternary Operator
-- `std::unreachable` (C++23)
-- Loops:
-    - `for()`
-    - `while()`
-    - `do{} while()`
-- Comma Operator
+<!-- TOC -->
+* [Flow Control](#flow-control)
+  * [If Statements](#if-statements)
+    * [Nested If Statements](#nested-if-statements)
+    * [`If` with Initializer](#if-with-initializer)
+    * [`else if` statements](#else-if-statements)
+    * [`if` statement's scope](#if-statements-scope)
+  * [Switch Statements](#switch-statements)
+  * [Short Circuit Evaluation](#short-circuit-evaluation)
+  * [Ternary Operator (Conditional Operator)](#ternary-operator-conditional-operator)
+  * [`std::unreachable` (C++23)](#stdunreachable-c23)
+  * [Loops](#loops)
+    * [`for` loops](#for-loops)
+    * [`while` Loops](#while-loops)
+    * [`do-while` Loops](#do-while-loops)
+    * [Infinity Loops](#infinity-loops)
+    * [Decrementing Loops](#decrementing-loops)
+  * [`break` & `continue`](#break--continue)
+  * [Comma Operator](#comma-operator)
+<!-- TOC -->
 
 ---
 
