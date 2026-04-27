@@ -93,12 +93,47 @@ namespace pointer2 {
         fmt::println("number2 Value Stored: {}", number2);
         fmt::println("number2 Address: {}\n", static_cast<void *>(&number2));
 
-        fmt::println("Making the variable explicitly constant when declaring & initializing:");
+        /*fmt::println("Making the variable explicitly constant when declaring & initializing:\n");
         constexpr int protected_number{4214};
-        const int *p_protected_number{&protected_number};
+        const int *p_protected_number{&protected_number};*/
     }
 
     export void const_pointer_to_const_data() {
         fmt::println("Case: Const Pointer to Const Data");
+        constexpr int number1{459};
+        const int *const p_number1{&number1};
+
+        fmt::println("p_number1 Value Pointed To: {}", *p_number1);
+        fmt::println("p_number1 Address Stored: {}", static_cast<const void *>(p_number1));
+        fmt::println("number1 Value Stored: {}", number1);
+        fmt::println("number1 Address: {}\n", static_cast<const void *>(&number1));
+
+        fmt::println("Thus we cannot modify the data directly or through the pointer:\n");
+        /*number1 = 41;
+        *p_number1 = 459;
+        int number2{459};
+        p_number1 = &number2;*/
+    }
+
+    export void const_pointer_to_modifiable_data() {
+        fmt::println("Case: Const Pointer to Modifiable Data");
+        int number1{3145};
+        int *const p_number1{&number1};
+
+        fmt::println("p_number1 Value Pointed To: {}", *p_number1);
+        fmt::println("p_number1 Address Stored: {}", static_cast<const void *>(p_number1));
+        fmt::println("number1 Value Stored: {}", number1);
+        fmt::println("number1 Address: {}\n", static_cast<void *>(&number1));
+
+        fmt::println("Let us attempt to change the data using the pointer:");
+        *p_number1 = 79864;
+
+        fmt::println("p_number1 Value Pointed To: {}", *p_number1);
+        fmt::println("p_number1 Address Stored: {}", static_cast<const void *>(p_number1));
+        fmt::println("number1 Value Stored: {}", number1);
+        fmt::println("number1 Address: {}\n", static_cast<void *>(&number1));
+
+        /*int number2{1234};
+        p_number1 = &number2;*/
     }
 }

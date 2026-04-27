@@ -2,6 +2,33 @@
 
 ---
 
+<!-- TOC -->
+
+* [Pointers, Dynamic Memory, & Arrays](#pointers-dynamic-memory--arrays)
+    * [Pointers](#pointers)
+        * [Declaring & Initializing](#declaring--initializing)
+    * [Memory Layout](#memory-layout)
+        * [Quick Warning](#quick-warning)
+        * [Declaring & Initializing (Cont.)](#declaring--initializing-cont)
+        * [Assignment & Access](#assignment--access)
+            * [Accessing Address stored in Pointer](#accessing-address-stored-in-pointer)
+            * [Accessing Value Stored in Address Being Pointed by a Pointer (Dereference)](#accessing-value-stored-in-address-being-pointed-by-a-pointer-dereference)
+            * [Accessing the Address of a Pointer (Reference)](#accessing-the-address-of-a-pointer-reference)
+        * [Pointer Re-assignment](#pointer-re-assignment)
+        * [`Char` Pointers](#char-pointers)
+    * [Working with Pointers & `const` keyword](#working-with-pointers--const-keyword)
+        * [Raw Variables That Can Be Modified](#raw-variables-that-can-be-modified)
+        * [Non-`const` Pointer to Non-`const` Data](#non-const-pointer-to-non-const-data)
+        * [Non-`const` Pointer to `const` Data](#non-const-pointer-to-const-data)
+        * [(Semi) `const` Pointer to Non-`const` Data](#semi-const-pointer-to-non-const-data)
+        * [`const` Pointer to `const` Data](#const-pointer-to-const-data)
+        * [`const` Pointer & Non-`const` Data](#const-pointer--non-const-data)
+    * [Relationship Between Pointers & Array's](#relationship-between-pointers--arrays)
+
+<!-- TOC -->
+
+---
+
 ## Pointers
 
 We will be starting to explore pointers in C++. With pointers being one of the most confusing
@@ -397,7 +424,7 @@ Message: Bello World
 The C++ code also showcases our previous point. The variable name, most of the time,
 is a "Pointer".
 
-## `const` Pointers & Pointer to `const`
+## Working with Pointers & `const` keyword
 
 We will be exploring the concept of how one can combine pointers and constants.
 Meaning, we may have a piece of data living somewhere in our program, with a
@@ -641,8 +668,6 @@ number1 Value Stored: 4214
 number1 Address: 0x306e6ff9d4
 ```
 
-Similar to our previous examples.
-
 Now, what if we want to change the value stored in `number1`.
 
 Let us try modifying the value of `number1` through the pointer:
@@ -741,4 +766,138 @@ either the variable or the pointer. Once declared & initialized, the variable ca
 change its data and the pointer cannot modify the data. Nor can the pointer be
 redirected to point to a new location/variable.
 
+Let us set up an example, where the pointer is `const` and the data is `const`
+
+```c++
+const int number1{459};
+const int* const p_number1{&number1};
+```
+
+What do we notice:
+
+- Like the previous example, we add `const` to the variable `number1`
+- Add `const` at the beginning of the declaration for `p_number1`
+    - However, this time we add `const` a second time
+        - After `int*` declaring the pointer type
+
+Why the second `const`?
+
+The first section of the declaration: `const int*`. Signifies that the
+data being pointed to is going to be `const` data. Which we previously
+showcased where the data being pointed to was implicitly `const` data.
+The second `const` is going to mean that the pointer itself is also
+`const`.
+
+Printing the usual data:
+
+```shell
+p_number1 Value Pointed To: 459
+p_number1 Address Stored: 0x717cff814
+number1 Value Stored: 459
+number1 Address: 0x717cff814
+```
+
+Now, we need to remember that we cannot modify the data in `number1` directly
+or indirectly using `p_number1`. Nor, can we change what `p_number1` is pointing
+to. Once declared & initialized, they cannot be changed, as doing so would
+result in a compiler error.
+
+As shown below:
+
+```c++
+number1 = 41;
+
+...
+
+*p_number1 = 459;
+
+...
+
+p_number1 = &number2;
+```
+
+Resulting in the respective compiler errors:
+
+```shell
+error C3892: 'number1': you cannot assign to a variable that is const
+
+...
+
+error C3892: 'p_number1': you cannot assign to a variable that is const
+
+...
+
+error C3892: 'p_number1': you cannot assign to a variable that is const
+```
+
+### `const` Pointer & Non-`const` Data
+
+Utilizing everything we have learned up to now, let us attempt a
+scenario where we want a `const` pointer (can't change what it points to)
+and a non-`const` variable.
+
+```c++
+int number1{3145};
+int* const p_number1{&number1};
+```
+
+What is going on:
+
+- We declared & initialized our variable: `number1`
+- We declare & initialize our pointer: `p_number1`
+    - Notice where we put the `const` keyword
+        - After declaring the pointer type
+        - This signifies that the pointer cannot be reassigned
+            - With a new address
+        - But we are able to change the data at the address it points to
+
+```shell
+p_number1 Value Pointed To: 3145
+p_number1 Address Stored: 0x51feaff844
+number1 Value Stored: 3145
+number1 Address: 0x51feaff844
+```
+
+Let us attempt to modify the data which is being pointed to by `p_number1`.
+
+```c++
+*p_number1 = 79864;
+```
+
+This properly compiles and executes. So let's print the information
+again to reconfirm.
+
+```shell
+p_number1 Value Pointed To: 79864
+p_number1 Address Stored: 0x51feaff844
+number1 Value Stored: 79864
+number1 Address: 0x51feaff844
+```
+
+Remember, we made the pointer `const`, so we are unable to modify the
+location to which `p_number1` is pointing to. If we do, we will receive a
+compiler error.
+
+```c++
+int number2{1234};
+p_number1 = &number2;
+```
+
+Results in:
+
+```shell
+error C3892: 'p_number1': you cannot assign to a variable that is const
+```
+
+Likewise, we are able to modify the variable directly. We will skip
+showing that.
+
+Just a note:
+
+> Despite everything we learned, it is not recommended to implement & modify raw
+> pointers. This section is mainly for showcasing potential legacy implementations
+> that were done prior to Modern C++ standards.
+
 ---
+
+## Relationship Between Pointers & Array's
