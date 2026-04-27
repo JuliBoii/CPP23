@@ -4,6 +4,7 @@ export module utilities;
 
 import pointer1;
 import pointer2;
+import pointer3;
 
 export void pointers_example() {
     pointer1::declaration_and_initialization();
@@ -16,4 +17,6 @@ export void pointers_example() {
     pointer2::semi_const_pointer_to_modifiable_data();
     pointer2::const_pointer_to_const_data();
     pointer2::const_pointer_to_modifiable_data();
+
+    pointer3::pointer_and_array_relationship();
 }

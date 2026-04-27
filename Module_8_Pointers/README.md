@@ -634,7 +634,6 @@ In the example above, we are declaring and initializing two elements:
 
 From there we are assigning the address of the variable to the pointer.
 
-
 ```shell
 ptr_number1 Address: 0x7ff7bb839f3c
 ptr_number1 Value Pointed To: 23
@@ -929,3 +928,17 @@ Just a note:
 ---
 
 ## Relationship Between Pointers & Array's
+
+We will be exploring the realtionship between pointers and arrays (Raw).
+We did allude to the relationship previously which is treating the
+name of a variable/array as a pointer. This "pointer" points to the first
+element of the array.
+
+```c++
+int scores[10]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+int *p_scores{scores};
+```
+
+For example, the array declared & initialized above is given
+the name `scores`. The name points to the first element `11`.
+We also set up a seperate pointer 

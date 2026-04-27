@@ -18,6 +18,7 @@ TARGET_SOURCES(${PROJECT_NAME}
         utilities.ixx
         pointer1.ixx
         pointer2.ixx
+        pointer3.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)
