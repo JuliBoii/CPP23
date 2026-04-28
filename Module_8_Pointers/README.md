@@ -940,5 +940,83 @@ int *p_scores{scores};
 ```
 
 For example, the array declared & initialized above is given
-the name `scores`. The name points to the first element `11`.
-We also set up a seperate pointer 
+the name `scores`. The name points to the first element: `11`.
+We also set up a seperate pointer `p_scores` which we intitialize
+by passing `scores` without the `&` operator. Since, the name of the
+array variable is a "pointer".
+
+We can see this relationship when we print the various manors of accessing
+the address of the first element and the data stored.
+
+```c++
+std::println("Printing the addresses:");
+std::println("scores: {}", static_cast<void *>(scores));
+std::println("p_scores: {}", static_cast<void *>(p_scores));
+std::println("&scores[0]: {}\n", static_cast<void *>(&scores[0]));
+
+std::println("Printing the data:");
+std::println("*scores: {}", *scores);
+std::println("*p_scores: {}", *p_scores);
+std::println("scores[0]: {}", scores[0]);
+std::println("p_scores[0]: {}\n", p_scores[0]);
+```
+
+Which results in:
+
+```shell
+Printing the addresses:
+scores: 0x7ff7b9863200
+p_scores: 0x7ff7b9863200
+&scores[0]: 0x7ff7b9863200
+
+Printing the data:
+*scores: 11
+*p_scores: 11
+scores[0]: 11
+p_scores[0]: 11
+```
+
+What is going on:
+
+- When printing the addresses
+  - We are utilizing 3 differnt methods to access the address of the first element
+    - `scores` could be used by itself to access the address
+    - `p_scores` could also be used by itself
+      - Given that it has been initialized
+    - `&score[0]`
+      - We access the first element 
+      - Then, using the `&` operator, we print its address
+  - Each method results in the same address being printed
+  - Which showcases the relationship we previously mentioned
+- Afterward, we print the data stored at the address
+  - `*scores`
+    - We are dereferencing the "pointer" to access the data
+  - `*p_scores`
+    - In this case, we are also dereferencing the pointer
+  - `scores[0]`
+    - We are directly accesing the data using the `[]` notation
+  - `p_scores[0]`
+    - Similarly, we are going directly through the pointer
+      - Because, the pointer is pointing to the same location
+
+However, there is a clear distinction between a pointer
+and a variable name.
+
+You can change a pointer to make it point to a new memory address, but you cannot
+change the array variable to point to a different memory address.
+
+```c++
+int number1{245};
+p_scores = &number1;
+
+// scores = &number1;
+```
+
+In the example above, we are declaring and initializing a new variable of type `int`.
+Using the existing `p_scores` pointer, we reassign `p_scores` to point to the
+memory location of `number1`. Likewise, if we attempt to change the memory location
+pointed to by `scores`, we will receive a compiler error.
+
+```shell
+pointer3.ixx:31:16: error: array type 'int[10]' is not assignable
+```
