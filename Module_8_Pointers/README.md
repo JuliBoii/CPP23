@@ -1040,4 +1040,72 @@ to a memory address. `p_scores` does not have the concept of a size. While, an a
 variable handles cases where requests of information can occur. That is why `std::size()`
 will work when passed `scores`.
 
-There exist more differences, but in most cases you can treat them as similar. 
+There exist more differences, but in most cases you can treat them as similar.
+
+---
+
+## Pointer Arithmetic
+
+We will be discussing pointer arithmetic. This is just a name that encompasses a bunch of
+operations that we can do on pointers. We can use pointer arithmetic to navigate arrays.
+Get the "distance", which is what one gets if you take a pointer and subtract another pointer
+in an array. Giving us the number of elements between the two pointers. We can also compare
+pointers.
+
+### Navigation
+
+We can do pointer arithmetic by adding or subtracting from the pointer address.
+
+```c++
+int *p_score{scores};
+fmt::println("Values in scores array (p_score pointer increment): ");
+fmt::println("Address: {}, Value: {}", fmt::ptr(p_score), *p_score);
+
+++p_score; // Moves forward by sizeof(int): 4 bytes
+fmt::println("Address: {}, Value: {}", fmt::ptr(p_score), *p_score);
+
+++p_score; // Moves forward by sizeof(int): 4 bytes
+fmt::println("Address: {}, Value: {}",fmt::ptr(p_score), *p_score);
+
+++p_score; // Moves forward by sizeof(int): 4 bytes
+fmt::println("Address: {}, Value: {}", fmt::ptr(p_score), *p_score);
+
+++p_score; // Moves forward by sizeof(int): 4 bytes
+fmt::println("Address: {}, Value: {}", fmt::ptr(p_score), *p_score);
+
+++p_score; // Moves forward by sizeof(int): 4 bytes
+fmt::println("Address: {}, Value: {}", fmt::ptr(p_score), *p_score);
+```
+
+The example above showcases how we are able to navigate the array using addition
+on `p_score`. Each time we add, moving in memory by the size of the element that we are
+storing.
+
+Key to remember that we do not go beyond the valid range of addresses in the array.
+
+The example prints the following when run:
+
+```shell
+Address: 0xfa20f1f648, Value: 11
+Address: 0xfa20f1f64c, Value: 12
+Address: 0xfa20f1f650, Value: 13
+Address: 0xfa20f1f654, Value: 14
+Address: 0xfa20f1f658, Value: 15
+Address: 0xfa20f1f65c, Value: 16
+```
+
+Which showcases the behavior of incrementing the memory address by the size of the
+element being stored (4 bytes).
+
+It is also possible to add another number on the pointer and move by a bunch of bytes.
+
+#### Explicit Addition
+
+The way this works is simply adding an integer to the pointer.
+
+```c++
+p_score = scores; // Reset the pointer to the start of the array.
+fmt::println("scores[4]: {}", *(p_score + 4)); // Moves forward by 4 * sizeof(int) = 16 bytes
+```
+
+Recall that the pointer had been moved up after the previous element in the array.
