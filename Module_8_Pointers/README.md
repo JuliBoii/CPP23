@@ -979,25 +979,25 @@ p_scores[0]: 11
 What is going on:
 
 - When printing the addresses
-  - We are utilizing 3 differnt methods to access the address of the first element
-    - `scores` could be used by itself to access the address
-    - `p_scores` could also be used by itself
-      - Given that it has been initialized
-    - `&score[0]`
-      - We access the first element 
-      - Then, using the `&` operator, we print its address
-  - Each method results in the same address being printed
-  - Which showcases the relationship we previously mentioned
+    - We are utilizing 3 differnt methods to access the address of the first element
+        - `scores` could be used by itself to access the address
+        - `p_scores` could also be used by itself
+            - Given that it has been initialized
+        - `&score[0]`
+            - We access the first element
+            - Then, using the `&` operator, we print its address
+    - Each method results in the same address being printed
+    - Which showcases the relationship we previously mentioned
 - Afterward, we print the data stored at the address
-  - `*scores`
-    - We are dereferencing the "pointer" to access the data
-  - `*p_scores`
-    - In this case, we are also dereferencing the pointer
-  - `scores[0]`
-    - We are directly accesing the data using the `[]` notation
-  - `p_scores[0]`
-    - Similarly, we are going directly through the pointer
-      - Because, the pointer is pointing to the same location
+    - `*scores`
+        - We are dereferencing the "pointer" to access the data
+    - `*p_scores`
+        - In this case, we are also dereferencing the pointer
+    - `scores[0]`
+        - We are directly accesing the data using the `[]` notation
+    - `p_scores[0]`
+        - Similarly, we are going directly through the pointer
+            - Because, the pointer is pointing to the same location
 
 However, there is a clear distinction between a pointer
 and a variable name.
@@ -1020,3 +1020,24 @@ pointed to by `scores`, we will receive a compiler error.
 ```shell
 pointer3.ixx:31:16: error: array type 'int[10]' is not assignable
 ```
+
+There are other differences, for example:
+
+```c++
+std::println("size: {}", std::size(p_scores));
+```
+
+The `std::size()` facility does not work with raw pointers. Thus, if we tried to compile
+the example above, we would receive a compiler error. Resulting in the following to
+be printed:
+
+```shell
+: error C2672: 'std::size': no matching overloaded function found
+```
+
+This is happening because `p_scores` is a single memory address, being a pointer
+to a memory address. `p_scores` does not have the concept of a size. While, an array
+variable handles cases where requests of information can occur. That is why `std::size()`
+will work when passed `scores`.
+
+There exist more differences, but in most cases you can treat them as similar. 

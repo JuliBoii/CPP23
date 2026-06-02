@@ -19,4 +19,5 @@ export void pointers_example() {
     pointer2::const_pointer_to_modifiable_data();
 
     pointer3::pointer_and_array_relationship();
+    pointer3::swapping_addresses_example();
 }
