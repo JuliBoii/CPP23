@@ -1109,3 +1109,39 @@ fmt::println("scores[4]: {}", *(p_score + 4)); // Moves forward by 4 * sizeof(in
 ```
 
 Recall that the pointer had been moved up after the previous element in the array.
+So, we have to reset the position of the array: `p_score = scores`.
+In the following line, we are dereferencing the element at `p_score + 4`. This is
+equivalent to getting the element at index 4.
+
+We can also use loops to print out the elements using the pointer arithmetic.
+
+```c++
+p_score = scores;
+for (size_t i {0}; i < std::size(scores); ++i) {
+    fmt::println("Value: {}", *(p_score + i)); // scores[i]
+}
+```
+
+Again, we have to reset the position of the pointer `p_score` after we previously
+did some operations. From there, we are simply going through a `for` loop.
+The only difference being the method of accessing the elements. We use the pointer
+arithmetic to access each element.
+
+Also, we can use the same method on the original array.
+
+```c++
+for (size_t i{0}; i < std::size(scores); ++i) {
+    fmt::println("Value: {}", *(scores + i));
+}
+```
+
+Why does this work?
+
+If we tried to increment `scores` using the addition increment operator `++`,
+we would receive a compiler error.
+
+Why does `scores + i` not result in a compiler error. For the fact that we are
+only doing an operation on `scores`, but not trying to store that result. Which
+does occur when using the addition increment operator.
+
+Pointer arithmetic also works with decrementing (`--`) when using a pointer. 
