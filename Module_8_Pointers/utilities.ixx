@@ -26,4 +26,5 @@ export void pointers_example() {
 
     pointer4::pointer_arithmetic_navigation();
     pointer4::pointer_arithmetic_distance();
+    pointer4::pointer_arithmetic_comparisons();
 }

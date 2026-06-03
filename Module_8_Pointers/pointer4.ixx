@@ -11,7 +11,7 @@ namespace pointer4 {
     export void pointer_arithmetic_navigation() {
         int scores[10]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 
-        // scores++;
+        // scores++; // Compiler Error
 
         int *p_score{scores};
         fmt::println("Values in scores array (p_score pointer increment): ");
@@ -71,4 +71,26 @@ namespace pointer4 {
 
         fmt::println("sizeof(std::ptrdiff_t): {}\n", sizeof(std::ptrdiff_t));
         }
+
+    export void pointer_arithmetic_comparisons()
+    {
+        int scores[10] {11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+        int *pointer0{&scores[0]};
+        int *pointer1{&scores[7]};
+
+        fmt::println("pointer0: {}", *pointer0);
+        fmt::println("pointer0: {}", fmt::ptr(pointer0));
+        fmt::println("pointer1: {}",*pointer1);
+        fmt::println("pointer1: {}\n",fmt::ptr(pointer1));
+
+        // Can also do comparisons
+        // Further you go in the array, the bigger the address
+        fmt::println("Comparing pointers:");
+        fmt::println("pointer0 > pointer1: {}", pointer0 > pointer1);
+        fmt::println("pointer0 < pointer1: {}", pointer0 < pointer1);
+        fmt::println("pointer0 >= pointer1: {}", pointer0 >= pointer1);
+        fmt::println("pointer0 <= pointer1: {}", pointer0 <= pointer1);
+        fmt::println("pointer0 == pointer1: {}", pointer0 == pointer1);
+        fmt::println("pointer0 != pointer1: {}", pointer0 != pointer1);
+    }
 }

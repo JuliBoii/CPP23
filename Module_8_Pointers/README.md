@@ -3,28 +3,32 @@
 ---
 
 <!-- TOC -->
-
 * [Pointers, Dynamic Memory, & Arrays](#pointers-dynamic-memory--arrays)
-    * [Pointers](#pointers)
-        * [Declaring & Initializing](#declaring--initializing)
-    * [Memory Layout](#memory-layout)
-        * [Quick Warning](#quick-warning)
-        * [Declaring & Initializing (Cont.)](#declaring--initializing-cont)
-        * [Assignment & Access](#assignment--access)
-            * [Accessing Address stored in Pointer](#accessing-address-stored-in-pointer)
-            * [Accessing Value Stored in Address Being Pointed by a Pointer (Dereference)](#accessing-value-stored-in-address-being-pointed-by-a-pointer-dereference)
-            * [Accessing the Address of a Pointer (Reference)](#accessing-the-address-of-a-pointer-reference)
-        * [Pointer Re-assignment](#pointer-re-assignment)
-        * [`Char` Pointers](#char-pointers)
-    * [Working with Pointers & `const` keyword](#working-with-pointers--const-keyword)
-        * [Raw Variables That Can Be Modified](#raw-variables-that-can-be-modified)
-        * [Non-`const` Pointer to Non-`const` Data](#non-const-pointer-to-non-const-data)
-        * [Non-`const` Pointer to `const` Data](#non-const-pointer-to-const-data)
-        * [(Semi) `const` Pointer to Non-`const` Data](#semi-const-pointer-to-non-const-data)
-        * [`const` Pointer to `const` Data](#const-pointer-to-const-data)
-        * [`const` Pointer & Non-`const` Data](#const-pointer--non-const-data)
-    * [Relationship Between Pointers & Array's](#relationship-between-pointers--arrays)
-
+  * [Pointers](#pointers)
+    * [Declaring & Initializing](#declaring--initializing)
+  * [Memory Layout](#memory-layout)
+    * [Quick Warning](#quick-warning)
+    * [Declaring & Initializing (Cont.)](#declaring--initializing-cont)
+    * [Assignment & Access](#assignment--access)
+      * [Accessing Address stored in Pointer](#accessing-address-stored-in-pointer)
+      * [Accessing Value Stored in Address Being Pointed by a Pointer (Dereference)](#accessing-value-stored-in-address-being-pointed-by-a-pointer-dereference)
+      * [Accessing the Address of a Pointer (Reference)](#accessing-the-address-of-a-pointer-reference)
+    * [Pointer Re-assignment](#pointer-re-assignment)
+    * [`Char` Pointers](#char-pointers)
+  * [Working with Pointers & `const` keyword](#working-with-pointers--const-keyword)
+    * [Raw Variables That Can Be Modified](#raw-variables-that-can-be-modified)
+    * [Non-`const` Pointer to Non-`const` Data](#non-const-pointer-to-non-const-data)
+    * [Non-`const` Pointer to `const` Data](#non-const-pointer-to-const-data)
+    * [(Semi) `const` Pointer to Non-`const` Data](#semi-const-pointer-to-non-const-data)
+    * [`const` Pointer to `const` Data](#const-pointer-to-const-data)
+    * [`const` Pointer & Non-`const` Data](#const-pointer--non-const-data)
+  * [Relationship Between Pointers & Array's](#relationship-between-pointers--arrays)
+  * [Pointer Arithmetic](#pointer-arithmetic)
+    * [Navigation](#navigation)
+      * [Explicit Addition](#explicit-addition)
+    * [Distance](#distance)
+      * [`std::ptrdiff_t`](#stdptrdiff_t)
+    * [Comparisons](#comparisons)
 <!-- TOC -->
 
 ---
@@ -1205,3 +1209,40 @@ Except **we are storing** the result of subtraction between two pointers:
   - Storing the distance between `pointer1` and `pointer0`
 - `neg_diff` is of type `std::ptrdiff_t`
   - Storing the distance between `pointer0` and `pointer1`
+
+### Comparisons
+
+We can also do comparisons between pointers of the same array.
+
+```c++
+int scores[10] {11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+int *pointer0{&scores[0]};
+int *pointer1{&scores[7]};
+
+fmt::println("pointer0: {}", *pointer0);
+fmt::println("pointer1: {}\n",*pointer1);
+
+fmt::println("Comparing pointers:");
+fmt::println("pointer0 > pointer1: {}", pointer0 > pointer1);
+fmt::println("pointer0 < pointer1: {}", pointer0 < pointer1);
+fmt::println("pointer0 >= pointer1: {}", pointer0 >= pointer1);
+fmt::println("pointer0 <= pointer1: {}", pointer0 <= pointer1);
+fmt::println("pointer0 == pointer1: {}", pointer0 == pointer1);
+fmt::println("pointer0 != pointer1: {}", pointer0 != pointer1);
+```
+
+One thing to remember: We are doing a comparison between two pointers and their pointed
+to address, **not the values stored**. Comparison is primarly used to determine the positioning
+of elements within the same memory block (Like an array).
+
+So we need to remember 4 aspects:
+
+1. Same Array Guarantee
+    - These comparisons are only guaranteed to work safely if both pointers point to elements within the _same_ array or block of dynamically allocated memory
+2. Pointer Positioning
+    - If `pointer0` points to an array index prior to `pointer1`, then `pointer0 < pointer1` evaluates to true
+3. Equality
+    - Two pointers compare equal if they point to the exact same memory location or if both are `nullptr`'s
+4. Undefined Behavior
+   - Comparing pointers that point to entirely different arrays, objects, or disconnected memory segments yields **undefined behavior**.
+   - It may evaluate to seemingly correct results, but introduces critical portability and safety risks
