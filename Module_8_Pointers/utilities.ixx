@@ -25,4 +25,5 @@ export void pointers_example() {
     pointer3::swapping_addresses_example();*/
 
     pointer4::pointer_arithmetic_navigation();
+    pointer4::pointer_arithmetic_distance();
 }

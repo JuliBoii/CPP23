@@ -1145,3 +1145,63 @@ only doing an operation on `scores`, but not trying to store that result. Which
 does occur when using the addition increment operator.
 
 Pointer arithmetic also works with decrementing (`--`) when using a pointer. 
+
+### Distance
+
+We will be computing the distance using pointer arithmetic. **Only pointers to elements
+of the same array (including pointer one past the end of the array) may be subtracted
+from each other.**
+
+```c++
+int scores[10]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+
+int *pointer0{scores + 0};
+int *pointer1{scores + 8};
+
+fmt::println("pointer1 - pointer0: {}", pointer1 - pointer0);
+fmt::println("pointer0 - pointer1: {}\n", pointer0 - pointer1);
+```
+
+In the example we are:
+
+- Declaring and initializing an array.
+- Declaring & initializing two pointers
+  - `int* pointer0` is being initialized with 
+    - `{scores + 0}`
+    - Which is equivalent to the square bracket notation:
+      - `int* pointer0{&scores[0]);`
+      - Remember we have to pass the memory address not the value
+  - `int* pointer1` similarly is being initialized with
+    - `{scores + 8}`
+- We then do the pointer arithmetic to find the distance
+  - Between the two pointers in the same array
+- `pointer1 - pointer0` returns a value
+  - That represents the number of elements between `pointer1` and `pointer0`
+  - The value is not represented in number of bytes
+    - **It is the size of the elements that is contained in the array**
+- `pointer0 - pointer1` returns a value
+  - That represents the number of elements between `pointer0` and `pointer1`
+
+#### `std::ptrdiff_t`
+
+We can also use the type `std::ptrdiff_t`. Having a byte size of `8`
+
+This is a signed integer type of the result of subtracting two pointers. Type is
+defined in the `<cstddef>` header. 
+
+When working with C++ container libraries, `<vector>, <array>, <list>`, etc., the proper
+type for the difference between _iterators_ is the member typedef `difference_type`, which
+is often synonymous with `std::ptrdiff_t`.
+
+```c++
+std::ptrdiff_t pos_diff = pointer1 - pointer0;
+std::ptrdiff_t neg_diff = pointer0 - pointer1;
+```
+
+The example above is equivalent to our previous distance calculation.
+Except **we are storing** the result of subtraction between two pointers:
+
+- `pos_diff` is of type `std::ptrdiff_t`
+  - Storing the distance between `pointer1` and `pointer0`
+- `neg_diff` is of type `std::ptrdiff_t`
+  - Storing the distance between `pointer0` and `pointer1`

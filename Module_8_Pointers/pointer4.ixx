@@ -1,6 +1,7 @@
 module;
 
 #include <print>
+#include <cstddef>
 #include <fmt/format.h>
 
 export module pointer4;
@@ -45,6 +46,7 @@ namespace pointer4 {
         for (size_t i{0}; i < std::size(scores); ++i) {
             fmt::println("Value: {}", *(scores + i));
         }
+        fmt::println("");
     }
 
     export void pointer_arithmetic_distance() {
@@ -67,6 +69,6 @@ namespace pointer4 {
         fmt::println("pointer1 - pointer0: {}", pos_diff);
         fmt::println("pointer0 - pointer1: {}\n", neg_diff);
 
-        fmt::println("sizeof(std::ptrdiff_t): {}", sizeof(std::ptrdiff_t));
+        fmt::println("sizeof(std::ptrdiff_t): {}\n", sizeof(std::ptrdiff_t));
         }
 }
