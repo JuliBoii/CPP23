@@ -46,4 +46,27 @@ namespace pointer4 {
             fmt::println("Value: {}", *(scores + i));
         }
     }
+
+    export void pointer_arithmetic_distance() {
+        int scores[10]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+
+        /*
+         * Array index notation
+         * int *pointer1 {&scores[0]};
+         * int *pointer2 {&scores[1]};
+         */
+
+        int *pointer0{scores + 0};
+        int *pointer1{scores + 8};
+
+        fmt::println("pointer1 - pointer0: {}", pointer1 - pointer0);
+        fmt::println("pointer0 - pointer1: {}\n", pointer0 - pointer1);
+
+        std::ptrdiff_t pos_diff = pointer1 - pointer0;
+        std::ptrdiff_t neg_diff = pointer0 - pointer1;
+        fmt::println("pointer1 - pointer0: {}", pos_diff);
+        fmt::println("pointer0 - pointer1: {}\n", neg_diff);
+
+        fmt::println("sizeof(std::ptrdiff_t): {}", sizeof(std::ptrdiff_t));
+        }
 }
