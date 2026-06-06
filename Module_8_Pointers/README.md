@@ -30,6 +30,12 @@
         * [Distance](#distance)
             * [`std::ptrdiff_t`](#stdptrdiff_t)
         * [Comparisons](#comparisons)
+    * [Dynamic Memory Allocation](#dynamic-memory-allocation)
+        * [Uninitialized Pointers Are Bad](#uninitialized-pointers-are-bad)
+        * [Dynamic Memory](#dynamic-memory)
+        * [Other Methods of Initialization for Dynamic Memory](#other-methods-of-initialization-for-dynamic-memory)
+        * [Reusing Pointers](#reusing-pointers)
+        * [Properly Pair `new` and `delete`](#properly-pair-new-and-delete)
 
 <!-- TOC -->
 
