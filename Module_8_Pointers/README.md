@@ -3,32 +3,34 @@
 ---
 
 <!-- TOC -->
+
 * [Pointers, Dynamic Memory, & Arrays](#pointers-dynamic-memory--arrays)
-  * [Pointers](#pointers)
-    * [Declaring & Initializing](#declaring--initializing)
-  * [Memory Layout](#memory-layout)
-    * [Quick Warning](#quick-warning)
-    * [Declaring & Initializing (Cont.)](#declaring--initializing-cont)
-    * [Assignment & Access](#assignment--access)
-      * [Accessing Address stored in Pointer](#accessing-address-stored-in-pointer)
-      * [Accessing Value Stored in Address Being Pointed by a Pointer (Dereference)](#accessing-value-stored-in-address-being-pointed-by-a-pointer-dereference)
-      * [Accessing the Address of a Pointer (Reference)](#accessing-the-address-of-a-pointer-reference)
-    * [Pointer Re-assignment](#pointer-re-assignment)
-    * [`Char` Pointers](#char-pointers)
-  * [Working with Pointers & `const` keyword](#working-with-pointers--const-keyword)
-    * [Raw Variables That Can Be Modified](#raw-variables-that-can-be-modified)
-    * [Non-`const` Pointer to Non-`const` Data](#non-const-pointer-to-non-const-data)
-    * [Non-`const` Pointer to `const` Data](#non-const-pointer-to-const-data)
-    * [(Semi) `const` Pointer to Non-`const` Data](#semi-const-pointer-to-non-const-data)
-    * [`const` Pointer to `const` Data](#const-pointer-to-const-data)
-    * [`const` Pointer & Non-`const` Data](#const-pointer--non-const-data)
-  * [Relationship Between Pointers & Array's](#relationship-between-pointers--arrays)
-  * [Pointer Arithmetic](#pointer-arithmetic)
-    * [Navigation](#navigation)
-      * [Explicit Addition](#explicit-addition)
-    * [Distance](#distance)
-      * [`std::ptrdiff_t`](#stdptrdiff_t)
-    * [Comparisons](#comparisons)
+    * [Pointers](#pointers)
+        * [Declaring & Initializing](#declaring--initializing)
+    * [Memory Layout](#memory-layout)
+        * [Quick Warning](#quick-warning)
+        * [Declaring & Initializing (Cont.)](#declaring--initializing-cont)
+        * [Assignment & Access](#assignment--access)
+            * [Accessing Address stored in Pointer](#accessing-address-stored-in-pointer)
+            * [Accessing Value Stored in Address Being Pointed by a Pointer (Dereference)](#accessing-value-stored-in-address-being-pointed-by-a-pointer-dereference)
+            * [Accessing the Address of a Pointer (Reference)](#accessing-the-address-of-a-pointer-reference)
+        * [Pointer Re-assignment](#pointer-re-assignment)
+        * [`Char` Pointers](#char-pointers)
+    * [Working with Pointers & `const` keyword](#working-with-pointers--const-keyword)
+        * [Raw Variables That Can Be Modified](#raw-variables-that-can-be-modified)
+        * [Non-`const` Pointer to Non-`const` Data](#non-const-pointer-to-non-const-data)
+        * [Non-`const` Pointer to `const` Data](#non-const-pointer-to-const-data)
+        * [(Semi) `const` Pointer to Non-`const` Data](#semi-const-pointer-to-non-const-data)
+        * [`const` Pointer to `const` Data](#const-pointer-to-const-data)
+        * [`const` Pointer & Non-`const` Data](#const-pointer--non-const-data)
+    * [Relationship Between Pointers & Array's](#relationship-between-pointers--arrays)
+    * [Pointer Arithmetic](#pointer-arithmetic)
+        * [Navigation](#navigation)
+            * [Explicit Addition](#explicit-addition)
+        * [Distance](#distance)
+            * [`std::ptrdiff_t`](#stdptrdiff_t)
+        * [Comparisons](#comparisons)
+
 <!-- TOC -->
 
 ---
@@ -215,7 +217,7 @@ std::println("sizeof(p_fractional_number): {}", sizeof(p_fractional_number));
 
 This prints the following:
 
-```shell
+```terminaloutput
 sizeof(int): 4
 sizeof(double): 8
 sizeof(int*): 8
@@ -274,7 +276,7 @@ In this example we are showing how to access the address stored in the pointer.
 
 Running this prints out:
 
-```shell
+```terminaloutput
 Address of integer_var: 0xb1656ff7b4
 Address stored in p_int: 0xb1656ff7b4
 ```
@@ -302,7 +304,7 @@ at the address of the data variable.
 
 Running this prints:
 
-```shell
+```terminaloutput
 Value of integer_var: 34
 Value of Stored Address in p_int: 34
 ```
@@ -327,7 +329,7 @@ address variables have addresses too.
 
 Running this prints:
 
-```shell
+```terminaloutput
 Address of p_int: 0xb1656ff7d8
 ```
 
@@ -357,7 +359,7 @@ In the example we are:
 
 This results in the following:
 
-```shell
+```terminaloutput
 Address of p_int: 0x31af7df784
 New Address of p_int: 0x31af7df7c4
 ```
@@ -421,7 +423,7 @@ std::println("Message: {}", message);
 
 Resulting in the following output:
 
-```shell
+```terminaloutput
 Message: Bello World
 ```
 
@@ -473,7 +475,7 @@ In the example above we are doing the following:
 
 Resulting in the following:
 
-```shell
+```terminaloutput
 Number: 5
 Number Address: 0x7ff7bd055c5c
 
@@ -521,7 +523,7 @@ From here we print the following:
 
 Resulting in the following:
 
-```shell
+```terminaloutput
 ptr_number1 Address: 0x4ddbf9f6e4
 ptr_number1 Value Pointed To: 23
 number1 Value Stored: 23
@@ -544,7 +546,7 @@ std::println("number1 Address: {}", static_cast<void *>(&number1));
 
 Resulting in the output:
 
-```shell
+```terminaloutput
 Reassigning the value stored through a the pointer:
 ptr_number1 Address: 0x4ddbf9f6e4
 ptr_number1 Value Pointed To: 432
@@ -578,7 +580,7 @@ std::println("number2 Address: {}", static_cast<void *>(&number2));
 
 Resulting in:
 
-```shell
+```terminaloutput
 ptr_number1 Address: 0x4ddbf9f704
 ptr_number1 Value Pointed To: 41
 number1 Value Stored: 432
@@ -638,7 +640,7 @@ In the example above, we are declaring and initializing two elements:
 
 From there we are assigning the address of the variable to the pointer.
 
-```shell
+```terminaloutput
 ptr_number1 Address: 0x7ff7bb839f3c
 ptr_number1 Value Pointed To: 23
 number1 Value Stored: 23
@@ -659,7 +661,7 @@ Before we continue, I need to let the reader know that this case
 is not possible. If attempted, the compiler will not build the
 project. Giving the following output:
 
-```shell
+```terminaloutput
 pointer2.ixx(60): error C2440: '=': cannot convert from 'const int *' to 'int *'
 pointer2.ixx(60): note: Conversion loses qualifiers
 ```
@@ -692,7 +694,7 @@ std::println("number1 Address: {}", static_cast<void *>(&number1));
 
 Resulting in:
 
-```shell
+```terminaloutput
 p_number1 Value Pointed To: 4214
 p_number1 Address Stored: 0x306e6ff9d4
 number1 Value Stored: 4214
@@ -709,7 +711,7 @@ Let us try modifying the value of `number1` through the pointer:
 
 When compiled, the compiler fails. Returning the following in the terminal:
 
-```shell
+```terminaloutput
 pointer2.ixx(77): error C3892: 'p_number1': you cannot assign to a variable that is const
 ```
 
@@ -719,7 +721,7 @@ pointer.
 
 Let us look at what is being stated by the compiler first.
 
-```shell
+```terminaloutput
 you cannot assign to a variable that is const
 ```
 
@@ -758,7 +760,7 @@ p_number1 = &number2;
 
 Once agin, the compiler was able to build successfully.
 
-```shell
+```terminaloutput
 p_number1 Value Pointed To: 54
 p_number1 Address Stored: 0x306e6ff9f4
 number1 Value Stored: 14
@@ -821,7 +823,7 @@ The second `const` is going to mean that the pointer itself is also
 
 Printing the usual data:
 
-```shell
+```terminaloutput
 p_number1 Value Pointed To: 459
 p_number1 Address Stored: 0x717cff814
 number1 Value Stored: 459
@@ -849,7 +851,7 @@ p_number1 = &number2;
 
 Resulting in the respective compiler errors:
 
-```shell
+```terminaloutput
 error C3892: 'number1': you cannot assign to a variable that is const
 
 ...
@@ -882,7 +884,7 @@ What is going on:
             - With a new address
         - But we are able to change the data at the address it points to
 
-```shell
+```terminaloutput
 p_number1 Value Pointed To: 3145
 p_number1 Address Stored: 0x51feaff844
 number1 Value Stored: 3145
@@ -898,7 +900,7 @@ Let us attempt to modify the data which is being pointed to by `p_number1`.
 This properly compiles and executes. So let's print the information
 again to reconfirm.
 
-```shell
+```terminaloutput
 p_number1 Value Pointed To: 79864
 p_number1 Address Stored: 0x51feaff844
 number1 Value Stored: 79864
@@ -916,7 +918,7 @@ p_number1 = &number2;
 
 Results in:
 
-```shell
+```terminaloutput
 error C3892: 'p_number1': you cannot assign to a variable that is const
 ```
 
@@ -967,7 +969,7 @@ std::println("p_scores[0]: {}\n", p_scores[0]);
 
 Which results in:
 
-```shell
+```terminaloutput
 Printing the addresses:
 scores: 0x7ff7b9863200
 p_scores: 0x7ff7b9863200
@@ -1021,7 +1023,7 @@ Using the existing `p_scores` pointer, we reassign `p_scores` to point to the
 memory location of `number1`. Likewise, if we attempt to change the memory location
 pointed to by `scores`, we will receive a compiler error.
 
-```shell
+```terminaloutput
 pointer3.ixx:31:16: error: array type 'int[10]' is not assignable
 ```
 
@@ -1035,7 +1037,7 @@ The `std::size()` facility does not work with raw pointers. Thus, if we tried to
 the example above, we would receive a compiler error. Resulting in the following to
 be printed:
 
-```shell
+```terminaloutput
 : error C2672: 'std::size': no matching overloaded function found
 ```
 
@@ -1089,7 +1091,7 @@ Key to remember that we do not go beyond the valid range of addresses in the arr
 
 The example prints the following when run:
 
-```shell
+```terminaloutput
 Address: 0xfa20f1f648, Value: 11
 Address: 0xfa20f1f64c, Value: 12
 Address: 0xfa20f1f650, Value: 13
@@ -1148,7 +1150,7 @@ Why does `scores + i` not result in a compiler error. For the fact that we are
 only doing an operation on `scores`, but not trying to store that result. Which
 does occur when using the addition increment operator.
 
-Pointer arithmetic also works with decrementing (`--`) when using a pointer. 
+Pointer arithmetic also works with decrementing (`--`) when using a pointer.
 
 ### Distance
 
@@ -1170,28 +1172,28 @@ In the example we are:
 
 - Declaring and initializing an array.
 - Declaring & initializing two pointers
-  - `int* pointer0` is being initialized with 
-    - `{scores + 0}`
-    - Which is equivalent to the square bracket notation:
-      - `int* pointer0{&scores[0]);`
-      - Remember we have to pass the memory address not the value
-  - `int* pointer1` similarly is being initialized with
-    - `{scores + 8}`
+    - `int* pointer0` is being initialized with
+        - `{scores + 0}`
+        - Which is equivalent to the square bracket notation:
+            - `int* pointer0{&scores[0]);`
+            - Remember we have to pass the memory address not the value
+    - `int* pointer1` similarly is being initialized with
+        - `{scores + 8}`
 - We then do the pointer arithmetic to find the distance
-  - Between the two pointers in the same array
+    - Between the two pointers in the same array
 - `pointer1 - pointer0` returns a value
-  - That represents the number of elements between `pointer1` and `pointer0`
-  - The value is not represented in number of bytes
-    - **It is the size of the elements that is contained in the array**
+    - That represents the number of elements between `pointer1` and `pointer0`
+    - The value is not represented in number of bytes
+        - **It is the size of the elements that is contained in the array**
 - `pointer0 - pointer1` returns a value
-  - That represents the number of elements between `pointer0` and `pointer1`
+    - That represents the number of elements between `pointer0` and `pointer1`
 
 #### `std::ptrdiff_t`
 
 We can also use the type `std::ptrdiff_t`. Having a byte size of `8`
 
 This is a signed integer type of the result of subtracting two pointers. Type is
-defined in the `<cstddef>` header. 
+defined in the `<cstddef>` header.
 
 When working with C++ container libraries, `<vector>, <array>, <list>`, etc., the proper
 type for the difference between _iterators_ is the member typedef `difference_type`, which
@@ -1206,9 +1208,9 @@ The example above is equivalent to our previous distance calculation.
 Except **we are storing** the result of subtraction between two pointers:
 
 - `pos_diff` is of type `std::ptrdiff_t`
-  - Storing the distance between `pointer1` and `pointer0`
+    - Storing the distance between `pointer1` and `pointer0`
 - `neg_diff` is of type `std::ptrdiff_t`
-  - Storing the distance between `pointer0` and `pointer1`
+    - Storing the distance between `pointer0` and `pointer1`
 
 ### Comparisons
 
@@ -1238,11 +1240,248 @@ of elements within the same memory block (Like an array).
 So we need to remember 4 aspects:
 
 1. Same Array Guarantee
-    - These comparisons are only guaranteed to work safely if both pointers point to elements within the _same_ array or block of dynamically allocated memory
+    - These comparisons are only guaranteed to work safely if both pointers point to elements within the _same_ array or
+      block of dynamically allocated memory
 2. Pointer Positioning
     - If `pointer0` points to an array index prior to `pointer1`, then `pointer0 < pointer1` evaluates to true
 3. Equality
     - Two pointers compare equal if they point to the exact same memory location or if both are `nullptr`'s
 4. Undefined Behavior
-   - Comparing pointers that point to entirely different arrays, objects, or disconnected memory segments yields **undefined behavior**.
-   - It may evaluate to seemingly correct results, but introduces critical portability and safety risks
+    - Comparing pointers that point to entirely different arrays, objects, or disconnected memory segments yields *
+      *undefined behavior**.
+    - It may evaluate to seemingly correct results, but introduces critical portability and safety risks
+
+---
+
+## Dynamic Memory Allocation
+
+In this section, we will be exploring dynamic memory allocation.
+
+> **Important** _You should rarely have to manually allocate memory, like we will be doing in this section.
+> Modern C++ highly discourages such practice. One should mostly rely on RAII (Resource Acquisition Is Initialization)
+> in modern C++ projects._
+
+So far, we have learned about the heap and stack. To recap, the stack is where local variables will be stored.
+Another use is to organize how function calls are carried out. The stack is limited in memory. So one can overuse
+the stack and run out of memory. Which causes a program to run into problems.
+
+To avoid this, a good solution/alternative is to use the heap. The heap is going to force one to dynamically ask for
+memory. But the responsibility falls on the developer to manage the memory and return it back to the operating
+system, once done using it.
+
+This is one of the reasons people fear/avoid pointers and dynamic memory, which is justified by the huge responsibility
+one has.
+
+Before we dive into dynamic memory allocation, let us look at things that could go bad.
+
+### Uninitialized Pointers Are Bad
+
+One thing to avoid is declaring a pointer and not initializing it. This will cause problems, because
+when you declare the pointer will be containing a junk address. Meaning, that the pointer is
+essentially pointing to nothing. Especially bad if utilized unknowningly. If dereferenced it could cause
+undefined behavior.
+
+The example below demonstrates this case:
+
+```c++
+int *p_number2;
+fmt::println("Assigning value 55 to pointer");
+*p_number2 = 55;
+fmt::println("p_number2: {}", fmt::ptr(p_number2));
+fmt::println("Dereferencing bad memory");
+fmt::println("*p_number2: {}", *p_number2);
+```
+
+This compiles, but when ran:
+
+```terminaloutput
+Assigning value 55 to pointer
+
+Process finished with exit code -2147483645
+```
+
+The program crashed.
+
+Thus, it is best practice to initialize our pointer when declared. Does not necessarily need to contain an address,
+could also be initialized with `nullptr`. Or use braced initialization, since it initialized our pointer with
+`nullptr` if left empty.
+
+Something that needs to be stated prior to moving on. Just because we are initializing the pointer with `nullptr`,
+does not mean we can dereference the pointer and reassign a literal.
+
+Showcased in the example below:
+
+```c++
+int *p_number1{};
+fmt::println("Assigning value to nullptr address");
+*p_number1 = 5;
+fmt::println("p_number1: {}", fmt::ptr(p_number1));
+fmt::println("*p_number1: {}", *p_number1);
+```
+
+The example above does compile, but when ran the program crashes.
+Returning the following:
+
+```terminaloutput
+Assigning value to nullptr address
+
+Process finished with exit code -1073741819 (0xC0000005)
+```
+
+Something to remember.
+
+### Dynamic Memory
+
+Now let us dive into dynamic memory. As previously stated, if we want to use the heap,
+we have to explicitly ask for the memory.
+
+To do this we use the keyword `new`.
+
+Let us look at an example:
+
+```c++
+int *p_number{nullptr};
+
+p_number = new int;
+
+*p_number = 7741;
+fmt::println("Dynamically allocating memory:");
+fmt::println("*p_number: {}", *p_number);
+
+delete p_number;
+p_number = nullptr;
+```
+
+Let us breakdown the example:
+
+- We first declare & init a pointer: `p_numebr`
+- We then ask for a piece of memory from the heap
+    - Using the syntax: `p_number = new int`
+    - Thus, the pointer will be pointing to a memory address
+        - That will be designated to hold the data type we desire
+        - Which is why we added `int` after `new`
+    - In summary, the pointer is a "door" to using the memory we receive from the heap
+- Now, using the address we received, we can store a literal
+    - Which we do by dereferencing the pointer and assigning the value
+    - Just like previously done
+- We print the value stored by the pointer to confirm
+- The next line is **very important**
+    - Recall that we briefly stated that when we dynamically allocate memory
+    - We need to return the memory back to the OS (Operating System).
+        - We accomplish this by using the keyword: `delete`
+        - Followed by the pointer that holds the allocated memory we desire to return
+- We lastly, reset the pointer to `nullptr` to indicate that we are not using the pointer anymore
+
+### Other Methods of Initialization for Dynamic Memory
+
+```c++
+int *ptr_number1 {new int};
+int *ptr_number2 {new int(22)};
+int *ptr_number3 {new int {23}};
+
+fmt::println("ptr_number1: {}", fmt::ptr(ptr_number1));
+fmt::println("*ptr_number1: {}\n", *ptr_number1);
+
+fmt::println("ptr_number2: {}", fmt::ptr(ptr_number2));
+fmt::println("*ptr_number2: {}\n", *ptr_number2);
+
+fmt::println("ptr_number3: {}", fmt::ptr(ptr_number3));
+fmt::println("*ptr_number3: {}\n", *ptr_number3);
+
+delete ptr_number1;
+ptr_number1 = nullptr;
+
+delete ptr_number2;
+ptr_number2 = nullptr;
+
+delete ptr_number3;
+ptr_number3 = nullptr;
+```
+
+- The first method simply combines our previous implementation into one line
+    - We insert `new int` inside our curly braced initialization
+    - Rather than initializing the pointer with `nullptr`
+    - _Just remember that the pointer will be pointing to a memory location with junk data_
+- The second method uses direct initialization
+- With the third method utilizing uniform initialization
+    - The main difference between the two is:
+        - The syntax
+        - How type safety is handled
+        - Constructor matching
+    - Direct initialization uses parentheses `()`
+        - To explicitly call a matching constructor.
+    - Uniform initialization uses curly braces `{}`
+        - To provide a single, consistent syntax
+- We then just print the memory addresses along with each respective data stored
+- Lastly, we release the data back to the OS.
+
+Running the program returns the following in the terminal
+
+```terminaloutput
+ptr_number1: 0x18e4e0689a0
+*ptr_number1: -842150451
+
+ptr_number2: 0x18e4e068320
+*ptr_number2: 22
+
+ptr_number3: 0x18e4e068b20
+*ptr_number3: 23
+```
+
+### Reusing Pointers
+
+A quick note that we can continuously use a pointer that was released.
+As long as we remember to release the memory back to the OS.
+
+```c++
+ptr_number1 = new int{41};
+
+fmt::println("ptr_number1: {}", fmt::ptr(ptr_number1));
+fmt::println("*ptr_number1: {}\n", *ptr_number1);
+
+delete ptr_number1;
+ptr_number1 = nullptr;
+```
+
+```terminaloutput
+ptr_number1: 0x18e4e068b20
+*ptr_number1: 41
+```
+
+### Properly Pair `new` and `delete`
+
+One major thing to remeber is to match up the `new` operator
+with a `delete` operator. That means, we need to remeber to have a `delete`
+for every `new` stated, but also not having too many `delete` operators for one individual
+`new`.
+
+```c++
+ptr_number = new int {42134};
+
+fmt::println("ptr_number1: {}", fmt::ptr(ptr_number1));
+fmt::println("*ptr_number1: {}\n", *ptr_number1);
+
+delete ptr_number1;
+delete ptr_number1;
+ptr_number1 = nullptr;
+```
+
+When we call too many `delete` operators, we are introducing a disastrous behavior that
+will lead to undefined behavior. Typically resulting in our program crashing or memory corruption.
+This happens because we are attempting to free memory that the uninitialized pointer does not own.
+Corrupting the heap.
+
+Running the example above results in the following terminal output:
+
+```terminaloutput
+ptr_number1: 0x1ba08c98860
+*ptr_number1: 42134
+
+
+Process finished with exit code -2147483645
+```
+
+Which was printed after the program crashed. This is why Modern C++ does not recommend
+working with raw pointers and manual memory management.
+
+---

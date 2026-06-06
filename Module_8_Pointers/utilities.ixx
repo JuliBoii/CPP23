@@ -6,6 +6,7 @@ import pointer1;
 import pointer2;
 import pointer3;
 import pointer4;
+import dynamic_memory_allocation;
 
 export void pointers_example() {
     /*pointer1::declaration_and_initialization();
@@ -24,7 +25,10 @@ export void pointers_example() {
     /*pointer3::pointer_and_array_relationship();
     pointer3::swapping_addresses_example();*/
 
-    pointer4::pointer_arithmetic_navigation();
+    /*pointer4::pointer_arithmetic_navigation();
     pointer4::pointer_arithmetic_distance();
-    pointer4::pointer_arithmetic_comparisons();
+    pointer4::pointer_arithmetic_comparisons();*/
+
+    dynamic_memory_allocation::pointers_gone_bad();
+    dynamic_memory_allocation::dynamic_heap_memory();
 }
