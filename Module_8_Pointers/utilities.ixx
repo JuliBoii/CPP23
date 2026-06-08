@@ -31,4 +31,5 @@ export void pointers_example() {
 
     dynamic_memory_allocation::pointers_gone_bad();
     dynamic_memory_allocation::dynamic_heap_memory();
+    dynamic_memory_allocation::dynamic_memory_dangling_pointers();
 }

@@ -36,6 +36,14 @@
         * [Other Methods of Initialization for Dynamic Memory](#other-methods-of-initialization-for-dynamic-memory)
         * [Reusing Pointers](#reusing-pointers)
         * [Properly Pair `new` and `delete`](#properly-pair-new-and-delete)
+    * [Dangling Pointers](#dangling-pointers)
+        * [Case 1: Dangling Uninitialized Pointer](#case-1-dangling-uninitialized-pointer)
+            * [Solution for Uninitialized Pointer](#solution-for-uninitialized-pointer)
+        * [Case 2: Using a Deleted Pointer](#case-2-using-a-deleted-pointer)
+            * [Solution for Using a Deleted Pointer](#solution-for-using-a-deleted-pointer)
+        * [Case 3: Multiple Pointers Pointing to the Same Address](#case-3-multiple-pointers-pointing-to-the-same-address)
+            * [Solution for Multiple Pointers Pointing to the Same Address](#solution-for-multiple-pointers-pointing-to-the-same-address)
+    * [When `new` fails](#when-new-fails)
 
 <!-- TOC -->
 
@@ -1491,3 +1499,131 @@ Which was printed after the program crashed. This is why Modern C++ does not rec
 working with raw pointers and manual memory management.
 
 ---
+
+## Dangling Pointers
+
+Let us discuss various ways one could mishandle a pointer using dynamic memory allocation. We will title this
+section dangling pointers. With dangling pointers being a pointer that is really not pointing to anything valid.
+Summarized, we will focus on three cases: Uninitialized pointers, Deleted Pointers, & Multiple pointers pointing
+to one address.
+
+Afterward, we will look at solutions to prevent these potential (dangerous) bugs from occurring.
+
+### Case 1: Dangling Uninitialized Pointer
+
+This case covers the situation where we obtain dynamic memory, but do not initialize any data at the memory location.
+Doing so, results in the memory address storing garbage. So, if we tried to dereference the pointer, undefined
+behavior would occur. Causing subtle, hard-to-find logic bugs and security vulnerabilities.
+
+#### Solution for Uninitialized Pointer
+
+We could do two things. The first is avoiding the use of raw pointers. Instead, using smart pointers (have not been
+covered) rather than raw pointers. Smart pointers handle memory allocation automatically to prevent such situations.
+
+The other option is to initialize our pointer with `nullptr`. In the situation where we want to declare our pointer,
+but are not ready to initialize it with certain data. Initializing the pointer with `nullptr` explicitly tells the
+compiler/program that the pointer is empty. Thus, we can more explicitly check the status of our pointer.
+
+There is another reason, but that will be explored more in the next solution section.
+
+### Case 2: Using a Deleted Pointer
+
+As previously seen, after using a pointer that was had dynamically allocated memory, we needed to release the memory
+the OS allocated. So, we properly released the memory. Later on, we tried to reuse the pointer, forgetting we released
+the memory. This action triggers undefined behavior.
+
+When we use the `delete` operator on a pointer, we are telling the OS that we will no longer use the allocated memory
+address, but the pointer continues to point to the now-invalid memory address.
+
+That is why we need to avoid using previously deleted pointers. Also, depending on the compiler or even configurations
+set for the compiler, could sometimes result in the program compiling. An even worse situation. When the compiler
+fails, we know something went wrong. However, in cases where the program successfully compiles, we are ignorant to the
+undefined behavior of the dangling pointer.
+
+#### Solution for Using a Deleted Pointer
+
+Again the best solution is to simply use smart pointers that handle the memory for you. But another solution would be
+simply reassigning the pointer after using the `delete` operator.
+
+When we reassign the pointer, we set it to `nullptr`. And, as previously stated, we can check the pointer to see if
+there exists a valid memory address/data.
+
+### Case 3: Multiple Pointers Pointing to the Same Address
+
+This case covers a situation where we have more than one pointer, pointing to the same memory address. This would be
+best showcased in an example, so let us look at one:
+
+```c++
+int *p_number{new int{41}};
+int *p_number1{p_number};
+int *p_number2{p_number};
+int *p_number3{p_number};
+
+fmt::println("p_number: {} contains {}", fmt::ptr(p_number), *p_number);
+fmt::println("p_number1: {} contains {}", fmt::ptr(p_number1), *p_number1);
+fmt::println("p_number2: {} contains {}", fmt::ptr(p_number2), *p_number2);
+fmt::println("p_number3: {} contains {}", fmt::ptr(p_number3), *p_number3);
+
+fmt::println("Release the memory address for p_number3:\n");
+delete p_number3;
+
+fmt::println("p_number1: {} contains {}", fmt::ptr(p_number1), *p_number1);
+fmt::println("p_number2: {} contains {}", fmt::ptr(p_number2), *p_number2);
+fmt::println("p_number3: {} contains {}", fmt::ptr(p_number3), *p_number3);
+```
+
+In the example above:
+
+- We declare & initialize 4 pointers
+    - 1: `p_number` is initialized with dynamically allocated memory
+    - 2-4: are pointing to the allocated memory of `p_number`
+- We then print the respective address & value being pointed to
+- Use the `delete` operator to release the memory address for `p_number`
+- Then we print the respective address & value being pointed to
+
+Which results in the following:
+
+```terminaloutput
+p_number: 0x16fb0158820 contains 41
+p_number1: 0x16fb0158820 contains 41
+p_number2: 0x16fb0158820 contains 41
+p_number3: 0x16fb0158820 contains 41
+
+Release the memory address for p_number3:
+
+p_number1: 0x16fb0158820 contains -572662307
+p_number2: 0x16fb0158820 contains -572662307
+
+Process finished with exit code -1073741819 (0xC0000005)
+```
+
+This showcases the biggest problem with multiple pointers pointing to the same memory address.
+
+When we release the allocated memory for one pointer, all other pointers with the same address become
+dangling pointers. This is especially dangerous if we try to use them. Even if we reassign `p_number`,
+that does not apply to the remaining pointers. They still point to the now-invalid memory address. So when
+we use them, we see their undefined behavior.
+
+Or we could accidentally use one of the other pointers to manipulate the data or release the allocated memory.
+Rendering all other pointers useless.
+
+#### Solution for Multiple Pointers Pointing to the Same Address
+
+The best solution for this case is, once again, to use smart pointers.
+
+The other solution is to have one pointer be the sole owner of the memory. Make all other pointers be
+observing entities, thus "borrow" the address by using non-owning pointers or references.
+
+The rule-of-thumb is: The observing raw pointers must strictly have a shorter lifetime that the owner.
+They must never call `delete` on the shared memory address.
+
+So we make the other pointers "read-only". So we declare them as follows:
+
+```c++
+int* p_number {new int{5412}};
+const int* p_number1{p_number};
+```
+
+---
+
+## When `new` fails
