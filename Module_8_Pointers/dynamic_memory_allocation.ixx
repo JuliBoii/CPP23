@@ -170,4 +170,15 @@ namespace dynamic_memory_allocation {
             fmt::println("WARNING : Trying to use an invalid pointer\n");
         }
     }
+
+    export void new_fail_examples()
+    {
+        int* data = new int[100000000000000];
+
+        // for (size_t i{0}; i < 100000000000000; ++i)
+        // {
+        //     std::println("Iteration: {}", i);
+        //     int* data = new int[100000000000000];
+        // }
+    }
 }

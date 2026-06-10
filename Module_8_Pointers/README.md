@@ -1626,4 +1626,26 @@ const int* p_number1{p_number};
 
 ---
 
-## When `new` fails
+## When `new` fails´
+
+Let us explore a situation where `new` could fail.
+
+Why would that happen?
+
+Memory is not unlimited, whether we are talking about the stack or heap.
+In this case, we are focusing on the heap, with dynamically allocated memory existing here.
+Even though the heap has more memory available than the stack, the quantity is still limited.
+
+Thus, if we ask for more memory than a system has, `new` will fail. Which will crash the program.
+
+Let us look at an example that could possibly break.
+
+```c++
+int* data == new int[100000000000000];
+
+for (size_t i{0}; i < 100000000000000; ++i)
+{
+    std::println("Iteration: {}", i);
+    int* data = new int[100000000000000];
+}
+```
