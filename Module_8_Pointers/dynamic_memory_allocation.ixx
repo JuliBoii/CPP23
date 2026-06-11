@@ -222,4 +222,33 @@ namespace dynamic_memory_allocation {
             fmt::println("Contains nullptr.\n");
         }
     }
+
+    export void memory_leaks_examples() {
+        fmt::println("Memory leaks:");
+        fmt::println("Not releasing the allocated memory.");
+        int *p_number{new int{56}};
+
+        // Should delete & reset (Assign nullptr) here
+
+        int number{55}; // stack variable
+
+        p_number = &number;
+
+        fmt::println("\nDouble Memory Allocation:");
+        int *p_number1{new int{412}};
+
+        // Use the pointer
+
+        // Should delete & reset here
+
+        p_number1 = new int{524}; // Previous memory leaked
+
+        delete p_number1;
+        p_number1 = nullptr;
+
+        {
+            fmt::println("\nNested Scope with Dynamically Allocated Memory:");
+            int *p_number2{new int{42}};
+        }
+    }
 }

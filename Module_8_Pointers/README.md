@@ -43,7 +43,15 @@
             * [Solution for Using a Deleted Pointer](#solution-for-using-a-deleted-pointer)
         * [Case 3: Multiple Pointers Pointing to the Same Address](#case-3-multiple-pointers-pointing-to-the-same-address)
             * [Solution for Multiple Pointers Pointing to the Same Address](#solution-for-multiple-pointers-pointing-to-the-same-address)
-    * [When `new` fails](#when-new-fails)
+    * [When `new` fails´](#when-new-fails)
+        * [Use `exception`](#use-exception)
+        * [Use `std::nothrow`](#use-stdnothrow)
+    * [Tips for Pointers](#tips-for-pointers)
+        * [`NULL` Pointer Safety](#null-pointer-safety)
+        * [Memory Leaks](#memory-leaks)
+            * [One Does Not Release Allocated Memory](#one-does-not-release-allocated-memory)
+            * [Double Memory Allocation](#double-memory-allocation)
+            * [Nested Scope with Dynamically Allocated Memory](#nested-scope-with-dynamically-allocated-memory)
 
 <!-- TOC -->
 
@@ -1768,3 +1776,103 @@ if (p_number1 != nullptr)
 Which is just unnecessary and verbose. Since using the `delete` operator on a `nullptr` would not cause any
 problems. The compiler will simply ignore the call. But, needs to be stated, this works if the pointer
 being used is initialized
+
+### Memory Leaks
+
+A leak in regard to memory, is memory that one does not have access to. Yet, the Operating System has
+already allocated the memory location for the program.
+
+#### One Does Not Release Allocated Memory
+
+Let us look at an example:
+
+```c++
+// Non deleted memory
+int* p_number{new int{56}};
+
+// Should delete & reset (Assign nullptr) here
+
+int number{55}; // stack variable
+
+p_number = &number;
+```
+
+Suppose we:
+
+- Declared & initialized some dynamically allocated memory: `p_number`
+- We do whatever operations on the pointer
+- Then, ideally, we `delete` and reassign `p_number`
+    - So indicate we will no longer need the allocated memory
+- But we forget to deallocated the memory
+- We reassign `p_number` with a new address
+    - In this case, an int variable `number`
+- What is the problem?
+    - When we reassigned `p_number` we lost access to heap memory that we allocated
+    - Without releasing this memory
+        - So the OS believes the allocated memory is ours
+        - But we do not have access to the memory anymore
+        - Thus, unable to release the memory back to the OS, even if we wanted to
+- If one does this repeatedly
+    - The program will consume lots of heap memory
+    - Eventually, the OS is going to reach a limit
+    - Killing the program as a result
+- This is something we really want to avoid
+
+So we need to remember that: _**Do not assign a pointer to a new location, if you have not released the memory yet.**_
+
+There is another case in which memory leaks could occur.
+
+#### Double Memory Allocation
+
+The other situation in where memory leaks occur, is when we double allocate memory for a single pointer.
+
+```c++
+// Double allocation
+int* p_number1{new int{412}};
+
+// Use the pointer
+
+// Should delete & reset here
+
+p_number1 = new int{524}; // Previous memory leaked
+
+delete p_number1;
+p_number1 = nullptr;
+```
+
+- We are declaring & intializing a pointer with dynamically allocated memory: `p_number1`
+- Do operations on the pointer
+- Forget to `delete` the current memory allocated to the program
+- Proceed to allocate new memory to the pointer
+    - Thus break the connection between the program and the allocated memory
+    - With the same problems arising as the previous situation
+- If we repeatedly do this, the program will eventually be killed by the OS.
+
+#### Nested Scope with Dynamically Allocated Memory
+
+```c++
+{
+    int *p_number2{new int{42}};
+    
+    // Use pointer
+    
+    // Should delete & reset here
+}
+```
+
+There are situations where one may use dynamically allocated memory in a `for` loop, `while` loop, a function
+or other code block that has its own local scope. In these situations, we would allocate memory to use. Do some
+operations on the pointer. Then continue with our program. Forgetting to `delete` the pointer and release the memory
+back to the OS. Thus, once out of this local scope, we lose access to this pointer variable. Since we do not have access
+to the memory.
+
+> In general, a memory leak occurs when one loses access to the pointer necessary to manage the memory on the heap.
+ 
+---
+
+## Dynamic Arrays
+
+Lets us look at dynamically allocated raw arrays.
+
+These are arrays that are allocated on the heap opposed to the stack. With the key differentiator being the operator
+`new`.
