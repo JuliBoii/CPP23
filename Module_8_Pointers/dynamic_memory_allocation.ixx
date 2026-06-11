@@ -173,8 +173,7 @@ namespace dynamic_memory_allocation {
         }
     }
 
-    export void new_fail_examples()
-    {
+    export void new_fail_examples() {
         // int* data = new int[100000000000000];
 
         // for (size_t i{0}; i < 100000000000000; ++i)
@@ -196,17 +195,31 @@ namespace dynamic_memory_allocation {
             fmt::println("Something went wrong: {}", e.what());
         }*/
 
-        for (size_t i{0}; i < 10; ++i)
-        {
-            int* data = new (std::nothrow) int[10000000000000];
-            if (data != nullptr)
-            {
+        for (size_t i{0}; i < 10; ++i) {
+            int *data = new(std::nothrow) int[10000000000000];
+            if (data != nullptr) {
                 fmt::println("Data Allocated");
-            } else
-            {
+            } else {
                 fmt::println("Data Allocation Failed");
             }
         }
+        fmt::println("");
     }
 
+    export void using_delete_on_nullptr() {
+        fmt::println("Using delete operator on nullptr");
+        int *data{nullptr}; // Better to be explicit when initializing a pointer to nullptr
+        // int* data {};
+
+        fmt::println("Deleting pointer:\n");
+        delete data;
+
+        fmt::println("Checking if data contains nullptr:");
+        if (data != nullptr) {
+            fmt::println("Does not contain nullptr.\n");
+            delete data;
+        } else {
+            fmt::println("Contains nullptr.\n");
+        }
+    }
 }

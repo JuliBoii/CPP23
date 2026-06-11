@@ -1722,7 +1722,8 @@ where memory allocation fails. Which is why we are checking to see if `data` is 
 
 To utilize `std::nothrow` we have to include the header `<new>`.
 
-`std::nothrow_t` is an empty class type used to disambiguate the overloads of throwing and non-throwing allocation functions.
+`std::nothrow_t` is an empty class type used to disambiguate the overloads of throwing and non-throwing allocation
+functions.
 `std::nothrow` is a constant of it.
 
 Running the example returns a similar output to the following (output is system dependent):
@@ -1764,4 +1765,6 @@ if (p_number1 != nullptr)
 }
 ```
 
-Which is just unnecessary and verbose.
+Which is just unnecessary and verbose. Since using the `delete` operator on a `nullptr` would not cause any
+problems. The compiler will simply ignore the call. But, needs to be stated, this works if the pointer
+being used is initialized

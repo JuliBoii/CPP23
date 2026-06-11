@@ -33,4 +33,5 @@ export void pointers_example() {
     dynamic_memory_allocation::dynamic_heap_memory();
     dynamic_memory_allocation::dynamic_memory_dangling_pointers();
     // dynamic_memory_allocation::new_fail_examples();
+    dynamic_memory_allocation::using_delete_on_nullptr();
 }
