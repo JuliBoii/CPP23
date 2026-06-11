@@ -1956,3 +1956,54 @@ int *p_scores {new int[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} }; // Heap Allocated
         - The array is essentially a pointer pointing to the first element in the array
         - Which does not have any size information embedded
 - We can still use regualr `for` loops for dynamic arrays
+
+---
+
+## Smart Pointers
+
+In this section, the focus will be on the concept of smart pointers. Smart pointers are a facility that was introduced
+in C++11. Mainly to address memory leak issues and mitigate the difficulty of managing memory, similar to our previous
+examples.
+
+The ideal way to work with C++ objects is making them work/behave as a stack variable. With a stack variable being
+managed automatically.
+
+Smart pointers are thus, something that was introduced to deliver a similar behavior to dynamic memory.
+
+> In Modern C++, you should use smart pointers as much as possible for memory management needs.
+> Memory will be automatically released when the object goes out of scope. It is natural! Just like stack objects.
+
+Let us first look at `std::unique_ptr`.
+
+### `std::unique_ptr`
+
+This is a smart pointer that is provided by Modern C++. One of the key points about this pointer is its
+restriction that only one pointer can point to a memory location. If other pointers try to point to the memory location
+the compiler will throw an error.
+
+To use, we need to include the library `<memory>`.
+
+Let's look at an example:
+
+```c++
+int* ptr_int{new int{30}};
+std::unique_ptr<int> unique_int{ptr_int};
+
+std::unique_ptr<int> unique_int1{new int{50}};
+std::unique_ptr<int> unique_int2{nullptr};
+
+fmt::println("Integer is: {}", *unique_int1);
+fmt::println("Integer located at address: {}", fmt::ptr(unique_int1.get()));
+```
+
+A `unique_ptr` can also manage a previously allocated space managed by a raw pointer.
+Evident in the first two lines of our example. Remember, one should not try to use the raw pointer from this point on.
+
+We can directly initialize the `unique_ptr` with allocated memory.
+And initialize the pointer to `nullptr`. Choosing to give the pointer memory later on. We will be able to do so
+later on, utilizing `std::move`. For now, best to acknowledge that initializing the pointer with `nullptr` is possible.
+
+Just like raw pointers, we can utilize the `unique_ptr`. We are able to dereference the pointer to access the data stored.
+
+We are also have the option to call the `get()` method/function on the unique pointer, in order to access the address
+where the data is stored.
