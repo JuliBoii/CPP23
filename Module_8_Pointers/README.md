@@ -43,7 +43,7 @@
             * [Solution for Using a Deleted Pointer](#solution-for-using-a-deleted-pointer)
         * [Case 3: Multiple Pointers Pointing to the Same Address](#case-3-multiple-pointers-pointing-to-the-same-address)
             * [Solution for Multiple Pointers Pointing to the Same Address](#solution-for-multiple-pointers-pointing-to-the-same-address)
-    * [When `new` fails´](#when-new-fails)
+    * [When `new` fails](#when-new-fails)
         * [Use `exception`](#use-exception)
         * [Use `std::nothrow`](#use-stdnothrow)
     * [Tips for Pointers](#tips-for-pointers)
@@ -52,6 +52,8 @@
             * [One Does Not Release Allocated Memory](#one-does-not-release-allocated-memory)
             * [Double Memory Allocation](#double-memory-allocation)
             * [Nested Scope with Dynamically Allocated Memory](#nested-scope-with-dynamically-allocated-memory)
+    * [](#)
+    * [Dynamic Arrays](#dynamic-arrays)
 
 <!-- TOC -->
 
@@ -1634,7 +1636,7 @@ const int* p_number1{p_number};
 
 ---
 
-## When `new` fails´
+## When `new` fails
 
 Let us explore a situation where `new` could fail.
 
