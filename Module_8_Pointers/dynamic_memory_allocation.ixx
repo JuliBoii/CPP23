@@ -251,4 +251,58 @@ namespace dynamic_memory_allocation {
             int *p_number2{new int{42}};
         }
     }
+
+    export void dynamic_arrays_examples() {
+        double *p_salaries{new double[10]};
+        int *p_students{new(std::nothrow) int[10]{}}; // All values init to 0
+        double *p_scores{new(std::nothrow) double[10]{}};
+
+        // nullptr check and use the allocated array
+        if (p_scores) {
+            // Print, can use array access notation or pointer arithmetic
+            for (int i{}; i < 10; ++i) {
+                fmt::println("index {}: {}", i, *(p_scores + i));
+            }
+        }
+        fmt::println("");
+
+
+        delete []p_salaries;
+        p_salaries = nullptr;
+
+        delete []p_students;
+        p_students = nullptr;
+
+        delete []p_scores;
+        p_scores = nullptr;
+    }
+
+    export void dynamic_vs_static_arrays() {
+        fmt::println("Static Array");
+        int scores[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // Stack Allocated
+
+        fmt::println("scores size: {}", std::size(scores));
+
+        fmt::println("Printing static array");
+        for (const auto &s: scores) {
+            fmt::println("value: {}", s);
+        }
+        fmt::println("");
+
+        fmt::println("Dynamic Array");
+        int *p_scores{new int[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}; // Heap Allocated
+
+        // fmt::println("p_scores size: {}", std::size(p_scores));
+        fmt::println("Printing dynamic array");
+        /*for (const auto& s : p_scores) {
+            fmt::println("value: {}", s);
+        }*/
+        for (size_t i{}; i < 10; ++i) {
+            fmt::println("value: {}", *(p_scores + i));
+        }
+        fmt::println("");
+        
+        delete []p_scores;
+        p_scores = nullptr;
+    }
 }

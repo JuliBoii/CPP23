@@ -52,8 +52,8 @@
             * [One Does Not Release Allocated Memory](#one-does-not-release-allocated-memory)
             * [Double Memory Allocation](#double-memory-allocation)
             * [Nested Scope with Dynamically Allocated Memory](#nested-scope-with-dynamically-allocated-memory)
-    * [](#)
     * [Dynamic Arrays](#dynamic-arrays)
+        * [Dynamic v.s. Static Array's](#dynamic-vs-static-arrays)
 
 <!-- TOC -->
 
@@ -1866,9 +1866,8 @@ There are situations where one may use dynamically allocated memory in a `for` l
 or other code block that has its own local scope. In these situations, we would allocate memory to use. Do some
 operations on the pointer. Then continue with our program. Forgetting to `delete` the pointer and release the memory
 back to the OS. Thus, once out of this local scope, we lose access to this pointer variable. Since we do not have access
-to the memory.
-
-> In general, a memory leak occurs when one loses access to the pointer necessary to manage the memory on the heap.
+to the memory. *
+*_In general, a memory leak occurs when one loses access to the pointer necessary to manage the memory on the heap._**
  
 ---
 
@@ -1877,4 +1876,83 @@ to the memory.
 Lets us look at dynamically allocated raw arrays.
 
 These are arrays that are allocated on the heap opposed to the stack. With the key differentiator being the operator
-`new`.
+`new`. We can also use the `std::nothrow` version of `new` if we do not want exceptions.
+
+```c++
+double *p_salaries{new double[10]}; // Initialized with garbage data
+int *p_students{new(std::nothrow) int[10]{}}; // All values init to 0
+double *p_scores{new(std::nothrow) double[10]{1, 2, 3, 4, 5} }; // First 5 elements are manually init
+// Remaining elements contain 0's
+
+
+// nullptr check an use the allocated array
+if (p_scores) {
+    // Print, can use array access notation or pointer arithmetic
+    for (size_t i{0}; i < 10; ++i) {
+        std::println("index {}: {}", i, *(p_scores + i));
+    }
+}
+
+delete []p_salaries;
+p_salaries = nullptr;
+
+delete []p_students;
+p_students = nullptr;
+
+delete []p_scores;
+p_scores = nullptr;
+```
+
+In the example above, we are:
+
+- declaring 3 different dynamic arrays
+    - `p_salaries` is a dynamically allocated array with no element initialized
+        - Meaning it holds garbage data
+    - `p_students` and `p_scores` are both initialized
+        - `p_students` holds a `0` at every element location
+        - `p_scores` is manually initialized for the first 5 elements
+            - Thereafter, the remaining elements hold `0`'s
+        - This is due to braced initialization
+- We use `p_scores`
+    - Check to see that `p_scores` is not a `nullptr` before doing operations
+    - Print each element in `p_scores`
+        - We can use both array access notation or pointer arithmetic notation
+- Once done with the dynamic array's, we need to release the memory
+- We do this like other examples, except we include a new syntax
+    - Add `[]` (square brackets) after `delete` to indicate that the allocated memory is an array of memory
+    - Not just one single memory location.
+- Then reassign all the cleared pointers to `nullptr`
+    - As is best practice
+
+### Dynamic v.s. Static Array's
+
+Another thing to consider is the comparison between static arrays and dynamic arrays.
+
+A static array is an array that is allocated for on the stack.
+
+A dynamic array is an array that is allocated for on the heap.
+
+```c++
+int scores[10] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // Stack Allocated
+
+fmt::println("scores size: {}", std::size(scores));
+
+for (const auto& s : scores) {
+    fmt::println("value: {}", s);
+}
+
+int *p_scores {new int[10]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} }; // Heap Allocated
+```
+
+- The first array is allocated for the stack
+    - Since it does not go through the `new` operator
+- We can use facilities like:
+    - `std::size()` which returns the size of the container
+        - Since static arrays have size information embedded into the name of the array
+    - Range-based `for` loops
+        - Since a range-based `for` loop will know how long to iterate
+- We cannot use the previous facilities for dynamic arrays
+    - Because, once the allocation is made
+        - The array is essentially a pointer pointing to the first element in the array
+        - Which does not have any size information embedded
+- We can still use regualr `for` loops for dynamic arrays

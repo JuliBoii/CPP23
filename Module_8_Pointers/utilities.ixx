@@ -35,4 +35,6 @@ export void pointers_example() {
     // dynamic_memory_allocation::new_fail_examples();
     dynamic_memory_allocation::using_delete_on_nullptr();
     // dynamic_memory_allocation::memory_leaks_examples();
+    dynamic_memory_allocation::dynamic_arrays_examples();
+    dynamic_memory_allocation::dynamic_vs_static_arrays();
 }
