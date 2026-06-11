@@ -2,6 +2,8 @@ module;
 
 #include <fmt/format.h>
 #include <print>
+#include <exception>
+#include <new>
 
 export module dynamic_memory_allocation;
 
@@ -173,12 +175,38 @@ namespace dynamic_memory_allocation {
 
     export void new_fail_examples()
     {
-        int* data = new int[100000000000000];
+        // int* data = new int[100000000000000];
 
         // for (size_t i{0}; i < 100000000000000; ++i)
         // {
         //     std::println("Iteration: {}", i);
         //     int* data = new int[100000000000000];
         // }
+
+        /*try
+        {
+            for (size_t index = 0; index < 10000000; index++)
+            {
+                fmt::println("iteration: {}", index);
+                int *p_number = new int[100000000000];
+            }
+        }
+        catch (std::exception& e)
+        {
+            fmt::println("Something went wrong: {}", e.what());
+        }*/
+
+        for (size_t i{0}; i < 10; ++i)
+        {
+            int* data = new (std::nothrow) int[10000000000000];
+            if (data != nullptr)
+            {
+                fmt::println("Data Allocated");
+            } else
+            {
+                fmt::println("Data Allocation Failed");
+            }
+        }
     }
+
 }

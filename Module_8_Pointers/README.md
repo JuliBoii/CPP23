@@ -1641,11 +1641,127 @@ Thus, if we ask for more memory than a system has, `new` will fail. Which will c
 Let us look at an example that could possibly break.
 
 ```c++
-int* data == new int[100000000000000];
+int* data = new int[100000000000000];
+```
 
-for (size_t i{0}; i < 100000000000000; ++i)
+If we try to compile the example above, it will not succeed. When we debug the program,
+we can see that an exception is thrown. An exception is something that happens if you do something
+wrong in C++.
+
+In this case, we tried to allocate for more memory than our system can provide.
+
+There are a few things we can do to mitigate this problem.
+
+### Use `exception`
+
+```c++
+for (size_t i {0}; i < 100; i++)
 {
-    std::println("Iteration: {}", i);
-    int* data = new int[100000000000000];
+    try
+    {
+        int* data = new int[];
+    }
+    catch (std::exception& ex)
+    {
+        fmt::println("Something went wrong: {}", ex.what());
+    }
 }
 ```
+
+The example showcases the use of `exception` in a `try-catch` statement. We will delve deeper on what
+`excepetion` and `try-catch` statements are, but for now we will give a brief overview. They are a way to
+force the program not to crash and to inform the developer as to why something went wrong.
+
+Again this is not a fix, but a method of preventing the program from crashing. Since a program
+crashing is undesirable, thus we want to avoid such situations.
+
+The `try-catch` block is going to be a block of code where we write potentially problematic code
+or code that could cause problems in. In `try` we write the code we want to run, `catch` is going to
+inform us what went wrong.
+
+We also need to rememeber that we need to include the `<exception>` library to utilize `std::exception`.
+
+Now when we run the example, the following is outputted:
+
+```terminaloutput
+...
+iteration: 345
+iteration: 346
+iteration: 347
+iteration: 348
+iteration: 349
+Something went wrong: std::bad_alloc
+
+Process finished with exit code 0
+```
+
+I did not include the whole output, but wanted to showcase that the program did not crash. Rather than crashing like in
+the previous example, the program simply threw the exception and finished properly. As indicated by the `exit code 0`.
+
+### Use `std::nothrow`
+
+In situations where we do not want to throw an exception, preferring to receive a `nullptr`, we use the
+`std::nothrow` option when allocating for memory.
+
+```c++
+for (size_t i{0}; i < 1000; ++i)
+{
+    int* data = new (std::nothrow) int[10000000];
+    if (data != nullptr)
+    {
+        fmt::println("Data Allocated");
+    } else
+    {
+        fmt::println("Data Allocation Failed");
+    }
+}
+```
+
+The example above does not use the exception mechanism. Rather, we will receive a `nullptr` in the case
+where memory allocation fails. Which is why we are checking to see if `data` is a `nullptr`.
+
+To utilize `std::nothrow` we have to include the header `<new>`.
+
+`std::nothrow_t` is an empty class type used to disambiguate the overloads of throwing and non-throwing allocation functions.
+`std::nothrow` is a constant of it.
+
+Running the example returns a similar output to the following (output is system dependent):
+
+```terminaloutput
+Data Allocated
+Data Allocated
+Data Allocation Failed
+Data Allocation Failed
+Data Allocation Failed
+Data Allocation Failed
+Data Allocation Failed
+Data Allocation Failed
+Data Allocation Failed
+Data Allocation Failed
+
+Process finished with exit code 0
+```
+
+---
+
+## Tips for Pointers
+
+These are a few tips that one can use to make one's life with memory management in C++ easier.
+
+### `NULL` Pointer Safety
+
+The first tip regards `nullptr` safety.
+
+One thing people think is that deleting a `nullptr` is going to cause a crash.
+Which leads to some checking for `nullptr`'s. Like in the example below:
+
+```c++
+int* p_number1{};
+
+if (p_number1 != nullptr)
+{
+    delete p_number1;
+}
+```
+
+Which is just unnecessary and verbose.

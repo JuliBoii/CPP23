@@ -29,9 +29,8 @@ export void pointers_example() {
     pointer4::pointer_arithmetic_distance();
     pointer4::pointer_arithmetic_comparisons();*/
 
-    /*
     dynamic_memory_allocation::pointers_gone_bad();
     dynamic_memory_allocation::dynamic_heap_memory();
-    dynamic_memory_allocation::dynamic_memory_dangling_pointers();*/
+    dynamic_memory_allocation::dynamic_memory_dangling_pointers();
     // dynamic_memory_allocation::new_fail_examples();
 }
