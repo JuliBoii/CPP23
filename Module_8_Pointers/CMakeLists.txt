@@ -21,6 +21,7 @@ TARGET_SOURCES(${PROJECT_NAME}
         pointer3.ixx
         pointer4.ixx
         dynamic_memory_allocation.ixx
+        smart_ptrs.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)

@@ -2003,7 +2003,49 @@ We can directly initialize the `unique_ptr` with allocated memory.
 And initialize the pointer to `nullptr`. Choosing to give the pointer memory later on. We will be able to do so
 later on, utilizing `std::move`. For now, best to acknowledge that initializing the pointer with `nullptr` is possible.
 
-Just like raw pointers, we can utilize the `unique_ptr`. We are able to dereference the pointer to access the data stored.
+Just like raw pointers, we can utilize the `unique_ptr`. We are able to dereference the pointer to access the data
+stored.
 
 We are also have the option to call the `get()` method/function on the unique pointer, in order to access the address
 where the data is stored.
+
+### C++14 Updates
+
+C++14 introduced a new facility. Which prevents us from using the `new` operator manually.
+
+```c++
+std::unique_ptr<int> unique_int2 {std::make_unique<int>(79)};
+fmt::println("Value is: {}", *unique_int2);
+fmt::println("Value located at address: {}\n", fmt::ptr(unique_int2.get()));
+```
+
+- We rewrote the initialization for `unique_int2`
+    - Rather initializing the value with `nullptr`
+    - We intialize it in the following manner
+        - `std::make_unique<int>(79);`
+        - We are calling `std::make_unique` instead of `new`
+        - Specify the data type: `int`
+        - Along with the value we want stored: `79`
+- Outside of that, everything we have done still applies
+
+### Cannot Make Copies with `unique_ptr`
+
+We briefly mentioned this, but idea with `unique_ptr` is that we only have one pointer pointing to our memory location.
+Not allowing for more than one pointer pointing to the memory location. Hence, the name unique.
+
+```c++
+std::unique_ptr<int> unique_int2 = std::make_unique<int>(80);
+
+// Copy's & Assignment
+std::unique_ptr<int> assign_unique_ptr = unique_int2;
+std::unique_ptr<int> copy_unique_ptr{unique_int2};
+```
+
+- We have a `unique_ptr` declare & intialized
+- If we try to assign `unique_int2` to `assign_unique_ptr`
+    - We will have an error
+        - The operation does some kind of copy
+        - We will learn more on this when discussing operator overloading
+- If we try to copy `unique_int2` to `copy_unique_ptr`
+    - The compiler will throw an error
+        - Since we cannot have more than one unique pointer pointing to the same memory location.

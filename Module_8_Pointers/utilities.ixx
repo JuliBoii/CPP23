@@ -7,6 +7,7 @@ import pointer2;
 import pointer3;
 import pointer4;
 import dynamic_memory_allocation;
+import smart_ptrs;
 
 export void pointers_example() {
     /*pointer1::declaration_and_initialization();
@@ -29,12 +30,14 @@ export void pointers_example() {
     pointer4::pointer_arithmetic_distance();
     pointer4::pointer_arithmetic_comparisons();*/
 
-    dynamic_memory_allocation::pointers_gone_bad();
+    /*dynamic_memory_allocation::pointers_gone_bad();
     dynamic_memory_allocation::dynamic_heap_memory();
     dynamic_memory_allocation::dynamic_memory_dangling_pointers();
     // dynamic_memory_allocation::new_fail_examples();
     dynamic_memory_allocation::using_delete_on_nullptr();
     // dynamic_memory_allocation::memory_leaks_examples();
     dynamic_memory_allocation::dynamic_arrays_examples();
-    dynamic_memory_allocation::dynamic_vs_static_arrays();
+    dynamic_memory_allocation::dynamic_vs_static_arrays();*/
+
+    smart_ptrs::unique_ptr_example();
 }
