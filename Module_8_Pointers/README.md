@@ -2049,3 +2049,75 @@ std::unique_ptr<int> copy_unique_ptr{unique_int2};
 - If we try to copy `unique_int2` to `copy_unique_ptr`
     - The compiler will throw an error
         - Since we cannot have more than one unique pointer pointing to the same memory location.
+
+However, we are able to move a pointer.
+
+### Moving a `unique_ptr`
+
+We have a memory location and a unique pointer pointing to this location. With this situation, the `unique_ptr` is
+managing the memory. In cases, where we do not want said pointer to manage the memory, we can give the responsibility
+to another `unique_ptr`.
+
+Essentially, we are moving memory management responsibility from one `unique_ptr` to another.
+
+Let us look at an example:
+
+```c++
+std::unique_ptr<int> unique_int3 = std::make_unique<int>(110);
+fmt::println("unique_int3 points at address : {}\n", fmt::ptr(unique_int3.get()));
+
+{
+    std::unique_ptr<int> unique_int4 = std::move(unique_int3);
+    fmt::println("unique_int4 points at address :{}", fmt::ptr(unique_int4.get()));
+    fmt::println("unique_int3 points to nullptr : {}", fmt::ptr(unique_int3.get()));
+
+    if (unique_int3) {
+        fmt::println("unique_int3 is pointing to something valid");
+    } else {
+        fmt::println("unique_int3 is pointing to nullptr");
+    }
+}
+fmt::println("Outside scope\n");
+```
+
+Resulting in the output:
+
+```terminaloutput
+unique_int3 points at address : 0x161cc7e8c60
+
+unique_int4 points at address: 0x161cc7e8c60
+unique_int3 points to nullptr: 0x0
+unique_int3 is pointing to nullptr
+Outside the scope
+```
+
+- `unique_int3` will be managing the memory location holding `110`
+    - This is the only unique pointer allowed to manage this memory
+- Following line, we move the management responsibilities to a new `unique_ptr`
+    - `unique_int4` now manages the memory location
+    - Thereafter, `unique_int3` will be invalidated
+        - Unable to manage the memory location
+- We print the addresses of the `unique_ptr`'s to confirm the transfer
+    - `unique_int3` prints `0x0` as its address which is synonymous to a `nullptr`
+    - Further confirmed with our `if` statement
+
+### Resetting `unique_ptr`
+
+One last thing we can do is reset a `unique_ptr`. Meaning, one can force the pointer to reset itself to `nullptr`.
+When reset, the pointer releases the memory it was allocated and points to `nullptr` thereafter.
+
+Example below:
+
+```c++
+std::unique_ptr<int> unique_int5 = std::make_unique<int>(140);
+unique_int5.reset();
+
+if (unique_int5) {
+    fmt::println("unique_int5 points to a valid address: {}", fmt::ptr(unique_int5.get()));
+} else {
+    fmt::println("unique_int5 points to nullptr: {}", fmt::ptr(unique_int5.get()));
+}
+```
+
+The only important part of the example is the second line. Calling `reset()` releases the memory and
+point to `nullptr`. Which we confirm in our `if` statement.
