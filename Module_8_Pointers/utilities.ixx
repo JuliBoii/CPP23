@@ -40,4 +40,6 @@ export void pointers_example() {
     dynamic_memory_allocation::dynamic_vs_static_arrays();*/
 
     smart_ptrs::unique_ptr_example();
+    smart_ptrs::unique_ptr_as_parameter_or_return_value();
+    smart_ptrs::unique_ptrs_and_arrays();
 }

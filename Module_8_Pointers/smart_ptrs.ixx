@@ -2,8 +2,23 @@ module;
 
 #include <fmt/format.h>
 #include <memory>
+#include <cmath>
 
 export module smart_ptrs;
+
+std::unique_ptr<int> get_unique_ptr() {
+    fmt::println("Inside function get_unique_ptr()");
+    std::unique_ptr<int> ptr_u1 = std::make_unique<int>(142);
+    fmt::println("unique_ptr address(in): {}", fmt::ptr(&ptr_u1));
+    fmt::println("unique_ptr address(value): {}\n", fmt::ptr(ptr_u1.get()));
+    return ptr_u1;
+}
+
+void do_something_with_int_unique(const std::unique_ptr<int> &unique_int_ptr) {
+    // *unique_int_ptr = 42; // This does work
+    // unique_int_ptr.reset(); // This will cause a compiler error
+    fmt::println("Square of {} is {}\n", *unique_int_ptr, std::pow(*unique_int_ptr, 2));
+}
 
 namespace smart_ptrs {
     export void unique_ptr_example() {
@@ -57,5 +72,37 @@ namespace smart_ptrs {
         } else {
             fmt::println("unique_int5 points to nullptr: {}\n", fmt::ptr(unique_int5.get()));
         }
+    }
+
+    export void unique_ptr_as_parameter_or_return_value() {
+        std::unique_ptr<int> ptr_u = std::make_unique<int>(4113);
+
+        do_something_with_int_unique(ptr_u);
+
+        do_something_with_int_unique(std::move(ptr_u));
+
+        do_something_with_int_unique(std::make_unique<int>(142));
+
+        std::unique_ptr<int> ptr_u2 = get_unique_ptr();
+        fmt::println("Outside function get_unique_ptr:");
+        fmt::println("unique_ptr address(in): {}", fmt::ptr(&ptr_u2));
+        fmt::println("unique_ptr address(value): {}\n", fmt::ptr(ptr_u2.get()));
+
+        fmt::println("Temporary Object Creation");
+        fmt::println("unique_ptr address(value): {}", fmt::ptr(get_unique_ptr().get()));
+    }
+
+    export void unique_ptrs_and_arrays() {
+        fmt::println("Using unique_ptr with arrays");
+        // auto arr_ptr = std::unique_ptr<int[]>(new int[4]{1, 2, 3, 4});
+        auto arr_ptr = std::make_unique<int[]>(4);
+        // auto arr_ptr = std::make_unique<int[]>(4) {1, 2, 3, 4}; // Compiler Error
+        // auto arr_ptr = std::make_unique<int[]>{1, 2, 3, 4}; // Compiler Error
+
+        fmt::println("Printing array values");
+        for (size_t i{0}; i < 4; i++) {
+            fmt::println("{} ", arr_ptr[i]);
+        }
+        fmt::println("");
     }
 }

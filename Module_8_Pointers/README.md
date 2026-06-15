@@ -54,6 +54,14 @@
             * [Nested Scope with Dynamically Allocated Memory](#nested-scope-with-dynamically-allocated-memory)
     * [Dynamic Arrays](#dynamic-arrays)
         * [Dynamic v.s. Static Array's](#dynamic-vs-static-arrays)
+    * [Smart Pointers](#smart-pointers)
+        * [`std::unique_ptr`](#stdunique_ptr)
+            * [C++14 Updates](#c14-updates)
+            * [Cannot Make Copies with `unique_ptr`](#cannot-make-copies-with-unique_ptr)
+            * [Moving a `unique_ptr`](#moving-a-unique_ptr)
+            * [Resetting `unique_ptr`](#resetting-unique_ptr)
+            * [`unique_ptr` As Function Parameters & Return Values](#unique_ptr-as-function-parameters--return-values)
+            * [`unique_ptr` and Array's](#unique_ptr-and-arrays)
 
 <!-- TOC -->
 
@@ -2009,7 +2017,7 @@ stored.
 We are also have the option to call the `get()` method/function on the unique pointer, in order to access the address
 where the data is stored.
 
-### C++14 Updates
+#### C++14 Updates
 
 C++14 introduced a new facility. Which prevents us from using the `new` operator manually.
 
@@ -2028,7 +2036,7 @@ fmt::println("Value located at address: {}\n", fmt::ptr(unique_int2.get()));
         - Along with the value we want stored: `79`
 - Outside of that, everything we have done still applies
 
-### Cannot Make Copies with `unique_ptr`
+#### Cannot Make Copies with `unique_ptr`
 
 We briefly mentioned this, but idea with `unique_ptr` is that we only have one pointer pointing to our memory location.
 Not allowing for more than one pointer pointing to the memory location. Hence, the name unique.
@@ -2052,7 +2060,7 @@ std::unique_ptr<int> copy_unique_ptr{unique_int2};
 
 However, we are able to move a pointer.
 
-### Moving a `unique_ptr`
+#### Moving a `unique_ptr`
 
 We have a memory location and a unique pointer pointing to this location. With this situation, the `unique_ptr` is
 managing the memory. In cases, where we do not want said pointer to manage the memory, we can give the responsibility
@@ -2101,7 +2109,7 @@ Outside the scope
     - `unique_int3` prints `0x0` as its address which is synonymous to a `nullptr`
     - Further confirmed with our `if` statement
 
-### Resetting `unique_ptr`
+#### Resetting `unique_ptr`
 
 One last thing we can do is reset a `unique_ptr`. Meaning, one can force the pointer to reset itself to `nullptr`.
 When reset, the pointer releases the memory it was allocated and points to `nullptr` thereafter.
@@ -2121,3 +2129,238 @@ if (unique_int5) {
 
 The only important part of the example is the second line. Calling `reset()` releases the memory and
 point to `nullptr`. Which we confirm in our `if` statement.
+
+#### `unique_ptr` As Function Parameters & Return Values
+
+We will be exploring things to know when using `unique_ptr`. Specifically, using them as parameters and return values.
+
+Let us look at an example first:
+
+```c++
+void do_something_with_int_unique(std::unique_ptr<int> unique_int_ptr) {
+    fmt::println("Square of {} is {}\n", unique_int_ptr, std::pow(*unique_int_ptr, 2));
+}
+
+int main() {
+    std::unique_ptr<int> ptr_u = std::make_unique<int>(4113);
+    
+    //do_something_with_int_unique(ptr_u);
+    
+    do_something_with_int_unique(std::move(ptr_u));
+    
+    do_something_with_int_unique(std::make_unique<int>(142));
+
+    return 0;
+}
+```
+
+We first set up our function:
+
+- This function will be of type: `void`
+    - So nothing is will be returned
+    - We name our function: `do_something_with_int_unique`
+- In the function parameters
+    - We are taking a `unique_ptr` which we refer to the name `unique_int_ptr`
+- In the `main` function
+    - We make a new `unique_ptr` labeled `ptr_u`
+        - Initialized with the value `41131
+- Then we call the function while passing `ptr_u`
+    - **However, we need to remember the main utility of a** `unique_ptr`
+        - We cannot have multiple pointers pointing to the same memory location
+    - With the function taking the parameter by value
+        - When we pass `ptr_u`, we are creating a copy of the pointer
+        - Thus, the program will crash
+            - Since the pointer is being copied, rather than passed
+            - Meaning there are multiple pointers pointing to the same memory
+- We fix this in the next function call
+    - We move the memory address from `ptr_u` to `unique_int_ptr`
+        - Utilizing `std::move()` to accomplish this process
+    - But this method also has a drawback
+        - With the ownership over the memory moving
+        - When the function returns the memory we passed will be released back to the OS
+        - Which is something we typically do not want
+- The following function call
+    - In this call we are doing an implicit move
+    - Since we are passing a new unique pointer
+        - Creating a temporary object on the heap
+
+We can aliviate this problem by passing the parameter by reference. This is a topic we will cover more in depth. But for
+now we will just present the example.
+
+```c++
+void do_something_with_int_unique_2(const std::unique_ptr<int>& unique_int_ptr) {
+    // unique_int_ptr.reset();
+    fmt::println("Square of {} is {}\n", unique_int_ptr, std::pow(*unique_int_ptr, 2));
+}
+```
+
+We will only change the function parameter, everything else is the same in our function.
+
+- We add a `const` to indicate we do not want to alter the pointer object
+    - So we can access & change the data being stored
+    - However, if we try to manipulate the pointer object itself
+        - The compiler will crash
+        - Which we can try out by uncommenting `unique_int_ptr.reset()`
+    - If we wanted to ensure that the data being pointed cannot be changed
+    - we would update `std::unique_ptr<int>` to `std::unique_ptr<const int>`
+- We indicate we want to reference the pointer by using `&` (ampersand)
+    - Which is essentially passing the memory address of the `unique_ptr`
+    - **NOT**, the memory address the `unique_ptr` is pointing to
+    - So, `do_something_with_int_unique(ptr_u)` will work and compile, if uncommented
+
+The next thing we could attempt is returning a `unique_ptr` by value. Let us look at an example:
+
+```c++
+std::unique_ptr<int> get_unique_ptr() {
+    fmt::println("Inside function get_unique_ptr()");
+    std::unique_ptr<int> ptr_u1 = std::make_unique<int>(142);
+    fmt::println("unique_ptr address(in): {}", fmt::ptr(&ptr_u1));
+    fmt::println("unique_ptr address(value): {}\n", fmt::ptr(ptr_u1.get()));
+    return ptr_u1;
+}
+
+int main() {
+    std::unique_ptr<int> ptr_u2 = get_unique_ptr();
+    fmt::println("Outside function get_unique_ptr:");
+    fmt::println("unique_ptr address(in): {}", fmt::ptr(&ptr_u2));
+    fmt::println("unique_ptr address(value): {}", fmt::ptr(ptr_u2.get()));
+
+    return 0;
+}
+```
+
+- The function is of type: `std::unique_ptr<int>`
+    - Meaning it will return a `unique_ptr`
+    - That points to a memory address for an integer
+- In the function
+    - Create a new `unique_ptr` that points to an integer memory address: `ptr_u`
+    - Print the address of the `ptr_u`
+    - Print the address pointed to by `ptr_u`
+    - Return the `unique_ptr`
+        - One may think that the code would not work
+            - Considering our function failed when we tried to pass a pointer by value
+            - i.e., make a copy of the pointer
+        - However, modern compilers are capable of making this viable
+        - The compiler is returning a reference to the pointer and making it work
+            - Still, this is not guaranteed across the various compilers
+            - Each compiler treats such cases in their own way
+
+The example prints the following:
+
+```terminaloutput
+Inside function get_unique_ptr()
+unique_ptr address(in): 0xe3ac8ff768
+unique_ptr address(value): 0x23a94a08ba0
+
+Outside function get_unique_ptr:
+unique_ptr address(in): 0xe3ac8ff768
+unique_ptr address(value): 0x23a94a08ba0
+```
+
+A behavior that we can also see is showcased in the following example, using the same function:
+
+```c++
+int main() {
+    fmt::println("Temporary Object Creation");
+    fmt::println("unique_ptr address(value): {}", fmt::ptr(get_unique_ptr().get()));
+}
+```
+
+- In this example,
+    - We are calling the function independently
+    - Appended is the `get()` function/method
+        - Which returns the address of the `unique_ptr`
+    - Then print the address
+- Afterward, the `unique_ptr` that was returned by the function is destructed
+    - Making it a temporary object/pointer
+    - Since the pointers job is done & not being saved
+
+This prints:
+
+```terminaloutput
+Temporary Object Creation
+Inside function get_unique_ptr()
+unique_ptr address(in): 0xc463eff890
+unique_ptr address(value): 0x20c8f8581a0
+
+unique_ptr address(value): 0x20c8f8581a0
+```
+
+#### `unique_ptr` and Array's
+
+It is possible to manage arrays through `unique_ptr`'s. The syntax to do so is slightly confusing.
+Let us look at an example:
+
+```c++
+int main() {
+    auto arr_ptr = std::unique_ptr<int[]>(new int[4]{1, 2, 3, 4});
+    
+    for (size_t i{0}; i < 4; i++) {
+       fmt::println("{} ", arr_ptr[i]); 
+    }
+    
+    return 0;
+}
+```
+
+- Let us break it down
+    - We are utilizing `auto` to help simplify the declaration
+    - Specify in the `unique_ptr` initialization
+        - That the pointer will be pointing to an array of integers: `int[]`
+    - Within the `()` (parentheses) we call the `new` operator
+        - Then set up an array on the heap
+    - Then print the values
+
+Which prints:
+
+```terminaloutput
+1
+2
+3
+4
+
+
+Process finished with exit code 0
+```
+
+A successful output.
+
+We can also utilize `make_unique` to do the same process. Rewriting the previous example results in:
+
+```c++
+int main() {
+    auto arr_ptr = std::make_unique<int[]>(4);
+    
+    for (size_t i{0}; i < 4; i++) {
+       fmt::println("{} ", arr_ptr[i]); 
+    }
+    
+    return 0;
+}
+```
+
+- Let us break it down
+    - We are utilizing `auto` to help simplify the declaration
+    - Specify in the `make_unique` initialization
+        - Will be pointing to an array of integers: `int[]`
+    - Within the `()` (parentheses) we indicate the size of the array: `4`
+        - **However, in doing this we cannot initialize the individual elements**
+    - Then print the values
+
+As stated, we cannot initialize the elements using `std::make_unique`. Thus, the following examples will result in
+compiler errors.
+
+```c++
+int main() {
+    auto arr_ptr = std::make_unique<int[]>(4) {1, 2, 3, 4};
+    auto arr_ptr2 = std::make_unique<int[]> {1, 2, 3, 4};
+    
+    for (size_t i{0}; i < 4; i++) {
+       fmt::println("{} ", arr_ptr[i]); 
+    }
+    
+    return 0;
+}
+```
+
+---
