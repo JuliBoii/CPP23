@@ -62,6 +62,7 @@
             * [Resetting `unique_ptr`](#resetting-unique_ptr)
             * [`unique_ptr` As Function Parameters & Return Values](#unique_ptr-as-function-parameters--return-values)
             * [`unique_ptr` and Array's](#unique_ptr-and-arrays)
+        * [`std::shared_ptr`](#stdshared_ptr)
 
 <!-- TOC -->
 
@@ -1874,10 +1875,8 @@ There are situations where one may use dynamically allocated memory in a `for` l
 or other code block that has its own local scope. In these situations, we would allocate memory to use. Do some
 operations on the pointer. Then continue with our program. Forgetting to `delete` the pointer and release the memory
 back to the OS. Thus, once out of this local scope, we lose access to this pointer variable. Since we do not have access
-to the memory. *
-*_In general, a memory leak occurs when one loses access to the pointer necessary to manage the memory on the heap._**
- 
----
+to the memory.
+**_In general, a memory leak occurs when one loses access to the pointer necessary to manage the memory on the heap_**.
 
 ## Dynamic Arrays
 
@@ -2364,3 +2363,22 @@ int main() {
 ```
 
 ---
+
+### `std::shared_ptr`
+
+We will be exploring a new type of smart pointer: `shared_ptr`. `shared_ptr` has the same foundational concept as unique
+pointers. Which is managing memory automatically, in order to prevent memory errors caused by human error.
+
+But `shared_ptr` removes the limitation of `unique_ptr`'s. Where only one `unique_ptr` could manage/point to a memory
+address. With `shared_ptr`'s we can have more than one pointer pointing to the same memory address.
+
+C++ manages this by having a reference count that increments every time we have a new pointer. If a pointer goes out of
+scope, the reference count decrements. If the reference count reaches `0`, that means we do not have any pointers
+pointing to a particular memory address. Only then will the memory will be released back. This could also occur, if all
+pointers go out-of-scope.
+
+The syntax for `shared_ptr`'s are very similar to `unique_ptr`. So let us look at an example:
+
+```c++
+std::shared_ptr<int> shared_int_ptr_1 {new int{30}};
+```

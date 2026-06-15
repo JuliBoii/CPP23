@@ -105,4 +105,8 @@ namespace smart_ptrs {
         }
         fmt::println("");
     }
+
+    export void shared_ptr_example() {
+        fmt::println("Example for Shared Pointers:");
+    }
 }
