@@ -2653,4 +2653,59 @@ std::unique_ptr<int> illegal_unique_ptr_3 = std::move(shared_int_ptr_2);
 
 All methods (braced initialization, assignment, and move) would result in a compiler error.
 
+#### Returning a Smart Pointer
+
+We previously covered the case where we could have a return value of `unique_ptr`. Which is essentially, the
+function doing an implicit `std::move` to transfer the ownership. Knowing this along with the fact that we can
+convert a `unique_ptr` to a `shared_ptr`, we can make a `shared_ptr` recieve a smart pointer.
+
+In this case, we will be having a `shared_ptr` receive a `unique_ptr`.
+
+```c++
+std::unique_ptr<int> get_unique_ptr() {
+    std::unique_ptr<int> ptr_u1 = std::make_unique<int>(142);
+    fmt::println("unique_ptr address(in): {}", fmt::ptr(&ptr_u1));
+    fmt::println("unique_ptr address(value): {}\n", fmt::ptr(ptr_u1.get()));
+    return ptr_u1;
+}
+
+int main() {
+    std::shared_ptr<int> shared_ptr_from_unique = get_unique_ptr();
+    
+    if (shared_ptr_from_unique) {
+        fmt::println("shared_ptr_from_unique.use_count(): {}", shared_ptr_from_unique.use_count());
+        fmt::println("shared_ptr_from_unique.get(): {}", fmt::ptr(shared_ptr_from_unique.get()));
+    }
+    
+    return 0;
+}
+```
+
+Rather than breaking down the whole example, we want to focus on the initialization of `shared_ptr_from_unique`.
+
+- Similar to `unique_ptr`s implementation
+    - We declare our `shared_ptr`: `shared_ptr_from_unique`
+    - Call the function: `get_unique_ptr()`
+        - This function will return a unique pointer as its name states
+    - The `unique_ptr` it returns initializes the shared pointer: `shared_ptr_from_unique`
+- Then we confirm if `shared_ptr_from_unique` does not point to `nullptr`
+    - Printing the `use_count()` & its address
+        - If valid
+
+Which would look like the following output:
+
+```terminaloutput
+unique_ptr address(in): 0x7ffe72a6f8f8
+unique_ptr address(value): 0x78a52cdf48c0
+
+shared_ptr_from_unique.use_count(): 1
+shared_ptr_from_unique.get(): 0x78a52cdf48c0
+```
+
+> Having a function return `unique_ptr` is the preferred method when using smart pointers.
+> Since we can convert `unique_ptr`s to be the other smart pointer types, but the inverse is not possible.
+> Thus, `unique_ptr`s are much more flexible to work with.
+
+#### `shared_ptr` with Arrays
+
 ---

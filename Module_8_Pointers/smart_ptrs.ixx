@@ -197,12 +197,20 @@ namespace smart_ptrs {
     }
 
     export void shared_ptr_from_unique_ptr() {
-        fmt::println("We will create a shared_ptr from a unqiue_ptr:");
+        fmt::println("We will create a shared_ptr from a unique_ptr:");
         auto unique_int_ptr_1 = std::make_unique<int>(22);
         std::shared_ptr shared_int_ptr_1 = std::move(unique_int_ptr_1);
         // std::shared_ptr<int> shared_int_ptr_2 = unique_int_ptr_1;
 
         fmt::println("shared_int_ptr_1.use_count(): {}", shared_int_ptr_1.use_count());
-        fmt::println("Does unique_int_ptr_1 exist: {}", (unique_int_ptr_1 != nullptr));
+        fmt::println("Does unique_int_ptr_1 exist: {}\n", (unique_int_ptr_1 != nullptr));
+
+        fmt::println("Receiving a unique_ptr:");
+        const std::shared_ptr<int> shared_ptr_from_unique = get_unique_ptr();
+
+        if (shared_ptr_from_unique) {
+            fmt::println("shared_ptr_from_unique.use_count(): {}", shared_ptr_from_unique.use_count());
+            fmt::println("shared_ptr_from_unique.get(): {}", fmt::ptr(shared_ptr_from_unique.get()));
+        }
     }
 }
