@@ -2597,4 +2597,60 @@ shared_int_ptr_7.use_count(): 0
 shared_int_ptr_8.use_count(): 1
 ```
 
+#### Creating a `shared_ptr` from `unique_ptr`
+
+We will be looking at how to make a `shared_ptr` from a `unique_ptr`. Let us look at an example:
+
+```c++
+std::unique_ptr<int> unique_int_ptr_1 = std::make_unique<int>(22);
+std::shared_ptr<int> shared_int_ptr_1 = std::move(unique_int_ptr_1);
+// std::shared_ptr<int> shared_int_ptr_2 = unique_int_ptr_1;
+
+fmt::println("shared_int_ptr_1.use_count(): {}", shared_int_ptr_1.use_count());
+fmt::println("Does unique_int_ptr_1 exist: {}", (unique_int_ptr_1 != nullptr));
+```
+
+Resulting in:
+
+```terminaloutput
+shared_int_ptr_1.use_count(): 1
+Does unique_int_ptr_1 exist: false
+```
+
+Let us break down the example:
+
+- Declare & Initialize a `unique_ptr`: `unique_int_ptr_1`
+- Declare a `shared_ptr`: `shared_int_ptr_1`
+    - Move ownership of the memory in `unique_int_ptr_1` to `shared_int_ptr_1`
+    - Thus, resetting `unique_int_ptr_1`
+- Looking at the commented out line
+    - We tried to assign a `shared_ptr` (`shared_int_ptr_2`) with `unique_int_ptr_1`
+    - However, this does not work
+        - With the compiler crashing when trying to compile
+        - Since the assignment operator does not move ownership
+- Then we confirm our actions
+    - Print the `use_count()` for `shared_int_ptr_1`
+        - Confirming that the ownership of the memory
+    - Then check if `unique_int_ptr_1` points to a valid memory address
+        - If it points to `nullptr`
+            - `unique_int_ptr` no longer "exist"
+
+What if we wanted to convert a `shared_ptr` to a `unique_ptr`?
+
+This would not work. Because at any given moment, we might have multiple `shared_ptr`'s pointing to the same
+memory. If we tried to instantly make one of the said `shared_ptr`s into a `unique_ptr`, what would happen with
+the remaining `shared_ptr`s. Adding in the fact that a `unique_ptr` has to have sole ownership of the memory it handles
+would conflict with the behavior of `shared_ptr`'s. **Thus, the compiler prevents this from taking place.**
+Looking at the following code snippet, assuming we have multiple `shared_ptr`s pointing to the same memory:
+
+```c++
+...
+std::unique_ptr<int> illegal_unique_ptr_1 {shared_int_ptr_4};
+std::unique_ptr<int> illegal_unique_ptr_2 = shared_int_ptr_3;
+std::unique_ptr<int> illegal_unique_ptr_3 = std::move(shared_int_ptr_2);
+...
+```
+
+All methods (braced initialization, assignment, and move) would result in a compiler error.
+
 ---
