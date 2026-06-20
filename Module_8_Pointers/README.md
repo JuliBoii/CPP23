@@ -2381,4 +2381,82 @@ The syntax for `shared_ptr`'s are very similar to `unique_ptr`. So let us look a
 
 ```c++
 std::shared_ptr<int> shared_int_ptr_1 {new int{30}};
+
+fmt::println("The pointed to value is: {}", *shared_int_ptr_1);
+*shared_int_ptr_1 = 40;
+fmt::println("The pointed to value is: {}", *shared_int_ptr_1);
+fmt::println("Use count = {}", shared_int_ptr_1.use_count());
 ```
+
+Resulting in the output:
+
+```terminaloutput
+The pointed to value is: 30
+The pointed to value is: 40
+Use count = 1
+```
+
+- In the code example
+  - We are declaring a shared_ptr: `shared_int_ptr_1`
+    - Initializing a new memory address to store `int` data: `30`
+  - We print the value initialized
+  - Then reassign the value to `40`
+  - Printing the new value
+  - Lastly, we print the number of pointers pointing to the memory address we allocated
+    - Which should be `1`
+    - Since only `shared_int_ptr_1` is pointing to the allocated memory
+
+The real major difference for this smart pointer, as previously mentioned, is that we can create copies.
+
+#### Copy `shared_ptr`'s
+
+```c++
+std::shared_ptr<int> shared_int_ptr_2 = shared_int_ptr_1;
+
+fmt::println("shared_int_ptr_2 value: {}", *shared_int_ptr_2);
+*shared_int_ptr_2 = 548;
+fmt::println("shared_int_ptr_2 value: {}", *shared_int_ptr_2);
+fmt::println("use count for shared_int_ptr_1: {}", shared_int_ptr_1.use_count());
+fmt::println("use count for shared_int_ptr_2: {}", shared_int_ptr_2.use_count());
+```
+
+```terminaloutput
+shared_int_ptr_2 value: 40
+shared_int_ptr_2 value: 548
+use count for shared_int_ptr_1: 2
+use count for shared_int_ptr_2: 2
+```
+
+- The main focus for this example
+  - Is the increased count for `use_count()`
+  - Indicating that there are two pointers pointing to the same memory address
+
+#### Other Methods for Declaration & Initialization
+
+We can also use various methods for declaring & initializing a `shared_ptr`:
+
+```c++
+std::shared_ptr<int> shared_int_ptr_3;
+shared_int_ptr_3 = shared_int_ptr_1;
+
+std::shared_ptr<int> shared_int_ptr_4{nullptr};
+shared_int_ptr_4 = shared_int_ptr_1;
+
+std::shared_ptr<int> shared_int_ptr_5{shared_int_ptr_1};
+
+fmt::println("shared_int_ptr_5 value: {}", *shared_int_ptr_5);
+*shared_int_ptr_5 = 314;
+fmt::println("shared_int_ptr_5 value: {}", *shared_int_ptr_5);
+fmt::println("use count for shared_int_ptr_1: {}", shared_int_ptr_1.use_count());
+fmt::println("use count for shared_int_ptr_5: {}\n", shared_int_ptr_5.use_count());
+```
+
+```terminaloutput
+shared_int_ptr_5 value: 548
+shared_int_ptr_5 value: 314
+use count for shared_int_ptr_1: 5
+use count for shared_int_ptr_5: 5
+```
+
+#### Using `shared_ptr` to Manage Existing Memory
+

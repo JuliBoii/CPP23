@@ -108,5 +108,38 @@ namespace smart_ptrs {
 
     export void shared_ptr_example() {
         fmt::println("Example for Shared Pointers:");
+        std::shared_ptr<int> shared_int_ptr_1 {new int{30}};
+
+        fmt::println("The pointed to value is: {}", *shared_int_ptr_1);
+        *shared_int_ptr_1 = 40;
+        fmt::println("The pointed to value is: {}", *shared_int_ptr_1);
+        fmt::println("Use count = {}\n", shared_int_ptr_1.use_count());
+
+        fmt::println("Copy Example:");
+        std::shared_ptr<int> shared_int_ptr_2 = shared_int_ptr_1;
+
+        fmt::println("shared_int_ptr_2 value: {}", *shared_int_ptr_2);
+        *shared_int_ptr_2 = 548;
+        fmt::println("shared_int_ptr_2 value: {}", *shared_int_ptr_2);
+        fmt::println("use count for shared_int_ptr_1: {}", shared_int_ptr_1.use_count());
+        fmt::println("use count for shared_int_ptr_2: {}\n", shared_int_ptr_2.use_count());
+
+        fmt::println("Other Methods for Initialization:");
+        fmt::println("Declared & Initialized shared_int_ptr_3");
+        std::shared_ptr<int> shared_int_ptr_3;
+        shared_int_ptr_3 = shared_int_ptr_1;
+
+        fmt::println("Declared & Initialized shared_int_ptr_4");
+        std::shared_ptr<int> shared_int_ptr_4{nullptr};
+        shared_int_ptr_4 = shared_int_ptr_1;
+
+        fmt::println("Declared & Initialized shared_int_ptr_5");
+        std::shared_ptr<int> shared_int_ptr_5{shared_int_ptr_1};
+
+        fmt::println("shared_int_ptr_5 value: {}", *shared_int_ptr_5);
+        *shared_int_ptr_5 = 314;
+        fmt::println("shared_int_ptr_5 value: {}", *shared_int_ptr_5);
+        fmt::println("use count for shared_int_ptr_1: {}", shared_int_ptr_1.use_count());
+        fmt::println("use count for shared_int_ptr_5: {}\n", shared_int_ptr_5.use_count());
     }
 }
