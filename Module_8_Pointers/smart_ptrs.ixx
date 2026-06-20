@@ -108,7 +108,7 @@ namespace smart_ptrs {
 
     export void shared_ptr_example() {
         fmt::println("Example for Shared Pointers:");
-        std::shared_ptr<int> shared_int_ptr_1 {new int{30}};
+        std::shared_ptr<int> shared_int_ptr_1{new int{30}};
 
         fmt::println("The pointed to value is: {}", *shared_int_ptr_1);
         *shared_int_ptr_1 = 40;
@@ -141,5 +141,58 @@ namespace smart_ptrs {
         fmt::println("shared_int_ptr_5 value: {}", *shared_int_ptr_5);
         fmt::println("use count for shared_int_ptr_1: {}", shared_int_ptr_1.use_count());
         fmt::println("use count for shared_int_ptr_5: {}\n", shared_int_ptr_5.use_count());
+
+        fmt::println("Use a Shared Pointer to Manage An Already Existing Piece of Memory:");
+        auto raw_int_ptr{new int{33}};
+
+        std::shared_ptr<int> shared_int_ptr_6{raw_int_ptr};
+        raw_int_ptr = nullptr;
+        fmt::println("Value pointed to by raw_int_ptr is(using shared_ptr): {}", *shared_int_ptr_6);
+        fmt::println("Use count for shared_int_ptr_6 is: {}", shared_int_ptr_6.use_count());
+        fmt::println("raw pointer: {}", fmt::ptr(raw_int_ptr));
+        fmt::println("shared_int_ptr_6.get(): {}\n", fmt::ptr(shared_int_ptr_6.get()));
+
+        fmt::println("Using Reset on Shared Pointers:");
+        shared_int_ptr_5.reset();
+        fmt::println("Current shared_int_ptr_1.use_count(): {:>9}", shared_int_ptr_1.use_count());
+        fmt::println("Current shared_int_ptr_1.get(): {:>15}", fmt::ptr(shared_int_ptr_1.get()));
+        fmt::println("Current shared_int_ptr_5.use_count(): {:>9}", shared_int_ptr_5.use_count());
+        fmt::println("Current shared_int_ptr_5.get(): {:>15}\n", fmt::ptr(shared_int_ptr_5.get()));
+
+        shared_int_ptr_4.reset();
+        fmt::println("Current shared_int_ptr_1.use_count(): {:>9}", shared_int_ptr_1.use_count());
+        fmt::println("Current shared_int_ptr_1.get(): {:>15}", fmt::ptr(shared_int_ptr_1.get()));
+        fmt::println("Current shared_int_ptr_4.use_count(): {:>9}", shared_int_ptr_4.use_count());
+        fmt::println("Current shared_int_ptr_4.get(): {:>15}\n", fmt::ptr(shared_int_ptr_4.get()));
+
+        shared_int_ptr_3.reset();
+        fmt::println("Current shared_int_ptr_1.use_count(): {:>9}", shared_int_ptr_1.use_count());
+        fmt::println("Current shared_int_ptr_1.get(): {:>15}", fmt::ptr(shared_int_ptr_1.get()));
+        fmt::println("Current shared_int_ptr_3.use_count(): {:>9}", shared_int_ptr_3.use_count());
+        fmt::println("Current shared_int_ptr_3.get(): {:>15}\n", fmt::ptr(shared_int_ptr_3.get()));
+
+        shared_int_ptr_2.reset();
+        fmt::println("Current shared_int_ptr_1.use_count(): {:>9}", shared_int_ptr_1.use_count());
+        fmt::println("Current shared_int_ptr_1.get(): {:>15}", fmt::ptr(shared_int_ptr_1.get()));
+        fmt::println("Current shared_int_ptr_2.use_count(): {:>9}", shared_int_ptr_2.use_count());
+        fmt::println("Current shared_int_ptr_2.get(): {:>15}\n", fmt::ptr(shared_int_ptr_2.get()));
+
+        fmt::println("Current shared_int_ptr_1.use_count(): {:>9}", shared_int_ptr_1.use_count());
+        fmt::println("Current shared_int_ptr_1.get(): {:>15}\n", fmt::ptr(shared_int_ptr_1.get()));
+
+        fmt::println("Using std::make_shared:");
+        std::shared_ptr<int> shared_int_ptr_7 = std::make_shared<int>(455);
+        fmt::println("Value stored in shared_int_ptr_7: {}", *shared_int_ptr_7);
+        fmt::println("Use count for shared_int_ptr_7 is: {}\n", shared_int_ptr_7.use_count());
+
+        fmt::println("Overall example:");
+        std::shared_ptr<int> shared_int_ptr_8{shared_int_ptr_7};
+        fmt::println("shared_int_ptr_7.use_count(): {}", shared_int_ptr_7.use_count());
+
+        fmt::println("Reset shared_int_ptr_7");
+        shared_int_ptr_7.reset();
+
+        fmt::println("shared_int_ptr_7.use_count(): {}", shared_int_ptr_7.use_count());
+        fmt::println("shared_int_ptr_8.use_count(): {}", shared_int_ptr_8.use_count());
     }
 }

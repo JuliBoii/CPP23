@@ -63,6 +63,12 @@
             * [`unique_ptr` As Function Parameters & Return Values](#unique_ptr-as-function-parameters--return-values)
             * [`unique_ptr` and Array's](#unique_ptr-and-arrays)
         * [`std::shared_ptr`](#stdshared_ptr)
+            * [Copy `shared_ptr`'s](#copy-shared_ptrs)
+            * [Other Methods for Declaration & Initialization](#other-methods-for-declaration--initialization)
+            * [Using `shared_ptr` to Manage Existing Memory](#using-shared_ptr-to-manage-existing-memory)
+            * [Reset(): Decrement the Use Count & Set Ptr to
+              `nullptr`](#reset-decrement-the-use-count--set-ptr-to-nullptr)
+            * [`std::make_shared`](#stdmake_shared)
 
 <!-- TOC -->
 
@@ -2397,14 +2403,14 @@ Use count = 1
 ```
 
 - In the code example
-  - We are declaring a shared_ptr: `shared_int_ptr_1`
-    - Initializing a new memory address to store `int` data: `30`
-  - We print the value initialized
-  - Then reassign the value to `40`
-  - Printing the new value
-  - Lastly, we print the number of pointers pointing to the memory address we allocated
-    - Which should be `1`
-    - Since only `shared_int_ptr_1` is pointing to the allocated memory
+    - We are declaring a shared_ptr: `shared_int_ptr_1`
+        - Initializing a new memory address to store `int` data: `30`
+    - We print the value initialized
+    - Then reassign the value to `40`
+    - Printing the new value
+    - Lastly, we print the number of pointers pointing to the memory address we allocated
+        - Which should be `1`
+        - Since only `shared_int_ptr_1` is pointing to the allocated memory
 
 The real major difference for this smart pointer, as previously mentioned, is that we can create copies.
 
@@ -2428,8 +2434,8 @@ use count for shared_int_ptr_2: 2
 ```
 
 - The main focus for this example
-  - Is the increased count for `use_count()`
-  - Indicating that there are two pointers pointing to the same memory address
+    - Is the increased count for `use_count()`
+    - Indicating that there are two pointers pointing to the same memory address
 
 #### Other Methods for Declaration & Initialization
 
@@ -2460,3 +2466,135 @@ use count for shared_int_ptr_5: 5
 
 #### Using `shared_ptr` to Manage Existing Memory
 
+We can also manage a piece of memory that existed. Let us look at an example:
+
+```c++
+int *raw_int_ptr{new int{33}};
+
+std::shared_ptr<int> shared_int_ptr_6{raw_int_ptr};
+raw_int_ptr = nullptr;
+fmt::println("Value pointed to by raw_int_ptr is(using shared_ptr): {}", *shared_int_ptr_6);
+fmt::println("Use count for shared_int_ptr_6 is: {}", shared_int_ptr_6.use_count());
+fmt::println("raw pointer: {}", fmt::ptr(raw_int_ptr));
+fmt::println("shared_int_ptr_6.get(): {}", fmt::ptr(shared_int_ptr_6.get()));
+```
+
+```terminaloutput
+Value pointed to by raw_int_ptr is(using shared_ptr): 33
+Use count for shared_int_ptr_6 is: 1
+raw pointer: 0x0
+shared_int_ptr_6.get(): 0x7a8914004bf0
+```
+
+- We declare a raw pointer: `raw_int_ptr`
+    - Dynamically Initialize the pointer
+- Declare a shared pointer: `shared_int_ptr_6`
+    - Initialize the pointer with `raw_int_ptr`
+    - Which is essentially us telling the compiler
+        - "We want to manage this memory address using the shared_ptr"
+- Reassign `raw_int_ptr` with `nullptr`
+- We are printing the data in the memory address that we cannot access through `raw_int_ptr`
+    - Since we assigned the raw pointer to `nullptr`
+    - Use `shared_int_ptr_6` to access the data
+- Print the number of pointers pointing to the memory address managed by the shared pointer
+- Print the address stored in the raw pointer
+- Lastly, print the address stored in the shared pointer
+
+While the previous example is interesting. There does not exist a valid reason for doing such
+actions. We are mainly implementing this case for understanding how shared pointers
+can take ownership of memory from a raw pointer.
+
+#### Reset(): Decrement the Use Count & Set Ptr to `nullptr`
+
+Let us look at `reset()` for `shared_ptr`'s. The behavior of `reset()` will be different compared to the behavior for
+`unique_ptr`'s. For `shared_ptr`'s, `reset()` will decrement the `use_count`/reference count and reset the pointer to
+`nullptr`.
+
+The following is an example:
+
+```c++
+shared_int_ptr_5.reset();
+fmt::println("Current shared_int_ptr_1.use_count(): {:>9}", shared_int_ptr_1.use_count());
+fmt::println("Current shared_int_ptr_1.get(): {:>15}", fmt::ptr(shared_int_ptr_1.get()));
+fmt::println("Current shared_int_ptr_5.use_count(): {:>9}", shared_int_ptr_5.use_count());
+fmt::println("Current shared_int_ptr_5.get(): {:>15}\n", fmt::ptr(shared_int_ptr_5.get()));
+
+```
+
+We repeat this format for `shared_int_ptr_2` through `shared_int_ptr_4`. Which outputs:
+
+```terminaloutput
+Current shared_int_ptr_1.use_count():         4
+Current shared_int_ptr_1.get():  0x70941e4cebe0
+Current shared_int_ptr_5.use_count():         0
+Current shared_int_ptr_5.get():             0x0
+
+Current shared_int_ptr_1.use_count():         3
+Current shared_int_ptr_1.get():  0x70941e4cebe0
+Current shared_int_ptr_4.use_count():         0
+Current shared_int_ptr_4.get():             0x0
+
+Current shared_int_ptr_1.use_count():         2
+Current shared_int_ptr_1.get():  0x70941e4cebe0
+Current shared_int_ptr_3.use_count():         0
+Current shared_int_ptr_3.get():             0x0
+
+Current shared_int_ptr_1.use_count():         1
+Current shared_int_ptr_1.get():  0x70941e4cebe0
+Current shared_int_ptr_2.use_count():         0
+Current shared_int_ptr_2.get():             0x0
+```
+
+Overall showcasing the behavior we previously mentioned.
+
+#### `std::make_shared`
+
+Similar to `unique_ptr`, we do not want to use `new` when initializing the memory that will be managed. Instead, we
+utilize `std::make_shared` to initialize a new shared pointer.
+
+The format for utilizing `std::make_shared` is the same as `std::make_unique`. Let us look at an example:
+
+```c++
+std::shared_ptr<int> shared_int_ptr_7 = std::make_shared<int>(455);
+fmt::println("Value stored in shared_int_ptr_7: {}", *shared_int_ptr_7);
+fmt::println("Use count for shared_int_ptr_7 is: {}\n", shared_int_ptr_7.use_count());
+```
+
+Outputting:
+
+```terminaloutput
+Value stored in shared_int_ptr_7: 455
+Use count for shared_int_ptr_7 is: 1
+```
+
+Again all we are doing is:
+
+- Instead of using `new int()`
+- We are calling `std::make_unique`
+    - Specify the data type: `int` in the angled brackets `<>`
+    - Along with the value we want stored: `455`
+
+Putting everything together we get:
+
+```c++
+std::shared_ptr<int> shared_int_ptr_8{shared_int_ptr_7};
+fmt::println("shared_int_ptr_7.use_count(): ", shared_int_ptr_7.use_count());
+
+fmt::println("Reset shared_int_ptr_7");
+shared_int_ptr_7.reset();
+
+fmt::println("shared_int_ptr_7.use_count(): ", shared_int_ptr_7.use_count());
+fmt::println("shared_int_ptr_8.use_count(): ", shared_int_ptr_8.use_count());
+
+```
+
+Resulting in:
+
+```terminaloutput
+shared_int_ptr_7.use_count(): 2
+Reset shared_int_ptr_7
+shared_int_ptr_7.use_count(): 0
+shared_int_ptr_8.use_count(): 1
+```
+
+---
