@@ -2750,4 +2750,151 @@ collection types.
 
 #### `shared_ptr` as function parameters & return value
 
+We will explore the use of `shared_ptr` as a function parameter and return values. We will mainly just be putting
+the code example. Maybe add some information, but I do not want to go too in-depth about each method.
+
+##### Pass by Value
+
+```c++
+void use_shared_ptr_by_value(std::shared_ptr<int> ptr_by_value) {
+    fmt::println("Inside function:");
+    *ptr_by_value = 41;
+    fmt::println("*shared_ptr passed by value: {}", *ptr_by_value);
+    fmt::println("shared_ptr use_count(): {}", ptr_by_value.use_count());
+}
+```
+
+This is a valid implementation for a parameter of `shared_ptr` type, due to `shared_ptr`s being copyable.
+Thus, `ptr_by_value` is a separate independent copy of the pointer we pass through to the function. Thus utilizing this
+method, more memory is being used when passing a pointer.
+
+An example output would be:
+
+```terminaloutput
+Before Passing by Value:
+*shared_ptr value: 5
+shared_ptr use_count(): 1
+
+Inside function:
+*shared_ptr passed by value: 41
+shared_ptr use_count(): 2
+
+After Passing by Value:
+*shared_ptr value: 41
+shared_ptr use_count(): 1
+```
+
+##### Pass by Non-`const` Reference
+
+```c++
+void use_shared_ptr_by_non_const_reference(std::shared_ptr<int> &ptr_by_non_const_ref) {
+    fmt::println("Inside function:");
+    //*ptr_by_non_const_ref = 145;
+    //fmt::println("*shared_ptr passed by value: {}", *ptr_by_non_const_ref);
+    ptr_by_non_const_ref.reset();
+    fmt::println("shared_ptr use_count(): {}\n", ptr_by_non_const_ref.use_count());
+}
+```
+
+This method is also valid. The main difference is we do not create a separate copy of the `shared_ptr` being passed.
+Rather, we are simply passing the memory address of the `shared_ptr`. Which we confirm by calling the `use_count` and
+the value remaining the same. We are still able to change the value of the pointer, but also `reset` it. Since we are
+working with a continous pointer.
+
+Example output:
+
+```terminaloutput
+Before Passing by Non-const Reference:
+*shared_ptr value: 41
+shared_ptr use_count(): 1
+
+Inside function:
+shared_ptr use_count(): 0
+
+After Passing by Non-const Reference:
+shared_ptr use_count(): 0
+```
+
+##### Pass by `const` Reference
+
+```c++
+void use_shared_ptr_by_const_reference(const std::shared_ptr<int> &ptr_by_const_ref) {
+    fmt::println("Inside function:");
+    *ptr_by_const_ref = 41;
+    //ptr_by_const_ref.reset();
+    fmt::println("*shared_ptr passed by value: {}", *ptr_by_const_ref);
+    fmt::println("shared_ptr use_count(): {}\n", ptr_by_const_ref.use_count());
+}
+```
+
+Again, we are not making a copy, rather passing the address of the `shared_ptr`. The main difference is the protection
+of the pointer. Adding `const` prevents us from manipulating the pointer itself, not the object it points to (`int`
+value). Thus, trying to run `reset()` on the pointer would make the compiler crash.
+
+Example output:
+
+```terminaloutput
+Before Passing by const Reference:
+*shared_ptr value: 145
+shared_ptr use_count(): 1
+
+Inside function:
+*shared_ptr passed by value: 41
+shared_ptr use_count(): 1
+
+After Passing by const Reference:
+*shared_ptr value: 41
+shared_ptr use_count(): 1
+```
+
+##### Return by Value
+
+We can also use `shared_ptr` as a function type. Returning a `shared_ptr` by value goes through return value
+optimization and at the process no copy is made. Thus, a single `shared_ptr` is made. Similar to using `make_shared`
+directly.
+
+```c++
+std::shared_ptr<int> get_shared_ptr() {
+    fmt::println("Inside get_shared_ptr()");
+    std::shared_ptr<int> shared_int_ptr = std::make_shared<int>(42);
+    fmt::println("Address of new shared_ptr: {}\n", fmt::ptr(shared_int_ptr.get()));
+    return shared_int_ptr;
+}
+```
+
+Example output:
+
+```terminaloutput
+Inside get_shared_ptr()
+Address of new shared_ptr: 0x7741a5800d60
+
+After calling get_shared_ptr()
+Address of new shared_ptr: 0x7741a5800d60
+```
+
+##### Return by Reference
+
+**Be careful!!** We should note that returning `shared_ptr` by reference is complicated. The reference count
+(`use_count`) is not going to be properly incremented. At the end, you will have a `shared_ptr` with a refernce count of
+zero. Resulting in our program crashing.
+
+```c++
+std::shared_ptr<int> &get_shared_ptr_by_reference() {
+    std::shared_ptr<int> shared_int_ptr = std::make_shared<int>(2);
+    fmt::println("Inside get_shared_ptr_by_reference()");
+    fmt::println("Address of new shared_ptr: {}\n", fmt::ptr(shared_int_ptr.get()));
+    return shared_int_ptr;
+}
+```
+
+This method is **NOT RECOMMENDED**. So, `shared_ptr` are not meant to be returned from functions by
+reference. If attempted the following will occur:
+
+```terminaloutput
+/tmp/Module_8_Pointers/smart_ptrs.ixx:59:12: error: non-const lvalue reference to type 'shared_ptr<...>' cannot bind to a temporary of type 'shared_ptr<...>'
+   59 |     return shared_int_ptr;
+      |            ^~~~~~~~~~~~~~
+1 error generated.
+```
+
 ---

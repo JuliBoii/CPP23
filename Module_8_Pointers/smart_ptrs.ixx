@@ -20,6 +20,45 @@ void do_something_with_int_unique(const std::unique_ptr<int> &unique_int_ptr) {
     fmt::println("Square of {} is {}\n", *unique_int_ptr, std::pow(*unique_int_ptr, 2));
 }
 
+void use_shared_ptr_by_value(std::shared_ptr<int> ptr_by_value) {
+    fmt::println("Inside function:");
+    *ptr_by_value = 41;
+    fmt::println("*shared_ptr passed by value: {}", *ptr_by_value);
+    fmt::println("shared_ptr use_count(): {}\n", ptr_by_value.use_count());
+}
+
+void use_shared_ptr_by_non_const_reference(std::shared_ptr<int> &ptr_by_non_const_ref) {
+    fmt::println("Inside function:");
+    *ptr_by_non_const_ref = 145;
+    // ptr_by_non_const_ref.reset();
+    fmt::println("*shared_ptr passed by value: {}", *ptr_by_non_const_ref);
+    fmt::println("shared_ptr use_count(): {}\n", ptr_by_non_const_ref.use_count());
+}
+
+void use_shared_ptr_by_const_reference(const std::shared_ptr<int> &ptr_by_const_ref) {
+    fmt::println("Inside function:");
+    *ptr_by_const_ref = 41;
+    //ptr_by_const_ref.reset();
+    fmt::println("*shared_ptr passed by value: {}", *ptr_by_const_ref);
+    fmt::println("shared_ptr use_count(): {}\n", ptr_by_const_ref.use_count());
+}
+
+std::shared_ptr<int> get_shared_ptr() {
+    fmt::println("Inside get_shared_ptr()");
+    std::shared_ptr<int> shared_int_ptr = std::make_shared<int>(42);
+    fmt::println("Address of new shared_ptr: {}\n", fmt::ptr(shared_int_ptr.get()));
+    return shared_int_ptr;
+}
+
+// Do not utilize this method of return type.
+// WILL CRASH YOUR APPLICATION/PROGRAM
+/*std::shared_ptr<int> &get_shared_ptr_by_reference() {
+    std::shared_ptr<int> shared_int_ptr = std::make_shared<int>(2);
+    fmt::println("Inside get_shared_ptr_by_reference()");
+    fmt::println("Address of new shared_ptr: {}\n", fmt::ptr(shared_int_ptr.get()));
+    return shared_int_ptr;
+}*/
+
 namespace smart_ptrs {
     export void unique_ptr_example() {
         fmt::println("Unique Pointer Example:");
@@ -220,12 +259,54 @@ namespace smart_ptrs {
 
         fmt::println("Setting & Accessing elements of shared_int_arr_ptr:");
         for (size_t i{0}; i < 10; i++) {
-            shared_int_arr_ptr[i] = i * 4;
+            shared_int_arr_ptr[i] = 4 * i;
         }
 
         for (size_t i{0}; i < 10; i++) {
             fmt::println("shared_int_arr_ptr[{}]: {}", i, shared_int_arr_ptr[i]);
         }
         fmt::println("");
+    }
+
+    export void shared_pointer_as_parameter_and_return_type() {
+        fmt::println("Example of various parameter declaration & return type methods for shared_ptr:\n");
+
+        std::shared_ptr<int> shared_int_ptr_1 = std::make_shared<int>(5);
+
+        fmt::println("---------------");
+        fmt::println("Passing by Value:");
+        fmt::println("Before Passing by Value:");
+        fmt::println("*shared_ptr value: {}", *shared_int_ptr_1);
+        fmt::println("shared_ptr use_count(): {}\n", shared_int_ptr_1.use_count());
+        use_shared_ptr_by_value(shared_int_ptr_1);
+        fmt::println("After Passing by Value:");
+        fmt::println("*shared_ptr value: {}", *shared_int_ptr_1);
+        fmt::println("shared_ptr use_count(): {}\n", shared_int_ptr_1.use_count());
+
+        fmt::println("---------------");
+        fmt::println("Pass by Non-const Reference:");
+        fmt::println("Before Passing by Non-const Reference:");
+        fmt::println("*shared_ptr value: {}", *shared_int_ptr_1);
+        fmt::println("shared_ptr use_count(): {}\n", shared_int_ptr_1.use_count());
+        use_shared_ptr_by_non_const_reference(shared_int_ptr_1);
+        fmt::println("After Passing by Non-const Reference:");
+        fmt::println("*shared_ptr value: {}", *shared_int_ptr_1);
+        fmt::println("shared_ptr use_count(): {}\n", shared_int_ptr_1.use_count());
+
+        fmt::println("---------------");
+        fmt::println("Pass by const Reference:");
+        fmt::println("Before Passing by const Reference:");
+        fmt::println("*shared_ptr value: {}", *shared_int_ptr_1);
+        fmt::println("shared_ptr use_count(): {}\n", shared_int_ptr_1.use_count());
+        use_shared_ptr_by_const_reference(shared_int_ptr_1);
+        fmt::println("After Passing by const Reference:");
+        fmt::println("*shared_ptr value: {}", *shared_int_ptr_1);
+        fmt::println("shared_ptr use_count(): {}\n", shared_int_ptr_1.use_count());
+
+        fmt::println("---------------");
+        fmt::println("Returning a shared_ptr by Value:");
+        std::shared_ptr<int> shared_int_ptr_2 = get_shared_ptr();
+        fmt::println("After calling get_shared_ptr()");
+        fmt::println("Address of new shared_ptr: {}\n", fmt::ptr(shared_int_ptr_2.get()));
     }
 }
