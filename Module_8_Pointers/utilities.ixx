@@ -42,6 +42,7 @@ export void pointers_example() {
     /*smart_ptrs::unique_ptr_example();
     smart_ptrs::unique_ptr_as_parameter_or_return_value();
     smart_ptrs::unique_ptrs_and_arrays();
-    smart_ptrs::shared_ptr_example();*/
-    smart_ptrs::shared_ptr_from_unique_ptr();
+    smart_ptrs::shared_ptr_example();
+    smart_ptrs::shared_ptr_from_unique_ptr();*/
+    smart_ptrs::shared_ptr_arrays();
 }

@@ -213,4 +213,19 @@ namespace smart_ptrs {
             fmt::println("shared_ptr_from_unique.get(): {}", fmt::ptr(shared_ptr_from_unique.get()));
         }
     }
+
+    export void shared_ptr_arrays() {
+        fmt::println("We will create a shared_ptr Array:");
+        std::shared_ptr<int[]> shared_int_arr_ptr{new int[10]{}};
+
+        fmt::println("Setting & Accessing elements of shared_int_arr_ptr:");
+        for (size_t i{0}; i < 10; i++) {
+            shared_int_arr_ptr[i] = i * 4;
+        }
+
+        for (size_t i{0}; i < 10; i++) {
+            fmt::println("shared_int_arr_ptr[{}]: {}", i, shared_int_arr_ptr[i]);
+        }
+        fmt::println("");
+    }
 }

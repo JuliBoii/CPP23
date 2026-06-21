@@ -2706,6 +2706,48 @@ shared_ptr_from_unique.get(): 0x78a52cdf48c0
 > Since we can convert `unique_ptr`s to be the other smart pointer types, but the inverse is not possible.
 > Thus, `unique_ptr`s are much more flexible to work with.
 
-#### `shared_ptr` with Arrays
+#### `shared_ptr` with Arrays (C++17 and above)
+
+We will be exploring how to utilize `shared_ptr` with raw arrays. Let us look at an example:
+
+```c++
+std::shared_ptr<int[]> shared_int_arr_ptr {new int[10]{}};
+
+for (size_t i{0}; i < 10; i++) {
+    shared_int_arr_ptr[i] = i * 4;
+}
+
+for (size_t i{0}; i < 10; i++) {
+    fmt::println("shared_int_arr_ptr[{}]: {}", i, shared_int_arr_ptr[i]);
+}
+fmt::println("");
+```
+
+Very straightforward implementation. Which is equivalent to standard dynamically allocated raw arrays.
+
+- We declared our pointer: `shared_int_arr_ptr`
+    - Define its type as an integer array: `<int[]>`
+    - Then initialize the pointer using `new`
+        - Adding the type & size of the dynamically allocated array: `int[10]`
+    - We brace initialize the array, so all elements are defaulted to `0`
+- In the `for` loops:
+    - First we reassign each element in the array to be `i * 4`
+    - The next `for` loop:
+        - We access the data stored at each index: `i`
+        - Then print the data
+
+And that is an implementation on how to define, initialize, set an element, and read an integer array using
+a `shared_ptr`.
+
+> Reminder: This is only possible using a C++17 compiler or newer. Since the function of `operator[]` was
+> added in the C++17 standard. Thus, any compiler using a standard lower than 17 will not work.
+
+Another thing to remember is that `make_shared` is not supported for raw arrays. While there may exist some
+compilers that do partially support this syntax, it is **not recommended** to use in any practical program.
+
+Overall, there is no major need for using raw arrays with smart pointers. There are better and more practical
+collection types.
+
+#### `shared_ptr` as function parameters & return value
 
 ---
