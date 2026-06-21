@@ -69,6 +69,20 @@
             * [Reset(): Decrement the Use Count & Set Ptr to
               `nullptr`](#reset-decrement-the-use-count--set-ptr-to-nullptr)
             * [`std::make_shared`](#stdmake_shared)
+            * [Creating a `shared_ptr` from `unique_ptr`](#creating-a-shared_ptr-from-unique_ptr)
+            * [Returning a Smart Pointer](#returning-a-smart-pointer)
+            * [`shared_ptr` with Arrays (C++17 and above)](#shared_ptr-with-arrays-c17-and-above)
+            * [`shared_ptr` as function parameters & return value](#shared_ptr-as-function-parameters--return-value)
+                * [Pass by Value](#pass-by-value)
+                * [Pass by Non-`const` Reference](#pass-by-non-const-reference)
+                * [Pass by `const` Reference](#pass-by-const-reference)
+                * [Return by Value](#return-by-value)
+                * [Return by Reference](#return-by-reference)
+        * [`std::weak_ptr`](#stdweak_ptr)
+            * [What is a `weak_ptr` useful for?](#what-is-a-weak_ptr-useful-for)
+                * [Compile-Time: The Size and Include Dilemma](#compile-time-the-size-and-include-dilemma)
+                * [Runtime: The `shared_ptr` Memory Leak](#runtime-the-shared_ptr-memory-leak)
+        * [References](#references)
 
 <!-- TOC -->
 
@@ -2897,4 +2911,202 @@ reference. If attempted the following will occur:
 1 error generated.
 ```
 
+### `std::weak_ptr`
+
+We will cover the last type of smart pointer currently avaliable. This smart pointer is special, in that they do not
+own the data they point to. So if a `weak_ptr` goes out of scope, the memory they pointed to is not going to be
+released.
+
+Thus, these non-owning pointers do not implement the following operators: `->` or `*`. So, we cannot use them directly
+to read or modify data. Let us look at an example implementing this pointer:
+
+```c++
+std::shared_ptr<int> shared_int_ptr_1 = std::make_shared<int>(200);
+std::weak_ptr<int> weak_int_ptr_1(shared_int_ptr_1);
+
+fmt::println("Pointed to value: {}", *weak_int_ptr_1); // Compiler Error, no dereference (*) operator defined
+fmt::println("Pointed to address: {}", weak_int_ptr_1.get()); // No get method
+```
+
+Skipping the obvious:
+
+- Declare a `weak_ptr` of type `int`: `weak_int_ptr_1`
+    - Initialize the pointer with the `shared_ptr`: `shared_int_ptr_1`
+    - Sets up another pair of pointers pointing to the same data
+- But remember, `weak_ptr` cannot be used to read or write data
+    - Thus, the next two line result in errors:
+
+```terminaloutput
+/tmp/Module_8_Pointers/smart_ptrs.ixx:318:46: error: indirection requires pointer operand ('std::weak_ptr<int>' invalid)
+  318 |         fmt::println("Pointed to value: {}", *weak_int_ptr_1); // Compiler Error, no dereference (*) operator defined
+      |                                              ^~~~~~~~~~~~~~~
+/tmp/Module_8_Pointers/smart_ptrs.ixx:319:63: error: no member named 'get' in 'std::weak_ptr<int>'
+  319 |         fmt::println("Pointed to address: {}", weak_int_ptr_1.get()); // No get method
+      |  
+```
+
+If we really want to use a `weak_ptr`, we have no choice but to convert the pointer back into a `shared_ptr`.
+We do that by using the lock method.
+
+```c++
+std::shared_ptr<int> weak_turned_shared = weak_int_ptr_1.lock();
+fmt::println("Pointed to value: {}", *weak_turned_shared);
+fmt::println("Pointed to address: {}", weak_turned_shared.get());
+```
+
+- We define a `shared_ptr` of type `int`: `weak_turned_shared`
+    - Next, to assign data back to this `shared_ptr` we call the `lock()` method on our `weak_ptr`
+    - This is going to turn what we had in our `weak_ptr` into a `shared_ptr`
+- Now we are able to use the `shared_ptr` like usual
+
+Something else to account for, if a `weak_ptr` were to go out of scope, this would not decrement the reference count.
+Nor would it cause the memory to be released.
+
+#### What is a `weak_ptr` useful for?
+
+The main purpose of creating a `weak_ptr` in C++ is to solve a problem referred to as _Cyclic Dependency_ or
+_Circular Dependency_. This occurs when two or more modules/classes/header file directly or indirectly rely
+on each other to function or compile. Creating a "chicken-and-egg" loop where a supposed Component A cannot be completed
+without Component B, but Component B cannot be completed without Component A.
+
+This problem manifests in two major ways: compile-time/build issues and runtime memory management bugs.
+
+##### Compile-Time: The Size and Include Dilemma
+
+While most of the information discussed will not be clear now, let us continue. The C++ compiler processes files
+sequentially and must know the exact memory size of an object to instantiate it. If two classes contain each other
+as direct members, compilation fails. Example below:
+
+```c++
+// file: A.h
+#include "B.h"
+
+class A {
+    B b_member; // Compiler needs to know the size of B
+};
+
+// file: B.h
+#include "A.h"
+
+class B {
+    A a_member; // Compiler needs to know the size of A
+};
+```
+
+Why does the example above fail?
+
+Even if we were to add header guards, the compiler gets stuck. If it parses file `A.h` first, it pauses
+to read file `B.h`. Inside the file `B.h`, it sees `A` used before `A` has finished defining. Triggering
+"unknown type" or "incomplete type" compiler error.
+
+How would we fix this?
+
+Instead of nesting the entire object by value, we can store a pointer or reference. The compiler always knows the size
+of a pointer (e.g. 8 bytes on a 64-bit system), regardless of what the pointer is pointing to.
+
+```c++
+// file: A.h
+class B; // foward declaration telling the compiler "B is a class"
+
+class A {
+    B* b_pointer; // Valid! Compiler knows the size of pointer
+};
+
+// file: A.cpp
+
+#include "B.h"
+...
+```
+
+In the example above:
+
+1. We use foward declaration (`class B;`) in the header
+    - Rather than using `#include "B.h"`
+2. Shift the actual include directive to the implementation file for `A`
+    - Where the details are needed
+
+##### Runtime: The `shared_ptr` Memory Leak
+
+In this case, the cyclic dependencies occur at runtime using smart pointers. Creating a lock that
+completely breaks automatic memory cleanup. Example below:
+
+```c++
+#include <iostream>
+#include <memory>
+
+struct Child; // Forward declaration
+
+struct Parent {
+    std::shared_ptr<Child> child_ptr;
+    ~Parent() { std::cout << "Parent Destroyed\n"; }
+};
+
+struct Child {
+    std::shared_ptr<Parent> parent_ptr;
+    ~Child() { std::cout << "Child Destroyed\n"; }
+};
+
+int main() {
+    {
+        auto father = std::make_shared<Parent>(); // Parent ref_count = 1
+        auto son = std::make_shared<Child>();     // Child ref_count = 1
+
+        // Create the cycle
+        father->child_ptr = son;                  // Child ref_count = 2
+        son->parent_ptr = father;                 // Parent ref_count = 2
+    } // father and son block variables go out of scope here
+
+    return 0;
+}
+
+```
+
+The example above fails because when the local variables pointing to `son` and `father` go out of scope,
+the objects remain alive on the heap. Since they keep each other's reference count at `1`. Causing a
+permanent memory leak. Preventing destructors from executing.
+
+To break smart pointer reference loops, we need to change one side of the relationship to a `weak_ptr`. Thus,
+simultaneously destroying the cyclic dependencies and the circular ownership loop.
+A `weak_ptr` references an object without increasing its ownership count.
+
+```c++
+#include <iostream>
+#include <memory>
+
+struct Child; // Forward declaration
+
+struct Parent {
+    std::shared_ptr<Child> child_ptr; // Strong ownership: Parent owns Child
+    ~Parent() { std::cout << "Parent Destroyed\n"; }
+};
+
+struct Child {
+    std::weak_ptr<Parent> parent_ptr; // Weak reference: Child observes Parent (No ownership)
+    ~Child() { std::cout << "Child Destroyed\n"; }
+};
+
+int main() {
+    {
+        auto father = std::make_shared<Parent>(); // Parent ref_count = 1
+        auto son = std::make_shared<Child>();     // Child ref_count = 1
+
+        father->child_ptr = son;                  // Child ref_count = 2
+        son->parent_ptr = father;                 // Parent ref_count stays 1!
+    } 
+    // Out of scope: father goes away. Parent ref_count hits 0. Parent is destroyed.
+    // Destroying Parent destroys its child_ptr. Child ref_count hits 0. Child is destroyed.
+    return 0;
+}
+
+```
+
+To outright avoid this problem, we need to define a clear ownership. So, we use
+
+- a `shared_ptr`/`unique_ptr` strictly for top-down ownership (`Parent -> Child`)
+- Use `weak_ptr` or a raw pointer for bottom-up relationship (`Child -> Parent`)
+- Prioritize using `unique_ptr` by default.
+    - Creating cycles are more difficult to accidentally create when an object has only one true owner
+
 ---
+
+### References

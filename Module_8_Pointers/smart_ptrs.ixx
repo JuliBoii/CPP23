@@ -309,4 +309,18 @@ namespace smart_ptrs {
         fmt::println("After calling get_shared_ptr()");
         fmt::println("Address of new shared_ptr: {}\n", fmt::ptr(shared_int_ptr_2.get()));
     }
+
+    export void weak_ptr_example() {
+        fmt::println("weak_ptr Example:");
+        std::shared_ptr<int> shared_int_ptr_1 = std::make_shared<int>(200);
+        std::weak_ptr<int> weak_int_ptr_1(shared_int_ptr_1);
+
+        // fmt::println("Pointed to value: {}", *weak_int_ptr_1); // Compiler Error, no dereference (*) operator defined
+        // fmt::println("Pointed to address: {}", weak_int_ptr_1.get()); // No get method defined
+
+        std::shared_ptr<int> weak_turned_shared = weak_int_ptr_1.lock();
+        fmt::println("Pointed to value: {}", *weak_turned_shared);
+        // fmt::println("Pointed to address: {}", weak_turned_shared.get());
+        fmt::println("Pointed to use_count: {}", weak_turned_shared.use_count());
+    }
 }
