@@ -82,7 +82,7 @@
             * [What is a `weak_ptr` useful for?](#what-is-a-weak_ptr-useful-for)
                 * [Compile-Time: The Size and Include Dilemma](#compile-time-the-size-and-include-dilemma)
                 * [Runtime: The `shared_ptr` Memory Leak](#runtime-the-shared_ptr-memory-leak)
-        * [References](#references)
+    * [References](#references)
 
 <!-- TOC -->
 
@@ -3103,10 +3103,10 @@ int main() {
 To outright avoid this problem, we need to define a clear ownership. So, we use
 
 - a `shared_ptr`/`unique_ptr` strictly for top-down ownership (`Parent -> Child`)
-- Use `weak_ptr` or a raw pointer for bottom-up relationship (`Child -> Parent`)
-- Prioritize using `unique_ptr` by default.
+- `weak_ptr` or a raw pointer for bottom-up relationship (`Child -> Parent`)
+- prioritize using `unique_ptr` by default.
     - Creating cycles are more difficult to accidentally create when an object has only one true owner
 
 ---
 
-### References
+## References
