@@ -83,6 +83,9 @@
                 * [Compile-Time: The Size and Include Dilemma](#compile-time-the-size-and-include-dilemma)
                 * [Runtime: The `shared_ptr` Memory Leak](#runtime-the-shared_ptr-memory-leak)
     * [References](#references)
+        * [Pointers V.S. References](#pointers-vs-references)
+        * [References and `const`](#references-and-const)
+        * [Range-based `for` Loops](#range-based-for-loops)
 
 <!-- TOC -->
 
@@ -3110,3 +3113,319 @@ To outright avoid this problem, we need to define a clear ownership. So, we use
 ---
 
 ## References
+
+We will now be covering a topic that goes side-by-side with pointers. Eventhough we have been using references, let us
+look more in-depth about references. Which is implemented by the ampersand operator (`&`). This concept is similar
+to pointers, so one may ask: Why do we need the reference operator.
+
+Well working with pointers is quite ugly. In that we have to use the `*` (dereferencing operator) to dereference and
+change values. And the syntax is not easy to work with.
+
+References are an alias, or alternative name, for an existing variable. When created, it acts exactly like the original
+variable. Any operation performed on the reference directly modifies the original data. Let us look at an example:
+
+```c++
+double original_data{12.12};
+double &reference_original{original_data};
+
+fmt::println("double data:{:.>15}", original_data);
+fmt::println("reference data:{:.>12}", reference_original);
+fmt::println("double data address (&original_data):{:.>26}", fmt::ptr(&original_data));
+fmt::println("reference data address (&reference_original):{:.>18}\n", fmt::ptr(&reference_original));
+
+original_data = 13.411343;
+
+fmt::println("Modified data through (original_data) variable:");
+fmt::println("double data:{:.>15}", original_data);
+fmt::println("reference data:{:.>12}", reference_original);
+fmt::println("double data address (&original_data):{:.>26}", fmt::ptr(&original_data));
+fmt::println("reference data address (&reference_original):{:.>18}\n", fmt::ptr(&reference_original));
+
+reference_original = 14.31411;
+
+fmt::println("Modified data through (reference_original) variable:");
+fmt::println("double data:{:.>15}", original_data);
+fmt::println("reference data:{:.>12}", reference_original);
+fmt::println("double data address (&original_data):{:.>26}", fmt::ptr(&original_data));
+fmt::println("reference data address (&reference_original):{:.>18}\n", fmt::ptr(&reference_original));
+```
+
+Which outputs:
+
+```terminaloutput
+double data:..........12.12
+reference data:.......12.12
+double data address (&original_data):............0x7ffdbd4755c8
+reference data address (&reference_original):....0x7ffdbd4755c8
+
+Modified data through (original_data) variable:
+double data:......13.411343
+reference data:...13.411343
+double data address (&original_data):............0x7ffdbd4755c8
+reference data address (&reference_original):....0x7ffdbd4755c8
+
+Modified data through (reference_original) variable:
+double data:.......14.31411
+reference data:....14.31411
+double data address (&original_data):............0x7ffdbd4755c8
+reference data address (&reference_original):....0x7ffdbd4755c8
+```
+
+There are some core concepts to remember about reference types:
+
+- They must be initialized
+    - Cannot declare a reference without assigning it to an existing variable
+- Cannot be reassigned
+    - Once a reference is bound to a variable
+        - Cannot be "reseated" to refer to something else
+    - Attempting to do so will just overwrite the value of the original reference
+- Cannot be `null`
+    - Must always point to valid data
+    - No equivalent to a `nullptr` for references
+- No physical identity
+    - A reference does not occupy its own distinct memory space
+    - Nor does it have its own address
+    - Taking the address of a reference (`&reference_original`) yields the address of the original variable
+
+Earlier we stated that pointers & references are similar. But that is not exactly true. Let us look at a comparison
+between pointers and references.
+
+### Pointers V.S. References
+
+While both are used to access other objects indirectly, they have structural differences:
+
+| Feature        | Refernce                                                              | Pointer                                                            |
+|----------------|-----------------------------------------------------------------------|--------------------------------------------------------------------|
+| Syntax         | Treated as an oridinary variable<br/>(no symbol needed to read/write) | Requires the `*` operator to dereference<br/>and read/write values |
+| Initialization | Must be initalized when declared                                      | Can be declared as uninitialized or `nullptr`                      |
+| Memory Address | Shares the target's memory address                                    | Holds its own independent memory address                           |
+| Reassignment   | Impossible                                                            | Can be freely changed to point to a new address at any time        |
+
+The following displays the output for the function: `comparison_with_pointers()`. That was implemented in
+the file: `references.ixx`. Showcasing the features above:
+
+```terminaloutput
+Comparison with pointers
+Comapring the declaration & initializaiton:
+Variable Declaration & Initialization:
+double double_value = 412.132
+
+Reference Declaration & Initialization:
+double &reference_double = double_value
+
+Pointer Declaration & Initialization:
+double *pointer_double = &double_value
+
+Accessing data:
+double_value (value) = 412.132
+reference_double (value) = 412.132
+*pointer_double (value) = 412.132
+
+Writing through various types:
+Using original variable
+double_value = 13.31
+
+double_value (value) = 13.31
+reference_double (value) = 13.31
+*pointer_double (value) = 13.31
+
+Using reference variable
+reference_double = 51.31
+
+double_value (value) = 51.31
+reference_double (value) = 51.31
+*pointer_double (value) = 51.31
+
+Using pointer variable
+*pointer_double = 62.31
+
+double_value (value) = 62.31
+reference_double (value) = 62.31
+*pointer_double (value) = 62.31
+
+Memory address for each variable type:
+&double_value (address):       0x7ffe5ec1d238
+&reference_double (address):   0x7ffe5ec1d238
+&pointer_double (address):     0x7ffe5ec1d230
+
+Reassigning Pointer & Reference:
+Able to reassign pointer with new address
+pointer_double = &new_double_value
+
+double_value (value) = 62.31
+reference_double (value) = 62.31
+*pointer_double (value) = 42.3
+
+Unable to reassign reference variable
+
+
+Process finished with exit code 0
+```
+
+If we tried to reassign the reference variable: `reference_double`. We would recieve the following complie-time error:
+
+```terminaloutput
+/tmp/Module_8_Pointers/references.ixx:88:28: error: assigning to 'double' from incompatible type 'double *'; remove &
+   88 |         reference_double = &new_double_value;
+      |                            ^~~~~~~~~~~~~~~~~
+1 error generated.
+```
+
+### References and `const`
+
+The next topic to cover is the use of `const` with references. In applying `const` to a reference,
+we create a `const` reference. Making the underlying data read-only, when accessed through said
+reference. Preventing someone from modifying the referenced object.
+
+Technically, a reference is already `const` because one cannot reassign a reference variable. Thus, adding
+`const` modifies the permissions of the data being looked at, not the reference itself. Remember our use of
+`const` with pointers, we do not have various combinations in comparison. Plus, we do not have to use
+confusing syntax such as, `const int& const reference_variable` to make the reference variable
+and the data pointed to unmodifiable. Unlike raw pointers, where we have to declare `const int*` to make
+the data unmodifiable and add another `const` after, to prevent reassigning a pointer to a new memory location.
+
+What are some key behaviors of `const` references:
+
+- Immutable:
+    - One cannot alter the value of the reffered object
+    - Nor can they assign a new value to it through the reference
+- `Const` Member Functions Only:
+    - If the reference points to a `class` object
+        - one can only invoke member functions that are explicitly marked with the `const` qualifier
+- Binding to Rvalues (Temporaries):
+    - Unlike standard non-`const` Lvalue references
+        - A `const` reference can bind directly to temporary objects, literals, or rvalues
+        - `const int& r = 412;`
+- Lifetime Extension
+    - When binding a `const` reference to a temporary object
+        - C++ extends the lifetime of that temporary object to match the lifetime of the reference itself
+        - Preventing a dangling reference
+- Read-only View, Not a Constant Object:
+    - A `const` reference promises that _you_ won't change the data through the reference
+    - However, if the underlying object itself was declared as a regular, mutable variable
+        - It can still be modified by other parts of the program
+
+Let us look at the output for the function: `const_reference_example()`. Implemented in the file `references.ixx`.
+
+```terminaloutput
+Using const With References:
+original_int (value) =            42
+reference_original_int (value) =  42
+
+Modified original_int:
+original_int = 24
+original_int (value) =            24
+reference_original_int (value) =  24
+
+Cannot Modify reference_original_int:
+
+Preventing program from making a copy of original_int (Passing to function)
+Inside print_value:
+data: 24
+
+Example of Binding to a temporary rvalue:
+Inside print_value:
+data: 42
+```
+
+Attempting to modify a `const` reference variable, whether in main function or in a function,
+results in the following respective output:
+
+```terminaloutput
+/tmp/Module_8_Pointers/references.ixx:117:32: error: cannot assign to variable 'reference_original_int' with const-qualified type 'const int &'
+  117 |         reference_original_int = 400;
+      |         ~~~~~~~~~~~~~~~~~~~~~~ ^
+/tmp/Module_8_Pointers/references.ixx:105:20: note: variable 'reference_original_int' declared const here
+  105 |         const int &reference_original_int{original_int};
+      |         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+```
+
+```terminaloutput
+/tmp/Module_8_Pointers/references.ixx:9:11: error: cannot assign to variable 'value' with const-qualified type 'const int &'
+    9 |     value = 421;
+      |     ~~~~~ ^
+/tmp/Module_8_Pointers/references.ixx:8:29: note: variable 'value' declared const here
+    8 | void print_value(const int &value) {
+      |                  ~~~~~~~~~~~^~~~~
+1 error generated.
+```
+
+Then attempting to assign a non-`const` reference variable with a temporary object results in the following error:
+
+```terminaloutput
+/tmp/Module_8_Pointers/references.ixx:127:14: error: non-const lvalue reference to type 'int' cannot bind to an initializer list temporary
+  127 |         int &temporary_int_1{41};
+      |              ^              ~~~~
+1 error generated.
+```
+
+What are some use-cases for `const` references?
+
+- Pass-by-Reference-to-Const
+    - This is the standard idiom for passing large structures, classes, or STL containers to functions
+    - Provides the memory-saving performance benefits of passing a pointer
+        - Without the overhead of copying the object
+        - While safely guaranteeing that the function will not alter the original data
+- Range-based `for` loops
+    - When looping through objects without modifying them
+    - Using: `for (const auto& item : container)`
+        - Prevent copying each element on every single iteration
+
+### Range-based `for` Loops
+
+Last topic we will cover for references, will be using `const` references with range-based `for` loops. Let
+us look at an example covering the use of references, `const`, and range-based `for` loops together:
+
+```c++
+std::vector<int> scores{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+for (const auto &score: scores) {
+    fmt::print("{:<4} ", score);
+}
+fmt::println("\n");
+
+
+for (auto &score: scores) {
+    score = score * 10;
+}
+
+for (const auto &score: scores) {
+    fmt::print("{:<4} ", score);
+}
+fmt::println("\n");
+```
+
+In the example:
+
+- Declare & Initialize a `vector`: `scores`
+    - Of type `int`
+- Use a range-based `for` loop to
+    - Print the values of the `vector`
+    - Using a `const` reference to
+        - Prevent creating duplicates of each data accessed
+        - And manipulating the data stored
+- The next range-based `for` loop
+    - Accesses each element and manipulates it
+        - Multiplies data stored by 10
+    - Using a non-`const` reference
+        - To prevent creating duplicates of each data accessed
+        - We do not include the `const` so we can manipulate the data stored
+- The last range-based `for` loop
+    - Print the data of the `vector`
+    - Once again using a `const` reference
+
+The example outputs:
+
+```terminaloutput
+1    2    3    4    5    6    7    8    9    10   
+
+10   20   30   40   50   60   70   80   90   100 
+
+
+Process finished with exit code 0 
+```
+
+More information maybe added in the future.
+
+---

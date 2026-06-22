@@ -8,6 +8,7 @@ import pointer3;
 import pointer4;
 import dynamic_memory_allocation;
 import smart_ptrs;
+import references;
 
 export void pointers_example() {
     /*pointer1::declaration_and_initialization();
@@ -44,7 +45,14 @@ export void pointers_example() {
     smart_ptrs::unique_ptrs_and_arrays();
     smart_ptrs::shared_ptr_example();
     smart_ptrs::shared_ptr_from_unique_ptr();
-    smart_ptrs::shared_ptr_arrays();*/
-    // smart_ptrs::shared_pointer_as_parameter_and_return_type();
-    smart_ptrs::weak_ptr_example();
+    smart_ptrs::shared_ptr_arrays();
+    smart_ptrs::shared_pointer_as_parameter_and_return_type();
+    smart_ptrs::weak_ptr_example();*/
+}
+
+export void references_example() {
+    references::declaration_example();
+    references::comparison_with_pointers();
+    references::const_reference_example();
+    references::range_based_for_loop_example();
 }
