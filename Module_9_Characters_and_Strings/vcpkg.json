@@ -1,0 +1,13 @@
+{
+  "vcpkg-configuration": {
+    "default-registry": {
+      "kind": "git",
+      "baseline": "a0b1c8d3a477c1cb4813d8e127a56961707ca42b",
+      "repository": "https://github.com/microsoft/vcpkg"
+    }
+  },
+  "name": "mod9",
+  "dependencies": [
+    "fmt"
+  ]
+}
