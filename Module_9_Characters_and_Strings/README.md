@@ -469,3 +469,10 @@ That is all for this subsection. But there are a few more facilities that were n
 
 ---
 
+## Handling C-Strings
+
+Now we will focus on facilities for handling/manipulating c-strings. As previously stated in an old module, a c-string
+is a collection of characters in memory with the requirement that it must end with a null character (`\0`). It must
+also be managed through a pointer. Essentially, it is a static array living in memory, ending with a null character,
+which is manipulated through a pointer.
+

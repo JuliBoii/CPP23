@@ -3,6 +3,7 @@ module;
 export module utilities;
 
 import character_handling;
+import cstring_handling;
 
 export void handle_char_demo() {
     character_handling::check_if_alphanumeric();
@@ -14,4 +15,7 @@ export void handle_char_demo() {
     character_handling::check_if_whitespace_character();
     character_handling::check_if_punctuation();
     character_handling::check_if_printable_character();
+}
+
+export void handle_cstring_demo() {
 }
