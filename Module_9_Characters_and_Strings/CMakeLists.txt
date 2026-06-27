@@ -18,6 +18,7 @@ TARGET_SOURCES(${PROJECT_NAME}
         utilities.ixx
         character_handling.ixx
         cstring_handling.ixx
+        standard_string_handling.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)

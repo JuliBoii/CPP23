@@ -4,6 +4,7 @@ export module utilities;
 
 import character_handling;
 import cstring_handling;
+import string_handling;
 
 export void handle_char_demo() {
     character_handling::check_if_alphanumeric();
@@ -23,4 +24,7 @@ export void handle_cstring_demo() {
     cstring_handling::using_strlen();
     cstring_handling::using_strcmp_and_strncmp();
     cstring_handling::using_strchr_and_strrcmp();
+}
+
+export void handle_standard_string_demo() {
 }
