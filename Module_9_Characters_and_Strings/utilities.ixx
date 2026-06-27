@@ -18,4 +18,9 @@ export void handle_char_demo() {
 }
 
 export void handle_cstring_demo() {
+    cstring_handling::using_strcpy_and_strncpy();
+    cstring_handling::using_strcat_and_strncat();
+    cstring_handling::using_strlen();
+    cstring_handling::using_strcmp_and_strncmp();
+    cstring_handling::using_strchr_and_strrcmp();
 }

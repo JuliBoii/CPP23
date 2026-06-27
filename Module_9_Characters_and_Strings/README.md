@@ -20,8 +20,20 @@ major topic covering the handling of `std::string_views`. A more recent addition
         * [`std::isalnum()`](#stdisalnum)
         * [`std::isalpha()`](#stdisalpha)
         * [`std::isblank()`](#stdisblank)
-        * [`std::isupper()` and `std::islower()`](#stdisupper-and-stdislower)
-        * [`std::isalnum()`](#stdisalnum-1)
+        * [`std::isupper()` and `std::toupper()`](#stdisupper-and-stdtoupper)
+        * [`std::islower()` and `std::tolower()`](#stdislower-and-stdtolower)
+        * [`std::isdigit()` and `std::isxdigit()`](#stdisdigit-and-stdisxdigit)
+        * [`std::isspace()`](#stdisspace)
+        * [`std::ispunct()`](#stdispunct)
+        * [`std::isprint()`](#stdisprint)
+    * [Handling C-Strings](#handling-c-strings)
+        * [String Manipulation](#string-manipulation)
+            * [`std::strcpy` and `std::strncpy`](#stdstrcpy-and-stdstrncpy)
+            * [`std::strcat` and `std::strncat`](#stdstrcat-and-stdstrncat)
+        * [String Examination](#string-examination)
+            * [`std::strlen()`](#stdstrlen)
+            * [`std::strcmp()` and `std::strncmp()`](#stdstrcmp-and-stdstrncmp)
+            * [`std::strchr()` and `std::strrchr()`](#stdstrchr-and-stdstrrchr)
 
 <!-- TOC -->
 
@@ -474,5 +486,307 @@ That is all for this subsection. But there are a few more facilities that were n
 Now we will focus on facilities for handling/manipulating c-strings. As previously stated in an old module, a c-string
 is a collection of characters in memory with the requirement that it must end with a null character (`\0`). It must
 also be managed through a pointer. Essentially, it is a static array living in memory, ending with a null character,
-which is manipulated through a pointer.
+which is manipulated through a pointer. All the facilities we will be using can be found in the `<cstring>` library.
+Let's go!!
+
+### String Manipulation
+
+#### `std::strcpy` and `std::strncpy`
+
+Both these facilities copies the character string to the character array. `std::strncpy` simply takes an additional
+parameter for a character copy limit. Let us look at an example:
+
+```c++
+const char *cstring{"Is this valid?"};
+char *dest1{new char[16]};
+char *dest2{new char[16]};
+
+fmt::println("Before std::strcpy():");
+fmt::println("dest1: {}\n", dest1);
+
+fmt::println("Copying...");
+std::strcpy(dest1, cstring);
+fmt::println("After std::strcpy():");
+fmt::println("dest1: {}\n", dest1);
+
+fmt::println("Before std::strncpy():");
+fmt::println("dest2: {}\n", dest1);
+
+fmt::println("Copying...");
+std::strncpy(dest2, cstring, 14);
+fmt::println("After std::strcpy():");
+fmt::println("dest2: {}\n", dest2);
+```
+
+Output:
+
+```terminaloutput
+Before std::strcpy():
+dest1: 
+
+Copying...
+After std::strcpy():
+dest1: Is this valid?
+
+Before std::strncpy():
+dest2: Is this valid?
+
+Copying...
+After std::strcpy():
+dest2: Is this valid?
+```
+
+`std::strcpy` copies a pointer to a null-terminated byte string to a character array whose first element is pointed to
+by a pointer.
+
+The facility will have undefined behavior if the character array is not large enough. It can also have undefined
+behavior if the strings overlap.
+
+For `std::strcpy()`, we did not include a third parameter when copying our c-string to the character array. Unlike our
+example using `std::strcpy()`. The third parameter for `std::strncpy` deals with the maximum number of characters to
+copy. For this example, we will refer to this parameter as `count`.
+
+If `count` is reached before the entire string (`cstring`) was copied, the resulting character array (`dest1` & `dest2`)
+is not null-terminated. If, after copying the string (`cstring`), `count` has not been reached, additional null
+characters are written to the character array (`dest1` & `dest2`), until the total of `count` characters have been
+written. If the strings overlap, the behavior is undefined.
+
+#### `std::strcat` and `std::strncat`
+
+These facilities append strings. Lets us look at an example:
+
+```c++
+char dest[15] = "Hello";
+char dest2[15] = "My";
+char src[15] = "World";
+
+fmt::println("Before std::strcat():");
+fmt::println("dest: {}\n", dest);
+
+fmt::println("Concatenating...");
+std::strcat(dest, src);
+fmt::println("After std::strcat():");
+fmt::println("dest: {}\n", dest);
+
+fmt::println("Before std::strncat():");
+fmt::println("dest2: {}\n", dest2);
+
+fmt::println("Concatenating...");
+std::strncat(dest2, src, 14);
+fmt::println("After std::strcat():");
+fmt::println("dest2: {}\n", dest2);
+```
+
+Output:
+
+```terminaloutput
+Before std::strcat():
+dest: Hello
+
+Concatenating...
+After std::strcat():
+dest: HelloWorld
+
+Before std::strncat():
+dest2: My
+
+Concatenating...
+After std::strcat():
+dest2: MyWorld
+```
+
+`std::strcat()` appends a copy of the character string, pointed to by `src`, to the end of the character string, pointed
+to by `dest`. With the beginning of `src` (`scr[0]`) replacing the null terminator (`\0`) at the end of `dest`.
+Resulting in a null-terminated byte string.
+
+This facility has undefined behavior if the destination byte string (return value) is not large enough or the contents
+of both `src` and `dest` along with the null terminator. It also has undefined behavior if the strings overlap.
+
+`std::strncat()` is similar to `std::strcat()`, except it takes a third parameter. This third parameter is the maximum
+number of characters to copy. So, the destination byte string (return value) must have enough space for the contents of
+both `dest2` and `src` along with the null terminator. With `src` being limited in length as specified by the third
+parameter.
+
+**_Note:_** Both `std::strcat()` and `std::strncat()` have to find the end of the destination byte-string every time
+either is used. It is **inefficient** to concatenate many strings into one using either facility.
+
+### String Examination
+
+#### `std::strlen()`
+
+Returns the length of the given byte-string. Meaning the number of characters in a character array up til reaching the
+null terminator.
+
+This facility has undefined behavior if there is no null terminator in the byte-string. Let us look at an example:
+
+```c++
+constexpr char message1[]{"The sk\0y is blue.\0"};
+constexpr char *message2{"The sky is bl\0ue.\0"};
+
+fmt::println("message1 : {}", message1);
+fmt::println("message2 : {}", message2);
+
+fmt::println("strlen(message1) : {}", std::strlen(message1));
+fmt::println("strlen(message2) : {}", std::strlen(message2));
+```
+
+Output:
+
+```terminaloutput
+message1 : The sk
+message2 : The sky is bl
+strlen(message1) : 6
+strlen(message2) : 13
+```
+
+This facility does behave differently compared to other facilities that return a size/length. For example, `sizeof()`
+would not return the same value as `std::strlen()`. Appending the following to the code above:
+
+```c++
+...
+fmt::println("sizeof(message1) : {}", sizeof(message1));
+..
+fmt::println("sizeof(message2) : {}", sizeof(message2));
+...
+```
+
+Output:
+
+```terminaloutput
+message1 : The sk
+message2 : The sky is bl
+strlen(message1) : 6
+sizeof(message1) : 19
+strlen(message2) : 13
+sizeof(message2) : 8
+```
+
+This result difference is due how each facility handles the null-terminator. `std::strlen()` returns the length/size
+up-until reaching a null terminator. On the other hand, `sizeof()` is a compile-time operator that measures total
+allocated memory. So, `sizeof()` is returning the total storage allocated for the byte-string. Thus, taking into account
+the null-terminator.
+
+#### `std::strcmp()` and `std::strncmp()`
+
+These facilities compare two c-strings lexicographically. Let us look at an example:
+
+```c++
+const char *string_data1{"Banana"};
+const char *string_data2{"Danana"};
+
+char string_data3[]{"Banana"};
+char string_data4[]{"Danana"};
+
+fmt::println("Using std::strcmp()");
+fmt::println("std::strcmp({}, {}) = {}", string_data1, string_data2, std::strcmp(string_data1, string_data2));
+fmt::println("std::strcmp({}, {}) = {}\n", string_data3, string_data4, std::strcmp(string_data3, string_data4));
+
+fmt::println("Using std::strncmp()");
+fmt::println("std::strncmp({}, {}, 4) = {}", string_data1, string_data2,
+             std::strncmp(string_data1, string_data2, 4));
+fmt::println("std::strncmp({}, {}, 4) = {}\n", string_data3, string_data4,
+             std::strncmp(string_data3, string_data4, 4));
+```
+
+Output:
+
+```terminaloutput
+Using std::strcmp()
+std::strcmp(Banana, Danana) = -2
+std::strcmp(Banana, Danana) = -2
+
+Using std::strncmp()
+std::strncmp(Banana, Danana, 4) = -2
+std::strncmp(Banana, Danana, 4) = -2
+```
+
+`std::strcmp()` compares two null-terminated byte strings lexicographically. In the example above we test this using
+two different cstring formats. We use a character pointer first followed by a test using a character array.
+
+Facility returns an integer value. This integer value tells you 3 things:
+
+- If negative (`-`)
+    - The left hand side (`string_data1`) appears before the right hand side (`string_data2`) in lexicographical order
+- If zero (`0`)
+    - The left hand side (`string_data1`) and right hand side (`string_data2`) compare equal
+- If positive (`+`)
+    - The left hand side (`string_data1`) appears after the right hand side (`string_data2`) in lexicographical order
+
+`std::strcmp()` has undefined behavior if the left hand side or right hand side are not pointers to null-terminated
+byte-strings.
+
+`std::strncmp()` takes a third parameter, which dictates the number of characters to compare. Referring to this size as
+`count`. So, the facility will compare, at most, `count` characters of two null-terminated byte-strings. With the
+comparison also being done lexicographically. Any character that follows the null-character are not compared.
+This facility follows the same return behavior as `std::strcmp()`.
+
+`std::strncmp()` has undefined behavior when either the left hand or right hand side go past the end of respective
+array. Or either is a null pointer.
+
+#### `std::strchr()` and `std::strrchr()`
+
+`std::strchr()` finds the first occurrence of a specified `char`. While `std::strrchr()` finds the last occurrence of
+the
+specified `char`. Let us look at an example:
+
+```c++
+constexpr char string_data1[]{"Havana Banana in Transylvania next to Pennsylvania"};
+const char *string_data2{"Havana Banana in Transylvania next to Pennsylvania"};
+constexpr char target = 'i';
+
+fmt::println("Using std::strchr()");
+const char *result = string_data1;
+result = std::strchr(string_data1, target);
+if (result) {
+    fmt::println("{}\n", result);
+}
+
+result = std::strchr(string_data2, target);
+if (result) {
+    fmt::println("{}\n", result);
+}
+
+fmt::println("Using std::strrchr()");
+result = std::strrchr(string_data1, target);
+if (result) {
+    fmt::println("{}\n", result);
+}
+
+result = std::strrchr(string_data2, target);
+if (result) {
+    fmt::println("{}\n", result);
+}
+```
+
+Output:
+
+```terminaloutput
+Using std::strchr()
+in Transylvania next to Pennsylvania
+
+in Transylvania next to Pennsylvania
+
+Using std::strrchr()
+ia
+
+ia
+```
+
+`std::strchr()` finds the first occurrence of the character in the byte-string. In the example above we test this using
+two different cstring formats. We use a character array first followed by a test using a character pointer. Adding in,
+the null character (`\0`) is also included in the search. One can search for it by inputting the null character to the
+facility.
+
+`std::strchr()` returns a `char` pointer of the found character in the source cstring, or a null pointer if the
+character is not found.
+
+`std::strrchr()`, on the other hand, finds the last occurrence of the character in the byte-string. Likewise, the null
+character can also be found.
+
+`std::strncmp()` returns a `char` pointer of the found character in the source cstring, or a null pointer if the
+character is not found.
+
+There are more facilities available in the `<cstring>` library, but these are the ones we wanted to cover.
+
+---
 
