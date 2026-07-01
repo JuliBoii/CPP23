@@ -27,4 +27,8 @@ export void handle_cstring_demo() {
 }
 
 export void handle_standard_string_demo() {
+    string_handling::standard_string_declaration_and_initialization();
+    string_handling::standard_string_concatenation();
+    string_handling::standard_string_memory_and_capacity();
+    string_handling::standard_string_accessing_elements();
 }
