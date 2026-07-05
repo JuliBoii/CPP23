@@ -19,6 +19,7 @@ TARGET_SOURCES(${PROJECT_NAME}
         character_handling.ixx
         cstring_handling.ixx
         standard_string_handling.ixx
+        string_literal.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)

@@ -5,6 +5,7 @@ export module utilities;
 import character_handling;
 import cstring_handling;
 import string_handling;
+import string_literal;
 
 export void handle_char_demo() {
     character_handling::check_if_alphanumeric();
@@ -32,4 +33,8 @@ export void handle_standard_string_demo() {
     string_handling::standard_string_memory_and_capacity();
     string_handling::standard_string_accessing_elements();
     string_handling::standard_string_modifying_elements();
+}
+
+export void string_literal_demo() {
+
 }
