@@ -31,4 +31,5 @@ export void handle_standard_string_demo() {
     string_handling::standard_string_concatenation();
     string_handling::standard_string_memory_and_capacity();
     string_handling::standard_string_accessing_elements();
+    string_handling::standard_string_modifying_elements();
 }

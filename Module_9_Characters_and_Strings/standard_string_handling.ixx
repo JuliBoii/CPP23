@@ -2,10 +2,20 @@ module;
 
 #include <string>
 #include <cctype>
+#include <cstring>
 #include <iostream>
 #include <fmt/format.h>
 
 export module string_handling;
+
+void printCString(const char *c_str) {
+    fmt::println("Length: {}", std::strlen(c_str));
+
+    for (auto i{0uz}; i < std::strlen(c_str); i++) {
+        fmt::print("{}", *(c_str + i));
+    }
+    fmt::println("\n");
+}
 
 using namespace std::literals::string_literals;
 
@@ -217,6 +227,28 @@ namespace string_handling {
         }
         fmt::println("\n");
 
+
+        fmt::println("Example of Direct Pointer Access:");
+        message = "Hello Man!";
+
+        fmt::println("Read-Only Access with c_str()");
+        const char *readOnlyPtr = message.c_str();
+        printCString(readOnlyPtr);
+
+        fmt::println("Modifiable C-String with data()");
+        char *raw_ptr = message.data();
+        fmt::println("Before modifying elements");
+        printCString(raw_ptr);
+
+        *raw_ptr = 'M';
+        *(raw_ptr + 1) = 'y';
+        raw_ptr[2] = ' ';
+
+        fmt::println("After modifying elements");
+        printCString(raw_ptr);
+    }
+
+    export void standard_string_modifying_elements() {
         fmt::println("Example of using insert() Member Function:");
         std::string str{"tard"};
         fmt::println("Before insert():");
@@ -253,6 +285,74 @@ namespace string_handling {
         std::string substr2{"26"s};
         fmt::println("After insert() iterator range:");
         str.insert(str.begin() + 3, substr2.begin(), substr2.end());
-        fmt::println("{}", str);
+        fmt::println("{}\n", str);
+
+        fmt::println("Example of erase() member function:");
+        std::string str1{"This is a string example."};
+        fmt::println("str1: {}\n", str1);
+
+        // 1. Index based erase: (start_index, number_of_char)
+        str1.erase(7, 2);
+        fmt::println("str1: {}\n", str1);
+        
+        // 2. Erase to the end of string: (start_index)
+        str1.erase(15);
+        fmt::println("str1: {}\n", str1);
+
+        // 3. Char removal using iterator position: (start_iter)
+        str1.erase(str1.begin() + 12);
+        fmt::println("str1: {}\n", str1);
+
+        // 4. Using iterator range: (start_iter, end_iter)
+        str1.erase(str1.begin() + 11, str1.end());
+        fmt::println("str1: {}\n", str1);
+
+        fmt::println("Example of pop_back() Member Function:");
+        str = "Quick String"s;
+        fmt::println("Before pop_back(): {}", str);
+        str.pop_back();
+        fmt::println("After pop_back(): {}\n", str);
+
+        fmt::println("Example of assign() Member Function:");
+        std::string str2{};
+
+        // 1. Using a string variable or literal
+        fmt::println("Assign (string literal or variable):");
+        std::string other_string{"Hey!"};
+        str2.assign(other_string);
+        fmt::println("str: {}", str2);
+
+        str2.assign("Hello"s);
+        fmt::println("str: {}\n", str2);
+
+        // 2. Using a Character Array (C-String)
+        fmt::println("Assign (C-string):");
+        const char *s{"New String"};
+        str2.assign(s, 3);
+        fmt::println("str: {}", str2);
+
+        str2.assign(s);
+        fmt::println("str: {}\n", str2);
+
+        // 3. Character fill
+        fmt::println("Assign (char fill):");
+        str2.assign(6, 'f');
+        fmt::println("str: {}\n", str2);
+
+        // 4. Iterator Range
+        fmt::println("Assign (Iterator Range):");
+        str2.assign(other_string.begin(), other_string.end());
+        fmt::println("str: {}\n", str2);
+
+        // 5. Sub-String
+        fmt::println("Assign (Sub-string):");
+        other_string = "Hey I am a new string."s;
+        str2.assign(other_string, 11, 11);
+        fmt::println("str: {}\n", str2);
+
+        // 6. Initializer List
+        fmt::println("Assign (Initializer List):");
+        str2.assign({'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 's', 't', 'r', 'i', 'n', 'g'});
+        fmt::println("str: {}\n", str2);
     }
 }

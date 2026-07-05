@@ -57,9 +57,12 @@ major topic covering the handling of `std::string_views`. A more recent addition
       * [`front()` and `back()`](#front-and-back)
       * [Iterators & Range-based Loops](#iterators--range-based-loops)
       * [Direct Pointer Access](#direct-pointer-access)
-      * [`insert()` Member Function](#insert-member-function)
     * [Modifying `std::string`](#modifying-stdstring)
+      * [`insert()` Member Function](#insert-member-function)
       * [`erase()`](#erase)
+      * [`pop_back()`](#pop_back)
+      * [`assign()`](#assign)
+  * [String Literals](#string-literals)
 <!-- TOC -->
 
 <!--@formatter:on-->
@@ -1585,29 +1588,81 @@ If we need compatibility with legacy C-style API's. We can get a direct pointer 
 array using the memeber function: `data()` or `c_str()`. Since the C++11 standard,
 
 - `data()` returns a valid, null-terminating string pointer (`char*` or `const char*`)
+    - Since the C++17 Standard
+        - If the string is non-`const`
+            - `data()` returns a modifiable `char*` pointer
+            - Allowing one to overwrite memory directly
 - `c_str()` returns a read-only, null-terminating C-string array pointer (`const char*`)
+    - Exclusively used
 
 Example below:
 
 ```c++
 #include <string>
+#include <cstring>
 #include <fmt/format.h>
+
+void printCString(const char* c_str) {
+    fmt::println("Length: {}", std::strlen(c_str));
+    
+    for (auto i{0uz}; i < std::strlen(c_str); i++) {
+        fmt::print("{}", *(c_str + i));
+    }
+    fmt::println("");
+}
 
 int main() {
     std::string message {"Hello Man!"};
-    const char* c_ptr = message.c_str();
+    const char* readOnlyPtr = message.c_str();
+    printCString(readOnlyPtr);
+    
     char* raw_ptr = message.data();
+    printCString(raw_ptr);
+    
+    *raw_ptr = 'M';
+    *(raw_ptr + 1) = 'y';
+    raw_ptr[2] = ' ';
+    
+    printCString(raw_ptr);
     
     return 0;
 }
 ```
 
+> Direct Pointer Access gives you extreme speed, but strips away all C++ safety nets
+
+**Remember** following rules:
+
+- **Never change the size**
+    - Overwriting existing characters is possible
+    - But **cannot** add new characters via the pointer
+        - Causes Undefined Behavior
+- **Watch out for invalidation**
+    - Modifying a string using C++ methods can reallocate its internal memory
+    - Resulting in an old pointer becoming a **dangling pointer**
+        - When used, accidentally, the program will crash
+    - Thus, one should make sure to re-fetch the pointer after modifying the string size/length
+- **Null Terminator Rule**
+    - Do not manually overwrite or delete the invisible `\0` null terminator
+    - Since `std::string` relies on it internally
+        - To determine where the string structure ends when interacting with C-API's
+
+Let us move on to methods of modifying a string.
+
+### Modifying `std::string`
+
+Considering the previous sections, we have technically already learned how to modify a `std::string`, using several
+built-in methods. Which can be classified as adding and altering the size of the string. Now, let us look at how we can
+remove or replace elements of a string.
+
+We already saw the member function `clear()` and the assignment operator (`operator=`), so let us look at other memeber
+functions that remove or modify content of a string.
+
 #### `insert()` Member Function
 
-This function can technically be categorized as adding content to a string. But, I wanted to put it in this section,
-since the `insert()` is like a more useful version of `push_back()`. Since, it can insert characters or substrings at a
-specific index/iterator positon. Rather than adding one character to the end. This function has various parameter
-templates so let us look at an example showcasing them:
+This function can technically be categorized as adding content to a string. Since, it can insert characters or
+substrings at a specific index/iterator positon. Rather than adding one character to the end. This function has various
+parameter templates so let us look at an example showcasing them:
 
 ```c++
 #include <string>
@@ -1677,18 +1732,164 @@ After insert() iterator range:
 C++26 Standard is the latest standard
 ```
 
-Let us move on to methods of modifying a string.
-
-### Modifying `std::string`
-
-Considering the previous sections, we have technically already learned how to modify a `std::string`, using several
-built-in methods. Which can be classified as adding and altering the size of the string. Now, let us look at how we can
-remove or replace elements of a string.
-
-We already saw the member function `clear()`, so let us look at other memeber functions that remove content of a string.
-
 #### `erase()`
 
 This member function removes a specific number of characters starting at an index, or removes elements via an iterator.
+There are three parameter configurations for this method, so let us look at an example:
+
+```c++
+#include <string>
+#include <fmt/format.h>
+
+int main() {
+    std::string str {"This is a string example."};
+    fmt::println("str: {}\n", str);
+    
+    // 1. Index based erase: (start_index, number_of_char)
+    str.erase(7, 2);
+    fmt::println("str: {}\n", str);
+    
+    
+    // 2. Erase to the end of string: (start_index)
+    str.erase(15);
+    fmt::println("str: {}\n", str);
+    
+    // 3. Char removal using iterator position: (start_iter)
+    str.erase(str.begin() + 12);
+    fmt::println("str: {}\n", str);
+    
+    // 4. Using iterator range: (start_iter, end_iter)
+    str.erase(str.begin() + 11, str.end());
+    
+    return 0;
+}
+```
+
+Output:
+
+```terminaloutput
+str: This is a string example.
+
+str: This is string example.
+
+str: This is string 
+
+str: This is strig 
+
+str: This is str
+```
+
+`erase()` will throw an exception for the first implementation. It throws an `std::out_of_range` exception if the
+`index` given is larger than `size()`. I.e., `index > size()`
+
+#### `pop_back()`
+
+This member function removes the very last character from the string. Which is equivalent to `erase(end() - 1)`. Let us
+look at a quick example:
+
+```c++
+str = "Quick String"s;
+fmt::println("Before pop_back(): {}", str);
+str.pop_back();
+fmt::println("After pop_back(): {}\n", str);
+```
+
+Output:
+
+```terminaloutput
+Before pop_back(): Quick String
+After pop_back(): Quick Strin
+```
+
+#### `assign()`
+
+This member function replaces the current content of a string. It is highly overloaded, accepting several parameter
+types to accommodate different data sources. Ranging from strings, raw character arrays, substrings, characters, and
+ranges. We will not cover all the overload options but let us look at an example:
+
+```c++
+#include <string>
+#include <fmt/format.h>
+
+using namespace std::literals::string_literals;
+
+int main() {
+    std::string str2{};
+
+    // 1. Using a string variable or literal
+    fmt::println("Assign (string literal or variable):");
+    std::string other_string{"Hey!"};
+    str2.assign(other_string);
+    fmt::println("str: {}", str2);
+
+    str2.assign("Hello"s);
+    fmt::println("str: {}\n", str2);
+
+    // 2. Using a Character Array (C-String)
+    fmt::println("Assign (C-string):");
+    const char *s{"New String"};
+    str2.assign(s, 3);
+    fmt::println("str: {}", str2);
+
+    str2.assign(s);
+    fmt::println("str: {}\n", str2);
+
+    // 3. Character fill
+    fmt::println("Assign (char fill):");
+    str2.assign(6, 'f');
+    fmt::println("str: {}\n", str2);
+
+    // 4. Iterator Range
+    fmt::println("Assign (Iterator Range):");
+    str2.assign(other_string.begin(), other_string.end());
+    fmt::println("str: {}\n", str2);
+
+    // 5. Sub-String
+    fmt::println("Assign (Sub-string):");
+    other_string = "Hey I am a new string."s;
+    str2.assign(other_string, 11, 11);
+    fmt::println("str: {}\n", str2);
+    
+    // 6. Initializer List
+    fmt::println("Assign (Initializer List):");
+    str2.assign({'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 's', 't', 'r', 'i', 'n', 'g'});
+    fmt::println("str: {}\n", str2);
+    
+    return 0;
+}
+```
+
+This member function also works with `std::string_view` in method 1 and 5. But since it is a topic we will cover soon,
+we will skip. Just keep in mind that it can be used.
+
+Output:
+
+```terminaloutput
+Assign (string literal or variable):
+str: Hey!
+str: Hello
+
+Assign (C-string):
+str: New
+str: New String
+
+Assign (char fill):
+str: ffffff
+
+Assign (Iterator Range):
+str: Hey!
+
+Assign (Sub-string):
+str: new string.
+
+Assign (Initializer List):
+str: This is a string
+```
+
+There are way more member functions we can cover but to prevent this module from being verbose with examples, we will
+skip them. If needed look at the C++ documentation or sites that cover `std::string` methods more in-depth. We just want
+a general idea of some major methods.
 
 ---
+
+## String Literals
