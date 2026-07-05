@@ -30,6 +30,6 @@ namespace string_literals {
         };
 
         fmt::println("Can also be used with C-Strings:");
-        fmt::println("{}", c_string_raw_literal);
+        fmt::println("{}\n", c_string_raw_literal);
     }
 }

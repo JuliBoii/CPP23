@@ -6,6 +6,7 @@ import character_handling;
 import cstring_handling;
 import string_handling;
 import string_literal;
+import string_views;
 
 export void handle_char_demo() {
     character_handling::check_if_alphanumeric();
@@ -38,3 +39,7 @@ export void handle_standard_string_demo() {
 export void string_literal_demo() {
     string_literals::handling_escape_sequences();
 }
+
+export void string_view_demo() {
+}
+
