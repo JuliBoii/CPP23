@@ -36,5 +36,5 @@ export void handle_standard_string_demo() {
 }
 
 export void string_literal_demo() {
-
+    string_literals::handling_escape_sequences();
 }

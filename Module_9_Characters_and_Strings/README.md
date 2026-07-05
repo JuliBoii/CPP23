@@ -1893,3 +1893,40 @@ a general idea of some major methods.
 ---
 
 ## String Literals
+
+We will be covering raw string literals. Raw string literals are a facility that was introduced in C++11. With the main
+intent to make it easier to esacpe characters in a string. Thus, they tell the compiler to ignore escape sequences
+entirely and treate every character exactly as it is typed. Let us look at the raw literal syntax:
+
+```c++
+std::string path = "C:\\Program Files\\App\\";
+std::string raw_path = R"(C:\Program Files\App\)";
+```
+
+The example above showcases the one of the main reasons why raw string literals were introduced. Prior to raw string
+literals, a programmer had to add backslashes to register a backslash in a string. Or to add special characters that
+could interfere with the implementation. Creating a verbose string and making it difficult to read and write.
+
+Raw string literals solve this problem by treating everything between the delimiters as a literal character. Ignoring
+the standard escape sequences like: `\n`, `\t`, `\0` and so on.
+
+Since C++11, to use a raw string literal, we add an `R` prefix followed by double quotes (`""`) and parentheses `()`.
+Everything within the parentheses (delimiter) is treated as raw text.
+
+By default, the pair of parentheses act as the delimiter, a character or sequence of characters, used to separate,
+bound, or slice individual pieces of data within a larger stream of text or input. This can be modified with a sequence
+of, up to, 16 characters. So long as the terminating sequence is the same as the initial sequence. It is modifiable to
+prevent early termination if the string contains a closing parenthesis followed by a double quote: `)"`. Example below:
+
+```c++
+// std::string problematic_string {R"(The message was "(Stay out of this!)")"};
+std::string custom_delimiter {R"--(The message was "(Stay out of this!)")--"};
+std::string raw_path = R"customd(C:\Program Files\App\)customd"
+```
+
+Let us move on to `std::string_view`s.
+
+---
+
+## `std::string_view`
+
