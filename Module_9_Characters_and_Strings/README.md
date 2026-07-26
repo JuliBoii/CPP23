@@ -77,7 +77,6 @@ major topic covering the handling of `std::string_views`. A more recent addition
       * [Lifetime](#lifetime)
       * [Modifying an Object That `std::string_view` Is Viewing](#modifying-an-object-that-stdstring_view-is-viewing)
       * [Used As A Return Type](#used-as-a-return-type)
-    * [`std::string_view` methods similar to `std::string` methods](#stdstring_view-methods-similar-to-stdstring-methods)
 <!-- TOC -->
 
 <!--@formatter:on-->
