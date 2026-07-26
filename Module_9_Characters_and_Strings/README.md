@@ -4,8 +4,8 @@ In this module, we will explore strings and characters in C++. Unknown author of
 manipulation is one of the classic problems in Computer Science".
 
 String manipulation can be a little complicated, but if understood properly many problems would become solvable in
-Computer Science, not just C++. Since this knowledge propagates to other programming languages. So, once learned
-one can use the knowledge for the rest of their life.
+Computer Science, not just C++. Since this knowledge propagates to other programming languages. So, once learned one can
+use the knowledge for the rest of their life.
 
 We will start with handling characters. Move on to handling C-strings. Which are arrays in memory that are managed by a
 pointer. Then handling `std::string`s. Afterward, we look at the escape sequence and raw string literals. With the last
@@ -63,6 +63,21 @@ major topic covering the handling of `std::string_views`. A more recent addition
       * [`pop_back()`](#pop_back)
       * [`assign()`](#assign)
   * [String Literals](#string-literals)
+  * [`std::string_view`](#stdstring_view)
+    * [Initializing](#initializing)
+    * [Assignment Operator (`=`) Changes What The `std::string_view` Is Viewing](#assignment-operator--changes-what-the-stdstring_view-is-viewing)
+    * [`std::string_view` Changing Its Own View](#stdstring_view-changing-its-own-view)
+      * [Can View A Substring](#can-view-a-substring)
+    * [`std::string_view` As Function Argument](#stdstring_view-as-function-argument)
+      * [Cannot Implicitly Convert `std::string_view` To `std::string`](#cannot-implicitly-convert-stdstring_view-to-stdstring)
+    * [`std::string_view` As A Function Parameter](#stdstring_view-as-a-function-parameter)
+      * [`std::string_view` or `const std::string&` As A Parameter Type](#stdstring_view-or-const-stdstring-as-a-parameter-type)
+        * [Efficiency of `std::string_view` V.S. `const std::string&`](#efficiency-of-stdstring_view-vs-const-stdstring)
+    * [Problems With `std::string_view`](#problems-with-stdstring_view)
+      * [Lifetime](#lifetime)
+      * [Modifying an Object That `std::string_view` Is Viewing](#modifying-an-object-that-stdstring_view-is-viewing)
+      * [Used As A Return Type](#used-as-a-return-type)
+    * [`std::string_view` methods similar to `std::string` methods](#stdstring_view-methods-similar-to-stdstring-methods)
 <!-- TOC -->
 
 <!--@formatter:on-->
@@ -123,11 +138,11 @@ ternary operator to output a string of `"True"` or `"False"` to better understan
 default locale, the following characters are alphanumeric:
 
 - digits
-    - `0123456789`
+  - `0123456789`
 - uppercase letters
-    - `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
+  - `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
 - lowercase letters
-    - `abcdefghijklmnopqrstuvwxyz`
+  - `abcdefghijklmnopqrstuvwxyz`
 
 ### `std::isalpha()`
 
@@ -164,9 +179,9 @@ a ternary operator to output a string of `"True"` or `"False"` to better underst
 locale. In the default locale, the following characters are alphabetic:
 
 - uppercase letters
-    - `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
+  - `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
 - lowercase letters
-    - `abcdefghijklmnopqrstuvwxyz`
+  - `abcdefghijklmnopqrstuvwxyz`
 
 ### `std::isblank()`
 
@@ -208,8 +223,8 @@ Total number of blank characters: 8
 `std::isblank()` returns a non-zero value if the character is a blank character, zero otherwise.
 
 `std::isblank()` checks if the given character is a blank character as classified by the currently installed C locale.
-Blank characters are whitespace characters used to separate words within a sentence. In the default C locale,
-only space (`0x20`) and horizontal tab (`0x09`) are classified as blank characters.
+Blank characters are whitespace characters used to separate words within a sentence. In the default C locale, only space
+(`0x20`) and horizontal tab (`0x09`) are classified as blank characters.
 
 ### `std::isupper()` and `std::toupper()`
 
@@ -455,9 +470,9 @@ Punctuation character at index: 173
 Total punctuation characters: 8
 ```
 
-`std::ispunct()` checks if the given character is a punctuation character as classified by the current C locale.
-The default C locale classifies the following characters as punctuations: ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~``.
-Returns a non-zero value if the character is a punctuation character, zero otherwise.
+`std::ispunct()` checks if the given character is a punctuation character as classified by the current C locale. The
+default C locale classifies the following characters as punctuations: ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~``. Returns a
+non-zero value if the character is a punctuation character, zero otherwise.
 
 ### `std::isprint()`
 
@@ -490,10 +505,10 @@ Total size of message: 70
 Total printable characters: 45
 ```
 
-For this example, we added character that would not be printable. But, as with all other facilities mentioned, if
-the `char` is not representable as `unsigned char` nor equal to `EOF`. `std::isprint()` would have undefined behavior.
-To use this facility safely, we convert the `char` to `unsigned char`. Thus, preventing the program from crashing.
-This is done in our defined function `my_isprint()`.
+For this example, we added character that would not be printable. But, as with all other facilities mentioned, if the
+`char` is not representable as `unsigned char` nor equal to `EOF`. `std::isprint()` would have undefined behavior. To
+use this facility safely, we convert the `char` to `unsigned char`. Thus, preventing the program from crashing. This is
+done in our defined function `my_isprint()`.
 
 So, `std::isprint()` checks if a character is a printable character as classified by the currently installed C locale.
 In the default C locale, the following characters are printable:
@@ -514,10 +529,9 @@ That is all for this subsection. But there are a few more facilities that were n
 ## Handling C-Strings
 
 Now we will focus on facilities for handling/manipulating c-strings. As previously stated in an old module, a c-string
-is a collection of characters in memory with the requirement that it must end with a null character (`\0`). It must
-also be managed through a pointer. Essentially, it is a static array living in memory, ending with a null character,
-which is manipulated through a pointer. All the facilities we will be using can be found in the `<cstring>` library.
-Let's go!!
+is a collection of characters in memory with the requirement that it must end with a null character (`\0`). It must also
+be managed through a pointer. Essentially, it is a static array living in memory, ending with a null character, which is
+manipulated through a pointer. All the facilities we will be using can be found in the `<cstring>` library. Let's go!!
 
 ### String Manipulation
 
@@ -730,25 +744,25 @@ std::strncmp(Banana, Danana, 4) = -2
 std::strncmp(Banana, Danana, 4) = -2
 ```
 
-`std::strcmp()` compares two null-terminated byte strings lexicographically. In the example above we test this using
-two different cstring formats. We use a character pointer first followed by a test using a character array.
+`std::strcmp()` compares two null-terminated byte strings lexicographically. In the example above we test this using two
+different cstring formats. We use a character pointer first followed by a test using a character array.
 
 Facility returns an integer value. This integer value tells you 3 things:
 
 - If negative (`-`)
-    - The left hand side (`string_data1`) appears before the right hand side (`string_data2`) in lexicographical order
+  - The left hand side (`string_data1`) appears before the right hand side (`string_data2`) in lexicographical order
 - If zero (`0`)
-    - The left hand side (`string_data1`) and right hand side (`string_data2`) compare equal
+  - The left hand side (`string_data1`) and right hand side (`string_data2`) compare equal
 - If positive (`+`)
-    - The left hand side (`string_data1`) appears after the right hand side (`string_data2`) in lexicographical order
+  - The left hand side (`string_data1`) appears after the right hand side (`string_data2`) in lexicographical order
 
 `std::strcmp()` has undefined behavior if the left hand side or right hand side are not pointers to null-terminated
 byte-strings.
 
 `std::strncmp()` takes a third parameter, which dictates the number of characters to compare. Referring to this size as
 `count`. So, the facility will compare, at most, `count` characters of two null-terminated byte-strings. With the
-comparison also being done lexicographically. Any character that follows the null-character are not compared.
-This facility follows the same return behavior as `std::strcmp()`.
+comparison also being done lexicographically. Any character that follows the null-character are not compared. This
+facility follows the same return behavior as `std::strcmp()`.
 
 `std::strncmp()` has undefined behavior when either the left hand or right hand side go past the end of respective
 array. Or either is a null pointer.
@@ -756,8 +770,7 @@ array. Or either is a null pointer.
 #### `std::strchr()` and `std::strrchr()`
 
 `std::strchr()` finds the first occurrence of a specified `char`. While `std::strrchr()` finds the last occurrence of
-the
-specified `char`. Let us look at an example:
+the specified `char`. Let us look at an example:
 
 ```c++
 constexpr char string_data1[]{"Havana Banana in Transylvania next to Pennsylvania"};
@@ -841,32 +854,32 @@ std::string saying_hello{greeting, 6, 5};
 ```
 
 - The first line is just a declaration.
-    - We are defining
-        - The data type: `std::string`
-        - Variable name: `full_name`
-    - Not initializing the variable
-        - Thus, holding garbage data
+  - We are defining
+    - The data type: `std::string`
+    - Variable name: `full_name`
+  - Not initializing the variable
+    - Thus, holding garbage data
 - The next line uses braced initialization for `planet`
-    - In curly brackets
-        - We initialize the data we want to store in our `std::string`
-        - **Note:**
-            - `""` (double quotes) in C++ is interpreted as a traditional c-string
-            - of type `const char[]`
+  - In curly brackets
+    - We initialize the data we want to store in our `std::string`
+    - **Note:**
+      - `""` (double quotes) in C++ is interpreted as a traditional c-string
+      - of type `const char[]`
 - `preferred_planet` is initialized by another `std::string`
-    - Passing the `planet` variable in the braced initialization
-    - Thus, using another existing variable (of the same type) to initialize
+  - Passing the `planet` variable in the braced initialization
+  - Thus, using another existing variable (of the same type) to initialize
 - `message` is initialized using a cstring, but only keeping a specified length
-    - In this case
-        - Passed the cstring: `"Hello there"`
-        - Specify the length of characters in the given string we want to store: `5`
+  - In this case
+    - Passed the cstring: `"Hello there"`
+    - Specify the length of characters in the given string we want to store: `5`
 - `weird_message` is an example of initializing with repeating a `char`
-    - We pass the size of the resulting string: `4`
-    - Followed by the `char` to initialize the string with
+  - We pass the size of the resulting string: `4`
+  - Followed by the `char` to initialize the string with
 - `greeting` is initialized with a c-string literal, as previously seen
 - `say_hello` is initialized with a substring of another variable
-    - We first pass a `std::string` variable
-    - The starting position index: `6`
-    - The length of resulting string: `5`
+  - We first pass a `std::string` variable
+  - The starting position index: `6`
+  - The length of resulting string: `5`
 
 We can also reassign a `std::string` variable at runtime.
 
@@ -1076,11 +1089,11 @@ Dogs
 Why would we use this operator?
 
 - Performance:
-    - Because this method of concatenation modifies the string in-place
-        - Rather than allocating memory for and constructing a brand-new string
-    - It is fast and uses little memory
+  - Because this method of concatenation modifies the string in-place
+    - Rather than allocating memory for and constructing a brand-new string
+  - It is fast and uses little memory
 - Convenience:
-    - Offers clean, readable syntax for building up larger strings from smaller components (over sequential lines)
+  - Offers clean, readable syntax for building up larger strings from smaller components (over sequential lines)
 
 ##### Comparison of `operator+=` and `append()`
 
@@ -1090,12 +1103,12 @@ creating a temporary copy. They differ in syntax and flexibility.
 With the key differences being:
 
 - Overload options (Topic will be covered more in-depth in later Modules)
-    - The operator `+=` only accepts a single argument
-    - `append()` offers multiple overloads
-        - Allowing for options as mentioned in the `append()` subsection
+  - The operator `+=` only accepts a single argument
+  - `append()` offers multiple overloads
+    - Allowing for options as mentioned in the `append()` subsection
 - Chaining:
-    - `append()` returns a reference to the modified string (`*this`)
-        - Allowing for chaining multiple append operations in a single line
+  - `append()` returns a reference to the modified string (`*this`)
+    - Allowing for chaining multiple append operations in a single line
 
 > While `str += "text";` is cleaner for simple additions, the `append()` function is much more powerful.
 
@@ -1132,17 +1145,17 @@ the `push_back()` method. For such situations, `operator+=` or `append()` are re
 about the member function:
 
 - Time Complexity
-    - It operates in amortized constant time `O(1)`
-    - Most of the time, drops the character into already allocated memory
-        - Will have to reallocate when capacity limit is reached
+  - It operates in amortized constant time `O(1)`
+  - Most of the time, drops the character into already allocated memory
+    - Will have to reallocate when capacity limit is reached
 - Memory Allocation:
-    - If `std::string`s current `size()` is equal to its `capacity()`
-        - Calling `push_back()` will reallocate memory behind the scenes
-        - As a result, existing iterators/pointers/references will be invalidated
+  - If `std::string`s current `size()` is equal to its `capacity()`
+    - Calling `push_back()` will reallocate memory behind the scenes
+    - As a result, existing iterators/pointers/references will be invalidated
 - Exceptions:
-    - If calling `push_back()` causes the string to reach its maximum limit (`max_size()`)
-        - It throws a `std::length_error` exception
-        - Offering a strong exception guarantee
+  - If calling `push_back()` causes the string to reach its maximum limit (`max_size()`)
+    - It throws a `std::length_error` exception
+    - Offering a strong exception guarantee
 
 #### Concatenating integers & float values
 
@@ -1208,14 +1221,14 @@ message.length(): 38
 Something to keep in mind:
 
 - Byte Count:
-    - These member functions return the length in terms of bytes(characters)
-    - For standard strings, equates to number of characters
-    - For Encoded Text (ex.UTF-8), does not reflect "visual" character count
+  - These member functions return the length in terms of bytes (characters)
+  - For standard strings, equates to number of characters
+  - For Encoded Text (ex.UTF-8), does not reflect "visual" character count
 - No Null Terminator:
-    - The returned size/length excludes the implicit null terminator (`\0`)
+  - The returned size/length excludes the implicit null terminator (`\0`)
 - Return Type:
-    - Both member functions return a type of `std::string::size_type`
-    - Which is equivalent to an `unsigned int`
+  - Both member functions return a type of `std::string::size_type`
+  - Which is equivalent to an `unsigned int`
 
 #### Checking if `std::string` is empty
 
@@ -1286,9 +1299,9 @@ characters. We pass `n` in such manner: `reserve(n)`. This informs the system of
 large block of memory upfront. Preventing multiple expensive reallocations when building a large string, character by
 character.
 
-This function has a time complexity of `O(1)` constant time, if the requested size is smaller than the
-current capacity. Otherwise, the time complexity is `O(n)` if a reallocation triggers. Due to the need to make a copy of
-the existing string to the new allocated memory location. Example below:
+This function has a time complexity of `O(1)` constant time, if the requested size is smaller than the current capacity.
+Otherwise, the time complexity is `O(n)` if a reallocation triggers. Due to the need to make a copy of the existing
+string to the new allocated memory location. Example below:
 
 ```c++
 #include <string>
@@ -1361,16 +1374,16 @@ message.size(): 0
 We need to keep some information in mind, while using `shrink_to_fit()`:
 
 - Non-binding Request:
-    - C++ standards treat this function as a _request_
-    - Thus, the compiler/library can **choose** to ignore the request
-        - If matching the exact `size` is inefficient for the operating system
+  - C++ standards treat this function as a _request_
+  - Thus, the compiler/library can **choose** to ignore the request
+    - If matching the exact `size` is inefficient for the operating system
 - Performance Cost
-    - To shrink a strings capacity, the system usually allocates a brand-new and smaller memory slot.
-    - Then copies over, if existing, the string
-        - This facility should thus not be used in performance-critical loops
+  - To shrink a strings capacity, the system usually allocates a brand-new and smaller memory slot.
+  - Then copies over, if existing, the string
+    - This facility should thus not be used in performance-critical loops
 - Use case:
-    - This facility should be used when we have a string that **briefly** grew massive
-    - But now needs to be reduced to a smaller, more permanent size
+  - This facility should be used when we have a string that **briefly** grew massive
+  - But now needs to be reduced to a smaller, more permanent size
 
 #### `clear()` member function
 
@@ -1378,9 +1391,9 @@ The `clear()` member function wipes out the contents of a string. In the context
 following behavior:
 
 - For `size()` and `length()`
-    - It resets `size()` and `length()` instantly to `0`
+  - It resets `size()` and `length()` instantly to `0`
 - For `capacity()`
-    - It leaves `capacity()` completely unchanged
+  - It leaves `capacity()` completely unchanged
 
 It does this because C++ assumes a cleared string will still be utilized later on in the program. Thus, keeping the
 allocated capacity prevents the system from having to reallocate memory again. Example below:
@@ -1426,9 +1439,9 @@ Let us move on to accessing elements in a string.
 
 ### Accessing Elements in A `std::string`
 
-Let us now look at how to access elements in a `std::string`. There are four main ways to access elements.
-We won't go too deep about their benefits or verbose details, but some of the methods have been discussed previously
-when covering `std::array`, `std::vector` and raw arrays.
+Let us now look at how to access elements in a `std::string`. There are four main ways to access elements. We won't go
+too deep about their benefits or verbose details, but some of the methods have been discussed previously when covering
+`std::array`, `std::vector` and raw arrays.
 
 #### Subscript Operator `[]`
 
@@ -1588,12 +1601,12 @@ If we need compatibility with legacy C-style API's. We can get a direct pointer 
 array using the memeber function: `data()` or `c_str()`. Since the C++11 standard,
 
 - `data()` returns a valid, null-terminating string pointer (`char*` or `const char*`)
-    - Since the C++17 Standard
-        - If the string is non-`const`
-            - `data()` returns a modifiable `char*` pointer
-            - Allowing one to overwrite memory directly
+  - Since the C++17 Standard
+    - If the string is non-`const`
+      - `data()` returns a modifiable `char*` pointer
+      - Allowing one to overwrite memory directly
 - `c_str()` returns a read-only, null-terminating C-string array pointer (`const char*`)
-    - Exclusively used
+  - Exclusively used
 
 Example below:
 
@@ -1634,18 +1647,18 @@ int main() {
 **Remember** following rules:
 
 - **Never change the size**
-    - Overwriting existing characters is possible
-    - But **cannot** add new characters via the pointer
-        - Causes Undefined Behavior
+  - Overwriting existing characters is possible
+  - But **cannot** add new characters via the pointer
+    - Causes Undefined Behavior
 - **Watch out for invalidation**
-    - Modifying a string using C++ methods can reallocate its internal memory
-    - Resulting in an old pointer becoming a **dangling pointer**
-        - When used, accidentally, the program will crash
-    - Thus, one should make sure to re-fetch the pointer after modifying the string size/length
+  - Modifying a string using C++ methods can reallocate its internal memory
+  - Resulting in an old pointer becoming a **dangling pointer**
+    - When used, accidentally, the program will crash
+  - Thus, one should make sure to re-fetch the pointer after modifying the string size/length
 - **Null Terminator Rule**
-    - Do not manually overwrite or delete the invisible `\0` null terminator
-    - Since `std::string` relies on it internally
-        - To determine where the string structure ends when interacting with C-API's
+  - Do not manually overwrite or delete the invisible `\0` null terminator
+  - Since `std::string` relies on it internally
+    - To determine where the string structure ends when interacting with C-API's
 
 Let us move on to methods of modifying a string.
 
@@ -1930,3 +1943,634 @@ Let us move on to `std::string_view`s.
 
 ## `std::string_view`
 
+This is another string type, similar to `std::string` and C-strings. But, why is another string type necessary? The
+answer: `std::string_view` is not a "real" string type. It is not "real", because `std::string_view` does not actually
+own any string-like state.
+
+So, why are they needed? When utilizing string data, a programmer had three main options to choose when handling string
+data.
+
+1. Duplicate all logic
+
+- For any data being handled as a `std::string`,
+  - Write an equivalent method for C-string
+- This does not work all the time
+- Can become verbose and convoluted
+  - Since we are handling both string data types
+
+2. Handle all `std::string`s as C-strings
+
+- Can efficently grab the underlying C-string in a `std::string` object
+- But we are disregarding any of the features available to `std::string`
+
+3. Convert all C-strings to `std::string`s
+
+- Requires traversing the entire C-string to find the size
+  - Which can potentially be long: `O(n)`
+- Have to allocate memory to store data within a new `std::string`
+  - Once again traversing the C-string to **copy** its data to the `std::string` object
+  - Not efficient handling space or time
+
+There also the situation where we initialize a `std::string`.
+
+```c++
+#include <string>
+#include <fmt/format.h>
+
+int main() {
+    std::string str{"New string!"};
+    fmt::println("{}", str);
+    
+    return 0;
+}
+```
+
+In the example above, when initializing `str`, the C-style string literal `"New string!"` is copied into memory
+allocated for `std::string str`. Which, initializing and copying a `std::string`, is relatively slow.
+
+While `std::string_view` does not resolve most of the problems. Still requiring one to convert C-strings to a
+`std::string` if one wants to manipulate string data in a uniform way, or vise versa. `std::string_view` creates an
+efficient read-only wrapper. Providing read-only access to an existing string (C-string, `std::string`, or another
+`std::string_view`) without making a copy. With "read-only" meaning we can access and use the value being viewed, but
+cannot modify it.
+
+> Prefer `std::string_view` over `std::string` when one needs read-only access of string data, especially for function
+> parameters.
+
+`std::string_view` also provides nearly all the read-only helper functions that `std::string` provides. So the example
+above could be rewritten to:
+
+```c++
+#include <string_view>
+#include <fmt/format.h>
+
+int main() {
+    std::string_view str_v{"New string!"};
+    fmt::println("{}", str_v);
+    
+    return 0;
+}
+```
+
+The example produces the same output, as our previous implementation, but no copies of the string literal are made. When
+initializing the `std::string_view str_v` with the string literal `"New string!"`, `str_v` provides read-only access to
+the string literal without making a copy of the string.
+
+To summarize the crucial benefits and capabilities of `std::string_view` are:
+
+- **Zero-Allocation Substrings**
+  - Taking a substring from a `std::string` creates a newly allocated container
+    - Copying data to the allocated memory on the heap
+  - In contrast, using `substr()` with `std::string_view` merely creates another small view
+    - Shifting the inner pointer and adjusts the size
+    - Working at `O(1)` constant time with zero copies
+- **Constant-Time Length Lookups**
+  - Unlike c-strings, `std::string_view` explicitly stores the length alongside the character pointer
+  - So using `size()` on a `std::string_view` is always `O(1)`
+- **Support For Non-Null Sequences**
+  - Since `std::string_view` has an explicit size tracker
+    - One can safely read slices of text directly from the middle of:
+      - Arbitrary buffers
+      - Network packets
+      - Or, memory-mapped files
+- **Full Compile-Time (`constexpr`) Interoperability**
+  - Unlike `std::string`, `std::string_view` is fully `constexpr` compliant
+    - Since, `std::string` cannot easily exist at compile-time due to heap allocations
+  - Enabling highly optimized string processing directly inside compiler pipelines or constant expressions
+
+> However, it needs to be stated that a `std::string_view` is dependent on the object being viewed. If the object being
+> viewed is modified or destroyed, while still being viewed, results in unexpected or undefined behavior.
+> When this occurs, the resulting `std::string_view` is called a **dangling view**.
+
+That is a topic that will be covered more in-depth later on. \
+Let us look at other methods to initialize a `std::string_view`.
+
+### Initializing
+
+There are various methods to initialize a `std::string_view`, let us look at an example showcasing them:
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+using namespace std::literals::string_literals;
+
+int main() {
+    // 1. Braced Initialization using c-string
+    std::string_view str_v1{"Braced Initialized!"};
+    fmt::println("string_view: {}", str_v1);
+    
+    // 2. Assignment with c-string
+    std::string_view str_v2 = "Assignment Initialization";
+    fmt::println("string_view: {}", str_v2);
+    
+    // 3. Using a std::string
+    std::string str1{"String Variable Initialization"};
+    std::string_view str_v3 {str1};
+    std::string_view str_v4 {"String Literal Initialization"s}; // Not Recommended
+    fmt::println("string_view: {}", str_v3);
+     //fmt::println("string_view: {}", str_v4);
+    
+    // 4. Using a c-string
+    const char* cstr{"Using a const char point"};
+    std::string_view str_v5{cstr};
+    fmt::println("string_view: {}", str_v5);
+    
+    // 5. Using a const char array
+    const char carr[]{"Using a const char []"};
+    std::string_view str_v6{carr};
+    fmt::println("string_view: {}", str_v6);
+    
+    // 6. Using a non-null terminating char array
+    char carr2[]{'N', 'o', 'n', '-', 'n', 'u', 'l', 'l', ' ', 't', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'i', 'n', 'g', ' ', 's', 't', 'r', 'i', 'n', 'g'};
+    std::string_view str_v7{carr2, std::size(carr2)}; // Array size needs to be passed
+    fmt::println("string_view: {}", str_v7);
+    
+    // 7. Using another string view
+    std::string_view str_v8{"Using a string view"};
+    std::string_view str_v9{str_v8};
+    fmt::println("string_view: {}", str_v9);
+    
+    return 0;
+}
+```
+
+Which outputs:
+
+```terminaloutput
+string_view: Braced Initialized!
+string_view: Assignment Initialization
+string_view: String Variable Initialization
+string_view: String Literal Initialization
+string_view: Using a const char point
+string_view: Using a const char []
+string_view: Non-null terminating string
+string_view: Using a string view
+```
+
+### Assignment Operator (`=`) Changes What The `std::string_view` Is Viewing
+
+When reassigning a `std::string_view` with a new string, the object "changes" what it is viewing to the new string. So,
+it does not modify the previous string it was viewing. Let us look at an example to better understand:
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+int main() {
+    std::string original_str {"Will I change?"};
+    std::string_view viewing{original_str};
+    
+    fmt::println("Currently viewing: {}\n", viewing);
+    
+    viewing = "Did I change original_str?";
+    
+    fmt::println("Currently viewing: {}", viewing);
+    fmt::println("original_str: {}", original_str);
+    
+    return 0;
+}
+```
+
+Output:
+
+```terminaloutput
+Currently viewing: Will I change?
+
+Currently viewing: Did I change original_str?
+original_str: Will I change?
+```
+
+Showcasing that the assignment operator `=` will not modify the string originally being viewed. It simply changes what
+the `std::string_view` is viewing.
+
+### `std::string_view` Changing Its Own View
+
+Because `std::string_view` is, as stated in its name, a view of a string. It contains functions/methods that let us
+modify our view of said data. The action does not modify the string being viewed in any way, just what the
+`std::string_view` itself is viewing. Let us look at an example to better understand:
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+int main() {
+    std::string_view view_window{"The range in the distance is beautiful!"};
+    fmt::println("Original View:");
+    fmt::println("view_window: {}\n", view_window);
+    
+    // Shrinking view on the left-side
+    view_window.remove_prefix(4); // Removes "The "
+    fmt::println("Shrinking view on the left-side:");
+    fmt::println("view_window: {}\n", view_window);
+    
+    // Shrinking view on the right-side
+    view_window.remove_suffix(14); // Removes " is beautiful!"
+    fmt::println("Shrinking view on the right-side:");
+    fmt::println("view_window: {}\n", view_window);
+    
+    return 0;
+}
+```
+
+Output:
+
+```terminaloutput
+Original View:
+view_window: The range in the distance is beautiful!
+
+Shrinking view on the left-side:
+view_window: range in the distance is beautiful!
+
+Shrinking view on the right-side:
+view_window: range in the distance
+```
+
+It needs to be stated, once `remove_prefix()` and `remove_suffix()` have been called, the only way to recover the
+original data requires reassigning the data back.
+
+`remove_prefix()` and `remove_suffix()` both take a single parameter of integer value. This integer signifies the number
+of character to remove from the start or end of the view, respectively. This action is done in `O(1)` constant time.
+
+With the C++23 standard, if the integer value passed is greater than the string size, the behavior would be undefined.
+This applies to both methods. However, with the upcoming C++26 standard if this condition is `true` and if the
+implementation is `hardened`, a `contract violation` occurs. Otherwise, the behavior is undefined.
+
+Terms `hardened` and `contract violation` can be looked up independently to better understand this changing behavior.
+Since, I myself do not understand the terms and do not want to derail the topic.
+
+#### Can View A Substring
+
+To add on, this also means a `std::string_view` can view a substring. So, it can not only view strings without making a
+copy, `std::string_view` can also view substring's without making a copy. This is due to a substring being a contiguous
+sequence of characters within an existing string. Let us look at a quick example:
+
+```c++
+std::string_view str_v{"snowball"};
+view_window = str_v.substr(0, 4);
+fmt::println("view_window: {}", view_window);
+```
+
+Output:
+
+```terminaloutput
+view_window: snow
+```
+
+### `std::string_view` As Function Argument
+
+Before we start delving into using a `std::string_view` as a function parameter or return type. I want us to focus on
+the situation where we pass a `std::string_view` to existing functions that accept `std::string`s.
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+void print(std::string str) {
+    fmt::println("{}", str);
+}
+
+void printref(std::string& str) {
+    fmt::println("{}", str);
+}
+
+void printconstref(const std::string& str) {
+    fmt::println("{}", str);
+}
+
+int main() {
+    std::string_view str_v{"Hello!"};
+    
+    // Cannot implicitly convert std::string_view to std::string
+    //print(str_v);
+    
+    // Cannot accept a std::string_view, under any circumstance
+    // printref(str_v);
+    
+    // Cannot directly accept a std::string_view
+    // Can be accepted if explicitly converted to std::string
+    printconstref(std::string(str_v));
+    
+    return 0;
+}
+```
+
+The example above would crash when trying to compile.
+
+- The first attempt `print()`:
+  - String data being passed by value.
+    - When passed by value, a copy of the `std::string` object is made
+    - However, the compiler will not allow an implicit conversion from `std::string_view` to `std::string` to happen.
+      - Especially considering the fact that a `std::string_view` does not:
+        - Own any memory
+        - Does not guarantee a null-terminator.
+- The second attempt `printref()`:
+  - String data being passed by non-`const` reference
+    - When passed by reference
+      - the memory address of the data is passed.
+    - So, we are working directly with the data
+    - However, the function (`printref()`) cannot accept a `std::string_view` under any circumstance
+      - Since we cannot bind a non-`const` `lvalue` reference to a temporary object
+      - Or an entirely different object type
+- The last attempt `printconstref()`:
+  - String data being passed by `const` reference
+    - When passed by `const` reference
+      - We signify we do not want to modify the data at the memory address passed
+    - So, it is essentially a "read-only" function
+    - However, this does not mean a `std::string_view` will be accepted, if passed
+      - To be accepted, we have to explicitly convert a `std::string_view` to a `std::string` object
+      - Unfortunately, this negates the whole purpose of using a `std::string_view`
+        - For we have to do memory allocation when converting the data type.
+- That is why the best option, for instances of "read-only"
+  - It is recommended to use `std::string_view` as the parameter data type.
+  - Since, passing a `std::string_view` will not be a problem
+  - And are able to efficiently accept `std::string` and C-strings (`const char[]`)
+    - Without making any unnecessary copies
+
+It should also be stated that `std::string_view`s cannot be implicitly converted to `std::string`s.
+
+#### Cannot Implicitly Convert `std::string_view` To `std::string`
+
+When initializing a `std::string` object, the `std::string` copies the data of the initializer. Which is an expensive
+processes. Thus, C++ compilers will not allow the implicit conversion from `std::string_view` to
+`std::string`.
+
+This is done to prevent the cases shown in the previous section. Passing a `std::string_view` argument to a
+`std::string` parameter. Making an expensive copy, that will be deleted after leaving the function. Resulting in a
+redundant copy.
+
+Regardless, we are able to explicitly convert a `std::string_view` to `std::string`. There are two manners to do this
+process. Adding to our example above:
+
+```c++
+int main() {
+    std::string_view str_v{"Hello!"};
+    
+    ...
+    
+    // Method 1: Create a std::string object, intialized with a std::string_view
+    std::string explicit_copy{str_v};
+    print(explicit_copy);
+    
+    // Method 2: Explicitly Cast a std::string_view to std::string
+    print(static_cast<std::string>(str_v));
+    
+    return 0;
+}
+```
+
+Let us now move on to using `std::string_view` as a function parameter and return type.
+
+### `std::string_view` As A Function Parameter
+
+As already stated, a `std::string_view` is best used for situations where we are only reading data. Not modifying the
+data. When we use `std::string_view` as function parameter. We are able to pass C-style strings, `std::string`, or
+`std::string_view` arguments without making copies. Since we are only viewing the object. Let us look at an example:
+
+```c++
+#include <string_view>
+#include <string>
+#include <fmt/format.h>
+
+void printview(std::string_view str_v) {
+    fmt::println("{}", str_v);
+}
+
+int main() {
+    std::string str{"std::string was passed!"};
+    std::string_view sv{"std::string_view was passed!"};
+    const char* cstr {"c-string was passed!"};
+    
+    printview(str);
+    printview(sv);
+    printview(cstr);
+    
+    return 0;
+}
+```
+
+Output:
+
+```terminaloutput
+std::string was passed!
+std::string_view was passed!
+c-string was passed!
+```
+
+#### `std::string_view` or `const std::string&` As A Parameter Type
+
+In most cases, `std::string_view` should be preferred for string parameter. Due to `std::string_view` handling a wider
+range of argument types better and efficiently. We are also able to pass substrings without having to copy it first.
+However, this is mainly for cases where we do not manipluate the string data.
+
+There are also cases where `const std::string&` should be preferred over using `std::string_view`. Such as:
+
+- Using a C++ Standard older than C++17
+  - Since, `std::string_view` was only recently introduced in C++ Standard 17
+- Or if the function needs to call other functions that accept C-string and/or `std::string` arguments
+  - Since `std::string_view` is not guaranteed to end with a null terminator (`\0`)
+  - And does not convert to `std::string` efficiently
+
+##### Efficiency of `std::string_view` V.S. `const std::string&`
+
+A quick reminder:
+
+- If the argument passed to a function does not match to the parameter type
+  - Compiler will try to implicitly convert the argument
+  - Converting a value creates a temporary object of matching type to the parameter
+- Using `std::string_view`
+  - Creating an object or a copy is inexpensive
+- Using `std::string`
+  - Creating an object or a copy can be expensive
+    - Especially when making a copy of the string
+
+| Argument Type      | `std::string_view` parameter | `const std::string&` parameter                 |
+|--------------------|------------------------------|------------------------------------------------|
+| `std::string`      | Inexpensive conversion       | Inexpensive reference binding                  |
+| `std::string_view` | Inexpensive copy             | Expensive explicit conversion to `std::string` |
+| C-string           | Inexpesnive conversion       | Expensive conversion                           |
+
+- Note:
+  - When passing a `std::string_view` argument to a `const std::string&` parameter
+    - The compiler will throw an error, since an implicit conversion would try to take place
+    - Unless, we explicitly convert the `std::string_view` object to a `std::string` object
+    - But, doing so is expensive and juxtaposes the purpose of a `const` reference parameter
+
+### Problems With `std::string_view`
+
+Despite the usefulness of `std::string_view`, the facility could also be improperly used.
+
+#### Lifetime
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+int main() {
+    std::string_view str_v{};
+    
+    {
+        std::string str{"I'm going to be destroyed!"};
+        str_v = str;
+    }
+    
+    fmt::println("{}", str_v);
+    
+    return 0;
+}
+```
+
+The example above showcases one major problem some face, when they forget about the nature of a `std::string_view`.
+
+As the name suggests, `std::string_view` is a view at a string object, that already exists. Thus, a`std::string_view`
+can be used to access the string whenever, **_so long as it exists_**. No matter if we destroy the view, the object
+being viewed will remain unaffected, which we showcased when [reassigning a
+`string_view` object](#assignment-operator--changes-what-the-stdstring_view-is-viewing).
+
+But, notice what we emphasized: "so long as it exists". A `std::string_view` is dependent on the initializer through its
+lifetime. If the string being view is modified or, in this example, destroyed while the view is still being used,
+**unexpected or undefined behavior will result**.
+
+Whenever utilizing a `std::string_view`, the responsibility of ensuring such behavior does not occur falls on us.
+
+When a situation, like above occurs, the `std::string_view` is referred to as a **dangling view**.
+
+Another example of a dangling view is showcased below:
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+int main() {
+    using namespace std::string_literals;
+    std::string_view str_v{"I'm a temporary string literal"s};
+    fmt::println("{}", str_v);
+    
+    return 0;
+}
+```
+
+In this example, we are initializing the `std::string_view` with a temporary `std::string` object. Which we do using the
+`std::string` literal suffix. `str_v`, in this case, is observing a temporary `std::string` object that we use as an
+initializer. After initializing the `std::string_view`, the temporary object is destroyed. Leaving `str_v` as a dangling
+view, which results in undefined behavior when we use the variable. That is why, we do not recommend initializing a
+`std::string_view` with a `std::string` literal in the [Initializing Section](#initializing) for `std::string_view`s.
+
+> What is important to remember, the object the `std::string_view` is viewing needs to outlive the view.
+
+#### Modifying an Object That `std::string_view` Is Viewing
+
+Another problem, when using `std::string_view`s, occurs when we modify the underlying string. Meaning, the string the
+`std::string_view` is viewing is modified directly using the original string object. Let us look at an example:
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+int main() {
+    std::string original_string{"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+    std::string_view viewing_original_string{original_string};
+    
+    original_string = "abcdefghijklmnopqrstuvwxyz1234567890";
+    fmt::println("{}", viewing_original_string);
+    
+    return 0;
+}
+```
+
+In this example, when we modify the underlying `std::string` object, any view looking at it are likely **invalidated**.
+Thus, those existing views are now invalid or incorrect. Using a view that has been invalidated, results in undefined
+behavior. What happens if we do this:
+
+- If reallocation occurs when modifying the underlying string object
+  - The previous memory location is freed back to the operating system
+    - `std::string_view` was initalized/assigned the old memory location
+  - When original object is reallocated
+    - `std::string_view` is not automatically updated with new memory location
+    - Resulting in a dangling view
+- If reallocation does not occur when modifying the underlying string object
+  - The same, existing, memory location is used
+  - Just rewrites the data stored
+  - Thus, `std::string_view` will be able to view the new data
+  - However, if the new data is shorter
+    - The `std::string_view` will not realize the length of the string has changed
+    - Viewing a superstring of the new data
+      - With the remaining character being filled with garbage characters still in memory
+  - Likewise, if the new data is slightly longer, without reallocation occurring
+    - The `std::string_view` will not be viewing the entire data
+    - It will be viewing up til the old string length, a substring
+
+> To prevent this behavior, we need to revalidate any `std::string_view` viewing a string object. Whenever the string
+> object is modified. We do this by simply assigning the invalidated `std::string_view` object a valid string to view.
+
+#### Used As A Return Type
+
+While we are able to use `std::string_view` as a return type. This can be problematic/dangerous. Let us look at an
+example:
+
+```c++
+#include <string>
+#include <string_view>
+#include <fmt/format.h>
+
+std::string_view get_name_of_bool(const bool& bval) {
+    std::string t{"true"};
+    std::string f{"false"};
+    
+    if (bval)
+        return t;
+    
+    return f;
+}
+
+int main() {
+    fmt::println("{}", get_name_of_bool(true));
+    fmt::println("{}", get_name_of_bool(false));
+    
+    return 0;
+}
+```
+
+The example showcases a function, of return type `std::string_view`, returning a view. The problem with this lies with
+the behavior not immediately noticed, but we have talked about it before. The strings being viewed are temporary since
+they were initialized within the function. So when returned back, the `std::string_view` object is viewing an
+object/string that was destroyed. If utilized, undefined behavior can be expected.
+
+Example Output:
+
+```terminaloutput
+/tmp/Module_9_Characters_and_Strings/string_views.ixx:36:16: warning: address of stack memory associated with local variable 't' returned [-Wreturn-stack-address]
+   36 |         return t;
+      |                ^
+/tmp/Module_9_Characters_and_Strings/string_views.ixx:39:12: warning: address of stack memory associated with local variable 'f' returned [-Wreturn-stack-address]
+   39 |     return f;
+      |            ^
+2 warnings generated.
+```
+
+```terminaloutput
+9�ƍ
+����
+```
+
+A `std::string_view` function can be safely utilized in two cases:
+
+- Returning C-style string literals
+  - Since C-style literals exist for the entire program
+- Returning a `std::string_view` argument/parameter
+  - Since we passed an **existing** `std::string_view` object
+    - The parameter will be viewing an existing view
+  - So it should be fine to return
+  - **Important to note**, if the argument is a temporary object
+    - The returned value must be used within the same expression.
+    - Afterward
+      - Temp object is destroyed and view becomes a dangling view
+
+---

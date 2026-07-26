@@ -41,5 +41,11 @@ export void string_literal_demo() {
 }
 
 export void string_view_demo() {
+    string_views::problem_with_standard_string();
+    string_views::example_of_initialization();
+    string_views::assignment_operator_changes_view();
+    string_views::changing_what_string_view_is_viewing();
+    string_views::string_view_passed_to_other_data_type();
+    string_views::string_view_parameter_example();
+    //string_views::string_view_problems(); // Will cause problems
 }
-
