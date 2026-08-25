@@ -42,6 +42,7 @@ int main() {
     // Pass by Default Parameter
     pass_by_default_increment_print();
 
+    // Passing sequences & raw arrays
     const std::vector<int> my_vector{14, 41, 44, 11};
     const int arr[]{1, 2, 4, 5, 6};
     size_t size = std::size(arr);
@@ -50,6 +51,17 @@ int main() {
     raw_array_print(arr, size);
     span_print(my_vector);
     span_print(arr);
+
+    // Working with constexpr & consteval
+    constexpr int arr_size = square_val(3);
+    int arr2[arr_size];
+    static_assert(arr_size == 9);
+
+    int arr_size_2 = square_val(5);
+    int arr3[arr_size_2];
+
+    constexpr int cubed_val = cube_val(10);
+    static_assert(cubed_val == 1000);
 
     return 0;
 }

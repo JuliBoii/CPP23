@@ -7,6 +7,27 @@ a function, we simply write it once, then "call" it whenever we need it.
 This is nothing new, since we have been using functions already in previous modules. We are simply defining what a
 function is and how we can utilize them.
 
+<!-- TOC -->
+* [Functions](#functions)
+  * [Declaration & Definition](#declaration--definition)
+    * [Declaration](#declaration)
+    * [Define](#define)
+  * [Module files](#module-files)
+  * [Passing Parameters](#passing-parameters)
+    * [Pass by Value](#pass-by-value)
+    * [Pass by Reference](#pass-by-reference)
+      * [Pass by `const` Reference](#pass-by-const-reference)
+    * [Pass by Pointer](#pass-by-pointer)
+    * [Default Parameter](#default-parameter)
+  * [Passing Sequences & Arrays](#passing-sequences--arrays)
+    * [Modern C++ Sequences](#modern-c-sequences)
+    * [Old-school C-style Arrays](#old-school-c-style-arrays)
+    * [C++ Span (C++20)](#c-span-c20)
+  * [`constexpr` and `consteval` Functions](#constexpr-and-consteval-functions)
+    * [`constexpr` Function (C++11)](#constexpr-function-c11)
+    * [`consteval` Function (C++20)](#consteval-function-c20)
+<!-- TOC -->
+
 ## Declaration & Definition
 
 Declaring a function is simply telling the compiler that an "independent" code block exist. While defining a function
@@ -278,6 +299,60 @@ of code should be run when compiling the program. Rather than having the code ru
 Utilizing these keywords helps our program run faster, since the math or logic is already done before the program even
 starts.
 
-### `constexpr` Function
+For `constexpr` and `consteval`, the functions must follow constraints to be eligible for compile-time execution.
+
+- Cannot modify global state or use non-`constexpr` data
+- Cannot contain:
+  - `virtual` calls
+  - `try/catch` blocks
+  - `goto` instructions (Depends on C++ Standard)
+- Cannot invoke runtime-only functions
+
+### `constexpr` Function (C++11)
 
 A `constexpr` function is flexible. Meaning, it can be run at compile-time _or_ runtime. Depending on the use case.
+
+If we pass the function compile-time arguments, and use the result wherever a `const` is required, it evaluates 
+during compilation. Otherwise, if passed standard runtime arguments, it behaves like a regular function.
+
+```c++
+constexpr int square(int x)
+{
+    return x * x;
+}
+
+int main()
+{
+    // At compile-time
+    constexpr int size = square(3);
+    int arr[size];
+    
+    // At runtime
+    int run_val = 6;
+    int result = square(run_val);
+    
+    return 0;
+}
+```
+
+### `consteval` Function (C++20)
+
+This keyword was introduced in the C++20 Standard. `consteval` forces the compiler to evaluate the function immediately.
+If the function can't run at compile-time, the program will not compile. **Again, this keyword is for functions.**
+
+```c++
+consteval int cube(int x)
+{
+    return x * x * x;
+}
+
+int main()
+{
+    constexpr int comp_const = cube(3);
+    
+    int run_val = 6;
+    // Program does not compile
+    // int result = cube(run_val);
+    
+}
+```
