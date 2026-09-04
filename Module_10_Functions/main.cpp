@@ -5,7 +5,7 @@
 import functions_interface;
 import function_parameters;
 
-int main() {
+int main(int argc, char **argv) {
     auto result = add(13, 52);
     fmt::println("add(13, 52): {}", result);
 
@@ -62,6 +62,11 @@ int main() {
 
     constexpr int cubed_val = cube_val(10);
     static_assert(cubed_val == 1000);
+
+    fmt::println("Working with Command-line Arguments:");
+    for (auto i{0uz}; i < argc; i++) {
+        fmt::print("argv[{}]: {}\n", i, argv[i]);
+    }
 
     return 0;
 }

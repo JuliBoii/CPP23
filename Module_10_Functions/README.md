@@ -7,6 +7,7 @@ a function, we simply write it once, then "call" it whenever we need it.
 This is nothing new, since we have been using functions already in previous modules. We are simply defining what a
 function is and how we can utilize them.
 
+<!--@formatter:off-->
 <!-- TOC -->
 * [Functions](#functions)
   * [Declaration & Definition](#declaration--definition)
@@ -26,7 +27,12 @@ function is and how we can utilize them.
   * [`constexpr` and `consteval` Functions](#constexpr-and-consteval-functions)
     * [`constexpr` Function (C++11)](#constexpr-function-c11)
     * [`consteval` Function (C++20)](#consteval-function-c20)
+  * [Arguments to Main Function](#arguments-to-main-function)
+    * [`argc`](#argc)
+    * [`argv`](#argv)
+    * [Key Rules & Best Practices](#key-rules--best-practices)
 <!-- TOC -->
+<!--@formatter:on-->
 
 ## Declaration & Definition
 
@@ -62,7 +68,7 @@ return_type function_name(parameter_type_1 /*parameter_name_1*/, parameter_type_
 
 ### Define
 
-To define a function we have two options, as briefly mentioned. We can either define the function seperate from the
+To define a function we have two options, as briefly mentioned. We can either define the function separate from the
 declaration or together with the function.
 
 - If we define it later on, we simply write the declaration again.
@@ -101,9 +107,9 @@ return_type function_name (parameter_type_1 /*parameter_name_1*/, parameter_type
 
 Throughout the course, we have been using a single module file to implement external functions. But, there may be times
 when we do not want to expose the implementation of our functions. Simply showcasing the functions available. We achieve
-this by seperating the interface/declarations from the implementation.
+this by separating the interface/declarations from the implementation.
 
-We achieve this by creating two seperate files:
+We achieve this by creating two separate files:
 
 - An interface file
   - Often having the `.ixx` or `.cppm` extensions
@@ -227,8 +233,8 @@ The declaration does not need to be rewritten with the default values.
 
 ## Passing Sequences & Arrays
 
-We are writing a seperate section for sequences and arrays since we do need to think differently when passing them. Plus
-the method for passing changes depending on the use of old-school C-style arrays or Modern C++ containters.
+We are writing a separate section for sequences and arrays since we do need to think differently when passing them. Plus
+the method for passing changes depending on the use of old-school C-style arrays or Modern C++ containers.
 
 ### Modern C++ Sequences
 
@@ -312,7 +318,7 @@ For `constexpr` and `consteval`, the functions must follow constraints to be eli
 
 A `constexpr` function is flexible. Meaning, it can be run at compile-time _or_ runtime. Depending on the use case.
 
-If we pass the function compile-time arguments, and use the result wherever a `const` is required, it evaluates 
+If we pass the function compile-time arguments, and use the result wherever a `const` is required, it evaluates
 during compilation. Otherwise, if passed standard runtime arguments, it behaves like a regular function.
 
 ```c++
@@ -356,3 +362,70 @@ int main()
     
 }
 ```
+
+## Arguments to Main Function
+
+We will be seeing how to grab and use arguments, specifically in the context of the `main()` function. In C++, the
+`main()` function can accept up to two standard parameters:
+
+- `argc`
+- `argv`
+
+These are used to receive command-line arguments passed to the program when executed. The standard signature for a
+parameterized `main` function is:
+
+```c++
+int main(int argc, char* argv[]) {
+    return 0;
+}
+```
+
+Which can also be written as:
+
+```c++
+int main(int argc, char** argv) {
+    return 0;
+}
+```
+
+> The names `argc` and `argv` are traditional, but are not hard set by the compiler. Thus, one can rename them to
+> whatever they'd like.
+
+### `argc`
+
+`argc` is of type `int` and represents the total number of arguments passed to the program, including the program's
+own name. Thus, is always `>=1`.
+
+### `argv`
+
+`argv` is of type `char* []` or `char**` and is an array of null-terminated C-style character strings. This contains
+the actual arguments passed.
+
+When indexing the array we can focus on three main indexes:
+
+- `argv[0]`
+  - Index `0` holds the name or path used to invoke the executable program
+  - May also be an empty string depending on the operating system environment
+- `argv[1] : argv[argc - 1]`
+  - This range of indexes, up til `argc`, holds the subsequent command-line options or inputs supplied by the user
+- `argv[argc]`
+  - Guaranteed by the C++ standard to be a `nullptr`
+
+### Key Rules & Best Practices
+
+- Command-line arguments are optional
+  - The argument variables are not required everytime one writes a C++ program.
+  - Especially, if the program does not take any command-line arguments
+  - Thus, a simple `int main()` is sufficient
+- Renameable argument variables
+  - As previously mentioned, one can rename `argc` or `argv`
+  - The only hard set requirements that a compiler enforces are:
+    - The variable types
+    - Variable order
+- String Parsing
+  - Since `argv` stores arguments as C-style strings, numerical inputs must be explicitly converted
+  - Meaning any `int`, `float`, etc. value must be converted to from a "string" to the expected data type
+- Safety Bounds
+  - Best to check `argc` prior to accessing arguments from `argv`
+    - To prevent out-of-bounds memory access errors
+
