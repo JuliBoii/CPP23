@@ -1,5 +1,8 @@
 module;
 
+#include <utility>
+#include <cstdlib>
+#include <cstring>
 #include <vector>
 #include <span>
 #include "fmt/format.h"
@@ -65,4 +68,39 @@ void span_print(std::span<const int> span_view) {
         fmt::print("{} ", i);
     }
     fmt::println("\n");
+}
+
+void command_line_argument_print(const int& count, char** argv)
+{
+    fmt::println("There are {} command line arguments:", count);
+
+    for (auto i{0UZ}; std::cmp_less(i , count); ++i)
+    {
+        fmt::println("argv[{}] = {}", i, argv[i]);
+    }
+}
+
+void calulator_example(const int &count, char **argv)
+{
+    // Check # of arguments
+    if (std::cmp_equal(count, 4))
+    {
+        fmt::println("Program can only be called with 3 arguments:");
+        fmt::println("You only provided {} arguments, which ", count - 1);
+        for (auto i{1UZ}; std::cmp_less(i , count); ++i)
+        {
+            fmt::print("argv[{}] = {} ", i, argv[i]);
+        }
+        return;
+    }
+
+    double first_value{ std::atof(argv[1]) };
+    double second_value{ std::atof(argv[3]) };
+
+    const char* operation{ argv[2] };
+
+    /*if (std::cmp_equal(std::strlen(operation), 1))
+    {
+
+    }*/
 }

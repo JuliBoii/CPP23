@@ -63,10 +63,12 @@ int main(int argc, char **argv) {
     constexpr int cubed_val = cube_val(10);
     static_assert(cubed_val == 1000);
 
-    fmt::println("Working with Command-line Arguments:");
-    for (auto i{0uz}; i < argc; i++) {
-        fmt::print("argv[{}]: {}\n", i, argv[i]);
-    }
+    // fmt::println("Working with Command-line Arguments:");
+    // for (auto i{0uz}; i < argc; i++) {
+    //     fmt::print("argv[{}]: {}\n", i, argv[i]);
+    // }
+
+    command_line_argument_print(argc, argv);
 
     return 0;
 }
