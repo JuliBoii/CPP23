@@ -15,6 +15,7 @@ ADD_EXECUTABLE(${PROJECT_NAME} main.cpp functions_implementation.cpp function_pa
 TARGET_SOURCES(${PROJECT_NAME}
         PUBLIC
         FILE_SET CXX_MODULES FILES
+        utilities.ixx
         example_functions.ixx
         functions_interface.ixx
         function_parameters.ixx
