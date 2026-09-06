@@ -2,6 +2,7 @@ module;
 
 #include <vector>
 #include <string>
+#include <random>
 #include <fmt/format.h>
 
 export module utilities;
@@ -87,5 +88,27 @@ namespace overloading_example {
             fmt::print("{}, ", item);
         }
         fmt::println("");
+    }
+}
+
+namespace dice_roll_overloading {
+    std::mt19937 generator{std::random_device{}()};
+
+    export int roll() {
+        std::uniform_int_distribution<int> distribution{1, 6};
+        return distribution(generator);
+    }
+
+    export int roll(int side_count) {
+        std::uniform_int_distribution<int> distribution{1, side_count};
+        return distribution(generator);
+    }
+
+    export int roll(int sides_count, int die_count) {
+        int result{0};
+        for (auto i{0UZ}; i < die_count; ++i) {
+            result += roll(sides_count);
+        }
+        return result;
     }
 }

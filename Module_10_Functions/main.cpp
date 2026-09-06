@@ -28,5 +28,9 @@ int main(int argc, char **argv) {
     overloading_example::print("This is a string");
     overloading_example::print(vec);
 
+    fmt::println("Rolling a 6-sided dice: {}", dice_roll_overloading::roll());
+    fmt::println("Rolling a 20-sided dice: {}", dice_roll_overloading::roll(20));
+    fmt::println("Rolling 5 6-sided die: {}", dice_roll_overloading::roll(6, 5));
+
     return 0;
 }
