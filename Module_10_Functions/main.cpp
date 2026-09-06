@@ -68,7 +68,9 @@ int main(int argc, char **argv) {
     //     fmt::print("argv[{}]: {}\n", i, argv[i]);
     // }
 
-    command_line_argument_print(argc, argv);
+    // command_line_argument_print(argc, argv);
+
+    calculator_example(argc, argv);
 
     return 0;
 }

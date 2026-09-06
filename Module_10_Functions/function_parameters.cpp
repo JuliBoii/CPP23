@@ -70,37 +70,51 @@ void span_print(std::span<const int> span_view) {
     fmt::println("\n");
 }
 
-void command_line_argument_print(const int& count, char** argv)
-{
+void command_line_argument_print(const int &count, char **argv) {
     fmt::println("There are {} command line arguments:", count);
 
-    for (auto i{0UZ}; std::cmp_less(i , count); ++i)
-    {
+    for (auto i{0UZ}; std::cmp_less(i, count); ++i) {
         fmt::println("argv[{}] = {}", i, argv[i]);
     }
 }
 
-void calulator_example(const int &count, char **argv)
-{
+void calculator_example(const int &count, char **argv) {
     // Check # of arguments
-    if (std::cmp_equal(count, 4))
-    {
+    if (std::cmp_not_equal(count, 4)) {
         fmt::println("Program can only be called with 3 arguments:");
-        fmt::println("You only provided {} arguments, which ", count - 1);
-        for (auto i{1UZ}; std::cmp_less(i , count); ++i)
-        {
-            fmt::print("argv[{}] = {} ", i, argv[i]);
+        fmt::println("You provided {} arguments, being:", count - 1);
+        for (auto i{1UZ}; std::cmp_less(i, count); ++i) {
+            fmt::println("argv[{}] = {}", i, argv[i]);
         }
         return;
     }
 
-    double first_value{ std::atof(argv[1]) };
-    double second_value{ std::atof(argv[3]) };
+    double first_value{std::atof(argv[1])};
+    double second_value{std::atof(argv[3])};
 
-    const char* operation{ argv[2] };
+    const char *operation{argv[2]};
+    char math_sign{};
 
-    /*if (std::cmp_equal(std::strlen(operation), 1))
-    {
+    if (std::cmp_equal(std::strlen(operation), 1)) {
+        math_sign = operation[0];
+    } else {
+        fmt::println("Invalid Input");
+        return;
+    }
 
-    }*/
+    switch (math_sign) {
+        case '+':
+            fmt::println("{} + {} = {}", first_value, second_value, first_value + second_value);
+            break;
+        case '-':
+            fmt::println("{} - {} = {}", first_value, second_value, first_value - second_value);
+            break;
+        case '*':
+            fmt::println("{} * {} = {}", first_value, second_value, first_value * second_value);
+            break;
+        case '/':
+            fmt::println("{} / {} = {}", first_value, second_value, first_value / second_value);
+            break;
+        default: fmt::println("Invalid or Unsupported Math Operation");
+    }
 }
