@@ -294,7 +294,6 @@ int main() {
     print_sequence(raw_arr);
     print_sequence(vec);
 }
-
 ```
 
 ## `constexpr` and `consteval` Functions
@@ -429,3 +428,40 @@ When indexing the array we can focus on three main indexes:
   - Best to check `argc` prior to accessing arguments from `argv`
     - To prevent out-of-bounds memory access errors
 
+## Function Overloading
+
+We will now be looking at a feature in C++ that allows one to define multiple functions with the exact same name
+within the same scope. This feature is know as **function overloading**.
+
+The C++ compiler differentiates between these functions based on their **function signature**, which means they must
+have different parameter lists. Which can be a different number of parameters, types, or order of arguments. The return
+type is not considered.
+
+This is a form of compile-time/static polymorphism. Eliminates the need to create unique names for functions that
+perform the same logic but on different data types or number of parameters.
+
+Three methods for overloading:
+
+1. Different Number of Parameters
+  - Function can have the same name but accept different count of arguments
+2. Different Types of Parameters
+  - Function can accept the same number of arguments, but with different data types
+3. Different Order of Parameters
+  - If functions uses multiple data types, rearranging the sequence of those types creates a unique signature
+
+### Key Rules & Restrictions
+
+- Return Types Do Not Count
+  - Cannot overload a function based solely on its return type
+  - If two functions have the same parameters but different return types
+    - Compiler will throw an error because it cannot figure out which one to call
+    - Based on the arguments provided
+- Beware of Ambiguity
+  - If you use default arguments
+    - Might accidentally introduce ambiguity
+    - For example, if you have the following: `void print(int x)` and `void print(int x, int y = 10)`
+      - Calling the function `print(5)` will confuse the compiler because both definitions are valid matches
+- How the Compiler Chooses
+  - When using an overloaded function, the compiler performs a process called **Overload Resolution**
+    - Looks for an exact match first
+    - If one isn't found, attempts implicit type conversion to find the best fit

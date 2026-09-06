@@ -1,6 +1,7 @@
 module;
 
 #include <vector>
+#include <string>
 #include <fmt/format.h>
 
 export module utilities;
@@ -65,4 +66,26 @@ export void using_command_line_arguments(const int &argc, char *argv[]) {
     // }
 
     calculator_example(argc, argv);
+}
+
+namespace overloading_example {
+    export void print(int value) {
+        fmt::println("Integer: {}", value);
+    }
+
+    export void print(double value) {
+        fmt::println("Double: {}", value);
+    }
+
+    export void print(const std::string &value) {
+        fmt::println("String: {}", value);
+    }
+
+    export void print(const std::vector<int> &value) {
+        fmt::print("Vector: ");
+        for (const auto &item: value) {
+            fmt::print("{}, ", item);
+        }
+        fmt::println("");
+    }
 }
