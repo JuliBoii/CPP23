@@ -1,5 +1,6 @@
 module;
 
+#include <utility>
 #include <vector>
 #include <string>
 #include <random>
@@ -94,19 +95,19 @@ namespace overloading_example {
 namespace dice_roll_overloading {
     std::mt19937 generator{std::random_device{}()};
 
-    export int roll() {
-        std::uniform_int_distribution<int> distribution{1, 6};
+    export auto roll() -> int {
+        std::uniform_int_distribution distribution{1, 6};
         return distribution(generator);
     }
 
-    export int roll(int side_count) {
-        std::uniform_int_distribution<int> distribution{1, side_count};
+    export auto roll(int side_count) -> int {
+        std::uniform_int_distribution distribution{1, side_count};
         return distribution(generator);
     }
 
-    export int roll(int sides_count, int die_count) {
+    export auto roll(int sides_count, int die_count) -> int {
         int result{0};
-        for (auto i{0UZ}; i < die_count; ++i) {
+        for (auto i{0UZ}; std::cmp_less(i , die_count); ++i) {
             result += roll(sides_count);
         }
         return result;
