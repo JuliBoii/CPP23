@@ -144,3 +144,81 @@ export void lambda_examples() {
 
     fmt::println("result of subtraction lambda function: {}", result);
 }
+
+export void lambda_capture_list_examples() {
+    fmt::println("Capture List Example:");
+    int temp_value{42};
+    std::string str{"Im a string!"};
+    double var {4.24145};
+
+    fmt::println("Value: {}", temp_value);
+    fmt::println("Address: {}\n", fmt::ptr(&temp_value));
+
+    [temp_value] -> void {
+        fmt::println("Capture by Value:");
+        fmt::println("Value: {}", temp_value);
+        fmt::println("Address: {}\n", fmt::ptr(&temp_value));
+        // temp_value = 42; // Cannot be modified
+    }();
+
+    [temp_value] mutable -> void {
+        fmt::println("Capture by Value (Mutable):");
+        fmt::println("Value: {}", temp_value);
+        fmt::println("Address: {}", fmt::ptr(&temp_value));
+
+        fmt::println("Modifying value:");
+        temp_value = 2; // Cannot be modified
+        fmt::println("Value: {}", temp_value);
+        fmt::println("Address: {}\n", fmt::ptr(&temp_value));
+    }();
+
+    fmt::println("Original Variable:");
+    fmt::println("Value: {}", temp_value);
+    fmt::println("Address: {}\n", fmt::ptr(&temp_value));
+
+    [&temp_value] -> void {
+        fmt::println("Capture by Reference:");
+        fmt::println("Value: {}", temp_value);
+        fmt::println("Address: {}", fmt::ptr(&temp_value));
+
+        fmt::println("Modifying value:");
+        temp_value = 761; // Can be modified
+        fmt::println("Value: {}", temp_value);
+        fmt::println("Address: {}\n", fmt::ptr(&temp_value));
+    }();
+
+    fmt::println("Original Variable:");
+    fmt::println("temp_value: {}", temp_value);
+    fmt::println("Address: {}", fmt::ptr(&temp_value));
+    fmt::println("str: {}", str);
+    fmt::println("Address: {}", fmt::ptr(&str));
+    fmt::println("var: {}", var);
+    fmt::println("Address: {}\n", fmt::ptr(&var));
+
+    [=] -> void
+    {
+        fmt::println("Default Capture by Value:");
+        fmt::println("temp_value: {}", temp_value);
+        fmt::println("Address: {}", fmt::ptr(&temp_value));
+        fmt::println("str: {}", str);
+        fmt::println("Address: {}", fmt::ptr(&str));
+        fmt::println("var: {}", var);
+        fmt::println("Address: {}\n", fmt::ptr(&var));
+
+    }();
+
+    [&] -> void
+    {
+        temp_value = 24;
+        str = "I was modified";
+        var = 24.245254;
+        fmt::println("Default Capture by Reference:");
+        fmt::println("temp_value: {}", temp_value);
+        fmt::println("Address: {}", fmt::ptr(&temp_value));
+        fmt::println("str: {}", str);
+        fmt::println("Address: {}", fmt::ptr(&str));
+        fmt::println("var: {}", var);
+        fmt::println("Address: {}\n", fmt::ptr(&var));
+
+    }();
+}

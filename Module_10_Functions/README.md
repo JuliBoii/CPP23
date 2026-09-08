@@ -35,6 +35,9 @@ function is and how we can utilize them.
     * [Key Rules & Restrictions](#key-rules--restrictions)
   * [Lambda Functions](#lambda-functions)
     * [Syntax](#syntax)
+    * [Common Use Cases](#common-use-cases)
+      * [Capture Lists](#capture-lists)
+        * [Capture by Value `[=]`](#capture-by-value-)
 <!-- TOC -->
 <!--@formatter:on-->
 
@@ -545,8 +548,57 @@ auto main() -> int {
 ### Common Use Cases
 
 - Standard Algorithms
-  - Pasing custom sorting or searching logic directly into functions like `std::sort` or `std::find_if`
+  - Passing custom sorting or searching logic directly into functions like `std::sort` or `std::find_if`
 - Callbacks & Event Handling
   - Defining quick, disposable blocks of code to run asynchronously or upon a specific event
 - Local Helper Logic
-  - Breaking down a large funtion into smaller, readable steps without polluting the global or class scope
+  - Breaking down a large function into smaller, readable steps without polluting the global or class scope
+
+#### Capture Lists
+
+In C++, the capture list `[]` determines which external variables from the surrounding scope are accessible inside 
+the lambda, and how they are passed through.
+
+Without this, a lambda can only access its own parameters and global or static variables. There are two main methods of 
+capturing: By Value or Reference.
+
+##### Capture by Value `[variable]`
+
+This method creates a local copy of the variable inside the lambda function aat the moment the lambda is defined.
+
+Modifications to the original variables outside the lambda won't affect the lambda, and modifications inside the 
+lambda won't affect the outside.
+
+By default, variables captured by value are **read-only**, meaning `const`, inside the lambda body. If one wants to 
+modify the variable/value stored, one has to include the `mutable` keyword at the `specs` section of the 
+[lambda expression syntax](#syntax). This keyword allows the body to modify the objects captured by copy, and to 
+call their non-`const` member functions. Meaning, if one need to modify the value to support operations within the 
+function, without changing it external state, this keyword makes it possible.
+
+##### Capture by Reference `[&variable]`
+
+This method takes a reference to the actual external variable.
+
+Any changes made to the variable inside the lambda function directly modify the original variable outside, and vice 
+versa.
+
+> One need to be cautious when using this method. If the lambda outlives the variable it references, executing it 
+> will cause **undefined behavior**.
+
+##### Other Capture Methods
+
+We can capture specific variables, as mentioned above, or use "default" capture to capture everything in scope 
+automatically, or mix and match.
+
+| Capture Syntax                 | What it does                                                                                                                                                                                                      |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `[]`                           | Captures nothing. Lambda cannot use any local variables from outside scope.                                                                                                                                       |
+| `[variable]`                   | Capture a variable by value.                                                                                                                                                                                      |
+| `[&variable]`                  | Capture a variables by reference                                                                                                                                                                                  |
+| `[=]`                          | Default Capture by value. Automatically copies any external variable used in the lambda body.                                                                                                                     |
+| `[&]`                          | Default Capture by reference. Automatically references any external variable used in the lambda body.                                                                                                             |
+| `[=, &variable]`               | Capture everything by value by default, but capture `variable` by reference                                                                                                                                       |
+| `[&, variable]`                | Capture everything by reference by default, but capture `variable` by value                                                                                                                                       |
+| `[this]`                       | Capture the current class instance pointer by value (Used inside `class` methods to access member variables/functions)                                                                                            |
+| `[local_var = std::move(ptr)]` | Introduced in the C++14 Standard, one can initialize variables directly insde the capture list.<br/>Incredibly useful for **moving** move-only types (like a `std::unique_ptr`). Which cannot be copied by value. |
+

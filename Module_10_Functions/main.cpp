@@ -32,7 +32,8 @@ int main(int argc, char **argv) {
     fmt::println("Rolling a 20-sided dice: {}", dice_roll_overloading::roll(20));
     fmt::println("Rolling 5 6-sided die: {}", dice_roll_overloading::roll(6, 5));*/
 
-    lambda_examples();
+    // lambda_examples();
+    lambda_capture_list_examples();
 
     return 0;
 }
