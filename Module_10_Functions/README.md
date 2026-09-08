@@ -37,7 +37,16 @@ function is and how we can utilize them.
     * [Syntax](#syntax)
     * [Common Use Cases](#common-use-cases)
       * [Capture Lists](#capture-lists)
-        * [Capture by Value `[=]`](#capture-by-value-)
+        * [Capture by Value `[variable]`](#capture-by-value-variable)
+        * [Capture by Reference `[&variable]`](#capture-by-reference-variable)
+        * [Other Capture Methods](#other-capture-methods)
+  * [Attributes](#attributes)
+    * [Modern Syntax](#modern-syntax)
+    * [Standard Attributes](#standard-attributes)
+      * [`[[nodiscard]]` (C++17)](#nodiscard-c17)
+      * [`[[deprecated]]` (C++14)](#deprecated-c14)
+      * [`[[noreturn]]` (C++11)](#noreturn-c11)
+      * [`[[maybe_unused]]` (C++17)](#maybe_unused-c17)
 <!-- TOC -->
 <!--@formatter:on-->
 
@@ -51,21 +60,21 @@ entails the actual code being written inside the declaration.
 To declare a function we need to define the following:
 
 - Return Type:
-  - The data type of the value the function, if applicable, will return
-    - For `void` type, we do not return a value
+    - The data type of the value the function, if applicable, will return
+        - For `void` type, we do not return a value
 - Function Name
-  - A valid C++ identifier used to invoke the function
-    - Cannot use a number or special character at the start of the name
-    - Compiler will fail to compile
+    - A valid C++ identifier used to invoke the function
+        - Cannot use a number or special character at the start of the name
+        - Compiler will fail to compile
 - Optional
-  - Parameter List
-    - A comma separated list inside a pair of parentheses `()`.
-    - Each parameter has to have a respective data type
-      - The names/alias of the respective parameters is optional
-    - These parameters are input types that we pass to the function, when calling it
-  - Semicolon (`;`)
-    - If we want to declare a function, but define it later on
-      - We add a terminating semicolon following the parameter list
+    - Parameter List
+        - A comma separated list inside a pair of parentheses `()`.
+        - Each parameter has to have a respective data type
+            - The names/alias of the respective parameters is optional
+        - These parameters are input types that we pass to the function, when calling it
+    - Semicolon (`;`)
+        - If we want to declare a function, but define it later on
+            - We add a terminating semicolon following the parameter list
 
 Put together we have:
 
@@ -79,23 +88,23 @@ To define a function we have two options, as briefly mentioned. We can either de
 declaration or together with the function.
 
 - If we define it later on, we simply write the declaration again.
-  - Except, if we did not provide names to our parameters list
-    - We must include parameter variable names so we can reference them inside the code block
-  - Then, rather than a trailing semicolon
-    - We add a pair of curly braces `{}`
-      - This is where our code block will be
+    - Except, if we did not provide names to our parameters list
+        - We must include parameter variable names so we can reference them inside the code block
+    - Then, rather than a trailing semicolon
+        - We add a pair of curly braces `{}`
+            - This is where our code block will be
 
 So, in general, to define a function, you need:
 
 - Return Type, Function Name, & (If any) Parameter List
-  - Must match our declaration
-  - Must include variable parameter names
+    - Must match our declaration
+    - Must include variable parameter names
 - Function Body
-  - A block of code enclosed in curly braces `{}`
+    - A block of code enclosed in curly braces `{}`
 - Return Statement (if applicable)
-  - If return type is `void`
-    - We do not have to include `return` keyword
-  - Elsewise, we need to include the `return` keyword with a value of matching return type
+    - If return type is `void`
+        - We do not have to include `return` keyword
+    - Elsewise, we need to include the `return` keyword with a value of matching return type
 
 Put together we have:
 
@@ -119,14 +128,14 @@ this by separating the interface/declarations from the implementation.
 We achieve this by creating two separate files:
 
 - An interface file
-  - Often having the `.ixx` or `.cppm` extensions
-  - This is where we will have our function declarations
-    - Need to add the `export` keyword in front of functions we want to be accessible
-      - When importing the module in a separate file
-  - We do not have to implement anything, just declare them
-  - If implementation needs legacy, non-modularized header files (like OpenSSL or old C-headers),
-    - Must be placed/declared in a global module fragment at the very top of interface file
-    - Such as:
+    - Often having the `.ixx` or `.cppm` extensions
+    - This is where we will have our function declarations
+        - Need to add the `export` keyword in front of functions we want to be accessible
+            - When importing the module in a separate file
+    - We do not have to implement anything, just declare them
+    - If implementation needs legacy, non-modularized header files (like OpenSSL or old C-headers),
+        - Must be placed/declared in a global module fragment at the very top of interface file
+        - Such as:
 
 ```c++
 module;
@@ -137,17 +146,17 @@ export module module_name;
 ```
 
 - An implementation file
-  - Often having the `.cpp` extension
-  - This is where we fully implement the functions we declared in the interface file
-    - We **do not** add the `export` keyword when writing out the function
-      - `export` is never in the implementation file
-  - To use legacy, non-modularized files
-    - We redefine the Global Module Fragment
-    - Similar the interface file
-      - Add `module` keyword on the first line
-      - Include header files
-      - Then declare `module module_name;`
-    - Keeping the implementation file completely self-contained
+    - Often having the `.cpp` extension
+    - This is where we fully implement the functions we declared in the interface file
+        - We **do not** add the `export` keyword when writing out the function
+            - `export` is never in the implementation file
+    - To use legacy, non-modularized files
+        - We redefine the Global Module Fragment
+        - Similar the interface file
+            - Add `module` keyword on the first line
+            - Include header files
+            - Then declare `module module_name;`
+        - Keeping the implementation file completely self-contained
 
 ## Passing Parameters
 
@@ -315,9 +324,9 @@ For `constexpr` and `consteval`, the functions must follow constraints to be eli
 
 - Cannot modify global state or use non-`constexpr` data
 - Cannot contain:
-  - `virtual` calls
-  - `try/catch` blocks
-  - `goto` instructions (Depends on C++ Standard)
+    - `virtual` calls
+    - `try/catch` blocks
+    - `goto` instructions (Depends on C++ Standard)
 - Cannot invoke runtime-only functions
 
 ### `constexpr` Function (C++11)
@@ -410,30 +419,30 @@ the actual arguments passed.
 When indexing the array we can focus on three main indexes:
 
 - `argv[0]`
-  - Index `0` holds the name or path used to invoke the executable program
-  - May also be an empty string depending on the operating system environment
+    - Index `0` holds the name or path used to invoke the executable program
+    - May also be an empty string depending on the operating system environment
 - `argv[1] : argv[argc - 1]`
-  - This range of indexes, up til `argc`, holds the subsequent command-line options or inputs supplied by the user
+    - This range of indexes, up til `argc`, holds the subsequent command-line options or inputs supplied by the user
 - `argv[argc]`
-  - Guaranteed by the C++ standard to be a `nullptr`
+    - Guaranteed by the C++ standard to be a `nullptr`
 
 ### Key Rules & Best Practices
 
 - Command-line arguments are optional
-  - The argument variables are not required everytime one writes a C++ program.
-  - Especially, if the program does not take any command-line arguments
-  - Thus, a simple `int main()` is sufficient
+    - The argument variables are not required everytime one writes a C++ program.
+    - Especially, if the program does not take any command-line arguments
+    - Thus, a simple `int main()` is sufficient
 - Renameable argument variables
-  - As previously mentioned, one can rename `argc` or `argv`
-  - The only hard set requirements that a compiler enforces are:
-    - The variable types
-    - Variable order
+    - As previously mentioned, one can rename `argc` or `argv`
+    - The only hard set requirements that a compiler enforces are:
+        - The variable types
+        - Variable order
 - String Parsing
-  - Since `argv` stores arguments as C-style strings, numerical inputs must be explicitly converted
-  - Meaning any `int`, `float`, etc. value must be converted to from a "string" to the expected data type
+    - Since `argv` stores arguments as C-style strings, numerical inputs must be explicitly converted
+    - Meaning any `int`, `float`, etc. value must be converted to from a "string" to the expected data type
 - Safety Bounds
-  - Best to check `argc` prior to accessing arguments from `argv`
-    - To prevent out-of-bounds memory access errors
+    - Best to check `argc` prior to accessing arguments from `argv`
+        - To prevent out-of-bounds memory access errors
 
 ## Function Overloading
 
@@ -461,19 +470,19 @@ Three methods for overloading:
 ### Key Rules & Restrictions
 
 - Return Types Do Not Count
-  - Cannot overload a function based solely on its return type
-  - If two functions have the same parameters but different return types
-    - Compiler will throw an error because it cannot figure out which one to call
-    - Based on the arguments provided
+    - Cannot overload a function based solely on its return type
+    - If two functions have the same parameters but different return types
+        - Compiler will throw an error because it cannot figure out which one to call
+        - Based on the arguments provided
 - Beware of Ambiguity
-  - If you use default arguments
-    - Might accidentally introduce ambiguity
-    - For example, if you have the following: `void print(int x)` and `void print(int x, int y = 10)`
-      - Calling the function `print(5)` will confuse the compiler because both definitions are valid matches
+    - If you use default arguments
+        - Might accidentally introduce ambiguity
+        - For example, if you have the following: `void print(int x)` and `void print(int x, int y = 10)`
+            - Calling the function `print(5)` will confuse the compiler because both definitions are valid matches
 - How the Compiler Chooses
-  - When using an overloaded function, the compiler performs a process called **Overload Resolution**
-    - Looks for an exact match first
-    - If one isn't found, attempts implicit type conversion to find the best fit
+    - When using an overloaded function, the compiler performs a process called **Overload Resolution**
+        - Looks for an exact match first
+        - If one isn't found, attempts implicit type conversion to find the best fit
 
 ## Lambda Functions
 
@@ -492,34 +501,34 @@ A C++ lambda function follows the structure below:
 ```
 
 - **Capture List** (`[]`)
-  - This specifies which variables from the surrounding scope are accessible inside the lambda
-  - For example:
-    - `[]`: Captures nothing
-    - `[=]`: Captures all enclosing variables by value (i.e. copy)
-    - `[&]`: Captures all enclosing variables by reference
-    - `[x, &y]`: Captures `x` by value and `y` by reference
+    - This specifies which variables from the surrounding scope are accessible inside the lambda
+    - For example:
+        - `[]`: Captures nothing
+        - `[=]`: Captures all enclosing variables by value (i.e. copy)
+        - `[&]`: Captures all enclosing variables by reference
+        - `[x, &y]`: Captures `x` by value and `y` by reference
 - **Front Attribute** (C++23 and above)
-  - An attribute specifier sequence applies to `operator()` of the closure type
-  - For more detail look [here](https://www.cppreference.com/cpp/language/attributes)
+    - An attribute specifier sequence applies to `operator()` of the closure type
+    - For more detail look [here](https://www.cppreference.com/cpp/language/attributes)
 - **Parameters** (`operator()`)
-  - Standard function arguments, as [mentioned previously](#declaration--definition)
-  - This can be omitted if there are no parameters and no specifiers are needed
+    - Standard function arguments, as [mentioned previously](#declaration--definition)
+    - This can be omitted if there are no parameters and no specifiers are needed
 - Specifiers
-  - The following are specifiers allowed at most once in each sequence
-    - `mutable`
-    - `constexpr` (C++17 Standard)
-    - `consteval` (C++20 Standard)
-    - `static` (C++23 Standard)
+    - The following are specifiers allowed at most once in each sequence
+        - `mutable`
+        - `constexpr` (C++17 Standard)
+        - `consteval` (C++20 Standard)
+        - `static` (C++23 Standard)
 - **Except**
-  - Provides the dynamic exception specification
-  - Or the `noexcept` specifier for `operator()` of the closure type
+    - Provides the dynamic exception specification
+    - Or the `noexcept` specifier for `operator()` of the closure type
 - **Back Attribute**
-  - An attribute specifier sequence applies to the type of `operator()` of the closure type
-  - Same as front attribute
+    - An attribute specifier sequence applies to the type of `operator()` of the closure type
+    - Same as front attribute
 - **Return Type**
-  - Optional, compiler can usually deduce the return type automatically from the return statement
+    - Optional, compiler can usually deduce the return type automatically from the return statement
 - **Function Body**
-  - The executable code of the function
+    - The executable code of the function
 
 Let us look at an example:
 
@@ -548,46 +557,46 @@ auto main() -> int {
 ### Common Use Cases
 
 - Standard Algorithms
-  - Passing custom sorting or searching logic directly into functions like `std::sort` or `std::find_if`
+    - Passing custom sorting or searching logic directly into functions like `std::sort` or `std::find_if`
 - Callbacks & Event Handling
-  - Defining quick, disposable blocks of code to run asynchronously or upon a specific event
+    - Defining quick, disposable blocks of code to run asynchronously or upon a specific event
 - Local Helper Logic
-  - Breaking down a large function into smaller, readable steps without polluting the global or class scope
+    - Breaking down a large function into smaller, readable steps without polluting the global or class scope
 
 #### Capture Lists
 
-In C++, the capture list `[]` determines which external variables from the surrounding scope are accessible inside 
+In C++, the capture list `[]` determines which external variables from the surrounding scope are accessible inside
 the lambda, and how they are passed through.
 
-Without this, a lambda can only access its own parameters and global or static variables. There are two main methods of 
+Without this, a lambda can only access its own parameters and global or static variables. There are two main methods of
 capturing: By Value or Reference.
 
 ##### Capture by Value `[variable]`
 
 This method creates a local copy of the variable inside the lambda function aat the moment the lambda is defined.
 
-Modifications to the original variables outside the lambda won't affect the lambda, and modifications inside the 
+Modifications to the original variables outside the lambda won't affect the lambda, and modifications inside the
 lambda won't affect the outside.
 
-By default, variables captured by value are **read-only**, meaning `const`, inside the lambda body. If one wants to 
-modify the variable/value stored, one has to include the `mutable` keyword at the `specs` section of the 
-[lambda expression syntax](#syntax). This keyword allows the body to modify the objects captured by copy, and to 
-call their non-`const` member functions. Meaning, if one need to modify the value to support operations within the 
+By default, variables captured by value are **read-only**, meaning `const`, inside the lambda body. If one wants to
+modify the variable/value stored, one has to include the `mutable` keyword at the `specs` section of the
+[lambda expression syntax](#syntax). This keyword allows the body to modify the objects captured by copy, and to
+call their non-`const` member functions. Meaning, if one need to modify the value to support operations within the
 function, without changing it external state, this keyword makes it possible.
 
 ##### Capture by Reference `[&variable]`
 
 This method takes a reference to the actual external variable.
 
-Any changes made to the variable inside the lambda function directly modify the original variable outside, and vice 
+Any changes made to the variable inside the lambda function directly modify the original variable outside, and vice
 versa.
 
-> One need to be cautious when using this method. If the lambda outlives the variable it references, executing it 
+> One need to be cautious when using this method. If the lambda outlives the variable it references, executing it
 > will cause **undefined behavior**.
 
 ##### Other Capture Methods
 
-We can capture specific variables, as mentioned above, or use "default" capture to capture everything in scope 
+We can capture specific variables, as mentioned above, or use "default" capture to capture everything in scope
 automatically, or mix and match.
 
 | Capture Syntax                 | What it does                                                                                                                                                                                                      |
@@ -602,3 +611,98 @@ automatically, or mix and match.
 | `[this]`                       | Capture the current class instance pointer by value (Used inside `class` methods to access member variables/functions)                                                                                            |
 | `[local_var = std::move(ptr)]` | Introduced in the C++14 Standard, one can initialize variables directly insde the capture list.<br/>Incredibly useful for **moving** move-only types (like a `std::unique_ptr`). Which cannot be copied by value. |
 
+## Attributes
+
+The term _attribute_ has two entirely different meanings depending on the context:
+
+- Language Attributes
+    - Modern syntax used to give instructions to the compiler
+- Class Attributes
+    - Variables inside a class in Object-Oriented Programming
+
+We will focus on Language Attributes. Attributes in C++ are a powerful way to communicate extra information to the
+compiler without affecting the behavior of the program directly. Introduced in the C++11 Standard, they serve as a
+standardized way to enforce constraints, optimize code generation, or suppress specific compiler warnings.
+
+Prior to C++11, developers had to rely on vendor-specific (GCC, IBM, MSVC) syntax. Modern C++ unifies this with a
+clean, universal syntax.
+
+An attribute can be used almost everywhere in the C++ program, and can be applied to almost everything:
+
+- Data Types
+- Variables
+- Functions
+- Names
+- Code Blocks
+- Entire Translation Units
+
+> Each particular attribute is only valid where it is permitted by the implementation.
+
+### Modern Syntax
+
+Modern function attributes are standardized annotations or notes enclosed in double square brackets `[[]]`. In
+context of functions, attributes are usually placed at the very beginning of the function declaration or just before
+the function name.
+
+```c++
+[[attribute_name]] void function_name();
+```
+
+Using vendor-specific attributes in the modern syntax, they are qualified with a namespace. Example:
+
+```c++
+[[gnu::always_inline]] void ultra_fast_function();
+```
+
+### Standard Attributes
+
+The following are C++ Standard attributes that any conforming compiler recognizes. The attributes cannot be
+syntactically ignored, meaning they cannot contain syntax errors, must be applied to the correct target, and
+entities in the arguments must be [ODR-use](https://en.cppreference.com/cpp/language/definition#ODR-use).
+
+The attributes also cannot be semantically ignored, meaning the behavior with all instances of a particular standard
+attribute removed would have been a conforming behavior for the original program with the attribute present.
+
+> A feature introduced in C++17 requires compilers to ignore any attribute they do not recognize. Rather than
+> failing to compile. Allowing for the safe use of vendor-specific attributes without completely breaking
+> portability across different compilers.
+
+#### `[[nodiscard]]` (C++17)
+
+Tells the compiler that the function's return value must not be ignored. If a caller drops the return value, the
+compiler throws a warning. Can include a message for the compiler to throw.
+
+```c++
+[[nodiscard]] int calculate_secure_hash();
+[[nodiscard("Reason")]] int calculate_secure_hash2();
+```
+
+#### `[[deprecated]]` (C++14)
+
+Marks a function as outdated. Code still compiles, but the compiler will emit a warning advising against its use. We
+can also include a message for the compiler to throw.
+
+```c++
+[[deprecated]] void old_api();
+[[deprecated("Reason")]] void very_old_api();
+```
+
+#### `[[noreturn]]` (C++11)
+
+Indicates that a function will never return control to the caller (e.g., functions that terminate the program using
+`exit()` or loop indefinitely). Helps the compiler optimize the call stack.
+
+```c++
+[[noreturn]] void terminate_due_to_fatal_error();
+```
+
+#### `[[maybe_unused]]` (C++17)
+
+Suppresses compiler warnings if a function (or variable) is declared but never actually called in the codebase.
+
+```c++
+[[maybe_unused]] int temp_var{};
+```
+
+There are more standardize attributes that can be used. Look at [syntax](#syntax) sub-section for resource that
+provides more information about attributes. 
