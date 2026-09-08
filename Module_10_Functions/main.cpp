@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
     constexpr int cubed_val = cube_val(10);
     static_assert(cubed_val == 1000);*/
 
-    // using_command_line_arguments(argc, argv);
+    /*// using_command_line_arguments(argc, argv);
     std::vector<int> vec{1, 41, 51, 813, 613, 8145, 88, 1134, 256};
 
     overloading_example::print(4);
@@ -30,7 +30,9 @@ int main(int argc, char **argv) {
 
     fmt::println("Rolling a 6-sided dice: {}", dice_roll_overloading::roll());
     fmt::println("Rolling a 20-sided dice: {}", dice_roll_overloading::roll(20));
-    fmt::println("Rolling 5 6-sided die: {}", dice_roll_overloading::roll(6, 5));
+    fmt::println("Rolling 5 6-sided die: {}", dice_roll_overloading::roll(6, 5));*/
+
+    lambda_examples();
 
     return 0;
 }

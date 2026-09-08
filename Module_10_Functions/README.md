@@ -31,6 +31,10 @@ function is and how we can utilize them.
     * [`argc`](#argc)
     * [`argv`](#argv)
     * [Key Rules & Best Practices](#key-rules--best-practices)
+  * [Function Overloading](#function-overloading)
+    * [Key Rules & Restrictions](#key-rules--restrictions)
+  * [Lambda Functions](#lambda-functions)
+    * [Syntax](#syntax)
 <!-- TOC -->
 <!--@formatter:on-->
 
@@ -442,12 +446,14 @@ perform the same logic but on different data types or number of parameters.
 
 Three methods for overloading:
 
+<!--@formatter:off-->
 1. Different Number of Parameters
-  - Function can have the same name but accept different count of arguments
+   - Function can have the same name but accept different count of arguments
 2. Different Types of Parameters
-  - Function can accept the same number of arguments, but with different data types
+   - Function can accept the same number of arguments, but with different data types
 3. Different Order of Parameters
-  - If functions uses multiple data types, rearranging the sequence of those types creates a unique signature
+   - If functions uses multiple data types, rearranging the sequence of those types creates a unique signature
+<!--@formatter:on-->
 
 ### Key Rules & Restrictions
 
@@ -465,3 +471,82 @@ Three methods for overloading:
   - When using an overloaded function, the compiler performs a process called **Overload Resolution**
     - Looks for an exact match first
     - If one isn't found, attempts implicit type conversion to find the best fit
+
+## Lambda Functions
+
+Lambda functions in C++ are anonymous, inline functions **_defined directly_** at the location where they are called or
+passed as arguments.
+
+This facility was introduced to C++ in the C++11 Standard. They allow for one to write short
+pieces of self-contained logic without needing to declare a separate named function or a full function object.
+
+### Syntax
+
+A C++ lambda function follows the structure below:
+
+```c++
+[capture_list] front_attribute (parameters) specs except back_attribute -> return_type {function_body}
+```
+
+- **Capture List** (`[]`)
+  - This specifies which variables from the surrounding scope are accessible inside the lambda
+  - For example:
+    - `[]`: Captures nothing
+    - `[=]`: Captures all enclosing variables by value (i.e. copy)
+    - `[&]`: Captures all enclosing variables by reference
+    - `[x, &y]`: Captures `x` by value and `y` by reference
+- **Front Attribute** (C++23 and above)
+  - An attribute specifier sequence applies to `operator()` of the closure type
+  - For more detail look [here](https://www.cppreference.com/cpp/language/attributes)
+- **Parameters** (`operator()`)
+  - Standard function arguments, as [mentioned previously](#declaration--definition)
+  - This can be omitted if there are no parameters and no specifiers are needed
+- Specifiers
+  - The following are specifiers allowed at most once in each sequence
+    - `mutable`
+    - `constexpr` (C++17 Standard)
+    - `consteval` (C++20 Standard)
+    - `static` (C++23 Standard)
+- **Except**
+  - Provides the dynamic exception specification
+  - Or the `noexcept` specifier for `operator()` of the closure type
+- **Back Attribute**
+  - An attribute specifier sequence applies to the type of `operator()` of the closure type
+  - Same as front attribute
+- **Return Type**
+  - Optional, compiler can usually deduce the return type automatically from the return statement
+- **Function Body**
+  - The executable code of the function
+
+Let us look at an example:
+
+```c++
+#include <fmt/format.h>
+
+auto main() -> int {
+    auto add = [](int a, int b) {
+        return a + b;
+    }
+    
+    fmt::println("{}", add(3, 4));
+    
+    auto sayHello = [] {
+        fmt::println("Hello!");
+    }
+    
+    sayHello();
+    sayHello();
+    sayHello();
+    
+    return 0;
+}
+```
+
+### Common Use Cases
+
+- Standard Algorithms
+  - Pasing custom sorting or searching logic directly into functions like `std::sort` or `std::find_if`
+- Callbacks & Event Handling
+  - Defining quick, disposable blocks of code to run asynchronously or upon a specific event
+- Local Helper Logic
+  - Breaking down a large funtion into smaller, readable steps without polluting the global or class scope

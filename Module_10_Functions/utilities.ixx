@@ -112,3 +112,34 @@ namespace dice_roll_overloading {
         return result;
     }
 }
+
+export void lambda_examples() {
+    // Declaring & Calling Lambda Function
+    auto say_hello = [] -> void {
+        fmt::println("Hello!");
+    };
+
+    say_hello();
+    say_hello();
+    say_hello();
+
+    // Declaring & Using Lambda Right Away
+    [] -> void {
+        fmt::println("I was called!!");
+    }();
+
+    // Passing Arguments to a quick Lambda Function
+    fmt::println("lambda multiplication function, passed 41 & 14: {}", [](int a, int b) -> int {
+        return a * b;
+    }(41, 14));
+
+    // Using Lambda Function from module (functions_interface)
+    fmt::println("lambda_add(14, 41): {}", lambda_add(14, 41));
+
+    // Using result from lambda function
+    auto result = [](int x, int y) -> int {
+        return x - y;
+    }(62, 26);
+
+    fmt::println("result of subtraction lambda function: {}", result);
+}

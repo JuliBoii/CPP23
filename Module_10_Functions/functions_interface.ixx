@@ -19,12 +19,14 @@ void private_function();
 // Have to be defined completely
 // Cannot be defined here and implemented in the functions_implementation.cpp file
 
-export constexpr int square_val(const int &a)
-{
+export constexpr int square_val(const int &a) {
     return a * a;
 }
 
-export consteval int cube_val(const int &a)
-{
+export consteval int cube_val(const int &a) {
     return a * a * a;
 }
+
+export auto lambda_add = [](int a, int b) -> int {
+    return a + b;
+};
