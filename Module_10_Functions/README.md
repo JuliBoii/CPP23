@@ -704,5 +704,18 @@ Suppresses compiler warnings if a function (or variable) is declared but never a
 [[maybe_unused]] int temp_var{};
 ```
 
-There are more standardize attributes that can be used. Look at [syntax](#syntax) sub-section for resource that
+#### `[[fallthrough]]` (C++17)
+
+This attribute indicates that the fall through from the previous case label is intentional, in context of `switch()` 
+statements. Thus should not be diagnosed by the compiler that warns on fallthrough.
+
+Should only be used in a `switch()` statement, where the next statement to be executed is a statement with a `case` or 
+`default` label for that `switch()` statement. If used in a loop, the next (labeled) statement must be part of the 
+same iteration of the loop
+
+```c++
+
+```
+
+There are more standardize attributes that can be used. Look at [syntax](#syntax) subsection for resource that
 provides more information about attributes. 

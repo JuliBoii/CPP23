@@ -4,8 +4,9 @@
 
 import utilities;
 import functions_interface;
+import attributes;
 
-int main(int argc, char **argv) {
+auto main(int argc, char **argv) -> int {
     // running_example_functions();
     // passing_parameters_to_functions();
 
@@ -33,7 +34,18 @@ int main(int argc, char **argv) {
     fmt::println("Rolling 5 6-sided die: {}", dice_roll_overloading::roll(6, 5));*/
 
     // lambda_examples();
-    lambda_capture_list_examples();
+    // lambda_capture_list_examples();
+
+    fmt::println("Exiting the program");
+    // attributes::exit_program();
+    fmt::println("Program did not terminate"); // Will not run if line above is not commented out
+
+    // attributes::old_function(); // This will generate a warning
+    attributes::new_function(); // Does not generate a warning
+
+    // attributes::lucky_number(); // Generates a warning
+    fmt::println("What is my lucky number for today: {}", attributes::lucky_number()); // Does not generate a warning
+    [[maybe_unused]] int lucky_num{attributes::lucky_number()}; // valid
 
     return 0;
 }

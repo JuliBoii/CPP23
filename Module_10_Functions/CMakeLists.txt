@@ -19,6 +19,7 @@ TARGET_SOURCES(${PROJECT_NAME}
         example_functions.ixx
         functions_interface.ixx
         function_parameters.ixx
+        attributes.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)
