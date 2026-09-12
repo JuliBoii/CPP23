@@ -38,14 +38,23 @@ auto main(int argc, char **argv) -> int {
 
     fmt::println("Exiting the program");
     // attributes::exit_program();
-    fmt::println("Program did not terminate"); // Will not run if line above is not commented out
+    fmt::println("Program did not terminate\n"); // Will not run if line above is not commented out
 
     // attributes::old_function(); // This will generate a warning
     attributes::new_function(); // Does not generate a warning
+    fmt::println("");
 
     // attributes::lucky_number(); // Generates a warning
-    fmt::println("What is my lucky number for today: {}", attributes::lucky_number()); // Does not generate a warning
+    fmt::println("What is my lucky number for today: {}\n", attributes::lucky_number()); // Does not generate a warning
     [[maybe_unused]] int lucky_num{attributes::lucky_number()}; // valid
+
+    attributes::handle_switch(5);
+    attributes::handle_switch(1);
+    attributes::handle_switch(2);
+    fmt::println("");
+
+    fmt::println("process_value(43) = {}\nprocess_value(42) = {}\n", attributes::process_value(43),
+                 attributes::process_value(42));
 
     return 0;
 }

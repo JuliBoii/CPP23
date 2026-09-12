@@ -23,11 +23,37 @@ namespace attributes
         fmt::println("New function");
     }
 
-    export [[nodiscard]] int lucky_number()
+    export [[nodiscard]] auto lucky_number() -> int
     {
         std::random_device rd;
         std::mt19937_64 gen(rd());
         std::uniform_int_distribution dis(0, 846);
         return dis(gen);
+    }
+
+    export auto handle_switch(int value) -> void
+    {
+        switch (value)
+        {
+        case 1:
+            fmt::println("Handling: 1");
+            [[fallthrough]];
+        case 2:
+            fmt::println("Handling: 2");
+            break;
+        default:
+            fmt::println("Unhandled value: {}", value);
+        }
+    }
+
+    export auto process_value(int value) -> int
+    {
+        if (value == 42) [[likely]]
+        {
+            return value * 2;
+        } else [[unlikely]]
+        {
+            return value/2;
+        }
     }
 }
