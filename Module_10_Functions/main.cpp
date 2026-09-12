@@ -44,17 +44,22 @@ auto main(int argc, char **argv) -> int {
     attributes::new_function(); // Does not generate a warning
     fmt::println("");
 
-    // attributes::lucky_number(); // Generates a warning
-    fmt::println("What is my lucky number for today: {}\n", attributes::lucky_number()); // Does not generate a warning
-    [[maybe_unused]] int lucky_num{attributes::lucky_number()}; // valid
+    // attributes::nodiscard_example(); // Generates a warning
+    fmt::println("What is my lucky number for today: {}\n", attributes::nodiscard_example());
+    // Does not generate a warning
+    [[maybe_unused]] int lucky_num{attributes::nodiscard_example()}; // valid
 
-    attributes::handle_switch(5);
-    attributes::handle_switch(1);
-    attributes::handle_switch(2);
+    attributes::fallthrough_attribute_example(5);
+    attributes::fallthrough_attribute_example(1);
+    attributes::fallthrough_attribute_example(2);
     fmt::println("");
 
-    fmt::println("process_value(43) = {}\nprocess_value(42) = {}\n", attributes::process_value(43),
-                 attributes::process_value(42));
+    fmt::println("process_value(43) = {}\nprocess_value(42) = {}\n", attributes::likely_and_unlikely_example(43),
+                 attributes::likely_and_unlikely_example(42));
+
+    attributes::assume_attribute_example(5);
+    // attributes::assume_attribute_example(-14); // Still compiles, but again could have runtime undefined behavior
+
 
     return 0;
 }
