@@ -5,6 +5,7 @@
 import utilities;
 import functions_interface;
 import attributes;
+import static_keyword;
 
 auto main(int argc, char **argv) -> int {
     // running_example_functions();
@@ -36,7 +37,7 @@ auto main(int argc, char **argv) -> int {
     // lambda_examples();
     // lambda_capture_list_examples();
 
-    fmt::println("Exiting the program");
+    /*fmt::println("Exiting the program");
     // attributes::exit_program();
     fmt::println("Program did not terminate\n"); // Will not run if line above is not commented out
 
@@ -59,7 +60,22 @@ auto main(int argc, char **argv) -> int {
 
     attributes::assume_attribute_example(5);
     // attributes::assume_attribute_example(-14); // Still compiles, but again could have runtime undefined behavior
+    */
 
+    fmt::println("Incrementation without static keyword");
+    static_keyword::login_without_static();
+    static_keyword::login_without_static();
+    static_keyword::login_without_static();
+
+    fmt::println("\nIncrementation with static keyword");
+    static_keyword::login_with_static();
+    static_keyword::login_with_static();
+    static_keyword::login_with_static();
+
+    fmt::println("\nUsing a global static variable");
+    static_keyword::using_global_static_variable();
+    static_keyword::using_global_static_variable();
+    static_keyword::using_global_static_variable();
 
     return 0;
 }

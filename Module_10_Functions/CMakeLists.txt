@@ -20,6 +20,7 @@ TARGET_SOURCES(${PROJECT_NAME}
         functions_interface.ixx
         function_parameters.ixx
         attributes.ixx
+        static_keyword.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)
