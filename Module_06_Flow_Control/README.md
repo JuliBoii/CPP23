@@ -262,7 +262,7 @@ The answer is **no**. An error would be thrown.
 Shown below:
 
 ```shell
-/tmp/Module_6_Flow_Control/utilities.ixx:166:40: error: use of undeclared identifier 'car_count'
+/tmp/Module_06_Flow_Control/utilities.ixx:166:40: error: use of undeclared identifier 'car_count'
   166 |                 std::println("{} cars are stopped.", car_count);
       |                                                      ^~~~~~~~~
 1 error generated.

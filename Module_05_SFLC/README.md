@@ -1102,13 +1102,13 @@ int main()
 When ran in our example, we obtain the following output:
 
 ```shell
-/tmp/Module_5_SFLC/utilities.ixx:565:14: error: call to consteval function 'multiply' is not a constant expression
+/tmp/Module_05_SFLC/utilities.ixx:565:14: error: call to consteval function 'multiply' is not a constant expression
   565 |         auto value3{multiply(3, value2)};
       |                     ^
-/tmp/Module_5_SFLC/utilities.ixx:565:26: note: read of non-const variable 'value2' is not allowed in a constant expression
+/tmp/Module_05_SFLC/utilities.ixx:565:26: note: read of non-const variable 'value2' is not allowed in a constant expression
   565 |         auto value3{multiply(3, value2)};
       |                                 ^
-/tmp/Module_5_SFLC/utilities.ixx:564:6: note: declared here
+/tmp/Module_05_SFLC/utilities.ixx:564:6: note: declared here
   564 |         int value2{5};
       |  
 ```
@@ -1138,10 +1138,10 @@ int main() {
 If compiled, the compiler will print the following:
 
 ```shell
-/tmp/Module_5_SFLC/utilities.ixx:579:2: error: local variable cannot be declared 'constinit'
+/tmp/Module_05_SFLC/utilities.ixx:579:2: error: local variable cannot be declared 'constinit'
   579 |         constinit int age{14};
       |         ^
-/tmp/Module_5_SFLC/utilities.ixx:580:2: error: local variable cannot be declared 'constinit'
+/tmp/Module_05_SFLC/utilities.ixx:580:2: error: local variable cannot be declared 'constinit'
   580 |         constinit double height{1.76};
       |         ^
 2 errors generated.
