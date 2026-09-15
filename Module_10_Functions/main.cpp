@@ -77,5 +77,12 @@ auto main(int argc, char **argv) -> int {
     static_keyword::using_global_static_variable();
     static_keyword::using_global_static_variable();
 
+    // Code below requires a C++23 compiler to run
+    fmt::println("\nExample using static in a lambda function(recursive):");
+    fmt::println("fib(4) = {}", static_keyword::fibonacci_memorization_lambda(4));
+    fmt::println("fib(14) = {}", static_keyword::fibonacci_memorization_lambda(14));
+    fmt::println("fib(7) = {}", static_keyword::fibonacci_memorization_lambda(7));
+
+
     return 0;
 }

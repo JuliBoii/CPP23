@@ -789,3 +789,85 @@ There are more standardize attributes that can be used. Look at [syntax](#syntax
 provides more information about attributes.
 
 ---
+
+## `static` Variables
+
+In C++, a `static` variable is a variable that is allocated memory only once for the entire lifetime of the program.
+Unlike standard variables, which are created and destroyed frequently, a `static` variable persists in the
+computer's memory form the moment it is initialized until the program completely shuts down.
+
+Depending on where one puts the `static` keyword, it changes how data behaves. In the use case of being declared in
+a function, it creates a **static local variable**.
+
+Normally a variable declared in a function is called a local variable. Meaning, after one calls the function, the local
+variable is going to be wiped away if it is not marked `static`. If one want the variable to persist after the
+function call ends, we add the `static` keyword to the variable declaration.
+
+Let us look at an example to better showcase this behavior:
+
+```c++
+auto user_login() -> void {
+    auto login_count {0UZ};
+    ++login_count;
+    fmt::println("Login count: {}", login_count);
+}
+
+auto main() -> int {
+    user_login();
+    user_login();
+    user_login();
+}
+```
+
+Running the example above, we get the following output:
+
+```terminaloutput
+Login count: 1
+Login count: 1
+Login count: 1
+```
+
+Adding the `static` keyword to the variable results in the following:
+
+```c++
+auto user_login() -> void {
+    static auto login_count {0UZ};
+    ++login_count;
+    fmt::println("Login count: {}", login_count);
+}
+
+auto main() -> int {
+    user_login();
+    user_login();
+    user_login();
+}
+```
+
+```terminaloutput
+Login count: 1
+Login count: 2
+Login count: 3
+```
+
+To recap: unlike normal local variables, a `static` variable retains its value between successive function calls.
+
+### Understanding `static` Local Variables in Functions
+
+When using `static` inside a function, we alter how the variable will behave in three major ways:
+
+<!--@formatter:off-->
+1. Initialization:
+   - The variable is initialized the very first time the function is called
+   - Thereafter, the initialization line is skipped
+2. Persistent Memory:
+   - Variable lives in the program's static data segment rather than the stack
+   - Keeps its last calculated value until the entire program terminates
+   - Alternative to the use of a global variable for the following reason:
+     - A global variable can be accidentally modified anywhere else in one's code
+     - Leading to the next reason
+3. Local Scope:
+   - Despite acting like a `global` variable, in terms of lifetime, `static` variable remains hidden inside the
+        function
+   - No other part of the program can access or accidentally change it
+<!--@formatter:on-->
+
