@@ -1,25 +1,32 @@
 #include <string>
 #include <array>
 #include <iostream>
+#include <filesystem>
 #include <fmt/format.h>
 
 import file_handling;
+import csv_handling;
+import json_handling;
 
 auto main() -> int {
     // For Docker Build
-    std::array<std::string, 4> docker_file_paths{
+    std::array<std::string, 6> docker_file_paths{
         R"(/tmp/Module_11_File_Input_Output/read_only_file.txt)",
         R"(/tmp/Module_11_File_Input_Output/write_only_file.txt)",
         R"(/tmp/Module_11_File_Input_Output/fstream_file.txt)",
         R"(/tmp/Module_11_File_Input_Output/player.bin)",
+        R"(/tmp/Module_11_File_Input_Output/test.csv)",
+        R"(/tmp/Module_11_File_Input_Output/test.json)",
     };
 
     // For Windows
-    std::array<std::string, 4> windows_file_paths{
+    std::array<std::string, 6> windows_file_paths{
         R"(G:\Juli\Documents\CLionProjects\CPP23\Module_11_File_Input_Output\read_only_file.txt)",
         R"(G:\Juli\Documents\CLionProjects\CPP23\Module_11_File_Input_Output\write_only_file.txt)",
         R"(G:\Juli\Documents\CLionProjects\CPP23\Module_11_File_Input_Output\fstream_file.txt)",
         R"(G:\Juli\Documents\CLionProjects\CPP23\Module_11_File_Input_Output\player.bin)",
+        R"(G:\Juli\Documents\CLionProjects\CPP23\Module_11_File_Input_Output\test.csv)",
+        R"(G:\Juli\Documents\CLionProjects\CPP23\Module_11_File_Input_Output\test.json)",
     };
 
     /*fmt::println("Character by Character");
@@ -46,9 +53,21 @@ auto main() -> int {
     // fstream_binary_example::write_file(windows_file_paths.at(3));
     // fstream_binary_example::read_file(windows_file_paths.at(3));
 
-    try {
+    /*try {
         modern_cpp_binary_example::write_file();
         modern_cpp_binary_example::read_file();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }*/
+
+    std::filesystem::path main_directory_path{modern_cpp_binary_example::get_path()};
+
+    try {
+        // csv_handling::writing_csv_file(main_directory_path / "test.csv");
+        // csv_handling::reading_csv_file(main_directory_path / "test.csv");
+
+        json_handling::writing_json_file(main_directory_path / "test.json");
+        json_handling::reading_json_file(main_directory_path / "test.json");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }

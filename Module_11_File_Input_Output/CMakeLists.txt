@@ -9,12 +9,14 @@ SET(CMAKE_CXX_SCAN_FOR_MODULES ON)
 #FIND_PACKAGE(SFML COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
 FIND_PACKAGE(FMT CONFIG REQUIRED)
 
-ADD_EXECUTABLE(${PROJECT_NAME} main.cpp file_handling.cpp)
+ADD_EXECUTABLE(${PROJECT_NAME} main.cpp file_handling.cpp csv_handling.cpp json_handling.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME}
         PUBLIC
         FILE_SET CXX_MODULES FILES
         file_handling.ixx
+        csv_handling.ixx
+        json_handling.ixx
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE fmt::fmt)
