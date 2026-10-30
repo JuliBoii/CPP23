@@ -84,7 +84,7 @@ COPY --from=gcc_build /usr/local /usr/local
 ARG GCC_VERSION=16
 
 RUN ln -sf /usr/local/bin/gcc-${GCC_VERSION} /usr/local/bin/gcc \
-    && ln -sf /usr/local/bin/g++-${GCC_VERSION} /usr/local/bin/g+
+    && ln -sf /usr/local/bin/g++-${GCC_VERSION} /usr/local/bin/g++
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -101,29 +101,33 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /tmp/sources
 RUN git clone --depth 1 https://github.com/llvm/llvm-project.git /tmp/sources/llvm-project
 
-#WORKDIR /tmp/sources/llvm-project
-#RUN cmake -S llvm -B build -G Ninja \
-#        -DCMAKE_BUILD_TYPE=Release \
-#        -DCMAKE_INSTALL_PREFIX=$PREFIX \
-#        -DLLVM_ENABLE_PROJECTS="clang;lld;lldb" \
-#        -DLLVM_INCLUDE_TESTS=OFF \
-#        -DCOMPILER_RT_BUILD_SANITIZERS=ON \
-#    && ninja -C build install
-#
-#FROM debian:trixie-slim
-#
-## Copy the completely compiled compiler toolchain from the builder stage
-#COPY --from=llvm_build /usr/local /usr/local
-#
-## Re-install minimal runtime library requirements
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#    ca-certificates \
-#    python3 \
-#    git \
-#    && rm -rf /var/lib/apt/lists/*
-#
-## Fix dynamic linker run-time bindings for the new libraries
-#RUN ldconfig
+WORKDIR /tmp/sources/llvm-project
+RUN cmake -S llvm -B build -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=$PREFIX \
+        -DLLVM_ENABLE_PROJECTS="clang;lld;lldb" \
+        -DLLVM_INCLUDE_TESTS=OFF \
+        -DCOMPILER_RT_BUILD_SANITIZERS=ON \
+    && ninja -C build install
+
+FROM debian:trixie-slim
+
+# Copy the completely compiled compiler toolchain from the builder stage
+COPY --from=llvm_build /usr/local /usr/local
+
+ARG GCC_VERSION=16
+RUN ln -sf /usr/local/bin/gcc-${GCC_VERSION} /usr/local/bin/gcc \
+    && ln -sf /usr/local/bin/g++-${GCC_VERSION} /usr/local/bin/g++ \
+
+# Re-install minimal runtime library requirements
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    python3 \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Fix dynamic linker run-time bindings for the new libraries
+RUN ldconfig
 
 ## Cloning vcpkg from source
 #RUN git clone https://github.com/microsoft/vcpkg.git /opt/vcpkg
