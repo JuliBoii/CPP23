@@ -103,7 +103,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=tool_build /usr/local/ /usr/local/
 
-# Fix dynamic linker run-time bindings for the new libraries
 RUN find /usr/local/lib -name "*.a" -delete \
     && find /usr/local/lib -name "*.la" -delete \
     && rm -rf /usr/local/include/llvm* /usr/local/include/clang* \
