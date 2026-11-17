@@ -921,7 +921,7 @@ int main() {
 ```
 
 We need to add `using namespace std::literals::string_literals;` in order to use the `s` suffix. But the reason we
-metion this is to prepare us for the next section discussing concatenation. Let us move on.
+mention this is to prepare us for the next section discussing concatenation. Let us move on.
 
 ### Concatenation
 
@@ -1194,7 +1194,7 @@ We will be looking at member functions that deal with memory and capacity of a `
 #### Accessing `std::string` Size/Length
 
 We access the size or length of a `std::string`, we utilize respective member functions. We have access to
-`size()` and `length()` member functions. Both are completely interchangeable aliasas and execute in `O(1)` constant
+`size()` and `length()` member functions. Both are completely interchangeable aliases and execute in `O(1)` constant
 time. Example below:
 
 ```c++
@@ -1596,8 +1596,8 @@ hey! this is a string.
 
 #### Direct Pointer Access
 
-If we need compatibility with legacy C-style API's. We can get a direct pointer to the underlying contiguous charcater
-array using the memeber function: `data()` or `c_str()`. Since the C++11 standard,
+If we need compatibility with legacy C-style API's. We can get a direct pointer to the underlying contiguous character
+array using the member function: `data()` or `c_str()`. Since the C++11 standard,
 
 - `data()` returns a valid, null-terminating string pointer (`char*` or `const char*`)
   - Since the C++17 Standard
@@ -1667,7 +1667,7 @@ Considering the previous sections, we have technically already learned how to mo
 built-in methods. Which can be classified as adding and altering the size of the string. Now, let us look at how we can
 remove or replace elements of a string.
 
-We already saw the member function `clear()` and the assignment operator (`operator=`), so let us look at other memeber
+We already saw the member function `clear()` and the assignment operator (`operator=`), so let us look at other member
 functions that remove or modify content of a string.
 
 #### `insert()` Member Function
@@ -1902,13 +1902,33 @@ There are way more member functions we can cover but to prevent this module from
 skip them. If needed look at the C++ documentation or sites that cover `std::string` methods more in-depth. We just want
 a general idea of some major methods.
 
+### `std::string` Iterators
+
+Iterators of a `std::string` are used for traversing or accessing all the characters of a string. Built-in iterators 
+are available for `std::string` class. 
+
+```c++
+std::string str{"Test Sent."};
+
+// string::iterator
+auto it = str.begin();
+auto e_it = str.end();
+```
+
+The functions above allows us to access a `std::string` in forward direction from left to right. The iterator works 
+like a pointer to a character in a string. Using the iterator we can read the string character-by-character or even 
+modify the character pointed to.
+
+
+
+
 ---
 
 ## String Literals
 
 We will be covering raw string literals. Raw string literals are a facility that was introduced in C++11. With the main
-intent to make it easier to esacpe characters in a string. Thus, they tell the compiler to ignore escape sequences
-entirely and treate every character exactly as it is typed. Let us look at the raw literal syntax:
+intent to make it easier to escape characters in a string. Thus, they tell the compiler to ignore escape sequences
+entirely and treat every character exactly as it is typed. Let us look at the raw literal syntax:
 
 ```c++
 std::string path = "C:\\Program Files\\App\\";
@@ -1959,7 +1979,7 @@ data.
 
 2. Handle all `std::string`s as C-strings
 
-- Can efficently grab the underlying C-string in a `std::string` object
+- Can efficiently grab the underlying C-string in a `std::string` object
 - But we are disregarding any of the features available to `std::string`
 
 3. Convert all C-strings to `std::string`s
@@ -2364,7 +2384,7 @@ c-string was passed!
 
 In most cases, `std::string_view` should be preferred for string parameter. Due to `std::string_view` handling a wider
 range of argument types better and efficiently. We are also able to pass substrings without having to copy it first.
-However, this is mainly for cases where we do not manipluate the string data.
+However, this is mainly for cases where we do not manipulate the string data.
 
 There are also cases where `const std::string&` should be preferred over using `std::string_view`. Such as:
 
