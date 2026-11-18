@@ -56,8 +56,27 @@ export auto setter_and_getters_example() -> void {
     const auto p3 = std::make_unique<custom_types_class::Pixel>(0x1c8a0000, 50, 480);
     fmt::println("Get Pixel Color: {:#010x}", p3->get_color());
     fmt::println("Get Pixel Position: ({}, {})\n", p3->get_x_position(), p3->get_y_position());
+
+    auto copy_p = p;
+    fmt::println("Get Pixel Color: {:#010x}", copy_p.get_color());
+    fmt::println("Get Pixel Position: ({}, {})\n", p.get_x_position(), copy_p.get_y_position());
 }
 
 export auto fib = [](this auto self, int n) -> int {
     return n <= 1 ? n : self(n - 1) + self(n - 2);
 };
+
+export auto constructor_delegation_example() -> void {
+    [[maybe_unused]] delegation_class::Pixel p{}; // Uses default constructor
+    [[maybe_unused]] delegation_class::Pixel p1{0xFFFF0000}; // Use Color-only Constructor
+    [[maybe_unused]] delegation_class::Pixel p2{0xFFAABB00, 100, 40}; // Directly Use three-argument Constructor
+    [[maybe_unused]] delegation_class::Pixel p3{p2}; // Use Copy Constructor
+}
+
+export auto explicit_conversion_example() -> void {
+    std::uint32_t color{0xFFC1AB00};
+    fmt::println("\nExplict Conversion Example");
+    // If the One-Argument Constructor is explicit, this will not compile
+    // delegation_class::print_pixel(color);
+    // explicit_constructor::print_pixel(color); // Uncomment to see the difference
+}

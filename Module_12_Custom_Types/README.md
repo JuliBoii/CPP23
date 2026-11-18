@@ -9,7 +9,19 @@ concept will be the `class` keyword, which we use to set up these custom data ty
   * [Creating a `class`](#creating-a-class)
     * [Member Functions to access `private` variables](#member-functions-to-access-private-variables)
     * [Constructors](#constructors)
+      * [Constructor Initializer Lists (Inside `class` definition)](#constructor-initializer-lists-inside-class-definition)
+        * [Why should it be used?](#why-should-it-be-used)
+      * [Copy Constructors](#copy-constructors)
+        * [Shallow Copy v.s. Deep Copy](#shallow-copy-vs-deep-copy)
+        * [Best Practice](#best-practice)
     * [Destructors](#destructors)
+  * [Constructor Delegation](#constructor-delegation)
+    * [How does it work?](#how-does-it-work)
+    * [Execution Order & Lifetime](#execution-order--lifetime)
+    * [Syntax Rules](#syntax-rules)
+  * [Explicit Constructors](#explicit-constructors)
+    * [Why use the `explicit` keyword?](#why-use-the-explicit-keyword)
+    * [Modern C++ Nuances](#modern-c-nuances)
   * [Explicit Object Parameters (C++23)](#explicit-object-parameters-c23)
     * [Recursive Lambda's](#recursive-lambdas)
     * [Rules and Restrictions](#rules-and-restrictions)
@@ -311,6 +323,149 @@ In general, it is best practice to initialize the data members in the `class`. S
 cases, call the default initializer. But if the data members are not initialized, junk data would be stored and
 could result in undefined behavior if used unintentionally.
 
+#### Constructor Initializer Lists (Inside `class` definition)
+
+A constructor initialization list (or member initialization list) in C++ is a syntax used in a class constructor to
+directly initialize member variables, base classes, and reference/`const` members before the constructor's opening
+brace (`{}`) runs.
+
+We do this by adding a semicolon (`:`) after the constructor's parameter list, followed by comma-separated member
+initializations. Example using previous example:
+
+```c++
+...
+    class Pixel {
+        ...
+    
+    public:
+        Pixel() = default;
+    
+        Pixel(const std::uint32_t color, const unsigned int x, const unsigned int y) : m_color(color), x_positon(x), 
+                y_postion(y) 
+        {
+            // Consturctor's body
+        }
+        ...
+    };
+...
+```
+
+Regardless of the order you list members inside the colon line, C++ always initializes base classes and member
+variables in the **exact order they are declared in the `class` definition**. Then destroys them in reverse order. But
+it is best practice to define the member variables in the order defined in the `class` definition
+
+##### Why should it be used?
+
+1. Direct initialization v.s. Assignment
+   - Inside the body:
+     - The object's member is first *default-constructed* and then an assignment operation is performed inside the body
+     - Meaning two operations occurred
+   - In the initialization list:
+     - The member is constructed directly with the target value in a single operation
+2. Mandatory for `const` and Reference Members:
+   - Variables marked `const` or reference types (`&`) cannot be assigned values later inside the constructor body
+     - They must be initialized when they are created
+3. Better performance with Complex Objects
+   - For heavy `class` types (like `std::vector`, custom `class`, etc.), avoiding a redundant default constructor call
+     followed by an assignment operator can significantly improve runtime efficiency
+4. Base Class Initialization
+   - Derived classes use an initialization list to explicitly pass arguments to the base class's constructor
+5. No Default
+   - Also necessary, if the member variables pertain to a `class` that does not have a default constructor
+
+#### Copy Constructors
+
+A copy constructor in C++ is a special member function that initializes a new object as an exact copy of an existing
+object of the same class. If one does not have an explicit copy constructor defined for our custom object, the compiler
+is going to generate one.
+
+Its standard signature takes a `const` reference to another object of the same type, example below:
+
+```c++
+...
+    class Pixel {
+        ...
+    
+    public:
+        ...
+        // Custom Copy Constructor
+        Pixel(const Pixel &object): m_color{object.m_color}, x_position{object.x_position},
+                                     y_position{object.y_position} {};
+    
+        // Using the Copy Constructor made by the compiler
+        Pixel(const Pixel &object) = default;
+        ...
+    };
+...
+```
+
+When called, the compiler invokes the copy constructor automatically in several common scenarios:
+
+- Direct or Copy Initialization:
+  - Creating a new object from an existing one
+    - such as: `Pixel new_pixel(old_pixel);` or `Pixel new_pixel = old_pixel;`
+- Passing by Value
+  - Passing an object as an argument to a function parameter that is not a reference or pointer
+- Returning by Value
+  - Returning a local object from a function when copy elision (RVO) is not applied
+
+Examples below:
+
+```c++
+// Passing by value
+void process_pixel(custom_types_class::Pixel p) {
+    fmt::println("Processing Pixel: color={}, position=({}, {})", p.get_color(), p.get_x_position(), p.get_x_position());
+}
+
+// Return by value
+custom_types_class::Pixel create_pixel() {
+    custom_types_class::Pixel p{0xFFF00000, 30, 50};
+    return p;
+}
+
+// Copying an object in a collection (std::vector)
+custom_types_class::Pixel p{0xFFF00000, 30, 50};
+std::vector<custom_types_class::Pixel> pixels;
+pixels.push_back(p);
+
+// Explicit Copy Constructor
+custom_types_class::Pixel p5(p);
+```
+
+##### Shallow Copy v.s. Deep Copy
+
+If one does not want to write a copy constructor, the compiler generates an implicit (default) copy constructor.
+Knowing and understanding how it copies data is critical for memory safety.
+
+- Shallow Copy (Default Constructor)
+  - Default constructor performs a member-by-member copy
+    - For basic types (`int`, `std::string`, etc.) this is acceptable
+  - However, if a `class` holds a raw pointer to heap memory, a shallow copy only copies the memory address
+    - Both objects will point to the exact same memory
+      - Leading to data corruption or a crash when both destructors try to free that memory
+- Deep Copy (User-defined)
+  - When managing raw dynamic memory or system resources (like file handles)
+    - One must write a custom copy constructor
+  - A deep copy allocates brand-new memory for the new object
+    - Copies the underlying data into it so both remain completely independent
+
+##### Best Practice
+
+Some things to keep in mind, not a comprehensive list, mainly minor tips:
+
+- Always pass by `const` reference
+  - Passing objects by value would trigger an infinite loop of copy constructor calls
+  - Using `const` ensures the source object is not accidentally modified
+- Follow the "Rule of Three/Five/Zero"
+  - If you write a custom copy constructor to manage resources
+    - One should also define a destructor and a copy assignment operator (`operator=`), along with move operations in
+      Modern C++ (Future Topic)
+    - In fact, use smart pointers or standard containers so the compiler's default copy behavior works safely
+      - Without manual memory management (Rule of Zero)
+- Disable Copying When Needed
+  - If a class represents a unique resource that should never be copied
+    - Explicitly delete it using the syntax: `Pixel(const Pixel&) = delete;`
+
 ### Destructors
 
 A destructor is also a special function in C++ `class`. It is automatically executed when an object goes out of
@@ -348,6 +503,199 @@ etc.). Since the compiler cleans up stack-allocated variables automatically.
 
 However, if we are working with raw pointers, open system files, or work with multithreading. It is essential for a
 custom destructor, since we need to manually deallocate the memory. In order to prevent memory leaks.
+
+## Constructor Delegation
+
+Introduced in C++11, this feature allows one constructor to call another constructor within the same class using the
+member initialization list. Centralizing shared initialization logic in a single primary constructor to eliminate
+duplicate code.
+
+### How does it work?
+
+Instead of repeating member assignment or relying on a private `init()` helper function, a simpler constructor forwards
+default arguments to a comprehensive "target" constructor.
+
+```c++
+    class Pixel {
+        ...
+    public:
+        // Default Constructor
+        Pixel() = default;
+        
+        // Constructor with color only, delegates to the three-argument constructor
+        Pixel(const std::uint32_t m_color) : Pixel(m_color, 0, 0) {
+            fmt::println("Color only constructor!");
+        }
+        
+        // Constructor List Initialization
+        // Will be doing the heavy lifting for other constructors
+        Pixel(const std::uint32_t m_color, const unsigned int x_position,
+              const unsigned int y_position) : m_color{m_color}, x_position{x_position}, y_position{y_position} {
+            fmt::println("Three-argument Constructor!");
+        }
+        
+        // Copy Constructor
+        Pixel(const Pixel &object) : Pixel(object.m_color, object.x_position, object.y_position) {
+            fmt::println("Copy Constructor");
+        }
+...
+```
+
+### Execution Order & Lifetime
+
+- Target Constructor First
+  - The target constructor runs completely, including both its member initializer list and its body
+    - before control returns to the delegating constructor
+- Delegating Body Second
+  - Once the target constructor finishes
+    - the body of the delegating constructor executes any remaining custom logic
+- Object Lifetime
+  - Because the target constructor finishes before the delegating constructor body starts
+    - The object is considered fully constructed at that point
+  - If the delegating constructor body throws an exception
+    - The class destructor will automatically run
+
+### Syntax Rules
+
+We must specify constraints when delegating:
+
+- Sole Initializer
+  - Delegating call must be the only item in the member initializer list
+  - Cannot initialize other member variables alongside
+    - Though can assign to them inside the constructor body
+- No Recursion
+  - Constructors can form a delegation chain
+    - But a cycle where constructors call each other directly or indirectly results in a compiler error or undefined
+      behavior
+- No Body Calls
+  - Calling another constructor inside the constructor body does not delegate
+    - Rather, it creates and immediately destroys a separate temporary object
+
+## Explicit Constructors
+
+An explicit constructor in C++ is a constructor declared with the keyword `explicit` to prevent the compiler from using
+it for **implicit type conversions** and **copy-initialization**. By default, any constructor that can be called with a
+single argument acts as a "converting constructor," allowing the compiler to silently convert that argument type into
+an instance of your class.
+
+Without `explicit`, the compiler automatically converts types behind the scenes when calling functions or using the
+assignment operator (`=`) for initialization. Adding `explicit` forces one to construct the object directly.
+
+### Why use the `explicit` keyword?
+
+- Prevents silent bugs
+  - Automatic conversions can mask mistakes
+    - Such as passing a raw integer or float into a function expecting a specific object type
+- Avoid hidden performance costs
+  - Implicit conversions often create temporary objects in memmory without making it obvious in the code
+- Clarifies code intent
+  - Requiring an explicit constructor call makes it obvious to anyone reading the code that a new object is being
+    created
+
+### Modern C++ Nuances
+
+- Multi-Argument Constructors
+  - Since C++11, `explicit` also applies to constructors with multiple parameters
+    - Preventing them from being used with copy-list-initialization
+- Default Arguments
+  - Constructors with multiple parameters, where all but the first have default values
+    - Can still act as single-argument converting constructor
+    - Thus, must be marked `explicit`
+- Conditional `explicit` (C++20)
+  - The C++20 standard, allowed for conditional `explicit`
+    - `explicit(bool)`
+    - This enables or disables explicit behavior based on a compile-time constant expression
+
+> In general, one should mark all single-argument constructors as `explicit` by default. Omitting the keyword only when
+> an implicit conversion is genuinely natural and expected (such as c-string -> std::string).
+
+Example of this below:
+
+```c++
+    class Pixel {
+        ...
+    public:
+        Pixel() = default;
+        
+        // Updated Constructor
+        explicit Pixel(const std::uint32_t m_color) : Pixel(m_color, 0, 0) {
+            fmt::println("Color only constructor!");
+        }
+
+        Pixel(const std::uint32_t m_color, const unsigned int x_position,
+              const unsigned int y_position) : m_color{m_color}, x_position{x_position}, y_position{y_position} {
+            fmt::println("Three-argument Constructor!");
+        }
+        
+        Pixel(const Pixel &object) : Pixel(object.m_color, object.x_position, object.y_position) {
+            fmt::println("Copy Constructor");
+        }
+        
+        // Getters
+        [[nodiscard]] auto get_color() const -> std::uint32_t {
+            return m_color;
+        }
+
+        [[nodiscard]] auto get_x_position() const -> unsigned int {
+            return x_position;
+        }
+
+        [[nodiscard]] auto get_y_position() const -> unsigned int {
+            return y_position;
+        }
+    };
+
+    auto print_pixel(const Pixel &object) -> void {
+        fmt::println("Pixel:");
+        fmt::println("\tcolor = {:08X}", object.get_color());
+        fmt::println("\tX Position: {}", object.get_x_position());
+        fmt::println("\tY Position: {}\n", object.get_y_position());
+    }
+...
+```
+
+With the `explicit` keyword the following example will fail to compile:
+
+```c++
+#include <fmt/format.h>
+
+auto main() -> int {
+    std::uint32_t color{0xFFC1AB00};
+    fmt::println("\nExplict Conversion Example");
+    // If the One-Argument Constructor is explicit, this will not compile
+     print_pixel(color);
+    
+    return 0;
+}
+```
+
+Which, for me, outputs the following:
+
+```terminaloutput
+error: reference to type 'const Pixel' could not bind to an lvalue of type 'std::uint32_t' (aka 'unsigned int')
+      |     print_pixel(color);
+      |                                       ^~~~~
+note: passing argument to parameter 'object' here
+      |     auto print_pixel(const Pixel &object) -> void {
+      |                                          ^
+1 error generated.
+```
+
+If I were to remove the `explicit` keyword, the following would occur:
+
+```terminaloutput
+Explict Conversion Example
+Three-argument Constructor!
+Color only constructor!
+Pixel:
+	color = FFC1AB00
+	X Position: 0
+	Y Position: 0
+
+~Pixel()
+```
+
+The program compiles and runs.
 
 ## Explicit Object Parameters (C++23)
 
@@ -407,4 +755,3 @@ auto main() -> int {
       - Results in a compiling error
 - Static or Virtual:
   - Functions utilizing an explicit object parameter **cannot** be marked `static` or `virtual`
-
