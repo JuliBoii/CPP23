@@ -62,6 +62,7 @@ major topic covering the handling of `std::string_views`. A more recent addition
       * [`erase()`](#erase)
       * [`pop_back()`](#pop_back)
       * [`assign()`](#assign)
+    * [`std::string` Iterators](#stdstring-iterators)
   * [String Literals](#string-literals)
   * [`std::string_view`](#stdstring_view)
     * [Initializing](#initializing)
@@ -1910,17 +1911,45 @@ are available for `std::string` class.
 ```c++
 std::string str{"Test Sent."};
 
-// string::iterator
+// std::string::iterator
 auto it = str.begin();
 auto e_it = str.end();
 ```
 
 The functions above allows us to access a `std::string` in forward direction from left to right. The iterator works 
 like a pointer to a character in a string. Using the iterator we can read the string character-by-character or even 
-modify the character pointed to.
+modify the character pointed to. Just like a pointer, to access the value we have to use the dereference operator (`*`).
 
+`str.begin()` gives the beginning index of the string object, likewise `str.end()` returns an iterator to the character 
+following the last character.
 
+Example use case below:
 
+```c++
+for (auto it = str.begin(); it != str.end(); i++)
+{
+    fmt::print("{}", *it);
+} // Prints: Test Sent.
+```
+
+Similarly, we are able to use reverse iterators for string objects.
+
+```c++
+// std::string::reverse_iterator
+auto r_it = str.rbegin();
+auto re_it = str.rend();
+```
+
+The difference being the iterator returns a `reverse_iterator` to the first character of the reversed string. With 
+`str.rend()` returns a reverse iterator to the character following the last character of the reversed string. Example 
+below:
+
+```c++
+for (auto rit = str.rbegin(); it != str.rend(); i++)
+{
+    fmt::print("{}", *rit);
+} // Prints: .tneS tseT
+```
 
 ---
 

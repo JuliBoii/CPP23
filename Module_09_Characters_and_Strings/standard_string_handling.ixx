@@ -355,4 +355,12 @@ namespace string_handling {
         str2.assign({'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 's', 't', 'r', 'i', 'n', 'g'});
         fmt::println("str: {}\n", str2);
     }
+
+    export void string_iterator_demo()
+    {
+        std::string str{"Test Sent."};
+
+        [[maybe_unused]] std::string::iterator it = str.begin();
+        [[maybe_unused]] std::string::iterator end = str.end();
+    }
 }
